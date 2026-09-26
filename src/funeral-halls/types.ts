@@ -54,6 +54,19 @@ export interface FuneralHallEntity {
   isBaeungPartner: boolean;          // 배웅 제휴 할인 식장 여부
   discountRate: number;              // 배웅 이용 시 빈소 임대료 감면율 (0.00 ~ 0.50)
   dailyRentEstimate: number;         // 1일 빈소 임대료 추정 단가 (원, 평형별 가중 평균)
+  // [신규 고도화 필드 - 지도 및 정밀 제원]
+  latitude?: number;                 // 위도
+  longitude?: number;                // 경도
+  nearestSubway?: string;            // 인근 지하철역 및 도보 접근성
+  nearestCrematorium?: string;       // 가장 가까운 연계 화장장(승화원)
+  crematoriumDistanceKm?: number;    // 화장장까지의 도로 이동 거리 (km)
+  crematoriumTravelMinutes?: number; // 화장장까지의 평균 운구 소요 시간 (분)
+  roomTypes?: {
+    name: string;                    // 예: "소형 35평형", "특실 80평형", "VIP 120평형"
+    pyeong: number;
+    dailyPrice: number;
+    recommendedGuests: string;
+  }[];
 }
 
 /**

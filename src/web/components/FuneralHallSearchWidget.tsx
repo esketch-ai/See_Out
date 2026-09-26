@@ -1,12 +1,31 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   FuneralHallService,
   FuneralHallEntity,
   RegionCode,
   FuneralHallCategory
 } from '../../funeral-halls/index.js';
-import { Search, MapPin, Phone, ShieldCheck, Sparkles, Building2 } from 'lucide-react';
+import {
+  Search,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Building2,
+  Copy,
+  Check,
+  Car,
+  Train,
+  Clock,
+  ExternalLink,
+  Flame,
+  ArrowRight,
+  Layers,
+  ChevronRight,
+  X
+} from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
+import { FuneralHallMap } from './FuneralHallMap.js';
 
 export const FuneralHallSearchWidget: React.FC = () => {
   const [keyword, setKeyword] = useState('');
@@ -14,6 +33,9 @@ export const FuneralHallSearchWidget: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [onlyPartner, setOnlyPartner] = useState(false);
   const [selectedHall, setSelectedHall] = useState<FuneralHallEntity | null>(null);
+  const [stayDays, setStayDays] = useState<2 | 3>(2);
+  const [copiedAddress, setCopiedAddress] = useState(false);
+  const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
   // 검색 결과
   const halls = useMemo(() => {
@@ -25,13 +47,39 @@ export const FuneralHallSearchWidget: React.FC = () => {
     });
   }, [keyword, selectedRegion, selectedCategory, onlyPartner]);
 
-  // 선택된 식장의 배웅 할인 연산
+  // 최초 로드 시 또는 검색 결과 변경 시 첫 번째 식장 자동 선택
+  useEffect(() => {
+    if (halls.length > 0) {
+      // 기존 선택된 식장이 현재 결과에 없으면 첫 번째 식장 선택
+      if (!selectedHall || !halls.some((h) => h.id === selectedHall.id)) {
+        setSelectedHall(halls[0]);
+      }
+    } else {
+      setSelectedHall(null);
+    }
+  }, [halls]);
+
+  // 선택된 식장의 배웅 할인 연산 (2일장 vs 3일장)
   const discountInfo = useMemo(() => {
     if (!selectedHall) return null;
-    return FuneralHallService.calculateBaeungDiscount(selectedHall.id, 2);
-  }, [selectedHall]);
+    return FuneralHallService.calculateBaeungDiscount(selectedHall.id, stayDays);
+  }, [selectedHall, stayDays]);
 
   const stats = FuneralHallService.getRegionalStats();
+
+  const handleCopyAddress = (addr: string) => {
+    navigator.clipboard?.writeText(addr);
+    setCopiedAddress(true);
+    setTimeout(() => setCopiedAddress(false), 2000);
+  };
+
+  const handleSelectHallWithMobile = (hall: FuneralHallEntity) => {
+    setSelectedHall(hall);
+    // 모바일에서는 상세 탭으로 자동 이동
+    if (window.innerWidth < 768) {
+      setMobileViewTab('detail');
+    }
+  };
 
   const getCategoryLabel = (cat: FuneralHallCategory) => {
     switch (cat) {
@@ -46,8 +94,23 @@ export const FuneralHallSearchWidget: React.FC = () => {
     }
   };
 
+  // 평형별 단가 데이터 (엔티티에 없으면 추정치 기반 생성)
+  const roomTypes = useMemo(() => {
+    if (!selectedHall) return [];
+    if (selectedHall.roomTypes && selectedHall.roomTypes.length > 0) {
+      return selectedHall.roomTypes;
+    }
+    const base = selectedHall.dailyRentEstimate;
+    return [
+      { name: '소형 (30~35평형)', pyeong: 35, dailyPrice: Math.round(base * 0.65), recommendedGuests: '가족장 / 50명 내외' },
+      { name: '중형 (45~60평형)', pyeong: 55, dailyPrice: base, recommendedGuests: '일반 조문객 150명 내외' },
+      { name: '특실 (70~90평형)', pyeong: 80, dailyPrice: Math.round(base * 1.5), recommendedGuests: '대형 조문 250명 이상' },
+      { name: 'VIP실 (120~140평형)', pyeong: 130, dailyPrice: Math.round(base * 2.2), recommendedGuests: '사회장·의전 전용' }
+    ];
+  }, [selectedHall]);
+
   return (
-    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-6 md:p-8 space-y-6">
+    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-5 md:p-8 space-y-6">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
       <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#2D2A26] bg-[#121417]">
         <img
@@ -63,25 +126,26 @@ export const FuneralHallSearchWidget: React.FC = () => {
             <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
-            전국 장례식장 시설 정보 및 빈소 감면 안내
+            전국 장례식장 시설 지도 및 빈소 감면 명세
           </h2>
           <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1">
-            거주지 인근 장례식장의 분향실·안치실 규모를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
+            거주지 인근 장례식장의 분향실·안치실 규모와 화장장 거리를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
           </p>
         </div>
       </div>
 
       {/* 2. 전국 17개 시도별 퀵 통계 칩 바 */}
-      <div className="bg-[#FAF9F6] rounded-lg p-4 border border-[#E3DFD5]">
-        <div className="text-xs font-serif font-bold text-[#727782] mb-2">
-          전국 17개 광역시·도 장사 인프라 분포 (총 1,080개소)
+      <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#E3DFD5]">
+        <div className="text-xs font-serif font-bold text-[#727782] mb-2 flex items-center justify-between">
+          <span>전국 17개 광역시·도 장사 인프라 분포 (총 1,080개소)</span>
+          <span className="text-[11px] text-[#9E7D47] hidden sm:inline">※ 시도를 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-1 text-xs">
           <button
             onClick={() => setSelectedRegion('all')}
             className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
               selectedRegion === 'all'
-                ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46]'
+                ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46] shadow-xs font-bold'
                 : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#E3DFD5]'
             }`}
           >
@@ -93,7 +157,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
               onClick={() => setSelectedRegion(s.region)}
               className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
                 selectedRegion === s.region
-                  ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46]'
+                  ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46] shadow-xs font-bold'
                   : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#E3DFD5]'
               }`}
             >
@@ -148,118 +212,362 @@ export const FuneralHallSearchWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. 장례식장 카드 리스트 (검색 결과) */}
-      <div className="space-y-3">
-        <div className="text-xs font-serif font-bold text-[#727782]">
-          조회된 장례식장 ({halls.length}개소)
+      {/* 모바일 전용 뷰 탭 스위처 */}
+      <div className="md:hidden flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] text-xs font-serif">
+        <button
+          onClick={() => setMobileViewTab('list')}
+          className={`flex-1 py-2 rounded text-center font-medium transition-all ${
+            mobileViewTab === 'list' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+          }`}
+        >
+          목록 ({halls.length})
+        </button>
+        <button
+          onClick={() => setMobileViewTab('map')}
+          className={`flex-1 py-2 rounded text-center font-medium transition-all ${
+            mobileViewTab === 'map' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+          }`}
+        >
+          지도 위치 보기
+        </button>
+        {selectedHall && (
+          <button
+            onClick={() => setMobileViewTab('detail')}
+            className={`flex-1 py-2 rounded text-center font-medium transition-all ${
+              mobileViewTab === 'detail' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+            }`}
+          >
+            선택 식장 상세
+          </button>
+        )}
+      </div>
+
+      {/* 4. [신규 마스터-디테일 스플릿 뷰] 좌측 검색 목록 vs 우측 인터랙티브 지도 & 정밀 제원 시트 */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* ─── [좌측 컬럼: 장례식장 목록] (md:col-span-5) ─── */}
+        <div className={`md:col-span-5 space-y-3 ${mobileViewTab !== 'list' ? 'hidden md:block' : ''}`}>
+          <div className="flex items-center justify-between text-xs font-serif font-bold text-[#727782] px-1">
+            <span>조회된 장례식장 ({halls.length}개소)</span>
+            <span className="text-[11px] text-[#9E7D47]">원하시는 식장을 선택하세요</span>
+          </div>
+
+          <div className="space-y-2.5 max-h-[750px] overflow-y-auto pr-1">
+            {halls.length === 0 ? (
+              <div className="p-8 text-center text-[#727782] font-serif bg-[#FAF9F6] rounded-lg border border-[#E3DFD5]">
+                조건에 맞는 장례식장이 없습니다.<br />검색어나 필터 조건을 변경해 보세요.
+              </div>
+            ) : (
+              halls.map((hall) => {
+                const isSelected = selectedHall?.id === hall.id;
+                return (
+                  <div
+                    key={hall.id}
+                    onClick={() => handleSelectHallWithMobile(hall)}
+                    className={`p-4 rounded-lg border transition-all cursor-pointer text-left relative ${
+                      isSelected
+                        ? 'border-2 border-[#19382C] bg-[#F7F5F0] shadow-sm ring-1 ring-[#19382C]/10'
+                        : 'border-[#E3DFD5] hover:border-[#9E7D47]/70 bg-[#FFFFFF]'
+                    }`}
+                  >
+                    {/* 선택 인디케이터 바 */}
+                    {isSelected && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#19382C] rounded-l-lg" />
+                    )}
+
+                    <div className="flex justify-between items-start gap-2">
+                      <div>
+                        <span className="text-[10px] font-serif font-medium text-[#727782] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#E3DFD5]">
+                          {getCategoryLabel(hall.category)}
+                        </span>
+                        <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
+                          {hall.name}
+                        </h4>
+                      </div>
+                      {hall.isBaeungPartner ? (
+                        <span className="shrink-0 text-xs font-serif font-bold bg-[#F0F5F2] text-[#19382C] px-2 py-0.5 rounded border border-[#BFD4CA] flex items-center space-x-1">
+                          <Sparkles className="w-3 h-3 text-[#9E7D47]" />
+                          <span>{Math.round(hall.discountRate * 100)}% 감면</span>
+                        </span>
+                      ) : (
+                        <span className="shrink-0 text-[11px] font-serif text-[#727782] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#E3DFD5]">
+                          일반 등록
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="text-xs text-[#727782] mt-2 flex items-center space-x-1 font-serif">
+                      <MapPin className="w-3.5 h-3.5 shrink-0 text-[#9E7D47]" />
+                      <span className="truncate">{hall.address}</span>
+                    </div>
+
+                    {hall.nearestSubway && (
+                      <div className="text-[11px] text-[#5C6166] mt-1 flex items-center space-x-1 font-serif">
+                        <Train className="w-3 h-3 shrink-0 text-[#19382C]" />
+                        <span className="truncate">{hall.nearestSubway}</span>
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#ECE8E0] text-xs font-serif">
+                      <div>
+                        <span className="text-[#727782]">빈소/안치: </span>
+                        <span className="font-bold text-[#151719]">{hall.roomCount}실 / {hall.capacityCount}구</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[#727782]">1일 평균: </span>
+                        <span className="font-reverence font-bold text-[#19382C] text-sm">
+                          {hall.dailyRentEstimate.toLocaleString()}원
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[480px] overflow-y-auto pr-1">
-          {halls.map((hall) => {
-            const isSelected = selectedHall?.id === hall.id;
-            return (
-              <div
-                key={hall.id}
-                onClick={() => setSelectedHall(hall)}
-                className={`p-4 rounded-lg border transition-all cursor-pointer text-left ${
-                  isSelected
-                    ? 'border-[#9E7D47] bg-[#F8F5EE] shadow-sm ring-1 ring-[#9E7D47]'
-                    : 'border-[#E3DFD5] hover:border-[#9E7D47]/60 bg-[#FFFFFF]'
-                }`}
-              >
-                <div className="flex justify-between items-start gap-2">
+        {/* ─── [우측 컬럼: 인터랙티브 지도 + 선택된 식장 종합 상세 시트] (md:col-span-7) ─── */}
+        <div className={`md:col-span-7 space-y-4 md:sticky md:top-24 ${mobileViewTab === 'list' ? 'hidden md:block' : ''}`}>
+          {/* 1. 상단 인터랙티브 위치 지도 */}
+          <div className={`${mobileViewTab === 'detail' ? 'hidden md:block' : ''}`}>
+            <FuneralHallMap
+              halls={halls}
+              selectedHall={selectedHall}
+              onSelectHall={(hall) => {
+                setSelectedHall(hall);
+                if (window.innerWidth < 768) {
+                  setMobileViewTab('detail');
+                }
+              }}
+              selectedRegion={selectedRegion}
+              onSelectRegion={setSelectedRegion}
+            />
+          </div>
+
+          {/* 2. 선택된 식장 정밀 제원 및 감면 명세 시트 */}
+          {selectedHall && discountInfo ? (
+            <div className={`rounded-xl border border-[#E3DFD5] bg-[#FFFFFF] shadow-sm overflow-hidden ${mobileViewTab === 'map' ? 'hidden md:block' : ''}`}>
+              {/* 시트 상단 헤더 배너 (고품격 심록 & 황동) */}
+              <div className="bg-[#121417] text-[#FAF9F6] p-5 relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-25" />
+                <div className="relative z-10 flex justify-between items-start gap-3">
                   <div>
-                    <span className="text-[10px] font-serif font-medium text-[#727782] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#E3DFD5]">
-                      {getCategoryLabel(hall.category)}
-                    </span>
-                    <h4 className="font-reverence font-bold text-base text-[#151719] mt-1">{hall.name}</h4>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[11px] font-serif font-bold text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2A5442]">
+                        {getCategoryLabel(selectedHall.category)}
+                      </span>
+                      {selectedHall.isBaeungPartner && (
+                        <span className="text-[11px] font-serif font-bold bg-[#9E7D47] text-[#0D0E10] px-2 py-0.5 rounded">
+                          ★ 빈소 {discountInfo.discountRatePercentage}% 감면 제휴 식장
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-reverence font-bold text-[#FAF9F6] mt-2">
+                      {selectedHall.name}
+                    </h3>
+                    <div className="flex items-center space-x-2 text-xs text-[#D8CEBA] font-serif mt-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#C2A26A] shrink-0" />
+                      <span className="truncate">{selectedHall.address}</span>
+                      <button
+                        onClick={() => handleCopyAddress(selectedHall.address)}
+                        className="p-1 hover:text-white transition-colors cursor-pointer shrink-0"
+                        title="주소 복사"
+                      >
+                        {copiedAddress ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
                   </div>
-                  {hall.isBaeungPartner && (
-                    <span className="shrink-0 text-xs font-serif font-bold bg-[#F0F5F2] text-[#19382C] px-2 py-0.5 rounded border border-[#BFD4CA]">
-                      임대료 {Math.round(hall.discountRate * 100)}% 감면
+
+                  <a
+                    href={`tel:${selectedHall.phone}`}
+                    className="p-3 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-lg border border-[#2A5442] flex items-center justify-center shrink-0 cursor-pointer shadow-sm group"
+                    title="전화 걸기"
+                  >
+                    <Phone className="w-5 h-5 text-[#C2A26A] group-hover:scale-110 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
+              {/* 시트 본문 콘텐츠 */}
+              <div className="p-5 md:p-6 space-y-5">
+                {/* 2-A. [실시간 견적기] 2일장 vs 3일장 감면 계산기 */}
+                <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-4 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3DFD5] pb-2.5">
+                    <span className="font-serif font-bold text-xs md:text-sm text-[#151719] flex items-center space-x-1.5">
+                      <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+                      <span>빈소 임대료 감면 혜택 계산기</span>
                     </span>
+                    <div className="flex bg-[#F0EDE6] p-0.5 rounded border border-[#E3DFD5] text-xs font-serif">
+                      <button
+                        onClick={() => setStayDays(2)}
+                        className={`px-3 py-1 rounded transition-all cursor-pointer ${
+                          stayDays === 2 ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
+                        }`}
+                      >
+                        2일장 (통상 48시간)
+                      </button>
+                      <button
+                        onClick={() => setStayDays(3)}
+                        className={`px-3 py-1 rounded transition-all cursor-pointer ${
+                          stayDays === 3 ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
+                        }`}
+                      >
+                        3일장 (72시간)
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 text-center font-serif py-1">
+                    <div>
+                      <div className="text-[11px] text-[#727782]">일반 정상 임대료</div>
+                      <div className="text-sm md:text-base font-bold text-[#42464E] mt-0.5">
+                        {discountInfo.standardTotalRent.toLocaleString()}원
+                      </div>
+                    </div>
+                    <div className="border-x border-[#E3DFD5]">
+                      <div className="text-[11px] text-[#9E7D47] font-bold">
+                        배웅 제휴 감면 ({discountInfo.discountRatePercentage}%)
+                      </div>
+                      <div className="text-sm md:text-base font-bold text-[#8B2520] mt-0.5">
+                        -{discountInfo.discountAmount.toLocaleString()}원
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[11px] text-[#19382C] font-bold">배웅 회원 최종가</div>
+                      <div className="text-base md:text-lg font-reverence font-black text-[#19382C] mt-0.5">
+                        {discountInfo.discountedTotalRent.toLocaleString()}원
+                      </div>
+                    </div>
+                  </div>
+
+                  {selectedHall.isBaeungPartner && (
+                    <div className="bg-[#F0F5F2] border border-[#BFD4CA] rounded p-2 text-center text-xs font-serif text-[#19382C]">
+                      💡 배웅 사전 등록 시 <b>{discountInfo.discountAmount.toLocaleString()}원</b>이 현장에서 자동 감면 적용됩니다.
+                    </div>
                   )}
                 </div>
 
-                <div className="text-xs text-[#727782] mt-2 flex items-center space-x-1">
-                  <MapPin className="w-3.5 h-3.5 shrink-0 text-[#9E7D47]" />
-                  <span className="truncate">{hall.address}</span>
+                {/* 2-B. [정밀 제원 1] 평형별 빈소 규격 및 1일 임대료 단가표 */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between text-xs font-serif font-bold text-[#151719]">
+                    <span className="flex items-center space-x-1.5">
+                      <Building2 className="w-4 h-4 text-[#9E7D47]" />
+                      <span>분향실 규격별 상세 제원 및 1일 요금표</span>
+                    </span>
+                    <span className="text-[11px] text-[#727782]">총 {selectedHall.roomCount}개 분향실 운영</span>
+                  </div>
+
+                  <div className="border border-[#E3DFD5] rounded-lg overflow-hidden text-xs font-serif">
+                    <table className="w-full text-left divide-y divide-[#E3DFD5]">
+                      <thead className="bg-[#FAF9F6] text-[#727782] font-medium">
+                        <tr>
+                          <th className="py-2.5 px-3">빈소 규격</th>
+                          <th className="py-2.5 px-3">권장 조문객 규모</th>
+                          <th className="py-2.5 px-3 text-right">1일 임대료</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#ECE8E0] bg-[#FFFFFF]">
+                        {roomTypes.map((rt, idx) => (
+                          <tr key={idx} className="hover:bg-[#FAF9F6]">
+                            <td className="py-2.5 px-3 font-medium text-[#151719]">{rt.name}</td>
+                            <td className="py-2.5 px-3 text-[#5C6166]">{rt.recommendedGuests}</td>
+                            <td className="py-2.5 px-3 text-right font-reverence font-bold text-[#19382C]">
+                              {rt.dailyPrice.toLocaleString()}원
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#ECE8E0] text-xs">
-                  <div>
-                    <span className="text-[#727782]">빈소 / 안치: </span>
-                    <span className="font-bold text-[#151719]">{hall.roomCount}실 / {hall.capacityCount}구</span>
+                {/* 2-C. [정밀 제원 2] 연계 화장시설(승화원) 이동 시간 및 거리 */}
+                {selectedHall.nearestCrematorium && (
+                  <div className="p-3.5 rounded-lg border border-[#E3DFD5] bg-[#FAF9F6] space-y-1.5 text-xs font-serif">
+                    <div className="flex items-center justify-between font-bold text-[#151719]">
+                      <span className="flex items-center space-x-1.5">
+                        <Flame className="w-4 h-4 text-[#8B2520]" />
+                        <span>가장 가까운 연계 화장장 (승화원)</span>
+                      </span>
+                      <span className="text-[#8B2520]">
+                        약 {selectedHall.crematoriumTravelMinutes}분 소요 ({selectedHall.crematoriumDistanceKm}km)
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[#5C6166]">
+                      <span>시설명: <b>{selectedHall.nearestCrematorium}</b></span>
+                      <span>운구 차량 이동 지원</span>
+                    </div>
+                    <p className="text-[11px] text-[#727782] pt-1 border-t border-[#ECE8E0]">
+                      ※ 발인 당일 승화원 화장 접수 및 전용 리무진 운구는 배웅 1급 장례지도사가 원스톱으로 전담합니다.
+                    </p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[#727782]">1일 추정: </span>
-                    <span className="font-serif font-bold text-[#151719]">{hall.dailyRentEstimate.toLocaleString()}원</span>
+                )}
+
+                {/* 2-D. [정밀 제원 3] 교통 접근성 및 주차 인프라 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-serif">
+                  <div className="p-3 rounded-lg border border-[#E3DFD5] bg-[#FFFFFF] space-y-1">
+                    <span className="text-[#727782] flex items-center space-x-1 font-bold">
+                      <Train className="w-3.5 h-3.5 text-[#19382C]" />
+                      <span>대중교통 안내</span>
+                    </span>
+                    <p className="text-[#151719] font-medium leading-relaxed">
+                      {selectedHall.nearestSubway || '대중교통 및 버스 노선 완비'}
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-lg border border-[#E3DFD5] bg-[#FFFFFF] space-y-1">
+                    <span className="text-[#727782] flex items-center space-x-1 font-bold">
+                      <Car className="w-3.5 h-3.5 text-[#9E7D47]" />
+                      <span>주차 시설 안내</span>
+                    </span>
+                    <p className="text-[#151719] font-medium leading-relaxed">
+                      {selectedHall.parking}
+                    </p>
                   </div>
                 </div>
+
+                {/* 2-E. 유족 편의시설 칩 */}
+                <div>
+                  <div className="text-xs font-serif font-bold text-[#727782] mb-1.5">제공 편의시설</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedHall.conveniences.map((conv, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded text-[11px] font-serif bg-[#FAF9F6] text-[#42464E] border border-[#E3DFD5]"
+                      >
+                        ✓ {conv}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2-F. 하단 의전 신청 액션 바 */}
+                <div className="pt-2 border-t border-[#ECE8E0] flex flex-col sm:flex-row gap-2.5">
+                  <a
+                    href={`tel:${selectedHall.phone}`}
+                    className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#F2EEE6] text-[#151719] border border-[#E3DFD5] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all"
+                  >
+                    <Phone className="w-4 h-4 text-[#9E7D47]" />
+                    <span>장례식장 직통 문의 ({selectedHall.phone})</span>
+                  </a>
+
+                  <a
+                    href="tel:1588-0000"
+                    className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] border border-[#2D5A46] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
+                    <span>배웅 24시 빈소 우선 배정 신청</span>
+                  </a>
+                </div>
               </div>
-            );
-          })}
+            </div>
+          ) : (
+            <div className="p-12 text-center text-[#727782] font-serif bg-[#FAF9F6] rounded-xl border border-[#E3DFD5]">
+              좌측 목록이나 지도에서 장례식장을 선택하시면<br />상세 시설 제원과 실시간 빈소 감면 명세가 노출됩니다.
+            </div>
+          )}
         </div>
       </div>
-
-      {/* 5. 선택된 식장 상세 및 배웅 할인 견적 카드 */}
-      {selectedHall && discountInfo && (
-        <div className="bg-[#132B22] text-[#FAF9F6] rounded-xl p-6 md:p-8 shadow-md space-y-5 border border-[#2D5A46]">
-          <div className="flex justify-between items-start">
-            <div>
-              <span className="text-xs font-serif text-[#C2A26A]">
-                선택하신 장례식장 예우 및 빈소 감면 견적
-              </span>
-              <h3 className="text-xl md:text-2xl font-reverence font-black mt-1 text-[#FAF9F6]">
-                {selectedHall.name}
-              </h3>
-              <p className="text-xs text-[#BFD4CA] mt-1 font-serif">{selectedHall.address} (대표: {selectedHall.phone})</p>
-            </div>
-            <button
-              onClick={() => setSelectedHall(null)}
-              className="text-xs bg-white/10 hover:bg-white/20 text-[#FAF9F6] px-3 py-1 rounded cursor-pointer font-serif"
-            >
-              닫기 ✕
-            </button>
-          </div>
-
-          <div className="bg-[#0E1E18] rounded-lg p-5 border border-[#2A5442] grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-serif">
-            <div>
-              <div className="text-xs text-[#8C9E96]">일반 2일(48시간) 빈소 임대료</div>
-              <div className="text-base font-bold mt-1 text-[#DCE8E2]">
-                {discountInfo.standardTotalRent.toLocaleString()}원
-              </div>
-            </div>
-            <div className="border-t sm:border-t-0 sm:border-x border-[#2A5442] pt-3 sm:pt-0">
-              <div className="text-xs text-[#C2A26A] font-bold">
-                배웅 제휴 감면 ({discountInfo.discountRatePercentage}%)
-              </div>
-              <div className="text-lg font-bold text-[#C2A26A] mt-1">
-                -{discountInfo.discountAmount.toLocaleString()}원
-              </div>
-            </div>
-            <div className="border-t sm:border-t-0 border-[#2A5442] pt-3 sm:pt-0">
-              <div className="text-xs text-[#FAF9F6] font-bold">배웅 회원 최종 부담 임대료</div>
-              <div className="text-xl font-bold text-[#FAF9F6] mt-1">
-                {discountInfo.discountedTotalRent.toLocaleString()}원
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1 font-serif">
-            <div className="text-xs text-[#A2B8AF] leading-relaxed">
-              * 조문객 수와 평형에 따라 실제 임대료는 변동될 수 있으며, 배웅 사전 등록 시 빈소 우선 확보 및 감면 조율이 정중히 지원됩니다.
-            </div>
-            <a
-              href={`tel:${selectedHall.phone}`}
-              className="px-5 py-2.5 bg-[#9E7D47] hover:bg-[#B38E52] text-[#0D0E10] font-black text-sm flex items-center space-x-2 shrink-0 rounded-md shadow-sm"
-            >
-              <Phone className="w-4 h-4" />
-              <span>장례식장 직통 문의</span>
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

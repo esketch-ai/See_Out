@@ -45,7 +45,39 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: false,
     discountRate: 0,
     dailyRentEstimate: 1_850_000
-  },
+,
+    latitude: 37.5255,
+    longitude: 127.1084,
+    nearestSubway: '8호선 강동구청역 (도보 12분) / 2호선 잠실나루역 셔틀',
+    nearestCrematorium: '서울추모공원 (원지동)',
+    crematoriumDistanceKm: 18.5,
+    crematoriumTravelMinutes: 25,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 1200000,
+            recommendedGuests: "가족장 / 50명 내외"
+      },
+      {
+            name: "중형 (55평형)",
+            pyeong: 55,
+            dailyPrice: 1850000,
+            recommendedGuests: "일반 조문 150명 내외"
+      },
+      {
+            name: "특실 (85평형)",
+            pyeong: 85,
+            dailyPrice: 2700000,
+            recommendedGuests: "대형 조문 250명 이상"
+      },
+      {
+            name: "VIP실 (130평형)",
+            pyeong: 130,
+            dailyPrice: 3900000,
+            recommendedGuests: "사회장·의전 전용"
+      }
+]  },
   {
     id: 'fh-seoul-samsung',
     name: '삼성서울병원장례식장',
@@ -61,7 +93,39 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: false,
     discountRate: 0,
     dailyRentEstimate: 1_900_000
-  },
+,
+    latitude: 37.4882,
+    longitude: 127.0856,
+    nearestSubway: '3호선 일원역 1번 출구 (도보 5분)',
+    nearestCrematorium: '서울추모공원 (원지동)',
+    crematoriumDistanceKm: 12,
+    crematoriumTravelMinutes: 18,
+    roomTypes: [
+      {
+            name: "소형 (38평형)",
+            pyeong: 38,
+            dailyPrice: 1250000,
+            recommendedGuests: "가족장 / 50명 내외"
+      },
+      {
+            name: "중형 (60평형)",
+            pyeong: 60,
+            dailyPrice: 1900000,
+            recommendedGuests: "일반 조문 150명 내외"
+      },
+      {
+            name: "특실 (90평형)",
+            pyeong: 90,
+            dailyPrice: 2850000,
+            recommendedGuests: "대형 조문 250명 이상"
+      },
+      {
+            name: "VIP실 (140평형)",
+            pyeong: 140,
+            dailyPrice: 4200000,
+            recommendedGuests: "의전 전용"
+      }
+]  },
   {
     id: 'fh-seoul-stmary',
     name: '서울성모장례식장',
@@ -77,7 +141,39 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: false,
     discountRate: 0,
     dailyRentEstimate: 1_750_000
-  },
+,
+    latitude: 37.502,
+    longitude: 127.0048,
+    nearestSubway: '3·7·9호선 고속터미널역 (도보 8분)',
+    nearestCrematorium: '서울추모공원 (원지동)',
+    crematoriumDistanceKm: 10.5,
+    crematoriumTravelMinutes: 16,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 1150000,
+            recommendedGuests: "가족장 / 50명 내외"
+      },
+      {
+            name: "중형 (55평형)",
+            pyeong: 55,
+            dailyPrice: 1750000,
+            recommendedGuests: "일반 조문 150명 내외"
+      },
+      {
+            name: "특실 (80평형)",
+            pyeong: 80,
+            dailyPrice: 2600000,
+            recommendedGuests: "대형 조문 200명 이상"
+      },
+      {
+            name: "VIP실 (120평형)",
+            pyeong: 120,
+            dailyPrice: 3800000,
+            recommendedGuests: "VIP 전용"
+      }
+]  },
   {
     id: 'fh-seoul-bohun',
     name: '중앙보훈병원장례식장',
@@ -93,7 +189,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 950_000
-  },
+,
+    latitude: 37.5292,
+    longitude: 127.1478,
+    nearestSubway: '9호선 중앙보훈병원역 2번 출구 (도보 3분)',
+    nearestCrematorium: '성남영생관리사업소 (성남시립)',
+    crematoriumDistanceKm: 19,
+    crematoriumTravelMinutes: 28,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 650000,
+            recommendedGuests: "국가유공자/가족장"
+      },
+      {
+            name: "중형 (48평형)",
+            pyeong: 48,
+            dailyPrice: 950000,
+            recommendedGuests: "일반 조문 100명 내외"
+      },
+      {
+            name: "특실 (70평형)",
+            pyeong: 70,
+            dailyPrice: 1450000,
+            recommendedGuests: "조문 180명 내외"
+      }
+]  },
   {
     id: 'fh-seoul-gangnam-severance',
     name: '연세대학교 강남장례식장',
@@ -109,7 +231,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: false,
     discountRate: 0,
     dailyRentEstimate: 1_500_000
-  },
+,
+    latitude: 37.4927,
+    longitude: 127.0463,
+    nearestSubway: '3호선 매봉역 2번 출구 (도보 10분) / 한티역',
+    nearestCrematorium: '서울추모공원 (원지동)',
+    crematoriumDistanceKm: 11.2,
+    crematoriumTravelMinutes: 17,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 1000000,
+            recommendedGuests: "가족장 40명 내외"
+      },
+      {
+            name: "중형 (50평형)",
+            pyeong: 50,
+            dailyPrice: 1500000,
+            recommendedGuests: "일반 조문 120명 내외"
+      },
+      {
+            name: "특실 (75평형)",
+            pyeong: 75,
+            dailyPrice: 2200000,
+            recommendedGuests: "대형 조문 200명 내외"
+      }
+]  },
 
   // --- 수도권 (경기/인천) ---
   {
@@ -127,7 +275,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: false,
     discountRate: 0,
     dailyRentEstimate: 1_400_000
-  },
+,
+    latitude: 37.3518,
+    longitude: 127.1232,
+    nearestSubway: '수인분당선 미금역 3번 출구 (셔틀 5분)',
+    nearestCrematorium: '성남영생관리사업소 (성남시립)',
+    crematoriumDistanceKm: 14,
+    crematoriumTravelMinutes: 20,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 900000,
+            recommendedGuests: "가족장 50명 내외"
+      },
+      {
+            name: "중형 (52평형)",
+            pyeong: 52,
+            dailyPrice: 1400000,
+            recommendedGuests: "일반 조문 130명 내외"
+      },
+      {
+            name: "특실 (80평형)",
+            pyeong: 80,
+            dailyPrice: 2100000,
+            recommendedGuests: "대형 조문 200명 이상"
+      }
+]  },
   {
     id: 'fh-gyeonggi-seongnam-medical',
     name: '성남시의료원장례식장',
@@ -143,7 +317,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.25,
     dailyRentEstimate: 650_000
-  },
+,
+    latitude: 37.4429,
+    longitude: 127.1328,
+    nearestSubway: '8호선 수진역 1번 출구 (도보 10분)',
+    nearestCrematorium: '성남영생관리사업소 (성남시립)',
+    crematoriumDistanceKm: 6.8,
+    crematoriumTravelMinutes: 12,
+    roomTypes: [
+      {
+            name: "소형 (32평형)",
+            pyeong: 32,
+            dailyPrice: 420000,
+            recommendedGuests: "알뜰 가족장"
+      },
+      {
+            name: "중형 (48평형)",
+            pyeong: 48,
+            dailyPrice: 650000,
+            recommendedGuests: "표준 조문 100명"
+      },
+      {
+            name: "특실 (65평형)",
+            pyeong: 65,
+            dailyPrice: 950000,
+            recommendedGuests: "조문 150명"
+      }
+]  },
   {
     id: 'fh-gyeonggi-suwon-yeonhwajang',
     name: '수원시연화장장례식장',
@@ -159,7 +359,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.30,
     dailyRentEstimate: 600_000
-  },
+,
+    latitude: 37.2882,
+    longitude: 127.0709,
+    nearestSubway: '신분당선 광교중앙역 (차량 8분)',
+    nearestCrematorium: '수원시연화장 승화원 (원내 복합 시설)',
+    crematoriumDistanceKm: 0.1,
+    crematoriumTravelMinutes: 1,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 380000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (45평형)",
+            pyeong: 45,
+            dailyPrice: 600000,
+            recommendedGuests: "표준 조문"
+      },
+      {
+            name: "특실 (60평형)",
+            pyeong: 60,
+            dailyPrice: 850000,
+            recommendedGuests: "대형 조문"
+      }
+]  },
   {
     id: 'fh-gyeonggi-ilsan-nhic',
     name: '국민건강보험공단일산병원장례식장',
@@ -175,7 +401,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 800_000
-  },
+,
+    latitude: 37.6438,
+    longitude: 126.7909,
+    nearestSubway: '3호선 백석역 6번 출구 (도보 7분)',
+    nearestCrematorium: '서울시립승화원 (벽제)',
+    crematoriumDistanceKm: 15.2,
+    crematoriumTravelMinutes: 22,
+    roomTypes: [
+      {
+            name: "소형 (32평형)",
+            pyeong: 32,
+            dailyPrice: 520000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (50평형)",
+            pyeong: 50,
+            dailyPrice: 800000,
+            recommendedGuests: "일반 조문 100명"
+      },
+      {
+            name: "특실 (70평형)",
+            pyeong: 70,
+            dailyPrice: 1200000,
+            recommendedGuests: "대형 조문"
+      }
+]  },
   {
     id: 'fh-incheon-seongincheon',
     name: '(유)성인천장례식장',
@@ -191,7 +443,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 750_000
-  },
+,
+    latitude: 37.4602,
+    longitude: 126.6814,
+    nearestSubway: '1호선 주안역 (도보 10분)',
+    nearestCrematorium: '인천가족공원 승화원',
+    crematoriumDistanceKm: 8.5,
+    crematoriumTravelMinutes: 15,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 480000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (48평형)",
+            pyeong: 48,
+            dailyPrice: 750000,
+            recommendedGuests: "일반 조문 100명"
+      },
+      {
+            name: "특실 (68평형)",
+            pyeong: 68,
+            dailyPrice: 1100000,
+            recommendedGuests: "대형 조문"
+      }
+]  },
 
   // --- 영남권 (부산/대구/경북/경남) ---
   {
@@ -209,7 +487,39 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.25,
     dailyRentEstimate: 1_100_000
-  },
+,
+    latitude: 35.1485,
+    longitude: 129.0583,
+    nearestSubway: '1호선 범일역 10번 출구 (도보 8분) / 문현역',
+    nearestCrematorium: '부산영락공원 승화원 (금정구)',
+    crematoriumDistanceKm: 18,
+    crematoriumTravelMinutes: 25,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 700000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (55평형)",
+            pyeong: 55,
+            dailyPrice: 1100000,
+            recommendedGuests: "일반 조문 150명"
+      },
+      {
+            name: "특실 (80평형)",
+            pyeong: 80,
+            dailyPrice: 1650000,
+            recommendedGuests: "대형 조문 250명"
+      },
+      {
+            name: "VIP실 (120평형)",
+            pyeong: 120,
+            dailyPrice: 2400000,
+            recommendedGuests: "VIP 전용"
+      }
+]  },
   {
     id: 'fh-busan-chakhan',
     name: '(주)착한전문장례식장',
@@ -225,7 +535,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 750_000
-  },
+,
+    latitude: 35.2104,
+    longitude: 129.0768,
+    nearestSubway: '1호선 온천장역 3번 출구 (도보 6분)',
+    nearestCrematorium: '부산영락공원 승화원 (금정구)',
+    crematoriumDistanceKm: 9.5,
+    crematoriumTravelMinutes: 14,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 480000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (48평형)",
+            pyeong: 48,
+            dailyPrice: 750000,
+            recommendedGuests: "일반 조문 100명"
+      },
+      {
+            name: "특실 (65평형)",
+            pyeong: 65,
+            dailyPrice: 1150000,
+            recommendedGuests: "대형 조문"
+      }
+]  },
   {
     id: 'fh-daegu-nongong-catholic',
     name: '(복)대구가톨릭사회복지회논공 장례식장',
@@ -241,7 +577,27 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.30,
     dailyRentEstimate: 500_000
-  },
+,
+    latitude: 35.7314,
+    longitude: 128.4552,
+    nearestSubway: '논공시외버스정류소 인근 (차량 3분)',
+    nearestCrematorium: '대구명복공원 (수성구)',
+    crematoriumDistanceKm: 28,
+    crematoriumTravelMinutes: 35,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 350000,
+            recommendedGuests: "소규모 가족장"
+      },
+      {
+            name: "중형 (45평형)",
+            pyeong: 45,
+            dailyPrice: 500000,
+            recommendedGuests: "일반 조문"
+      }
+]  },
   {
     id: 'fh-daegu-hwanggeum-care',
     name: '황금요양병원장례식장',
@@ -257,7 +613,27 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 550_000
-  },
+,
+    latitude: 35.8452,
+    longitude: 128.6258,
+    nearestSubway: '3호선 황금역 1번 출구 (도보 5분)',
+    nearestCrematorium: '대구명복공원 (수성구)',
+    crematoriumDistanceKm: 4.8,
+    crematoriumTravelMinutes: 10,
+    roomTypes: [
+      {
+            name: "소형 (28평형)",
+            pyeong: 28,
+            dailyPrice: 380000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (45평형)",
+            pyeong: 45,
+            dailyPrice: 550000,
+            recommendedGuests: "일반 조문"
+      }
+]  },
 
   // --- 호남권 (광주/전남/전북) ---
   {
@@ -275,7 +651,33 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.25,
     dailyRentEstimate: 850_000
-  },
+,
+    latitude: 35.1278,
+    longitude: 126.8614,
+    nearestSubway: '광주 1호선 상무역 (차량 7분) / 풍암지구 인근',
+    nearestCrematorium: '광주영락공원 승화원 (북구)',
+    crematoriumDistanceKm: 16.5,
+    crematoriumTravelMinutes: 22,
+    roomTypes: [
+      {
+            name: "소형 (35평형)",
+            pyeong: 35,
+            dailyPrice: 550000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (55평형)",
+            pyeong: 55,
+            dailyPrice: 850000,
+            recommendedGuests: "일반 조문 120명"
+      },
+      {
+            name: "특실 (75평형)",
+            pyeong: 75,
+            dailyPrice: 1300000,
+            recommendedGuests: "대형 조문"
+      }
+]  },
   {
     id: 'fh-jeonbuk-jesus-hospital',
     name: '(유)예수병원장례식장',
@@ -291,7 +693,27 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.15,
     dailyRentEstimate: 700_000
-  },
+,
+    latitude: 35.8142,
+    longitude: 127.1284,
+    nearestSubway: '전주고속버스터미널 (차량 10분)',
+    nearestCrematorium: '전주시립승화원',
+    crematoriumDistanceKm: 12,
+    crematoriumTravelMinutes: 18,
+    roomTypes: [
+      {
+            name: "소형 (30평형)",
+            pyeong: 30,
+            dailyPrice: 450000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (48평형)",
+            pyeong: 48,
+            dailyPrice: 700000,
+            recommendedGuests: "일반 조문 100명"
+      }
+]  },
   {
     id: 'fh-jeonnam-muan-hospital',
     name: '(유)무안병원장례식장',
@@ -307,7 +729,27 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.20,
     dailyRentEstimate: 450_000
-  },
+,
+    latitude: 34.9892,
+    longitude: 126.4714,
+    nearestSubway: '무안버스터미널 (도보 8분)',
+    nearestCrematorium: '목포추모공원 승화원',
+    crematoriumDistanceKm: 21,
+    crematoriumTravelMinutes: 25,
+    roomTypes: [
+      {
+            name: "소형 (25평형)",
+            pyeong: 25,
+            dailyPrice: 300000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (42평형)",
+            pyeong: 42,
+            dailyPrice: 450000,
+            recommendedGuests: "일반 조문"
+      }
+]  },
 
   // --- 충청/강원권 ---
   {
@@ -325,7 +767,27 @@ export const FUNERAL_HALLS_DATASET: FuneralHallEntity[] = [
     isBaeungPartner: true,
     discountRate: 0.30,
     dailyRentEstimate: 400_000
-  },
+,
+    latitude: 37.1852,
+    longitude: 128.4632,
+    nearestSubway: '영월시외버스터미널 (도보 10분)',
+    nearestCrematorium: '제천영원한쉼터 승화원',
+    crematoriumDistanceKm: 32,
+    crematoriumTravelMinutes: 35,
+    roomTypes: [
+      {
+            name: "소형 (28평형)",
+            pyeong: 28,
+            dailyPrice: 280000,
+            recommendedGuests: "가족장"
+      },
+      {
+            name: "중형 (40평형)",
+            pyeong: 40,
+            dailyPrice: 400000,
+            recommendedGuests: "일반 조문"
+      }
+]  },
   {
     id: 'fh-sejong-eunhasu',
     name: '세종시 은하수공원 장례식장',

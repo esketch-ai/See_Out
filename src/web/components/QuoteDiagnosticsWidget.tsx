@@ -538,21 +538,25 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 5. [신규 직관 시각화] 2대 기준 비용 비교 차트 (혼선 방지 듀얼 탭) */}
-      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-5 shadow-xs">
+      {/* 5. [직관 대조 시각화] 내 지갑에서 나갈 돈 한눈에 직관 비교 (Before & After) */}
+      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-6 shadow-xs">
+        {/* 헤더 및 기준 선택 탭 */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E3DFD5] pb-4">
           <div>
-            <span className="font-reverence font-bold text-lg md:text-xl text-[#121417] flex items-center space-x-2">
-              <TrendingDown className="w-5 h-5 text-[#19382C]" />
-              <span>실질 지출액 직관 비교 막대 그래프</span>
-            </span>
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#FAF4EB] border border-[#E4D5BC] text-[#876937] text-xs font-serif font-bold mb-1">
+              <TrendingDown className="w-3.5 h-3.5 text-[#9E7D47]" />
+              <span>직관 비교 시각화 (Before vs After)</span>
+            </div>
+            <h3 className="font-reverence font-bold text-lg md:text-xl text-[#121417]">
+              기존 상조 vs 배웅 실제 지출 및 절약액 직관 대조
+            </h3>
             <p className="text-xs text-[#5C6166] font-serif mt-1">
-              궁금하신 관점을 선택하여 비교해 보세요 (어떤 기준이든 동일하게 {report.summary.netSavingsAmount.toLocaleString()}원이 절약됩니다)
+              배웅으로 전환하면 어떤 기준이든 동일하게 <b>{report.summary.netSavingsAmount.toLocaleString()}원</b>이 유족의 통장에 절약됩니다.
             </p>
           </div>
 
           {/* 듀얼 관점 선택 토글 버튼 */}
-          <div className="flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] shrink-0">
+          <div className="flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] shrink-0 self-start sm:self-auto">
             <button
               onClick={() => setComparisonPerspective('future_cash')}
               className={`px-3 py-1.5 text-xs font-reverence font-medium rounded transition-all cursor-pointer ${
@@ -561,7 +565,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   : 'text-[#5C6166] hover:text-[#121417]'
               }`}
             >
-              ① 앞으로 더 나갈 돈 기준
+              ① 내 지갑 현금 기준 (추천)
             </button>
             <button
               onClick={() => setComparisonPerspective('total_all_time')}
@@ -576,106 +580,254 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           </div>
         </div>
 
-        {/* 선택된 관점에 따른 막대 그래프 렌더링 */}
-        {comparisonPerspective === 'future_cash' ? (
-          /* [관점 ①] 앞으로 내 지갑에서 새로 나갈 현금 비교 */
-          <div className="space-y-6 pt-1">
-            <div className="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E3DFD5] text-xs font-serif text-[#121417] leading-relaxed">
-              💡 <b>가장 직관적인 현금 비교:</b> 기존 상조를 계속 쓰면 앞으로 남은 할부금과 장례식장 추가금으로 <b>{(report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost).toLocaleString()}원</b>이 더 나가지만, 배웅으로 전환하면 통장 환급금을 활용하여 <b>{report.summary.baeungTotalActualCost.toLocaleString()}원</b>만 새로 지출됩니다.
-            </div>
-
-            {/* 기존 상조 유지 시 */}
+        {/* [신규 핵심] 좌우 1:1 직관 요약 대조 카드 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* [좌측 카드: 기존 상조 유지] */}
+          <div className="rounded-xl border border-[#E8DCDA] bg-[#FDFBFB] p-4 md:p-5 flex flex-col justify-between">
             <div>
-              <div className="flex justify-between text-sm md:text-base font-serif font-medium mb-1.5">
-                <span className="text-[#8B2520]">기존 상조 계속 유지 시 (남은 할부금 + 현장 추가금 바가지)</span>
-                <span className="text-[#8B2520] font-reverence text-lg font-bold">
-                  {(report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost).toLocaleString()}원
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-serif font-bold text-[#8B2520] bg-[#8B2520]/10 px-2 py-0.5 rounded border border-[#8B2520]/20">
+                  기존 상조 그대로 유지할 때
+                </span>
+                <span className="text-xs font-serif text-[#8B2520] font-medium">전액 지출 (비용 낭비)</span>
+              </div>
+              <div className="mt-2">
+                <span className="text-xs font-serif text-[#5C6166] block">
+                  {comparisonPerspective === 'future_cash' ? '앞으로 내 지갑에서 나갈 돈' : '기존 상조 총 계약 및 바가지 합계'}
+                </span>
+                <span className="text-2xl md:text-3xl font-reverence font-bold text-[#8B2520]">
+                  {(comparisonPerspective === 'future_cash'
+                    ? report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost
+                    : report.summary.competitorTotalCost
+                  ).toLocaleString()}원
                 </span>
               </div>
-              <div className="w-full bg-[#EBE7DF] rounded-md h-7 overflow-hidden">
-                <div
-                  style={{ width: '100%' }}
-                  className="bg-[#8B2520] h-full rounded-md flex items-center justify-between px-3 text-xs font-medium text-white transition-all duration-500"
-                >
-                  <span>남은 할부 {report.certificate.remainingAmount.toLocaleString()}원 + 현장 추가금 {report.hiddenCost.totalHiddenCost.toLocaleString()}원</span>
-                  <span>100%</span>
-                </div>
-              </div>
+              <ul className="mt-3 space-y-1.5 text-xs font-serif text-[#5C6166] border-t border-[#ECE5E4] pt-2.5">
+                {comparisonPerspective === 'future_cash' ? (
+                  <>
+                    <li className="flex justify-between">
+                      <span>• 남은 할부금 총액:</span>
+                      <span className="font-medium text-[#121417]">{report.certificate.remainingAmount.toLocaleString()}원</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 현장 추가금 바가지 예상:</span>
+                      <span className="font-medium text-[#8B2520]">+{report.hiddenCost.totalHiddenCost.toLocaleString()}원</span>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="flex justify-between">
+                      <span>• 가입 약정 총액:</span>
+                      <span className="font-medium text-[#121417]">{report.certificate.totalContractAmount.toLocaleString()}원</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 현장 추가금 바가지 예상:</span>
+                      <span className="font-medium text-[#8B2520]">+{report.hiddenCost.totalHiddenCost.toLocaleString()}원</span>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
+          </div>
 
-            {/* 배웅 전환 시 */}
+          {/* [우측 카드: 배웅 전환 시] */}
+          <div className="rounded-xl border-2 border-[#19382C] bg-[#FAF9F6] p-4 md:p-5 flex flex-col justify-between shadow-xs">
             <div>
-              <div className="flex justify-between text-sm md:text-base font-serif font-medium mb-1.5">
-                <span className="text-[#19382C]">배웅 전환 시 (배웅 청구액 210만 원 - 통장 환급금 85만 원)</span>
-                <span className="text-[#19382C] font-reverence text-xl font-bold">
-                  {report.summary.baeungTotalActualCost.toLocaleString()}원
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
+                  배웅 정직 실비로 전환할 때
+                </span>
+                <span className="text-xs font-serif font-bold text-[#9E7D47]">
+                  ★ {report.summary.netSavingsAmount.toLocaleString()}원 절약
                 </span>
               </div>
-              <div className="w-full bg-[#EBE7DF] rounded-md h-7 overflow-hidden">
-                <div
-                  style={{
-                    width: `${Math.max(
-                      Math.round((report.summary.baeungTotalActualCost / (report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)) * 100),
-                      10
-                    )}%`
-                  }}
-                  className="bg-[#19382C] h-full rounded-md flex items-center justify-end pr-3 text-xs font-medium text-white transition-all duration-500 shadow-xs"
-                >
-                  새로 드는 돈 약 {Math.round((report.summary.baeungTotalActualCost / (report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)) * 100)}%
-                </div>
+              <div className="mt-2">
+                <span className="text-xs font-serif text-[#5C6166] block">
+                  {comparisonPerspective === 'future_cash' ? '유가족이 실제로 지출하는 돈' : '배웅 전환 시 최종 총부담'}
+                </span>
+                <span className="text-2xl md:text-3xl font-reverence font-bold text-[#19382C]">
+                  {(comparisonPerspective === 'future_cash'
+                    ? report.summary.baeungTotalActualCost
+                    : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                  ).toLocaleString()}원
+                </span>
+              </div>
+              <ul className="mt-3 space-y-1.5 text-xs font-serif text-[#5C6166] border-t border-[#E3DFD5] pt-2.5">
+                {comparisonPerspective === 'future_cash' ? (
+                  <>
+                    <li className="flex justify-between">
+                      <span>• 배웅 정찰 장례 실비:</span>
+                      <span className="font-medium text-[#121417]">{report.selectedBaeungPackage.price.toLocaleString()}원</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 기존 상조 통장 환급금:</span>
+                      <span className="font-medium text-[#19382C]">-{report.statutoryRefund.refundAmount.toLocaleString()}원 (통장 입금)</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 배웅 손실보전 할인:</span>
+                      <span className="font-medium text-[#9E7D47]">-{report.transitionCredit.toLocaleString()}원 (즉시 차감)</span>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="flex justify-between">
+                      <span>• 배웅 실제 결제액:</span>
+                      <span className="font-medium text-[#121417]">{(report.selectedBaeungPackage.price - report.transitionCredit).toLocaleString()}원</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 기존 상조 해약 공제 손실:</span>
+                      <span className="font-medium text-[#5C6166]">+{report.statutoryRefund.lossAmount.toLocaleString()}원</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>• 현장 추가금:</span>
+                      <span className="font-medium text-[#19382C]">0원 (추가금 없음)</span>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* [핵심 직관 시각화] 1:1 대응 워터폴 비교 막대 그래프 */}
+        <div className="space-y-4 pt-1">
+          {/* 상단 안내 라벨 */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs md:text-sm font-serif">
+            <span className="font-bold text-[#121417]">
+              📊 {comparisonPerspective === 'future_cash' ? '앞으로 나갈 돈 1:1 면적 비교' : '전체 총비용 1:1 면적 비교'}
+            </span>
+            <span className="text-[#5C6166] mt-0.5 sm:mt-0 text-[11px] sm:text-xs">
+              ※ 배웅 막대의 <b>실제 지출</b>과 <b>절약되는 돈</b>을 합치면 기존 상조 금액과 100% 일치합니다.
+            </span>
+          </div>
+
+          {/* 막대 1: 기존 상조 유지 (100% 붉은색) */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-xs md:text-sm font-serif">
+              <span className="font-medium text-[#8B2520]">
+                기존 상조 유지 시: {(comparisonPerspective === 'future_cash'
+                  ? report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost
+                  : report.summary.competitorTotalCost
+                ).toLocaleString()}원 전액 지출
+              </span>
+              <span className="font-bold text-[#8B2520]">100% 지출</span>
+            </div>
+            <div className="w-full bg-[#EBE7DF] rounded-lg h-9 overflow-hidden">
+              <div
+                style={{ width: '100%' }}
+                className="bg-[#8B2520] h-full rounded-lg flex items-center justify-between px-3 md:px-4 text-xs font-medium text-white transition-all duration-500 shadow-xs"
+              >
+                <span className="truncate">기존 상조 지출 총액 (남은 할부 + 현장 바가지 추가금)</span>
+                <span className="shrink-0 font-bold ml-2">100%</span>
               </div>
             </div>
           </div>
-        ) : (
-          /* [관점 ②] 과거 납입금을 포함한 전체 누적 총비용 비교 */
-          <div className="space-y-6 pt-1">
-            <div className="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E3DFD5] text-xs font-serif text-[#121417] leading-relaxed">
-              💡 <b>전체 총비용 비교:</b> 지금까지 상조사에 낸 {report.certificate.paidTotalAmount.toLocaleString()}원까지 합산한 장례 전체 비용 비교입니다. 배웅으로 전환하면 기존 상조사의 해약 손실을 감안하고도 <b>{report.summary.netSavingsAmount.toLocaleString()}원</b>이 절감됩니다.
+
+          {/* 막대 2: 배웅 전환 시 ([실제 지출] + [절약되는 돈] 스택 결합) */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-xs md:text-sm font-serif">
+              <span className="font-medium text-[#19382C]">
+                배웅 전환 시: <b>실제 지출 {(comparisonPerspective === 'future_cash'
+                  ? report.summary.baeungTotalActualCost
+                  : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                ).toLocaleString()}원</b> + <b>절약 {report.summary.netSavingsAmount.toLocaleString()}원</b>
+              </span>
+              <span className="font-bold text-[#19382C]">
+                {Math.round((report.summary.netSavingsAmount / (comparisonPerspective === 'future_cash'
+                  ? Math.max(1, report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)
+                  : Math.max(1, report.summary.competitorTotalCost)
+                )) * 100)}% 비용 절감!
+              </span>
             </div>
 
-            {/* 기존 상조 유지 총비용 */}
-            <div>
-              <div className="flex justify-between text-sm md:text-base font-serif font-medium mb-1.5">
-                <span className="text-[#8B2520]">기존 상조 총비용 (계약금 {report.certificate.totalContractAmount.toLocaleString()}원 + 현장 추가금 {report.hiddenCost.totalHiddenCost.toLocaleString()}원)</span>
-                <span className="text-[#8B2520] font-reverence text-lg font-bold">
-                  {report.summary.competitorTotalCost.toLocaleString()}원
+            {/* 스택형 바 (실제 지출 + 절약액 결합) */}
+            <div className="w-full bg-[#EBE7DF] rounded-lg h-10 overflow-hidden flex shadow-xs border border-[#BFD4CA]">
+              {/* 세그먼트 1: 실제 지출액 */}
+              <div
+                style={{
+                  width: `${Math.max(14, Math.min(86, Math.round(((comparisonPerspective === 'future_cash'
+                    ? report.summary.baeungTotalActualCost
+                    : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                  ) / (comparisonPerspective === 'future_cash'
+                    ? Math.max(1, report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)
+                    : Math.max(1, report.summary.competitorTotalCost)
+                  )) * 100)))}%`
+                }}
+                className="bg-[#19382C] h-full flex items-center justify-center px-2 text-xs font-bold text-[#FAF9F6] transition-all duration-500 shrink-0"
+                title="배웅 이용 시 실제 지출액"
+              >
+                <span className="truncate">
+                  실제 지출 {(comparisonPerspective === 'future_cash'
+                    ? report.summary.baeungTotalActualCost
+                    : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                  ).toLocaleString()}원
                 </span>
               </div>
-              <div className="w-full bg-[#EBE7DF] rounded-md h-7 overflow-hidden">
-                <div
-                  style={{ width: '100%' }}
-                  className="bg-[#8B2520] h-full rounded-md flex items-center justify-between px-3 text-xs font-medium text-white transition-all duration-500"
-                >
-                  <span>약정 계약금 {report.certificate.totalContractAmount.toLocaleString()}원 + 현장 추가금 {report.hiddenCost.totalHiddenCost.toLocaleString()}원</span>
-                  <span>100%</span>
-                </div>
+
+              {/* 세그먼트 2: 아끼는 돈 (SAVE) */}
+              <div
+                style={{
+                  width: `${100 - Math.max(14, Math.min(86, Math.round(((comparisonPerspective === 'future_cash'
+                    ? report.summary.baeungTotalActualCost
+                    : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                  ) / (comparisonPerspective === 'future_cash'
+                    ? Math.max(1, report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)
+                    : Math.max(1, report.summary.competitorTotalCost)
+                  )) * 100)))}%`
+                }}
+                className="bg-[#F6F3EB] border-l-2 border-[#19382C] h-full flex items-center justify-center px-2 text-xs font-bold text-[#876937] transition-all duration-500"
+                title="배웅 전환으로 아끼는 돈"
+              >
+                <span className="truncate flex items-center space-x-1">
+                  <span>🎉</span>
+                  <span>{report.summary.netSavingsAmount.toLocaleString()}원 절약 (통장에 SAVE)</span>
+                </span>
               </div>
             </div>
 
-            {/* 배웅 전환 총비용 */}
-            <div>
-              <div className="flex justify-between text-sm md:text-base font-serif font-medium mb-1.5">
-                <span className="text-[#19382C]">배웅 전환 시 총비용 (해약 손실 {report.statutoryRefund.lossAmount.toLocaleString()}원 + 배웅 실결제 {(report.selectedBaeungPackage.price - report.transitionCredit).toLocaleString()}원)</span>
-                <span className="text-[#19382C] font-reverence text-xl font-bold">
-                  {(report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit).toLocaleString()}원
+            {/* 범례 및 안내 캡션 */}
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px] md:text-xs font-serif">
+              <div className="flex items-center space-x-4">
+                <span className="flex items-center space-x-1.5">
+                  <span className="w-3 h-3 rounded-xs bg-[#19382C] inline-block" />
+                  <span className="text-[#121417]"><b>실제 내는 돈:</b> {(comparisonPerspective === 'future_cash'
+                    ? report.summary.baeungTotalActualCost
+                    : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+                  ).toLocaleString()}원</span>
+                </span>
+                <span className="flex items-center space-x-1.5">
+                  <span className="w-3 h-3 rounded-xs bg-[#F6F3EB] border border-[#C2A26A] inline-block" />
+                  <span className="text-[#876937]"><b>아끼는 돈(절약):</b> {report.summary.netSavingsAmount.toLocaleString()}원</span>
                 </span>
               </div>
-              <div className="w-full bg-[#EBE7DF] rounded-md h-7 overflow-hidden">
-                <div
-                  style={{
-                    width: `${Math.max(
-                      Math.round(((report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit) / report.summary.competitorTotalCost) * 100),
-                      10
-                    )}%`
-                  }}
-                  className="bg-[#19382C] h-full rounded-md flex items-center justify-end pr-3 text-xs font-medium text-white transition-all duration-500 shadow-xs"
-                >
-                  총비용 {Math.round(((report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit) / report.summary.competitorTotalCost) * 100)}%
-                </div>
-              </div>
+              <span className="text-[#19382C] font-bold">
+                ※ 기존 상조 대비 약 {Math.round((report.summary.netSavingsAmount / (comparisonPerspective === 'future_cash'
+                  ? Math.max(1, report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost)
+                  : Math.max(1, report.summary.competitorTotalCost)
+                )) * 100)}% 지출 절감
+              </span>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* [1초 명쾌 산출식 박스] 누구나 즉시 이해되는 덧셈·뺄셈 요약 */}
+        <div className="p-3.5 md:p-4 rounded-lg bg-[#FAF9F6] border border-[#E3DFD5] text-xs md:text-sm font-serif text-[#121417] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="shrink-0 text-base">💡</span>
+            <span>
+              <b>한 줄 계산 공식:</b> [기존 상조 지출 {(comparisonPerspective === 'future_cash'
+                ? report.certificate.remainingAmount + report.hiddenCost.totalHiddenCost
+                : report.summary.competitorTotalCost
+              ).toLocaleString()}원] - [배웅 실제 지출 {(comparisonPerspective === 'future_cash'
+                ? report.summary.baeungTotalActualCost
+                : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
+              ).toLocaleString()}원]
+            </span>
+          </div>
+          <div className="shrink-0 font-reverence font-bold text-[#19382C] text-sm md:text-base pl-6 sm:pl-0">
+            = 순수 이익 +{report.summary.netSavingsAmount.toLocaleString()}원
+          </div>
+        </div>
       </div>
 
       {/* 6. 1:1 맞춤 영수증 좌우 대조표 */}

@@ -11,7 +11,7 @@ export const PackagePricingWidget: React.FC = () => {
   return (
     <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
-      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border">
+      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border k-corner-bracket">
         <img
           src="/images/hero-memorial.jpg"
           alt="정직 원가 의전 용품 및 제단"
@@ -19,11 +19,12 @@ export const PackagePricingWidget: React.FC = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30 w-fit">
-            <ShieldCheck className="w-3.5 h-3.5" />
+            <span className="k-seal-red text-[10px] px-1.5 py-0.2">誠</span>
             <span>선금 0원 · 100% 후불 정산제</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
-            배웅 정직 원가 정찰제 의전 안내
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight flex items-center space-x-2">
+            <span>배웅 정직 원가 정찰제 의전 안내</span>
+            <span className="k-seal-red text-xs px-2 py-0.5">誠</span>
           </h2>
           <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
             유족의 슬픔과 경황없음을 틈탄 어떠한 업셀링이나 강매도 없습니다. 의전의 품격을 지키며 원가를 투명하게 공개합니다.

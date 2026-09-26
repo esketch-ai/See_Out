@@ -292,7 +292,148 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
-      {/* 4. 하단 배웅 4대 의전 안심 헌장 */}
+      {/* 4. [신규 이정환 박사·조성우 수석 감수] 전통 3일장 상장례(喪葬禮) 정례 절차도 */}
+      <div className="bg-porcelain/90 border border-ink-border rounded-3xl p-6 md:p-10 space-y-6 shadow-sm k-changho-texture">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ink-border pb-4">
+          <div>
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-800 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30">
+              <span className="k-seal-gold text-[10px] px-1.5 py-0.2">禮</span>
+              <span>전통 상장례(喪葬禮) 표준 예법 3일장 안내</span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-reverence font-black text-ink">
+              고인을 모시는 3일간의 숭고한 여정
+            </h3>
+            <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed font-serif">
+              임종의 순간부터 영원한 안식까지, 국가공인 1급 장례지도사가 유족의 곁을 24시간 정성껏 지킵니다.
+            </p>
+          </div>
+          <span className="text-xs text-ink-muted font-serif">
+            보건복지부 국가장사표준 및 전통의례 준수
+          </span>
+        </div>
+
+        {/* 3일차 카드 그리드 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* 1일차 */}
+          <div className="p-6 rounded-2xl bg-white border border-ink-border shadow-xs flex flex-col justify-between space-y-4 k-corner-bracket">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-serif font-bold text-celadon-800 bg-celadon-50 px-2.5 py-1 rounded-full border border-celadon-200">
+                  첫째 날
+                </span>
+                <span className="text-xs font-mono text-ink-muted">Day 1</span>
+              </div>
+              <h4 className="font-reverence font-bold text-lg md:text-xl text-ink mt-2 flex items-center space-x-1.5">
+                <span>初終 · 安息 (초종과 안식)</span>
+              </h4>
+              <p className="text-xs text-ink-muted mt-1 font-serif">
+                임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
+              </p>
+              <ul className="mt-4 space-y-2 text-xs md:text-sm text-ink-light font-serif">
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>고인 전용 앰뷸런스 전국 즉시 출동 및 이송</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>원하시는 장례식장 안치실 안치 및 빈소 제단 설치</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>모바일 정중 부고장 무료 제작 및 친지 발송</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>화장시설(승화원) 예약 원스톱 대행 지원</span>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-3 border-t border-ink-border/50 text-[11px] text-celadon-800 font-serif font-bold">
+              ✓ 전문 장례지도사 2시간 이내 현장 배치
+            </div>
+          </div>
+
+          {/* 2일차 */}
+          <div className="p-6 rounded-2xl bg-white border-2 border-nobleGold-500/50 shadow-sm flex flex-col justify-between space-y-4 k-corner-bracket">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-serif font-bold text-nobleGold-800 bg-nobleGold-100 px-2.5 py-1 rounded-full border border-nobleGold-300">
+                  둘째 날 · 핵심 의례
+                </span>
+                <span className="text-xs font-mono text-ink-muted">Day 2</span>
+              </div>
+              <h4 className="font-reverence font-bold text-lg md:text-xl text-ink mt-2 flex items-center space-x-1.5">
+                <span>殮襲 · 入棺 (궁중염습과 입관)</span>
+              </h4>
+              <p className="text-xs text-ink-muted mt-1 font-serif">
+                고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
+              </p>
+              <ul className="mt-4 space-y-2 text-xs md:text-sm text-ink-light font-serif">
+                <li className="flex items-start space-x-2">
+                  <span className="text-nobleGold-600 font-bold">•</span>
+                  <span>국가공인 1급 지도사 2인 전통 궁중 습염 집전</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-nobleGold-600 font-bold">•</span>
+                  <span>최고급 명품 수의 정갈한 착의 및 한지 장정</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-nobleGold-600 font-bold">•</span>
+                  <span>생화(生花) 꽃구름 침상 입관식 및 향낭 봉안</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-nobleGold-600 font-bold">•</span>
+                  <span>종교별 추모식(기독교·천주교·불교·유교 제례)</span>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-3 border-t border-ink-border/50 text-[11px] text-nobleGold-700 font-serif font-bold">
+              ✓ 꽃장식/수의 강매 및 촌지 요구 100% 금지
+            </div>
+          </div>
+
+          {/* 3일차 */}
+          <div className="p-6 rounded-2xl bg-white border border-ink-border shadow-xs flex flex-col justify-between space-y-4 k-corner-bracket">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-serif font-bold text-celadon-800 bg-celadon-50 px-2.5 py-1 rounded-full border border-celadon-200">
+                  셋째 날
+                </span>
+                <span className="text-xs font-mono text-ink-muted">Day 3</span>
+              </div>
+              <h4 className="font-reverence font-bold text-lg md:text-xl text-ink mt-2 flex items-center space-x-1.5">
+                <span>發靷 · 奉安 (발인과 영구안식)</span>
+              </h4>
+              <p className="text-xs text-ink-muted mt-1 font-serif">
+                고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
+              </p>
+              <ul className="mt-4 space-y-2 text-xs md:text-sm text-ink-light font-serif">
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>정중한 발인제 및 추모 영결식 거행</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>고인전용 최신형 리무진 및 가족 버스 운구</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>승화원 화장 접수 및 수골(유골함 봉안) 의식</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-celadon-700 font-bold">•</span>
+                  <span>봉안당, 수목장, 잔디장 안치 전 과정 동행</span>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-3 border-t border-ink-border/50 text-[11px] text-celadon-800 font-serif font-bold">
+              ✓ 추가 장거리 운임 바가지 일절 없음
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. 하단 배웅 4대 의전 안심 헌장 */}
       <div className="bg-celadon-900 text-white rounded-3xl p-8 md:p-12 text-center space-y-5 border border-nobleGold-500/30 shadow-lg k-corner-bracket">
         <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-celadon-800 text-nobleGold-100 text-xs md:text-sm font-serif font-bold border border-nobleGold-500/30">
           <ShieldCheck className="w-4 h-4 text-nobleGold-500" />

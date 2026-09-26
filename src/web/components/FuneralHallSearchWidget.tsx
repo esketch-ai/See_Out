@@ -48,7 +48,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
   return (
     <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
-      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border">
+      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border k-corner-bracket">
         <img
           src="/images/memorial-altar.jpg"
           alt="정갈한 장례식장 제단 꽃장식"
@@ -56,11 +56,12 @@ export const FuneralHallSearchWidget: React.FC = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-celadon-500/20 text-celadon-200 text-xs font-serif font-bold mb-2 border border-celadon-600/30 w-fit">
-            <Sparkles className="w-3.5 h-3.5" />
+            <span className="k-seal-jade text-[10px] px-1.5 py-0.2">安</span>
             <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
-            전국 장례식장 시설 정보 및 빈소 감면 안내
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight flex items-center space-x-2">
+            <span>전국 장례식장 시설 정보 및 빈소 감면 안내</span>
+            <span className="k-seal-jade text-xs px-2 py-0.5">安</span>
           </h2>
           <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
             거주지 인근 장례식장의 분향실·안치실 규모를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.

@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-import { Header } from './components/Header.js';
+import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
 import { EmergencyMode } from './components/EmergencyMode.js';
 
 export const App: React.FC = () => {
-  const [isEmergencyMode, setIsEmergencyMode] = useState(false);
+  const [currentTab, setCurrentTab] = useState<MainTab>('home');
+  const [isEmergencyMode, setIsEmergencyMode] = useState<boolean>(false);
+  const [isLargeFont, setIsLargeFont] = useState<boolean>(false);
 
   return (
-    <div className={`min-h-screen ${isEmergencyMode ? 'bg-mourning-950' : 'bg-hanji'}`}>
-      {/* 듀얼 모드 글로벌 헤더 */}
+    <div
+      className={`min-h-screen transition-all ${
+        isEmergencyMode ? 'bg-mourning-950' : 'bg-hanji'
+      } ${isLargeFont ? 'text-[112%] leading-relaxed' : ''}`}
+    >
+      {/* 듀얼 모드 & 5대 GNB 글로벌 헤더 */}
       <Header
+        currentTab={currentTab}
+        onSelectTab={(tab) => setCurrentTab(tab)}
         isEmergencyMode={isEmergencyMode}
         onToggleMode={(emergency) => setIsEmergencyMode(emergency)}
+        isLargeFont={isLargeFont}
+        onToggleLargeFont={() => setIsLargeFont(!isLargeFont)}
       />
 
-      {/* 상황별 모드 전환 렌더링 */}
+      {/* 상황별 모드 전환 및 탭 라우팅 렌더링 */}
       {isEmergencyMode ? (
         <EmergencyMode onExitEmergency={() => setIsEmergencyMode(false)} />
       ) : (
-        <div className="max-w-4xl mx-auto px-4 py-10">
-          <NormalMode onEnterEmergency={() => setIsEmergencyMode(true)} />
-          
-          <footer className="mt-20 pt-10 border-t border-ink-border text-center text-xs md:text-sm text-ink-muted space-y-3 font-serif">
-            <p className="font-bold text-ink">
+        <div className="max-w-5xl mx-auto px-4 py-8 md:py-10">
+          <NormalMode
+            currentTab={currentTab}
+            onSelectTab={(tab) => setCurrentTab(tab)}
+            onEnterEmergency={() => setIsEmergencyMode(true)}
+          />
+
+          <footer className="mt-20 pt-10 border-t-2 border-ink-border text-center text-xs md:text-sm text-ink-muted space-y-3 font-serif">
+            <p className="font-bold text-ink text-sm md:text-base">
               배웅(Bae-ung) 라이프엔딩 플랫폼 — 고인의 마지막 가시는 길, 최고의 예우로 곁을 지키겠습니다
             </p>
             <p className="text-xs text-ink-muted leading-relaxed">

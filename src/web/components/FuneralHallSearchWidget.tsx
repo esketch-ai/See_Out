@@ -228,7 +228,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
             mobileViewTab === 'map' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
           }`}
         >
-          지도 위치 보기
+          Google 지도 보기
         </button>
         {selectedHall && (
           <button

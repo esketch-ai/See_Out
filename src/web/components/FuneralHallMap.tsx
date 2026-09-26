@@ -1,6 +1,18 @@
-import React, { useState, useMemo } from 'react';
-import { FuneralHallEntity, RegionCode } from '../../funeral-halls/index.js';
-import { MapPin, Navigation, ZoomIn, ZoomOut, Layers, Building2, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { FuneralHallEntity } from '../../funeral-halls/index.js';
+import {
+  MapPin,
+  Navigation,
+  ZoomIn,
+  ZoomOut,
+  ExternalLink,
+  Layers,
+  Sparkles,
+  Train,
+  Flame,
+  Maximize2,
+  Compass
+} from 'lucide-react';
 
 interface FuneralHallMapProps {
   halls: FuneralHallEntity[];
@@ -12,8 +24,8 @@ interface FuneralHallMapProps {
 }
 
 /**
- * 한국 고지도(古地圖)와 대동여지도 수묵화 미학을 계승한
- * 전국 장례식장 인터랙티브 위치 시각화 지도 컴포넌트
+ * 실시간 Google 지도(Google Maps)를 임베드하여
+ * 장례식장 정밀 위성/도로 위치, 대중교통 노선, 승화원 경로를 직관적으로 제공하는 컴포넌트
  */
 export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
   halls,
@@ -23,338 +35,250 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
   onSelectRegion,
   className = ''
 }) => {
-  const [mapMode, setMapMode] = useState<'national' | 'capital'>('national');
-  const [hoveredHall, setHoveredHall] = useState<FuneralHallEntity | null>(null);
+  // 줌 레벨: 15 (주변 권역), 16 (표준 동네/교통), 17 (상세 건물/진입로)
+  const [zoomLevel, setZoomLevel] = useState<number>(16);
+  // 지도 모드: 'm' (일반 도로지도) | 'k' (위성사진) | 'h' (하이브리드: 위성+도로명)
+  const [mapType, setMapType] = useState<'m' | 'h'>('m');
 
-  // 수도권 필터링 여부 감지 시 자동 줌 모드 연동
-  const isCapitalFocused = mapMode === 'capital' || selectedRegion === '서울특별시' || selectedRegion === '경기도' || selectedRegion === '인천광역시';
+  // 기준 좌표 (선택된 식장 좌표, 없으면 서울 시청 기준)
+  const targetLat = selectedHall?.latitude ?? 37.5665;
+  const targetLng = selectedHall?.longitude ?? 126.9780;
 
-  // 위경도 -> SVG 투영 좌표 변환 함수
-  // 전국 뷰 바운드: Lat 34.2 ~ 38.3, Lng 125.8 ~ 129.8 (SVG 400 x 520)
-  // 수도권 뷰 바운드: Lat 37.1 ~ 37.8, Lng 126.5 ~ 127.4 (SVG 400 x 520)
-  const projectCoords = (lat?: number, lng?: number): { x: number; y: number } | null => {
-    if (!lat || !lng) return null;
+  // Google Maps Iframe 임베드 URL (API Key 없이 안정적으로 동작하는 공식 output=embed 형식)
+  const googleMapEmbedUrl = `https://maps.google.com/maps?q=${targetLat},${targetLng}&hl=ko&z=${zoomLevel}&t=${mapType}&output=embed`;
 
-    if (isCapitalFocused) {
-      // 수도권 정밀 확대 투영
-      const minLat = 37.15;
-      const maxLat = 37.75;
-      const minLng = 126.55;
-      const maxLng = 127.35;
+  // Google Maps 외부 바로가기 URL
+  const googleMapsSearchUrl = selectedHall
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${selectedHall.name} ${selectedHall.address}`
+      )}`
+    : `https://www.google.com/maps/@${targetLat},${targetLng},${zoomLevel}z?hl=ko`;
 
-      const x = ((lng - minLng) / (maxLng - minLng)) * 340 + 30;
-      const y = ((maxLat - lat) / (maxLat - minLat)) * 440 + 40;
-      return { x, y };
-    } else {
-      // 전국 매크로 투영
-      const minLat = 34.2;
-      const maxLat = 38.4;
-      const minLng = 125.8;
-      const maxLng = 129.8;
+  // Google Maps 실시간 길찾기 URL (대중교통 기준)
+  const googleMapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${targetLat},${targetLng}&travelmode=transit`;
 
-      const x = ((lng - minLng) / (maxLng - minLng)) * 320 + 40;
-      const y = ((maxLat - lat) / (maxLat - minLat)) * 450 + 35;
-      return { x, y };
-    }
+  // 카카오맵 바로가기 URL
+  const kakaoMapUrl = selectedHall
+    ? `https://map.kakao.com/link/map/${encodeURIComponent(selectedHall.name)},${targetLat},${targetLng}`
+    : '#';
+
+  // 네이버 지도 바로가기 URL
+  const naverMapUrl = selectedHall
+    ? `https://map.naver.com/v5/search/${encodeURIComponent(selectedHall.name)}`
+    : '#';
+
+  const handleZoomIn = () => {
+    setZoomLevel((prev) => Math.min(prev + 1, 18));
   };
 
-  // 현재 뷰에 표시될 식장 핀 목록
-  const mappedPins = useMemo(() => {
-    return halls
-      .map((hall) => {
-        const coords = projectCoords(hall.latitude, hall.longitude);
-        return {
-          hall,
-          coords
-        };
-      })
-      .filter((item): item is { hall: FuneralHallEntity; coords: { x: number; y: number } } => item.coords !== null);
-  }, [halls, isCapitalFocused]);
+  const handleZoomOut = () => {
+    setZoomLevel((prev) => Math.max(prev - 1, 12));
+  };
 
   return (
-    <div className={`relative rounded-xl border border-[#E3DFD5] bg-[#FAF8F5] overflow-hidden shadow-xs select-none flex flex-col ${className}`}>
-      {/* 1. 지도 상단 툴바: 권역 필터 및 줌 모드 토글 */}
-      <div className="bg-[#FFFFFF]/90 backdrop-blur-xs border-b border-[#E3DFD5] px-3.5 py-2.5 flex items-center justify-between z-20">
+    <div className={`rounded-xl border border-[#E3DFD5] bg-[#FFFFFF] shadow-sm overflow-hidden flex flex-col ${className}`}>
+      {/* 1. 상단 컨트롤 바: Google Maps 상태, 식장명, 뷰 모드 및 줌 컨트롤 */}
+      <div className="bg-[#FAF9F6] border-b border-[#E3DFD5] p-3 md:px-4 md:py-3 flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#9E7D47]" />
-          <span className="text-xs font-serif font-bold text-[#151719]">
-            {isCapitalFocused ? '수도권(서울·경기·인천) 정밀 지도' : '대한민국 전국 장사 인프라 지도'}
-          </span>
-          <span className="text-[11px] text-[#727782] font-serif hidden sm:inline">
-            (핀을 누르시면 해당 식장의 상세 제원이 즉시 열립니다)
-          </span>
+          {/* Google Maps 공식 컬러 팔레트 인디케이터 */}
+          <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E3DFD5] text-[11px] font-bold text-[#151719] shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#4285F4]" />
+            <span className="w-2 h-2 rounded-full bg-[#EA4335]" />
+            <span className="w-2 h-2 rounded-full bg-[#FBBC05]" />
+            <span className="w-2 h-2 rounded-full bg-[#34A853]" />
+            <span className="ml-1 text-[#42464E]">Google 지도</span>
+          </div>
+
+          <div className="text-xs font-serif font-bold text-[#151719] truncate max-w-[180px] sm:max-w-xs">
+            {selectedHall ? (
+              <span className="flex items-center space-x-1">
+                <MapPin className="w-3.5 h-3.5 text-[#EA4335] shrink-0 fill-[#EA4335]/20" />
+                <span className="truncate">{selectedHall.name}</span>
+              </span>
+            ) : (
+              <span>전국 장례식장 위치 안내</span>
+            )}
+          </div>
         </div>
 
-        {/* 뷰 모드 전환 버튼 */}
-        <div className="flex bg-[#F0EDE6] p-0.5 rounded border border-[#E3DFD5] text-[11px] font-serif">
-          <button
-            onClick={() => setMapMode('national')}
-            className={`px-2 py-1 rounded transition-all cursor-pointer ${
-              !isCapitalFocused ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
-            }`}
+        {/* 컨트롤 버튼 그룹: 줌 / 지도 모드 / 길찾기 */}
+        <div className="flex items-center space-x-1.5 text-xs font-serif">
+          {/* 일반 지도 / 위성 지도 토글 */}
+          <div className="flex bg-[#EFECE6] p-0.5 rounded border border-[#E3DFD5] text-[11px]">
+            <button
+              onClick={() => setMapType('m')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                mapType === 'm'
+                  ? 'bg-[#19382C] text-white font-bold shadow-2xs'
+                  : 'text-[#5C6166] hover:text-[#151719]'
+              }`}
+            >
+              일반 도로
+            </button>
+            <button
+              onClick={() => setMapType('h')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                mapType === 'h'
+                  ? 'bg-[#19382C] text-white font-bold shadow-2xs'
+                  : 'text-[#5C6166] hover:text-[#151719]'
+              }`}
+            >
+              위성 하이브리드
+            </button>
+          </div>
+
+          {/* 줌 확대/축소 버튼 */}
+          <div className="flex bg-[#FFFFFF] border border-[#E3DFD5] rounded shadow-2xs">
+            <button
+              onClick={handleZoomIn}
+              disabled={zoomLevel >= 18}
+              className="p-1 hover:bg-[#FAF9F6] disabled:opacity-30 cursor-pointer text-[#151719]"
+              title="지도 확대"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+            <span className="w-px bg-[#E3DFD5]" />
+            <button
+              onClick={handleZoomOut}
+              disabled={zoomLevel <= 12}
+              className="p-1 hover:bg-[#FAF9F6] disabled:opacity-30 cursor-pointer text-[#151719]"
+              title="지도 축소"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Google 실시간 대중교통 길찾기 */}
+          <a
+            href={googleMapsDirectionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-2.5 py-1 bg-[#19382C] hover:bg-[#224A3B] text-white rounded font-bold text-[11px] flex items-center space-x-1 shadow-2xs transition-all cursor-pointer"
+            title="Google 지도에서 실시간 대중교통 및 자동차 길찾기 열기"
           >
-            전국 뷰
-          </button>
-          <button
-            onClick={() => setMapMode('capital')}
-            className={`px-2 py-1 rounded transition-all cursor-pointer ${
-              isCapitalFocused ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
-            }`}
+            <Navigation className="w-3 h-3 text-[#C2A26A]" />
+            <span className="hidden sm:inline">Google 길찾기</span>
+            <span className="sm:hidden">길찾기</span>
+          </a>
+
+          {/* Google 지도 새창 크게보기 */}
+          <a
+            href={googleMapsSearchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1 bg-[#FFFFFF] hover:bg-[#FAF9F6] border border-[#E3DFD5] rounded text-[#42464E] shadow-2xs transition-all cursor-pointer"
+            title="Google 지도 새 탭에서 크게 보기"
           >
-            수도권 확대
-          </button>
+            <Maximize2 className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
 
-      {/* 2. 메인 지도 캔버스 (SVG 인터랙티브 맵) */}
-      <div className="relative flex-1 min-h-[360px] md:min-h-[440px] flex items-center justify-center overflow-hidden">
-        {/* 고지도 한지 질감 워터마크 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-15" />
+      {/* 2. 빠른 식장 탐색 칩 바 (목록 내 다른 식장으로 즉시 Google 지도 이동) */}
+      <div className="bg-[#FAF8F5] border-b border-[#E3DFD5] px-3 py-1.5 flex items-center gap-1.5 overflow-x-auto text-[11px] font-serif">
+        <span className="shrink-0 text-[#727782] font-medium flex items-center space-x-1">
+          <Compass className="w-3 h-3 text-[#9E7D47]" />
+          <span>위치 바로보기:</span>
+        </span>
+        {halls.slice(0, 10).map((hall) => {
+          const isSelected = selectedHall?.id === hall.id;
+          return (
+            <button
+              key={hall.id}
+              onClick={() => onSelectHall(hall)}
+              className={`px-2 py-0.5 rounded-full shrink-0 transition-all cursor-pointer border ${
+                isSelected
+                  ? 'bg-[#19382C] text-white border-[#19382C] font-bold shadow-2xs'
+                  : 'bg-[#FFFFFF] text-[#42464E] border-[#E3DFD5] hover:border-[#9E7D47]'
+              }`}
+            >
+              {hall.isBaeungPartner && <span className="text-[#C2A26A] mr-0.5">★</span>}
+              {hall.name.length > 9 ? hall.name.slice(0, 9) + '…' : hall.name}
+            </button>
+          );
+        })}
+        {halls.length > 10 && (
+          <span className="text-[10px] text-[#727782] shrink-0">
+            외 {halls.length - 10}곳 (좌측 목록 참조)
+          </span>
+        )}
+      </div>
 
-        <svg
-          viewBox="0 0 400 520"
-          className="w-full h-full max-h-[500px] object-contain transition-all duration-500"
-        >
-          <defs>
-            {/* 고지도 음영 필터 */}
-            <radialGradient id="landGradient" cx="50%" cy="45%" r="65%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#F2ECE0" stopOpacity="0.75" />
-            </radialGradient>
-            <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="1" dy="2" stdDeviation="2" floodColor="#151719" floodOpacity="0.08" />
-            </filter>
-          </defs>
+      {/* 3. Google Maps Iframe 본체 */}
+      <div className="relative w-full h-[360px] md:h-[420px] bg-[#E5E3DF] overflow-hidden">
+        <iframe
+          key={`${targetLat}-${targetLng}-${zoomLevel}-${mapType}`}
+          src={googleMapEmbedUrl}
+          title={selectedHall ? `${selectedHall.name} Google 지도 위치` : 'Google 지도'}
+          className="w-full h-full border-0"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+        />
 
-          {/* 수묵 방위표 (동서남북) */}
-          <g transform="translate(345, 45)" className="opacity-40">
-            <circle cx="15" cy="15" r="14" fill="none" stroke="#9E7D47" strokeWidth="0.75" strokeDasharray="2,2" />
-            <line x1="15" y1="3" x2="15" y2="27" stroke="#9E7D47" strokeWidth="1" />
-            <line x1="3" y1="15" x2="27" y2="15" stroke="#9E7D47" strokeWidth="1" />
-            <text x="15" y="7" textAnchor="middle" fontSize="6" fontFamily="Noto Serif KR" fontWeight="bold" fill="#151719">北</text>
-            <text x="15" y="26" textAnchor="middle" fontSize="6" fontFamily="Noto Serif KR" fill="#151719">南</text>
-            <text x="25" y="17" textAnchor="middle" fontSize="6" fontFamily="Noto Serif KR" fill="#151719">東</text>
-            <text x="5" y="17" textAnchor="middle" fontSize="6" fontFamily="Noto Serif KR" fill="#151719">西</text>
-          </g>
+        {/* 선택 식장 플로팅 정보 배너 (Google 지도 좌측 상단 오버레이) */}
+        {selectedHall && (
+          <div className="absolute top-2.5 left-2.5 max-w-[280px] sm:max-w-xs bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#E3DFD5] rounded-lg p-2.5 shadow-md text-xs font-serif space-y-1 pointer-events-auto">
+            <div className="flex items-center justify-between gap-1">
+              <span className="font-bold text-[#151719] truncate">{selectedHall.name}</span>
+              {selectedHall.isBaeungPartner && (
+                <span className="shrink-0 text-[10px] font-bold bg-[#F0F5F2] text-[#19382C] px-1.5 py-0.2 rounded border border-[#BFD4CA]">
+                  {Math.round(selectedHall.discountRate * 100)}% 감면
+                </span>
+              )}
+            </div>
+            <div className="text-[11px] text-[#5C6166] truncate">{selectedHall.address}</div>
+            {selectedHall.nearestSubway && (
+              <div className="text-[10px] text-[#19382C] flex items-center space-x-1">
+                <Train className="w-3 h-3 shrink-0" />
+                <span className="truncate">{selectedHall.nearestSubway}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
-          {/* 배경 지도 지형 윤곽 (수묵 실루엣) */}
-          {!isCapitalFocused ? (
-            /* 대한민국 전도 실루엣 (전국 뷰) */
-            <g filter="url(#shadowSoft)">
-              {/* 한반도 본토 백터 라인 */}
-              <path
-                d="M 125 35 
-                   C 145 35, 175 42, 215 50 
-                   C 260 60, 275 90, 275 140 
-                   C 275 180, 295 210, 290 260 
-                   C 285 300, 315 340, 315 390 
-                   C 315 415, 290 425, 265 425 
-                   C 230 425, 210 440, 170 435 
-                   C 120 430, 85 410, 85 385 
-                   C 85 340, 115 315, 110 270 
-                   C 105 230, 85 190, 95 145 
-                   C 100 120, 120 100, 115 70 
-                   Z"
-                fill="url(#landGradient)"
-                stroke="#CFC7B8"
-                strokeWidth="1.2"
-                strokeLinejoin="round"
-              />
-              {/* 제주도 */}
-              <ellipse cx="110" cy="485" rx="30" ry="14" fill="url(#landGradient)" stroke="#CFC7B8" strokeWidth="1" />
-              <text x="110" y="487" textAnchor="middle" fontSize="8" fontFamily="Noto Serif KR" fill="#727782">제주도</text>
-
-              {/* 울릉도 및 독도 */}
-              <circle cx="360" cy="180" r="6" fill="url(#landGradient)" stroke="#CFC7B8" strokeWidth="0.8" />
-              <circle cx="380" cy="190" r="3" fill="url(#landGradient)" stroke="#CFC7B8" strokeWidth="0.8" />
-              <text x="360" y="193" textAnchor="middle" fontSize="6" fontFamily="Noto Serif KR" fill="#727782">울릉도</text>
-              <text x="380" y="200" textAnchor="middle" fontSize="5" fontFamily="Noto Serif KR" fill="#727782">독도</text>
-
-              {/* 주요 권역 캘리그래피 명칭 */}
-              <text x="140" y="125" fontSize="11" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">서울·경기</text>
-              <text x="240" y="145" fontSize="10" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">강원</text>
-              <text x="160" y="235" fontSize="10" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">충청·세종</text>
-              <text x="240" y="295" fontSize="10" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">경북·대구</text>
-              <text x="140" y="365" fontSize="10" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">전라·광주</text>
-              <text x="260" y="380" fontSize="10" fontFamily="Noto Serif KR" fontWeight="bold" fill="#727782" opacity="0.6">경남·부산</text>
-            </g>
-          ) : (
-            /* 수도권 정밀 확대 뷰 (서울·경기·인천) */
-            <g filter="url(#shadowSoft)">
-              {/* 경기도 외곽 윤곽 */}
-              <path
-                d="M 60 40 
-                   C 120 30, 250 35, 330 65 
-                   C 365 110, 360 210, 345 320 
-                   C 325 410, 260 460, 180 470 
-                   C 100 480, 50 420, 45 340 
-                   C 40 250, 45 150, 60 40 Z"
-                fill="url(#landGradient)"
-                stroke="#CFC7B8"
-                strokeWidth="1.4"
-                strokeLinejoin="round"
-              />
-              {/* 서울특별시 특별 경계선 */}
-              <path
-                d="M 160 170 
-                   C 210 160, 265 175, 275 220 
-                   C 285 260, 240 300, 190 295 
-                   C 145 290, 135 240, 145 200 
-                   C 150 185, 155 175, 160 170 Z"
-                fill="#F7F3EA"
-                stroke="#9E7D47"
-                strokeWidth="1.2"
-                strokeDasharray="3,2"
-              />
-              <text x="205" y="240" textAnchor="middle" fontSize="13" fontFamily="Noto Serif KR" fontWeight="bold" fill="#151719" opacity="0.35">
-                서울특별시
-              </text>
-
-              {/* 한강 수계 라인 */}
-              <path
-                d="M 285 225 C 240 230, 210 250, 165 240 C 130 230, 95 210, 65 200"
-                fill="none"
-                stroke="#B8CBD0"
-                strokeWidth="2.5"
-                strokeOpacity="0.6"
-                strokeLinecap="round"
-              />
-              <text x="250" y="222" fontSize="8" fontFamily="Noto Serif KR" fill="#6A8995" opacity="0.8">한강</text>
-
-              {/* 인천광역시 */}
-              <path
-                d="M 65 210 C 95 215, 115 245, 105 285 C 80 290, 60 260, 65 210 Z"
-                fill="#FAF6EE"
-                stroke="#A8B2A9"
-                strokeWidth="0.9"
-              />
-              <text x="85" y="255" textAnchor="middle" fontSize="9" fontFamily="Noto Serif KR" fill="#727782" opacity="0.6">인천</text>
-            </g>
+      {/* 4. 지도 하단 멀티 네비게이션 연동 풋바 */}
+      <div className="bg-[#FAF9F6] border-t border-[#E3DFD5] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-serif">
+        <div className="flex items-center space-x-1.5 text-[#727782]">
+          <span>좌표: {targetLat.toFixed(4)}, {targetLng.toFixed(4)}</span>
+          {selectedHall?.nearestCrematorium && (
+            <>
+              <span>•</span>
+              <span className="text-[#8B2520] flex items-center space-x-1 font-medium">
+                <Flame className="w-3 h-3 text-[#8B2520]" />
+                <span>연계 승화원: {selectedHall.nearestCrematorium} ({selectedHall.crematoriumDistanceKm}km, {selectedHall.crematoriumTravelMinutes}분)</span>
+              </span>
+            </>
           )}
-
-          {/* 3. 장례식장 위치 핀 (Interactive Markers) */}
-          {mappedPins.map(({ hall, coords }) => {
-            const isSelected = selectedHall?.id === hall.id;
-            const isHovered = hoveredHall?.id === hall.id;
-            const isPartner = hall.isBaeungPartner;
-
-            return (
-              <g
-                key={hall.id}
-                transform={`translate(${coords.x}, ${coords.y})`}
-                onClick={() => onSelectHall(hall)}
-                onMouseEnter={() => setHoveredHall(hall)}
-                onMouseLeave={() => setHoveredHall(null)}
-                className="cursor-pointer group"
-              >
-                {/* 선택 시 파동 펄스 애니메이션 링 */}
-                {isSelected && (
-                  <>
-                    <circle cx="0" cy="0" r="16" fill="#9E7D47" fillOpacity="0.25" className="animate-ping" />
-                    <circle cx="0" cy="0" r="12" fill="none" stroke="#9E7D47" strokeWidth="1.5" />
-                  </>
-                )}
-
-                {/* 제휴 식장(할인 혜택) 시 황동 후광 */}
-                {isPartner && !isSelected && (
-                  <circle cx="0" cy="0" r="9" fill="#9E7D47" fillOpacity="0.18" />
-                )}
-
-                {/* 핀 심볼 베이스 */}
-                <circle
-                  cx="0"
-                  cy="0"
-                  r={isSelected ? 6.5 : isHovered ? 6 : isPartner ? 5 : 4}
-                  fill={isSelected ? '#9E7D47' : isPartner ? '#19382C' : '#42464E'}
-                  stroke="#FFFFFF"
-                  strokeWidth={isSelected ? 2 : 1.2}
-                  className="transition-all duration-200"
-                />
-
-                {/* 핀 중앙 엠블럼 점 */}
-                <circle
-                  cx="0"
-                  cy="0"
-                  r={isSelected ? 2 : 1.5}
-                  fill={isSelected ? '#FFFFFF' : isPartner ? '#C2A26A' : '#FAF9F6'}
-                />
-
-                {/* 핀 라벨 (선택 또는 호버 시 선명하게 노출) */}
-                {(isSelected || isHovered) && (
-                  <g transform="translate(0, -12)" filter="url(#shadowSoft)">
-                    {/* 라벨 배경 카드 */}
-                    <rect
-                      x="-65"
-                      y="-26"
-                      width="130"
-                      height="24"
-                      rx="4"
-                      fill="#121417"
-                      stroke={isSelected ? '#9E7D47' : '#2D2A26'}
-                      strokeWidth="1"
-                    />
-                    {/* 말풍선 꼭지 */}
-                    <polygon points="-4,-2 0,2 4,-2" fill="#121417" />
-                    {/* 식장 명칭 */}
-                    <text
-                      x="0"
-                      y="-14"
-                      textAnchor="middle"
-                      fill="#FAF9F6"
-                      fontSize="9.5"
-                      fontWeight="bold"
-                      fontFamily="Noto Serif KR"
-                    >
-                      {hall.name.length > 9 ? hall.name.slice(0, 9) + '…' : hall.name}
-                    </text>
-                    {/* 감면 혜택 뱃지 */}
-                    {isPartner && (
-                      <text
-                        x="0"
-                        y="-4"
-                        textAnchor="middle"
-                        fill="#C2A26A"
-                        fontSize="7.5"
-                        fontFamily="Noto Serif KR"
-                      >
-                        배웅 {Math.round(hall.discountRate * 100)}% 감면
-                      </text>
-                    )}
-                  </g>
-                )}
-              </g>
-            );
-          })}
-        </svg>
-
-        {/* 4. 지도 좌측 하단 나침반 및 축척 범례 */}
-        <div className="absolute bottom-2.5 left-3 bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#E3DFD5] rounded-md p-2 text-[10px] font-serif shadow-xs space-y-1">
-          <div className="font-bold text-[#151719] flex items-center space-x-1">
-            <span>지도 범례</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-[#19382C]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#19382C] border border-white inline-block" />
-            <span>배웅 제휴 식장 (최대 30% 감면)</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-[#42464E]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#42464E] border border-white inline-block" />
-            <span>일반 등록 장례식장</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-[#9E7D47]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#9E7D47] ring-1 ring-[#9E7D47] inline-block" />
-            <span className="font-bold">현재 선택된 장례식장</span>
-          </div>
         </div>
 
-        {/* 5. 우측 하단 컨트롤러 */}
-        <div className="absolute bottom-2.5 right-3 flex flex-col space-y-1">
-          <button
-            onClick={() => setMapMode(isCapitalFocused ? 'national' : 'capital')}
-            className="p-1.5 rounded-md bg-[#FFFFFF] border border-[#E3DFD5] shadow-xs text-[#151719] hover:bg-[#FAF9F6] cursor-pointer"
-            title={isCapitalFocused ? '전국 지도로 축소' : '수도권 지도로 확대'}
-          >
-            {isCapitalFocused ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
-          </button>
+        {/* 국내 지도(카카오/네이버) 바로가기 옵션 */}
+        <div className="flex items-center space-x-2 text-[#5C6166]">
+          <span className="text-[#727782] hidden sm:inline">다른 지도 앱:</span>
+          {selectedHall && (
+            <>
+              <a
+                href={kakaoMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#151719] hover:underline flex items-center space-x-0.5 text-[#3C1E1E]"
+              >
+                <span>카카오맵</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+              <span>|</span>
+              <a
+                href={naverMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#151719] hover:underline flex items-center space-x-0.5 text-[#03C75A] font-medium"
+              >
+                <span>네이버지도</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+            </>
+          )}
         </div>
       </div>
     </div>

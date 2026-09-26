@@ -1,0 +1,17 @@
+# Andrej Karpathy's 4 Engineering Principles for SeeOut Platform
+
+1. [Understand & Inspect Data Thoroughly]
+   - Always inspect the raw source data (Google Docs, e하늘 API, certificates) directly before coding.
+   - Do not guess schema structures or make assumptions about data anomalies.
+
+2. [Start with a Simple, Dumb Baseline First]
+   - Build a minimal end-to-end working baseline first.
+   - Avoid premature abstraction, unnecessary dependencies, and over-engineering.
+
+3. [Verify Obsessively & Overfit a Single Batch]
+   - Write deterministic unit tests for single samples first.
+   - Ensure 100% assertions pass on concrete cases before processing full batches.
+
+4. [Iterate and Generalize Progressively]
+   - Change one variable or feature at a time.
+   - Validate regression after every iteration.

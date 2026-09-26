@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, ArrowRight, ShieldCheck, HeartHandshake, PhoneCall } from 'lucide-react';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
+import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
 import { LifeArchiveWidget } from './LifeArchiveWidget.js';
 import { PackagePricingWidget } from './PackagePricingWidget.js';
 
@@ -37,7 +38,12 @@ export const NormalMode: React.FC<{ onEnterEmergency: () => void }> = ({ onEnter
         <QuoteDiagnosticsWidget />
       </section>
 
-      {/* 2. 생애기록관 (Pre-mortem 아카이빙) */}
+      {/* 2. 전국 장례식장 시설비 & 제휴 할인 검색 (트랙 3 연동) */}
+      <section>
+        <FuneralHallSearchWidget />
+      </section>
+
+      {/* 3. 생애기록관 (Pre-mortem 아카이빙) */}
       <section>
         <LifeArchiveWidget />
       </section>

@@ -3,50 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>배웅 (Bae-ung) — 투명 원가 기반 라이프엔딩 종합 플랫폼</title>
+    <title>배웅 (Bae-ung) — 삼가 고인의 명복을 빌며, 정직한 예우로 모십니다</title>
+    
+    <!-- 구글 Noto Serif KR (경건한 명조체) & Pretendard -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              primary: {
-                50: '#f0fdf4',
-                600: '#16a34a',
-                700: '#15803d',
-                800: '#166534',
-                900: '#14532d'
-              },
-              emergency: {
-                50: '#fef2f2',
-                500: '#ef4444',
-                600: '#dc2626',
-                700: '#b91c1c',
-                900: '#7f1d1d'
-              }
+            fontFamily: {
+              serif: ['"Noto Serif KR"', 'serif'],
+              sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             },
-            minHeight: {
-              'touch': '56px'
+            colors: {
+              hanji: '#FAF8F5',
+              porcelain: '#FFFFFF',
+              ink: {
+                DEFAULT: '#1F2226',
+                light: '#4B5259',
+                muted: '#6C757D',
+                border: '#E3DFD7'
+              },
+              celadon: {
+                50: '#F2F6F4',
+                100: '#E2ECE8',
+                200: '#C7D9D1',
+                600: '#2D4F43',
+                700: '#243F35',
+                800: '#1C312A',
+                900: '#13221D'
+              },
+              nobleGold: {
+                50: '#FBF9F5',
+                100: '#F6F1E6',
+                500: '#94784C',
+                600: '#7F673E',
+                700: '#695532'
+              },
+              mourning: {
+                800: '#212529',
+                900: '#16191D',
+                950: '#0E1012'
+              },
+              crimson: {
+                50: '#FDF2F2',
+                600: '#A33B32',
+                700: '#8A2F27'
+              }
             }
           }
         }
       }
     </script>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
       body {
         font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        background-color: #FAF8F5;
+        color: #1F2226;
         -webkit-font-smoothing: antialiased;
+        word-break: keep-all;
       }
-      .btn-senior {
-        min-height: 56px;
-        font-size: 1.125rem; /* 18px */
+      .font-reverence {
+        font-family: "Noto Serif KR", Georgia, serif;
+      }
+      .btn-senior-reverence {
+        min-height: 64px;
+        font-size: 1.25rem; /* 20px */
         font-weight: 700;
-        border-radius: 12px;
+        border-radius: 16px;
+        letter-spacing: -0.01em;
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-900 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+  <body class="bg-hanji text-ink selection:bg-celadon-100 selection:text-celadon-900">
     <div id="root"></div>
     <script type="module" src="/src/web/main.tsx"></script>
   </body>

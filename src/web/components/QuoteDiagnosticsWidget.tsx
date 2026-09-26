@@ -9,7 +9,7 @@ import {
   HiddenCostSeverity,
   BAEUNG_PACKAGES
 } from '../../quote-diagnostics/index.js';
-import { Calculator, ArrowRight, ShieldCheck, AlertCircle, Sparkles, Receipt, CheckCircle } from 'lucide-react';
+import { Sparkles, Receipt, AlertCircle, ShieldCheck } from 'lucide-react';
 
 export const QuoteDiagnosticsWidget: React.FC = () => {
   // 프리셋 선택 상태
@@ -66,61 +66,67 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
 
     return QuoteDiagnosticsEngine.diagnose({
       certificate: cert,
-      clientName: '회원님',
+      clientName: '유족 가족',
       packageType,
       hiddenCostSeverity
     });
   }, [competitorName, productName, totalContractAmount, totalInstallments, paidInstallments, hasMaturityRefund100, packageType, hiddenCostSeverity]);
 
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-8 space-y-8">
-      {/* 타이틀 헤더 */}
-      <div>
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold mb-2">
+    <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
+      {/* 타이틀 헤더: 품격과 예의 */}
+      <div className="border-b border-ink-border pb-6">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-700 text-xs font-serif font-bold mb-3 border border-nobleGold-500/20">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>공정거래위원회 고시 기준 1:1 영수증 비교</span>
+          <span>공정거래위원회 고시 법정 기준 진단</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-          내 상조 견적 진단기 — 손익 계산 시뮬레이터
+        <h2 className="text-2xl md:text-3xl font-reverence font-black text-ink tracking-tight">
+          기존 상조 증서 정밀 예법 · 원가 진단표
         </h2>
-        <p className="text-gray-600 mt-1.5 text-base">
-          기존 선불식 상조를 해약하고 환급금을 받아 배웅으로 전환했을 때 남는 **순 절감액**을 실시간으로 확인하세요.
+        <p className="text-ink-light mt-2 text-base md:text-lg leading-relaxed">
+          유족의 슬픔을 이용하는 현장 추가금 관행을 차단하고, 공정위 법정 해약환급금과 배웅의 정직한 실비를 1:1로 투명하게 대조해 드립니다.
         </p>
       </div>
 
       {/* 벤치마크 퀵 선택 탭 */}
       <div className="space-y-3">
-        <label className="text-sm font-bold text-gray-700">대표 상조사 상품 예시로 즉시 계산해보기</label>
-        <div className="grid grid-cols-3 gap-2">
+        <label className="text-base font-bold text-ink block">
+          보유 중이신 상조 상품 예시 선택
+        </label>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { key: 'B', name: 'B상조 450 (42회)', desc: '중도 납입 28%' },
-            { key: 'P', name: 'P상조 590 (80회)', desc: '후반부 66%' },
-            { key: 'H', name: 'H상조 480 (만기)', desc: '100% 완납 특약' }
+            { key: 'B', name: 'B상조 450 (42회 납입)', desc: '중도 28% 진행 상태' },
+            { key: 'P', name: 'P상조 590 (80회 납입)', desc: '후반부 66% 납입 상태' },
+            { key: 'H', name: 'H상조 480 (만기 완납)', desc: '100% 만기 환급 특약' }
           ].map((item) => (
             <button
               key={item.key}
               onClick={() => handleSelectPreset(item.key as any)}
-              className={`p-3 rounded-2xl text-left border-2 transition-all ${
+              className={`p-4 rounded-2xl text-left border-2 transition-all ${
                 selectedPreset === item.key
-                  ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold'
-                  : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                  ? 'border-celadon-700 bg-celadon-50/70 text-celadon-900 shadow-sm ring-1 ring-celadon-700/20'
+                  : 'border-ink-border hover:border-ink-muted/50 bg-hanji/50 text-ink-light'
               }`}
             >
-              <div className="text-sm md:text-base font-extrabold">{item.name}</div>
-              <div className="text-xs text-gray-500 mt-0.5">{item.desc}</div>
+              <div className="text-base font-reverence font-bold text-ink">{item.name}</div>
+              <div className="text-xs text-ink-muted mt-1">{item.desc}</div>
             </button>
           ))}
         </div>
       </div>
 
-      {/* 슬라이더 인터랙션 컨트롤러 */}
-      <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200 space-y-5">
-        <div className="flex justify-between items-center">
-          <span className="text-sm font-bold text-gray-700">현재 납입 회차 조절</span>
-          <span className="text-lg font-black text-emerald-700">
-            {paidInstallments}회 / {totalInstallments}회 ({report.statutoryRefund.progressRatioPercentage}%)
+      {/* 슬라이더 컨트롤러 (시니어 친화적 대형 인터페이스) */}
+      <div className="bg-hanji rounded-3xl p-6 border border-ink-border space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+          <div>
+            <span className="text-base font-bold text-ink">현재까지 납입하신 회차 조절</span>
+            <p className="text-xs text-ink-muted">슬라이더를 좌우로 움직여 회차별 환급금을 확인하실 수 있습니다</p>
+          </div>
+          <span className="text-2xl font-reverence font-bold text-celadon-800">
+            {paidInstallments}회 / 총 {totalInstallments}회 ({report.statutoryRefund.progressRatioPercentage}%)
           </span>
         </div>
+
         <input
           type="range"
           min={1}
@@ -130,22 +136,22 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             setSelectedPreset('custom');
             setPaidInstallments(Number(e.target.value));
           }}
-          className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+          className="w-full h-3 bg-ink-border rounded-lg appearance-none cursor-pointer accent-celadon-700"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          {/* 배웅 전환 패키지 선택 */}
+          {/* 배웅 실비 의전 패키지 선택 */}
           <div>
-            <label className="text-xs font-bold text-gray-600 block mb-1.5">배웅 전환 패키지 선택</label>
-            <div className="grid grid-cols-3 gap-1.5">
+            <label className="text-sm font-bold text-ink block mb-2">배웅 정찰제 의전 선택</label>
+            <div className="grid grid-cols-3 gap-2">
               {(['simple_non_hall', 'economic_3day', 'standard_3day'] as BaeungPackageType[]).map((pkg) => (
                 <button
                   key={pkg}
                   onClick={() => setPackageType(pkg)}
-                  className={`py-2 px-1 text-xs rounded-xl font-bold border transition-all ${
+                  className={`py-3 px-2 text-xs rounded-xl font-bold border transition-all ${
                     packageType === pkg
-                      ? 'border-emerald-600 bg-white text-emerald-800 shadow-sm'
-                      : 'border-gray-200 text-gray-500 hover:bg-gray-100'
+                      ? 'border-celadon-700 bg-porcelain text-celadon-900 shadow-sm ring-1 ring-celadon-700/20'
+                      : 'border-ink-border text-ink-muted hover:bg-porcelain'
                   }`}
                 >
                   {pkg === 'simple_non_hall' ? '무빈소(120만)' : pkg === 'economic_3day' ? '실속형(250만)' : '표준형(350만)'}
@@ -154,22 +160,22 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             </div>
           </div>
 
-          {/* 현장 추가금 강도 */}
+          {/* 기존 상조 현장 추가금 예상 수준 */}
           <div>
-            <label className="text-xs font-bold text-gray-600 block mb-1.5">기존 상조 현장 추가금 예상 수준</label>
-            <div className="grid grid-cols-3 gap-1.5">
+            <label className="text-sm font-bold text-ink block mb-2">기존 상조 현장 추가금 통계</label>
+            <div className="grid grid-cols-3 gap-2">
               {[
-                { id: 'conservative', label: '최소(+180만)' },
-                { id: 'average', label: '평균(+285만)' },
-                { id: 'aggressive', label: '최대(+500만)' }
+                { id: 'conservative', label: '최소 (+180만)' },
+                { id: 'average', label: '평균 (+285만)' },
+                { id: 'aggressive', label: '최대 (+500만)' }
               ].map((sev) => (
                 <button
                   key={sev.id}
                   onClick={() => setHiddenCostSeverity(sev.id as any)}
-                  className={`py-2 px-1 text-xs rounded-xl font-bold border transition-all ${
+                  className={`py-3 px-2 text-xs rounded-xl font-bold border transition-all ${
                     hiddenCostSeverity === sev.id
-                      ? 'border-red-500 bg-red-50 text-red-800 shadow-sm'
-                      : 'border-gray-200 text-gray-500 hover:bg-gray-100'
+                      ? 'border-crimson-600 bg-crimson-50 text-crimson-700 shadow-sm'
+                      : 'border-ink-border text-ink-muted hover:bg-porcelain'
                   }`}
                 >
                   {sev.label}
@@ -180,35 +186,35 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 1:1 맞춤 영수증 좌우 대조 UI (핵심 시각화) */}
+      {/* 1:1 맞춤 영수증 좌우 대조표 (품격과 정갈한 대조) */}
       <div className="space-y-4">
-        <div className="flex items-center space-x-2 text-gray-900 font-extrabold text-lg">
-          <Receipt className="w-5 h-5 text-emerald-600" />
-          <span>1:1 맞춤 영수증 실시간 비교표</span>
+        <div className="flex items-center space-x-2 text-ink font-reverence font-bold text-xl">
+          <Receipt className="w-5 h-5 text-nobleGold-500" />
+          <span>1:1 정밀 영수증 대조 비교표</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* [좌] 기존 상조 유지 시 영수증 */}
-          <div className="bg-red-50/50 border-2 border-red-200 rounded-3xl p-5 flex flex-col justify-between">
+          <div className="bg-hanji/80 border-2 border-crimson-600/30 rounded-3xl p-6 flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="border-b border-red-200 pb-3">
-                <span className="text-xs font-bold text-red-600 bg-red-100 px-2.5 py-0.5 rounded-full">
-                  기존 방식 유지 시
+              <div className="border-b border-ink-border pb-3.5">
+                <span className="text-xs font-serif font-bold text-crimson-700 bg-crimson-50 px-3 py-1 rounded-full border border-crimson-600/20">
+                  기존 선불식 상조 유지 시
                 </span>
-                <h3 className="text-lg font-black text-gray-900 mt-1.5">
+                <h3 className="text-lg md:text-xl font-reverence font-bold text-ink mt-2">
                   {report.leftCompetitorReceipt.title}
                 </h3>
-                <p className="text-xs text-gray-500">{report.leftCompetitorReceipt.subtitle}</p>
+                <p className="text-xs text-ink-muted mt-1">{report.leftCompetitorReceipt.subtitle}</p>
               </div>
 
-              <div className="space-y-2.5 text-sm">
+              <div className="space-y-3 text-sm md:text-base">
                 {report.leftCompetitorReceipt.lineItems.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center">
-                    <span className={item.isWarning ? 'text-red-700 font-bold flex items-center space-x-1' : 'text-gray-700'}>
-                      {item.isWarning && <AlertCircle className="w-3.5 h-3.5 inline mr-1 text-red-500" />}
+                    <span className={item.isWarning ? 'text-crimson-700 font-bold flex items-center' : 'text-ink-light'}>
+                      {item.isWarning && <AlertCircle className="w-4 h-4 inline mr-1 text-crimson-600 shrink-0" />}
                       <span>{item.name}</span>
                     </span>
-                    <span className="font-extrabold text-gray-900">
+                    <span className="font-reverence font-bold text-ink">
                       +{item.amount.toLocaleString()}원
                     </span>
                   </div>
@@ -216,34 +222,34 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t-2 border-red-200 flex justify-between items-center">
-              <span className="font-bold text-red-900">예상 총 지출</span>
-              <span className="text-2xl font-black text-red-600">
+            <div className="mt-8 pt-5 border-t-2 border-crimson-600/20 flex justify-between items-center">
+              <span className="font-reverence font-bold text-ink text-base">예상 실질 총부담</span>
+              <span className="text-2xl md:text-3xl font-reverence font-black text-crimson-700">
                 {report.summary.competitorTotalCost.toLocaleString()}원
               </span>
             </div>
           </div>
 
-          {/* [우] 배웅 전환 시 영수증 */}
-          <div className="bg-emerald-50/60 border-2 border-emerald-500 rounded-3xl p-5 flex flex-col justify-between shadow-md ring-4 ring-emerald-500/10">
+          {/* [우] 배웅 정직 실비 전환 시 영수증 */}
+          <div className="bg-celadon-50/50 border-2 border-celadon-600 rounded-3xl p-6 flex flex-col justify-between shadow-md ring-4 ring-celadon-600/10">
             <div className="space-y-4">
-              <div className="border-b border-emerald-200 pb-3">
-                <span className="text-xs font-bold text-emerald-800 bg-emerald-200 px-2.5 py-0.5 rounded-full">
-                  배웅 후불제 전환 시
+              <div className="border-b border-celadon-200 pb-3.5">
+                <span className="text-xs font-serif font-bold text-celadon-800 bg-celadon-100 px-3 py-1 rounded-full border border-celadon-600/20">
+                  배웅 정직 실비 전환 시
                 </span>
-                <h3 className="text-lg font-black text-gray-900 mt-1.5">
+                <h3 className="text-lg md:text-xl font-reverence font-bold text-ink mt-2">
                   {report.rightBaeungReceipt.title}
                 </h3>
-                <p className="text-xs text-gray-600">{report.rightBaeungReceipt.subtitle}</p>
+                <p className="text-xs text-ink-muted mt-1">{report.rightBaeungReceipt.subtitle}</p>
               </div>
 
-              <div className="space-y-2.5 text-sm">
+              <div className="space-y-3 text-sm md:text-base">
                 {report.rightBaeungReceipt.lineItems.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center">
-                    <span className={item.isHighlighted ? 'text-emerald-700 font-bold' : item.isDeduction ? 'text-blue-700 font-medium' : 'text-gray-700'}>
+                    <span className={item.isHighlighted ? 'text-celadon-800 font-bold' : item.isDeduction ? 'text-blue-800 font-medium' : 'text-ink-light'}>
                       {item.name}
                     </span>
-                    <span className={`font-extrabold ${item.isDeduction ? 'text-blue-600' : item.isHighlighted ? 'text-emerald-600' : 'text-gray-900'}`}>
+                    <span className={`font-reverence font-bold ${item.isDeduction ? 'text-blue-700' : item.isHighlighted ? 'text-celadon-700' : 'text-ink'}`}>
                       {item.amount > 0 ? `+${item.amount.toLocaleString()}` : item.amount.toLocaleString()}원
                     </span>
                   </div>
@@ -251,26 +257,26 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t-2 border-emerald-300 flex justify-between items-center">
-              <span className="font-bold text-emerald-950">실제 최종 부담</span>
-              <span className="text-2xl font-black text-emerald-700">
+            <div className="mt-8 pt-5 border-t-2 border-celadon-200 flex justify-between items-center">
+              <span className="font-reverence font-bold text-ink text-base">배웅 실제 최종 부담</span>
+              <span className="text-2xl md:text-3xl font-reverence font-black text-celadon-800">
                 {report.summary.baeungTotalActualCost.toLocaleString()}원
               </span>
             </div>
           </div>
         </div>
 
-        {/* 대형 순 절감액 하이라이트 배너 */}
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-3xl p-6 text-center shadow-lg space-y-2">
-          <div className="text-sm font-bold text-emerald-100">
-            공정위 고시 환급금 {report.statutoryRefund.refundAmount.toLocaleString()}원 수령 + 배웅 크레딧 {report.transitionCredit.toLocaleString()}원 지원
+        {/* 품격 있는 순 부담 차액 안내 배너 */}
+        <div className="bg-gradient-to-r from-celadon-800 to-celadon-900 text-white rounded-3xl p-6 md:p-8 text-center shadow-lg space-y-2 border border-nobleGold-500/30">
+          <div className="text-sm font-serif text-nobleGold-100">
+            공정위 고시 법정 환급금 {report.statutoryRefund.refundAmount.toLocaleString()}원 수령 + 배웅 손실보전 크레딧 {report.transitionCredit.toLocaleString()}원 적용
           </div>
-          <div className="text-3xl md:text-4xl font-black tracking-tight">
-            총 {report.summary.netSavingsAmount.toLocaleString()}원 절감
+          <div className="text-3xl md:text-4xl font-reverence font-black text-nobleGold-100 tracking-tight">
+            가족 실질 부담 차액: {report.summary.netSavingsAmount.toLocaleString()}원
           </div>
-          <div className="inline-block bg-white/20 backdrop-blur px-4 py-1 rounded-full text-sm font-semibold">
-            기존 대비 {report.summary.savingsRatePercentage}% 비용 절감 효과
-          </div>
+          <p className="text-xs md:text-sm text-celadon-200 pt-1 leading-relaxed">
+            기존 상품을 해약하고 환급금을 받더라도, 배웅의 정찰제 실비를 이용하시는 것이 최종적으로 {report.summary.netSavingsAmount.toLocaleString()}원 더 정직하고 유리합니다.
+          </p>
         </div>
       </div>
     </div>

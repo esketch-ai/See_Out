@@ -5,6 +5,7 @@ import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
 import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
 import { LifeArchiveWidget } from './LifeArchiveWidget.js';
 import { PackagePricingWidget } from './PackagePricingWidget.js';
+import { TraditionalSeal } from '../design-system/index.js';
 
 interface NormalModeProps {
   currentTab: MainTab;
@@ -65,7 +66,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-900/60 to-transparent flex flex-col justify-end p-6 sm:p-10">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 border border-nobleGold-500/40 text-xs md:text-sm font-serif">
-              <span className="k-seal-red text-[10px] px-1.5 py-0.2">謹弔</span>
+              <TraditionalSeal sealKey="mourningCondolence" size="sm" />
               <span>至誠으로 모시는 禮 · 24시간 전국 전담 의전팀 대기</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-reverence font-black text-white leading-tight">
@@ -110,19 +111,19 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2 text-xs font-serif text-ink-muted">
             <span className="inline-flex items-center space-x-1.5">
-              <span className="k-seal-gold text-[10px] px-1.5 py-0.2">眞</span>
+              <TraditionalSeal sealKey="truth" size="sm" />
               <span className="font-bold text-ink">참된 원가 공개</span>
             </span>
             <span className="inline-flex items-center space-x-1.5">
-              <span className="k-seal-jade text-[10px] px-1.5 py-0.2">安</span>
+              <TraditionalSeal sealKey="peace" size="sm" />
               <span className="font-bold text-ink">편안한 안식처</span>
             </span>
             <span className="inline-flex items-center space-x-1.5">
-              <span className="k-seal-red text-[10px] px-1.5 py-0.2">誠</span>
+              <TraditionalSeal sealKey="sincerity" size="sm" />
               <span className="font-bold text-ink">정성과 신뢰</span>
             </span>
             <span className="inline-flex items-center space-x-1.5">
-              <span className="k-seal-gold text-[10px] px-1.5 py-0.2">永</span>
+              <TraditionalSeal sealKey="eternity" size="sm" />
               <span className="font-bold text-ink">영원한 기억</span>
             </span>
           </div>
@@ -158,7 +159,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-4 left-4 bg-mourning-950/80 backdrop-blur-md text-nobleGold-100 px-3 py-1 rounded-full text-xs font-serif font-bold border border-nobleGold-500/30 flex items-center space-x-1.5">
-                <span className="k-seal-gold text-[9px] px-1 py-0.1">眞</span>
+                <TraditionalSeal sealKey="truth" size="sm" />
                 <span>원가 영수증 1:1 비교</span>
               </div>
             </div>
@@ -168,7 +169,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-xs font-serif font-bold text-nobleGold-700">공정위 법정 환급 산식 준수</span>
                 <h3 className="text-2xl font-reverence font-black text-ink mt-1 group-hover:text-celadon-900 transition-colors flex items-center space-x-2">
                   <span>기존 상조 증서 정밀 원가 진단</span>
-                  <span className="k-seal-gold text-xs px-2 py-0.5">眞</span>
+                  <TraditionalSeal sealKey="truth" size="md" />
                 </h3>
                 <p className="text-sm md:text-base text-ink-light mt-2.5 leading-relaxed">
                   보유 중이신 상조 상품을 해약할 때 받게 되는 환급금과 숨은 추가금을 정밀 연산하여 1:1 맞춤 영수증으로 비교해 드립니다.
@@ -194,7 +195,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-4 left-4 bg-mourning-950/80 backdrop-blur-md text-celadon-200 px-3 py-1 rounded-full text-xs font-serif font-bold border border-celadon-600/30 flex items-center space-x-1.5">
-                <span className="k-seal-jade text-[9px] px-1 py-0.1">安</span>
+                <TraditionalSeal sealKey="peace" size="sm" />
                 <span>전국 1,080곳 전수 데이터</span>
               </div>
             </div>
@@ -204,7 +205,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-xs font-serif font-bold text-celadon-800">빈소 임대료 최대 30% 감면</span>
                 <h3 className="text-2xl font-reverence font-black text-ink mt-1 group-hover:text-celadon-900 transition-colors flex items-center space-x-2">
                   <span>전국 장례식장 시설 · 감면 검색</span>
-                  <span className="k-seal-jade text-xs px-2 py-0.5">安</span>
+                  <TraditionalSeal sealKey="peace" size="md" />
                 </h3>
                 <p className="text-sm md:text-base text-ink-light mt-2.5 leading-relaxed">
                   거주지 인근 장례식장의 분향실과 안치실 규모를 파악하고, 배웅 사전 등록을 통한 빈소 임대료 감면 혜택을 확인하세요.
@@ -230,7 +231,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-4 left-4 bg-mourning-950/80 backdrop-blur-md text-nobleGold-100 px-3 py-1 rounded-full text-xs font-serif font-bold border border-nobleGold-500/30 flex items-center space-x-1.5">
-                <span className="k-seal-red text-[9px] px-1 py-0.1">誠</span>
+                <TraditionalSeal sealKey="sincerity" size="sm" />
                 <span>선금 0원 · 100% 후불제</span>
               </div>
             </div>
@@ -240,7 +241,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-xs font-serif font-bold text-nobleGold-700">부당 추가금 0원 보증제</span>
                 <h3 className="text-2xl font-reverence font-black text-ink mt-1 group-hover:text-celadon-900 transition-colors flex items-center space-x-2">
                   <span>정직 원가 정찰제 의전 패키지</span>
-                  <span className="k-seal-red text-xs px-2 py-0.5">誠</span>
+                  <TraditionalSeal sealKey="sincerity" size="md" />
                 </h3>
                 <p className="text-sm md:text-base text-ink-light mt-2.5 leading-relaxed">
                   무빈소(120만), 실속형(250만), 표준형(350만) 등 수의와 관, 인력의 원가를 100% 투명하게 공개하며 촌지를 금지합니다.
@@ -266,7 +267,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-4 left-4 bg-mourning-950/80 backdrop-blur-md text-nobleGold-100 px-3 py-1 rounded-full text-xs font-serif font-bold border border-nobleGold-500/30 flex items-center space-x-1.5">
-                <span className="k-seal-gold text-[9px] px-1 py-0.1">永</span>
+                <TraditionalSeal sealKey="eternity" size="sm" />
                 <span>사전 기억 봉안소</span>
               </div>
             </div>
@@ -276,7 +277,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-xs font-serif font-bold text-celadon-800">사후 승계 게이트키퍼 가동</span>
                 <h3 className="text-2xl font-reverence font-black text-ink mt-1 group-hover:text-celadon-900 transition-colors flex items-center space-x-2">
                   <span>생애기록관 (Pre-mortem 일상 봉안)</span>
-                  <span className="k-seal-gold text-xs px-2 py-0.5">永</span>
+                  <TraditionalSeal sealKey="eternity" size="md" />
                 </h3>
                 <p className="text-sm md:text-base text-ink-light mt-2.5 leading-relaxed">
                   일기, 상장, 가족 흑백 사진, 육성 회고록 등 평생의 고귀한 흔적을 정갈하게 보존하고, 사후에만 유족에게 전합니다.
@@ -297,7 +298,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ink-border pb-4">
           <div>
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-800 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30">
-              <span className="k-seal-gold text-[10px] px-1.5 py-0.2">禮</span>
+              <TraditionalSeal sealKey="courtesy" size="sm" />
               <span>전통 상장례(喪葬禮) 표준 예법 3일장 안내</span>
             </div>
             <h3 className="text-2xl md:text-3xl font-reverence font-black text-ink">

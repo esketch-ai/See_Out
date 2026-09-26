@@ -12,6 +12,7 @@ import {
   X,
   ChevronRight
 } from 'lucide-react';
+import { TraditionalSeal } from '../design-system/index.js';
 
 export type MainTab = 'home' | 'quote' | 'funeral-halls' | 'packages' | 'life-archive';
 
@@ -71,10 +72,8 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="font-reverence font-black text-xl sm:text-2xl md:text-3xl tracking-tight text-ink">
                 배웅
               </span>
-              {/* 전통 붉은 전각 낙관 인장 */}
-              <span className="k-seal-red text-xs px-2 py-0.5" title="예도 례(禮) — 최고의 품격과 정중한 예우">
-                禮
-              </span>
+              {/* 전통 붉은 전각 낙관 인장 컴포넌트 */}
+              <TraditionalSeal sealKey="courtesy" size="md" />
               <span className="text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded font-serif font-bold bg-nobleGold-50 text-nobleGold-700 border border-nobleGold-500/30 hidden sm:inline">
                 정직원가 의전
               </span>

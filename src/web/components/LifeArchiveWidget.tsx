@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Award, Image, Mic, Archive, Shield, Lock, Sparkles } from 'lucide-react';
+import { TraditionalSeal } from '../design-system/index.js';
 
 export const LifeArchiveWidget: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'storage' | 'organization' | 'companion'>('organization');
@@ -24,12 +25,12 @@ export const LifeArchiveWidget: React.FC = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6 sm:p-8">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30 w-fit">
-            <span className="k-seal-gold text-[10px] px-1.5 py-0.2">永</span>
+            <TraditionalSeal sealKey="eternity" size="sm" />
             <span>평시 생애기록관 (Pre-mortem)</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight flex items-center space-x-2">
             <span>내가 살아온 삶의 이야기와 흔적을 정갈하게</span>
-            <span className="k-seal-gold text-xs px-2 py-0.5">永</span>
+            <TraditionalSeal sealKey="eternity" size="md" />
           </h2>
           <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
             이별의 순간이 오기 전, 평생을 바쳐 일구어 오신 귀한 기억과 유품을 정성껏 디지털로 봉안하여 가족에게 온전히 전합니다.

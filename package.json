@@ -6,6 +6,15 @@
   "scripts": {
     "themis:integrity": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.validateParaIntegrity()))'",
     "themis:projects": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.listProjects(\"All\")))'",
-    "themis:search": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.searchParaDocs(process.argv[1])))]'"
+    "themis:search": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.searchParaDocs(process.argv[1])))]'",
+    "test": "vitest run",
+    "demo:diagnostics": "npx tsx src/demo.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.2"
   }
 }

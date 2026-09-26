@@ -5,6 +5,7 @@
 *.pem
 secrets.json
 build/
+dist/
 node_modules/
 .DS_Store
 Thumbs.db

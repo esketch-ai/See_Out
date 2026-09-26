@@ -9,9 +9,11 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
   const [hallName, setHallName] = useState('');
 
   return (
-    <div className="min-h-screen bg-[#0D0E10] text-[#FAF9F6] pb-24">
+    <div className="min-h-screen bg-[#0D0E10] text-[#FAF9F6] pb-24 relative overflow-hidden">
+      {/* 삼국·조선 길상 구름문 은은한 추모 오버레이 */}
+      <div className="pointer-events-none fixed inset-0 k-pattern-unmun-dark opacity-15" />
       {/* 경건한 상단 추모 및 안심 바 */}
-      <div className="bg-[#141618] border-b border-[#2C2822] px-4 py-3.5 flex items-center justify-between">
+      <div className="bg-[#141618] border-b border-[#2C2822] px-4 py-3.5 flex items-center justify-between relative z-10">
         <div className="flex items-center space-x-2.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#C2A26A]" />
           <span className="font-serif font-bold text-sm sm:text-base text-[#E5E0D5]">

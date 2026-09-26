@@ -184,12 +184,46 @@
         border: 1px solid #E3DFD5;
         border-radius: 8px;
         position: relative;
+        overflow: hidden;
       }
 
       /* 4. 전통 황동 단아한 구분선 */
       .k-traditional-divider {
         height: 1px;
         background: linear-gradient(90deg, transparent, #D4B37F, transparent);
+      }
+
+      /* ═══════════ 전통 한국 정통 문양 패턴 (Authentic Cultural Heritage Patterns) ═══════════ */
+      /* 1. 한옥 살창 격자문 (Gyeokja Lattice - 조선 사대부 사랑방 창호) */
+      .k-pattern-gyeokja {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M0 18h36M18 0v36' stroke='%239E7D47' stroke-width='0.7' stroke-opacity='0.12'/%3E%3Crect x='6' y='6' width='24' height='24' fill='none' stroke='%239E7D47' stroke-width='0.5' stroke-opacity='0.08'/%3E%3Ccircle cx='18' cy='18' r='1.5' fill='%239E7D47' fill-opacity='0.12'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+      .k-pattern-gyeokja-dark {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M0 18h36M18 0v36' stroke='%23C2A26A' stroke-width='0.7' stroke-opacity='0.18'/%3E%3Crect x='6' y='6' width='24' height='24' fill='none' stroke='%23C2A26A' stroke-width='0.5' stroke-opacity='0.12'/%3E%3Ccircle cx='18' cy='18' r='1.5' fill='%23C2A26A' fill-opacity='0.2'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+
+      /* 2. 삼국·조선 길상 구름문 (Unmun - 영면과 평안을 기원하는 숭고한 구름) */
+      .k-pattern-unmun {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48' viewBox='0 0 80 48' fill='none'%3E%3Cpath d='M14 36c-4.4 0-8-3.6-8-8 0-4 3-7.3 7-7.9C13.6 15 18 11 23.5 11c3.8 0 7.1 1.9 9 4.8 2.2-2.3 5.4-3.8 9-3.8 6.6 0 12 5.4 12 12 0 .7-.1 1.4-.2 2.1 3.5.7 6.2 3.8 6.2 7.5 0 4.2-3.4 7.6-7.6 7.6H14z' stroke='%239E7D47' stroke-width='0.8' stroke-opacity='0.14'/%3E%3Cpath d='M23 28c3 0 5-2 5-4.5S26 19 23 19s-5 2-5 4.5 2 4.5 5 4.5zm0-3c-1 0-2-.7-2-1.5s1-1.5 2-1.5 2 .7 2 1.5-1 1.5-2 1.5z' fill='%239E7D47' fill-opacity='0.12'/%3E%3Cpath d='M52 40c6 0 10-3 12-7M5 36c3 0 6 1 8 3' stroke='%239E7D47' stroke-width='0.75' stroke-opacity='0.1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+      .k-pattern-unmun-dark {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48' viewBox='0 0 80 48' fill='none'%3E%3Cpath d='M14 36c-4.4 0-8-3.6-8-8 0-4 3-7.3 7-7.9C13.6 15 18 11 23.5 11c3.8 0 7.1 1.9 9 4.8 2.2-2.3 5.4-3.8 9-3.8 6.6 0 12 5.4 12 12 0 .7-.1 1.4-.2 2.1 3.5.7 6.2 3.8 6.2 7.5 0 4.2-3.4 7.6-7.6 7.6H14z' stroke='%23C2A26A' stroke-width='0.8' stroke-opacity='0.20'/%3E%3Cpath d='M23 28c3 0 5-2 5-4.5S26 19 23 19s-5 2-5 4.5 2 4.5 5 4.5zm0-3c-1 0-2-.7-2-1.5s1-1.5 2-1.5 2 .7 2 1.5-1 1.5-2 1.5z' fill='%23C2A26A' fill-opacity='0.16'/%3E%3Cpath d='M52 40c6 0 10-3 12-7M5 36c3 0 6 1 8 3' stroke='%23C2A26A' stroke-width='0.75' stroke-opacity='0.15'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+
+      /* 3. 왕실 비단 금문·귀갑문 (Geummun - 영원한 안식과 예를 상징하는 육각 직조문) */
+      .k-pattern-geummun {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='55.43' viewBox='0 0 32 55.43'%3E%3Cpath d='M16 0L32 9.24v18.48L16 36.95 0 27.72V9.24z M16 55.43L32 46.19V27.72L16 18.48 0 27.72v18.47z' fill='none' stroke='%23C2A26A' stroke-width='0.65' stroke-opacity='0.16'/%3E%3Ccircle cx='16' cy='27.72' r='2.5' fill='none' stroke='%23C2A26A' stroke-width='0.65' stroke-opacity='0.2'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+
+      /* 4. 사대부 아자살문 (Ajamun - 끊이지 않는 효와 정성을 상징하는 전통 창호 프렛) */
+      .k-pattern-ajamun {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 20h10v-10h20v10h10 M20 0v10h-10v20h10v10' fill='none' stroke='%239E7D47' stroke-width='0.75' stroke-opacity='0.15'/%3E%3Crect x='15' y='15' width='10' height='10' fill='none' stroke='%239E7D47' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
       }
     </style>
   </head>

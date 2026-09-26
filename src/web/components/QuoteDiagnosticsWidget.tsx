@@ -173,7 +173,9 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           alt="정중한 의전 지도사 예우"
           className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6">
+        {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
           <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
             <Sparkles className="w-3 h-3 text-[#C2A26A]" />
             <span>공정거래위원회 고시 법정 기준 진단표</span>
@@ -539,9 +541,12 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
       </div>
 
       {/* 5. [직관 대조 시각화] 내 지갑에서 나갈 돈 한눈에 직관 비교 (Before & After) */}
-      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-6 shadow-xs">
-        {/* 헤더 및 기준 선택 탭 */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E3DFD5] pb-4">
+      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-6 shadow-xs relative overflow-hidden">
+        {/* 한옥 살창 격자문 은은한 워터마크 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-15" />
+        <div className="relative z-10 space-y-6">
+          {/* 헤더 및 기준 선택 탭 */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E3DFD5] pb-4">
           <div>
             <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#FAF4EB] border border-[#E4D5BC] text-[#876937] text-xs font-serif font-bold mb-1">
               <TrendingDown className="w-3.5 h-3.5 text-[#9E7D47]" />
@@ -827,6 +832,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           <div className="shrink-0 font-reverence font-bold text-[#19382C] text-sm md:text-base pl-6 sm:pl-0">
             = 순수 이익 +{report.summary.netSavingsAmount.toLocaleString()}원
           </div>
+        </div>
         </div>
       </div>
 

@@ -63,7 +63,10 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           className="w-full h-80 sm:h-96 object-cover object-center filter brightness-[0.38] contrast-105"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/70 to-transparent flex flex-col justify-end p-6 sm:p-10">
+        {/* 삼국·조선 전통 길상 구름문(雲紋) 은은한 오버레이 */}
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/70 to-transparent flex flex-col justify-end p-6 sm:p-10 relative z-10">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/80 text-[#D8CEBA] border border-[#2A5442] text-xs md:text-sm font-serif">
               <TraditionalSeal sealKey="mourningCondolence" size="sm" />
@@ -98,8 +101,10 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       </div>
 
       {/* 2. [조성우 수석 디자이너 감수] 전통 미학 단아한 여백과 사색(四色) 철학 배너 */}
-      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-7 md:p-9 relative shadow-xs">
-        <div className="max-w-3xl mx-auto text-center space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-7 md:p-9 relative shadow-xs overflow-hidden">
+        {/* 한옥 살창 격자문(格子紋) 은은한 워터마크 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
+        <div className="max-w-3xl mx-auto text-center space-y-4 relative z-10">
           <div className="flex items-center justify-center space-x-2 text-[#9E7D47] font-serif text-xs md:text-sm font-semibold tracking-wider">
             <span className="w-6 h-[1px] bg-[#C2A26A]" />
             <span>생애 마지막 가시는 길, 가장 정갈하고 맑은 배웅</span>
@@ -311,8 +316,9 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         {/* 3폭 병풍 그리드 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* 1일차 */}
-          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4">
-            <div>
+          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4 relative">
+            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+            <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-serif font-bold text-[#19382C] bg-[#F0F5F2] px-2.5 py-0.5 rounded border border-[#BFD4CA]">
                   첫째 날
@@ -344,14 +350,15 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </li>
               </ul>
             </div>
-            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#19382C] font-serif font-bold">
+            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#19382C] font-serif font-bold relative z-10">
               ✓ 전문 장례지도사 2시간 이내 현장 배치
             </div>
           </div>
 
           {/* 2일차 */}
-          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6]">
-            <div>
+          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6] relative">
+            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
+            <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-serif font-bold text-[#876937] bg-[#F8F5EE] px-2.5 py-0.5 rounded border border-[#E4D5BC]">
                   둘째 날 · 핵심 의례
@@ -383,14 +390,15 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </li>
               </ul>
             </div>
-            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#876937] font-serif font-bold">
+            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#876937] font-serif font-bold relative z-10">
               ✓ 꽃장식/수의 강매 및 촌지 요구 100% 금지
             </div>
           </div>
 
           {/* 3일차 */}
-          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4">
-            <div>
+          <div className="k-screen-panel p-6 flex flex-col justify-between space-y-4 relative">
+            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+            <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-serif font-bold text-[#19382C] bg-[#F0F5F2] px-2.5 py-0.5 rounded border border-[#BFD4CA]">
                   셋째 날
@@ -422,7 +430,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </li>
               </ul>
             </div>
-            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#19382C] font-serif font-bold">
+            <div className="pt-3 border-t border-[#ECE8E0] text-[11px] text-[#19382C] font-serif font-bold relative z-10">
               ✓ 추가 장거리 운임 바가지 일절 없음
             </div>
           </div>
@@ -430,18 +438,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       </div>
 
       {/* 5. 하단 배웅 4대 의전 안심 헌장 */}
-      <div className="bg-[#132B22] text-[#FAF9F6] rounded-xl p-8 md:p-12 text-center space-y-4 border border-[#2D5A46] shadow-sm">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C] text-[#C2A26A] text-xs md:text-sm font-serif border border-[#2A5442]">
-          <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
-          <span>배웅 4대 의전 안심 헌장</span>
+      <div className="bg-[#132B22] text-[#FAF9F6] rounded-xl p-8 md:p-12 text-center space-y-4 border border-[#2D5A46] shadow-sm relative overflow-hidden">
+        {/* 전통 비단 금문 패턴 은은한 오버레이 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-30" />
+        <div className="relative z-10 space-y-4">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C] text-[#C2A26A] text-xs md:text-sm font-serif border border-[#2A5442]">
+            <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
+            <span>배웅 4대 의전 안심 헌장</span>
+          </div>
+          <h3 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight leading-snug">
+            선금 0원 · 부당 추가금 0원 · 촌지 전면 금지 · 정직한 후불제
+          </h3>
+          <p className="text-[#BFD4CA] text-sm md:text-base max-w-2xl mx-auto leading-relaxed pt-1 font-serif">
+            고인의 고귀한 생애를 기리는 숭고한 자리에 부당한 상술이 발붙이지 못하도록,
+            모든 의전과 시설비는 1원 단위까지 맑고 정직하게 공개합니다.
+          </p>
         </div>
-        <h3 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight leading-snug">
-          선금 0원 · 부당 추가금 0원 · 촌지 전면 금지 · 정직한 후불제
-        </h3>
-        <p className="text-[#BFD4CA] text-sm md:text-base max-w-2xl mx-auto leading-relaxed pt-1 font-serif">
-          고인의 고귀한 생애를 기리는 숭고한 자리에 부당한 상술이 발붙이지 못하도록,
-          모든 의전과 시설비는 1원 단위까지 맑고 정직하게 공개합니다.
-        </p>
       </div>
     </div>
   );

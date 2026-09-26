@@ -23,7 +23,9 @@ export const LifeArchiveWidget: React.FC = () => {
           alt="훈장과 흑백 가족 사진, 소중한 회고록"
           className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6">
+        {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
           <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
             <TraditionalSeal sealKey="eternity" size="sm" />
             <span>평시 생애기록관 (Pre-mortem)</span>
@@ -62,8 +64,10 @@ export const LifeArchiveWidget: React.FC = () => {
       </div>
 
       {/* 3. 게이트키퍼(Gatekeeper) 사후 승계 프로토콜 배너 */}
-      <div className="bg-[#132B22] text-[#FAF9F6] rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-[#2D5A46]">
-        <div className="flex items-center space-x-3">
+      <div className="bg-[#132B22] text-[#FAF9F6] rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-[#2D5A46] relative overflow-hidden">
+        {/* 전통 비단 금문 패턴 은은한 오버레이 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-30" />
+        <div className="flex items-center space-x-3 relative z-10">
           <div className="w-10 h-10 rounded-md bg-[#0E1E18] text-[#C2A26A] flex items-center justify-center shrink-0 border border-[#2A5442]">
             <Lock className="w-5 h-5" />
           </div>

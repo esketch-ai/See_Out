@@ -55,7 +55,9 @@ export const FuneralHallSearchWidget: React.FC = () => {
           alt="정갈한 장례식장 제단 꽃장식"
           className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6">
+        {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
           <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
             <TraditionalSeal sealKey="peace" size="sm" />
             <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>

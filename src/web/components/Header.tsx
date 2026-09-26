@@ -49,9 +49,12 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#121417] border-b border-[#2C2822] shadow-md text-[#F7F5F0]">
+    <header className="sticky top-0 z-50 bg-[#121417] border-b border-[#2C2822] shadow-md text-[#F7F5F0] relative overflow-hidden">
+      {/* 전통 왕실 비단 금문 패턴 은은한 오버레이 */}
+      <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-25" />
+
       {/* 1. 최상단 브랜드 및 품격 있는 의전 지원 바 */}
-      <div className="max-w-5xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between relative z-10">
         {/* Brand Identity */}
         <div
           onClick={() => {

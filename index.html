@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>배웅 (Bae-ung) — 투명 원가 기반 라이프엔딩 종합 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f0fdf4',
+                600: '#16a34a',
+                700: '#15803d',
+                800: '#166534',
+                900: '#14532d'
+              },
+              emergency: {
+                50: '#fef2f2',
+                500: '#ef4444',
+                600: '#dc2626',
+                700: '#b91c1c',
+                900: '#7f1d1d'
+              }
+            },
+            minHeight: {
+              'touch': '56px'
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+      body {
+        font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .btn-senior {
+        min-height: 56px;
+        font-size: 1.125rem; /* 18px */
+        font-weight: 700;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+    <div id="root"></div>
+    <script type="module" src="/src/web/main.tsx"></script>
+  </body>
+</html>

@@ -27,19 +27,19 @@ export const HanjiCard: React.FC<HanjiCardProps> = ({
   const textureClass = hasChanghoTexture ? 'k-changho-texture' : '';
 
   const elevationClasses = {
-    flat: 'border border-ink-border shadow-none',
-    subtle: 'border border-ink-border shadow-xs',
-    elevated: 'border border-ink-border/80 shadow-md'
+    flat: 'border border-[#E3DFD5] shadow-none',
+    subtle: 'border border-[#E3DFD5] shadow-xs',
+    elevated: 'border border-[#D6D0C4] shadow-sm'
   }[elevation];
 
   const hoverClasses = hoverable
-    ? 'hover:border-celadon-700 hover:shadow-lg transition-all duration-300 cursor-pointer group'
+    ? 'hover:border-[#19382C] hover:shadow-md transition-all duration-300 cursor-pointer group'
     : '';
 
   return (
     <div
       onClick={onClick}
-      className={`rounded-3xl bg-porcelain ${elevationClasses} ${cornerClass} ${textureClass} ${hoverClasses} ${className}`}
+      className={`rounded-xl bg-porcelain ${elevationClasses} ${cornerClass} ${textureClass} ${hoverClasses} ${className}`}
     >
       {children}
     </div>

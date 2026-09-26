@@ -24,16 +24,16 @@ export const SeniorButton: React.FC<SeniorButtonProps> = ({
   const minHeightClass = isLargeTouch ? 'min-h-[64px] py-4 px-7 text-lg md:text-xl' : 'py-3 px-5 text-base';
 
   const variantClasses = {
-    primary: 'bg-celadon-800 hover:bg-celadon-900 active:scale-[0.98] text-white shadow-md border border-celadon-700',
-    emergency: 'bg-crimson-600 hover:bg-crimson-700 active:scale-[0.98] text-white shadow-lg border border-crimson-500/50',
-    outline: 'bg-porcelain hover:bg-celadon-50 active:scale-[0.98] text-celadon-900 border-2 border-celadon-800 shadow-xs',
-    ghost: 'bg-transparent hover:bg-hanji active:scale-[0.98] text-ink hover:text-celadon-800'
+    primary: 'bg-[#19382C] hover:bg-[#132B22] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#19382C]',
+    emergency: 'bg-[#8B2520] hover:bg-[#731E1A] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#8B2520]',
+    outline: 'bg-[#FFFFFF] hover:bg-[#FAF9F6] active:scale-[0.98] text-[#19382C] border border-[#19382C]',
+    ghost: 'bg-transparent hover:bg-[#FAF9F6] active:scale-[0.98] text-[#121417] hover:text-[#19382C]'
   }[variant];
 
   return (
     <button
       disabled={disabled}
-      className={`rounded-2xl font-reverence font-bold flex items-center justify-center space-x-2.5 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${minHeightClass} ${variantClasses} ${className}`}
+      className={`rounded-lg font-reverence font-medium flex items-center justify-center space-x-2.5 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${minHeightClass} ${variantClasses} ${className}`}
       {...props}
     >
       {leftIcon && <span className="shrink-0">{leftIcon}</span>}

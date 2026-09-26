@@ -413,18 +413,24 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           {/* 배웅 실비 의전 패키지 선택 */}
           <div>
             <label className="text-xs font-bold text-[#151719] block mb-1.5">배웅 정찰제 의전 선택</label>
-            <div className="grid grid-cols-3 gap-2">
-              {(['simple_non_hall', 'economic_3day', 'standard_3day'] as BaeungPackageType[]).map((pkg) => (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {(['simple_non_hall', 'family_2day', 'economic_3day', 'standard_3day'] as BaeungPackageType[]).map((pkg) => (
                 <button
                   key={pkg}
                   onClick={() => setPackageType(pkg)}
-                  className={`py-2.5 px-2 text-xs rounded-md font-medium border transition-all cursor-pointer ${
+                  className={`py-2 px-1.5 text-xs rounded-md font-medium border transition-all cursor-pointer text-center ${
                     packageType === pkg
-                      ? 'border-[#19382C] bg-[#19382C] text-[#FAF9F6]'
+                      ? 'border-[#19382C] bg-[#19382C] text-[#FAF9F6] font-bold'
                       : 'border-[#E3DFD5] bg-[#FFFFFF] text-[#42464E] hover:border-[#19382C]'
                   }`}
                 >
-                  {pkg === 'simple_non_hall' ? '무빈소(120만)' : pkg === 'economic_3day' ? '실속형(250만)' : '표준형(350만)'}
+                  {pkg === 'simple_non_hall'
+                    ? '무빈소(120만)'
+                    : pkg === 'family_2day'
+                    ? '가족장(180만)'
+                    : pkg === 'economic_3day'
+                    ? '실속형(250만)'
+                    : '품격형(350만)'}
                 </button>
               ))}
             </div>

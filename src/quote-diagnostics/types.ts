@@ -53,7 +53,18 @@ export interface HiddenCostBreakdown {
 /**
  * 배웅 실비 후불제 패키지 종류
  */
-export type BaeungPackageType = 'simple_non_hall' | 'economic_3day' | 'standard_3day';
+export type BaeungPackageType = 'simple_non_hall' | 'family_2day' | 'economic_3day' | 'standard_3day';
+
+/**
+ * 패키지 세부 원가 및 제원 항목
+ */
+export interface PackageSpecification {
+  category: string;             // '전문 인력', '입관 및 고인용품', '유족 상복 지원', '차량 및 운구', '사후 행정 및 추모'
+  title: string;                // 품목명
+  detail: string;               // 세부 규격 및 수량
+  origin?: string;              // 원산지 및 인증
+  refundNotice?: string;        // 미사용 시 환급 기준
+}
 
 /**
  * 배웅 패키지 정보
@@ -63,6 +74,14 @@ export interface BaeungPackageInfo {
   name: string;
   price: number;                     // 정찰 가격
   description: string;
+  badge?: string;                    // 대표 뱃지 (예: '무빈소·직장', '핵가족 추천', '가장 대중적', '명품 의전')
+  targetGuests?: string;             // 권장 조문객 규모
+  stayDays?: number;                 // 빈소 일수 (0, 2, 3)
+  staffSummary?: string;             // 인력 요약
+  vehicleSummary?: string;           // 차량 요약
+  specs?: PackageSpecification[];    // 5대 영역별 상세 제원
+  includedHighlights?: string[];     // 핵심 포함 품목
+  excludedNotice?: string[];         // 별도 장례식장 직결제 품목 안내
 }
 
 /**

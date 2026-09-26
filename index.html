@@ -21,39 +21,70 @@
               sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             },
             colors: {
-              hanji: '#FAF8F5',
+              hanji: {
+                DEFAULT: '#F7F5F0',
+                surface: '#FAF9F6',
+                border: '#E3DFD5',
+                borderLight: '#ECE8E0',
+              },
               porcelain: '#FFFFFF',
               ink: {
-                DEFAULT: '#1F2226',
-                light: '#4B5259',
-                muted: '#6C757D',
-                border: '#E3DFD7'
+                DEFAULT: '#151719',
+                deep: '#0E1012',
+                light: '#42464E',
+                muted: '#727782',
+                border: '#E3DFD5',
+                borderLight: '#ECE8E0'
               },
+              pine: {
+                50: '#F0F5F2',
+                100: '#DCE8E2',
+                200: '#BFD4CA',
+                600: '#234C3C',
+                700: '#19382C',
+                800: '#132B22',
+                900: '#0E1E18'
+              },
+              brass: {
+                50: '#F8F5EE',
+                100: '#F1E9DB',
+                200: '#E4D5BC',
+                500: '#9E7D47',
+                600: '#876937',
+                700: '#6E5429',
+                800: '#55411E'
+              },
+              cinnabar: {
+                50: '#FAF0EF',
+                100: '#F4DCDA',
+                600: '#8B2520',
+                700: '#731C18',
+                800: '#5B1512'
+              },
+              /* 하위 호환성 유지 */
               celadon: {
-                50: '#F2F6F4',
-                100: '#E2ECE8',
-                200: '#C7D9D1',
-                600: '#2D4F43',
-                700: '#243F35',
-                800: '#1C312A',
-                900: '#13221D'
+                50: '#F0F5F2',
+                100: '#DCE8E2',
+                600: '#234C3C',
+                700: '#19382C',
+                800: '#132B22',
+                900: '#0E1E18'
               },
               nobleGold: {
-                50: '#FBF9F5',
-                100: '#F6F1E6',
-                500: '#94784C',
-                600: '#7F673E',
-                700: '#695532'
+                50: '#F8F5EE',
+                100: '#F1E9DB',
+                500: '#9E7D47',
+                600: '#876937',
+                700: '#6E5429'
               },
               mourning: {
-                800: '#212529',
-                900: '#16191D',
-                950: '#0E1012'
+                800: '#1F2226',
+                900: '#141618',
+                950: '#0D0E10'
               },
               crimson: {
-                50: '#FDF2F2',
-                600: '#A33B32',
-                700: '#8A2F27'
+                600: '#8B2520',
+                700: '#731C18'
               }
             }
           }
@@ -63,8 +94,8 @@
     <style>
       body {
         font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-        background-color: #FAF8F5;
-        color: #1F2226;
+        background-color: #F7F5F0;
+        color: #151719;
         -webkit-font-smoothing: antialiased;
         word-break: keep-all;
       }
@@ -72,36 +103,36 @@
         font-family: "Noto Serif KR", Georgia, serif;
       }
       .btn-senior-reverence {
-        min-height: 64px;
-        font-size: 1.25rem; /* 20px */
+        min-height: 60px;
+        font-size: 1.15rem;
         font-weight: 700;
-        border-radius: 16px;
+        border-radius: 8px;
         letter-spacing: -0.01em;
       }
-      /* 노안 어르신 전용 큰 글씨 모드 (전역 rem 스케일링) */
+      /* 노안 어르신 전용 큰 글씨 모드 */
       html.senior-large-font {
         font-size: 122% !important;
       }
       html.senior-large-font body {
-        line-height: 1.75;
+        line-height: 1.8;
       }
       html.senior-large-font .font-reverence {
         letter-spacing: -0.015em;
       }
 
-      /* ═══════════ 조성우 수석 디자이너 감수: 전통 한국적 미학 조형 스타일 ═══════════ */
+      /* ═══════════ 전통 한국 문화 격식 조형 스타일 (Heritage Elegance) ═══════════ */
       /* 1. 전통 전각 낙관 (인장 도장) */
       .k-seal-red {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: #A33B32;
-        color: #FAF8F5;
+        background-color: #8B2520;
+        color: #FAF9F6;
         font-family: "Noto Serif KR", Georgia, serif;
         font-weight: 900;
-        border: 1.5px solid #8A2F27;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(163, 59, 50, 0.25);
-        border-radius: 6px;
+        border: 1px solid #701C18;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+        border-radius: 4px;
         letter-spacing: -0.02em;
         user-select: none;
       }
@@ -109,13 +140,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: #94784C;
-        color: #FAF8F5;
+        background-color: #9E7D47;
+        color: #FAF9F6;
         font-family: "Noto Serif KR", Georgia, serif;
         font-weight: 900;
-        border: 1.5px solid #7F673E;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 2px 4px rgba(148, 120, 76, 0.25);
-        border-radius: 6px;
+        border: 1px solid #826534;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+        border-radius: 4px;
         letter-spacing: -0.02em;
         user-select: none;
       }
@@ -123,58 +154,46 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: #2D4F43;
-        color: #FAF8F5;
+        background-color: #19382C;
+        color: #FAF9F6;
         font-family: "Noto Serif KR", Georgia, serif;
         font-weight: 900;
-        border: 1.5px solid #1C312A;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(45, 79, 67, 0.25);
-        border-radius: 6px;
+        border: 1px solid #11261E;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+        border-radius: 4px;
         letter-spacing: -0.02em;
         user-select: none;
       }
 
-      /* 2. 전통 창호지 미세 살창 격자 텍스처 */
-      .k-changho-texture {
-        background-image: radial-gradient(#E3DFD7 0.85px, transparent 0.85px);
-        background-size: 18px 18px;
+      /* 2. 전통 박물관 도록 스타일의 단정한 카드 */
+      .k-card-heritage {
+        background-color: #FFFFFF;
+        border: 1px solid #E3DFD5;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(21, 23, 25, 0.04);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .k-card-heritage:hover {
+        border-color: #9E7D47;
+        box-shadow: 0 6px 16px rgba(21, 23, 25, 0.08);
       }
 
-      /* 3. 전통 단아한 금빛 절제선 */
-      .k-traditional-divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #C5A880, transparent);
-      }
-
-      /* 4. 전통 고서/의궤 귀접이 프레임 (모서리 악센트) */
-      .k-corner-bracket {
+      /* 3. 3폭 병풍(屛風) 분할선 */
+      .k-screen-panel {
+        background-color: #FFFFFF;
+        border: 1px solid #E3DFD5;
+        border-radius: 8px;
         position: relative;
       }
-      .k-corner-bracket::before {
-        content: "";
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        width: 14px;
-        height: 14px;
-        border-top: 2px solid #C5A880;
-        border-left: 2px solid #C5A880;
-        pointer-events: none;
-      }
-      .k-corner-bracket::after {
-        content: "";
-        position: absolute;
-        bottom: 8px;
-        right: 8px;
-        width: 14px;
-        height: 14px;
-        border-bottom: 2px solid #C5A880;
-        border-right: 2px solid #C5A880;
-        pointer-events: none;
+
+      /* 4. 전통 황동 단아한 구분선 */
+      .k-traditional-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #D4B37F, transparent);
       }
     </style>
   </head>
-  <body class="bg-hanji text-ink selection:bg-celadon-100 selection:text-celadon-900">
+  <body class="bg-hanji text-ink selection:bg-pine-100 selection:text-pine-900">
     <div id="root"></div>
     <script type="module" src="/src/web/main.tsx"></script>
   </body>

@@ -165,40 +165,40 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
   const baeungRatio = Math.round((report.summary.baeungTotalActualCost / maxCost) * 100);
 
   return (
-    <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
+    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-6 md:p-8 space-y-6">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
-      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border">
+      <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#2D2A26] bg-[#121417]">
         <img
           src="/images/escort-ceremony.jpg"
           alt="정중한 의전 지도사 예우"
-          className="w-full h-full object-cover object-center filter brightness-[0.55]"
+          className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30 w-fit">
-            <Sparkles className="w-3.5 h-3.5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
+            <Sparkles className="w-3 h-3 text-[#C2A26A]" />
             <span>공정거래위원회 고시 법정 기준 진단표</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             기존 상조 증서 정밀 예법 · 원가 진단표
           </h2>
-          <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
+          <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1">
             공정위 법정 해약환급금과 배웅의 정직한 실비를 1:1 맞춤 영수증으로 투명하게 대조합니다.
           </p>
         </div>
       </div>
 
       {/* 2. [카파시 4원칙 준수] 장롱 속 상조 가입 증서 3초 AI Vision OCR 자동 스캔 UI */}
-      <div className="bg-hanji/95 border-2 border-nobleGold-500/40 rounded-3xl p-6 md:p-8 space-y-6 shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-ink-border pb-4">
+      <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-5 md:p-6 space-y-5 shadow-xs">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E3DFD5] pb-4">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-celadon-100 text-celadon-800 text-xs font-serif font-bold mb-2">
-              <ScanLine className="w-3.5 h-3.5 text-celadon-700" />
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#F0F5F2] text-[#19382C] text-xs font-serif font-bold mb-1.5 border border-[#BFD4CA]">
+              <ScanLine className="w-3.5 h-3.5 text-[#19382C]" />
               <span>3초 AI 비전 자동 판독 엔진</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-reverence font-black text-ink">
+            <h3 className="text-lg md:text-xl font-reverence font-bold text-[#151719]">
               장롱 속 상조 계약 증서 모바일 촬영 · 즉시 자동 판독
             </h3>
-            <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+            <p className="text-xs text-[#727782] mt-1 leading-relaxed font-serif">
               노안으로 깨알 같은 약관 글씨가 잘 안 보이셔도 괜찮습니다. 상조 가입 증서를 스마트폰 카메라로 촬영하시면 상조사, 약정금액, 납입회차를 3초 만에 판독합니다.
             </p>
           </div>
@@ -216,24 +216,24 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={isScanning}
-              className="px-6 py-3.5 bg-celadon-800 hover:bg-celadon-900 active:scale-[0.98] text-white font-reverence font-bold text-base rounded-2xl shadow-md flex items-center justify-center space-x-2.5 transition-all cursor-pointer disabled:opacity-50"
+              className="px-5 py-3 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] font-serif font-bold text-sm rounded-md shadow-xs flex items-center justify-center space-x-2 transition-all cursor-pointer disabled:opacity-50 border border-[#2D5A46]"
             >
-              <Camera className="w-5 h-5 text-nobleGold-400" />
+              <Camera className="w-4 h-4 text-[#C2A26A]" />
               <span>증서 사진 촬영 / 갤러리 업로드</span>
             </button>
-            <span className="text-[11px] text-ink-muted mt-1.5 text-center sm:text-right">
+            <span className="text-[11px] text-[#8C867B] mt-1 text-center sm:text-right font-serif">
               카메라 권한 허용 시 즉시 촬영 가능
             </span>
           </div>
         </div>
 
         {/* 벤치마크 실물 증서 원터치 비전 스캔 시뮬레이션 버튼 3종 */}
-        <div className="space-y-2.5">
-          <label className="text-sm font-bold text-ink flex items-center space-x-1.5">
-            <Sparkles className="w-4 h-4 text-nobleGold-600" />
+        <div className="space-y-2">
+          <label className="text-xs font-serif font-bold text-[#151719] flex items-center space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#9E7D47]" />
             <span>또는 실제 상조사 실물 증서 샘플을 원터치로 스캔해 보세요:</span>
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {[
               { key: 'boram450', name: '보람상조 450 실물 증서', desc: '450만 / 150회 중 42회 (중도)' },
               { key: 'preed590', name: '프리드 590 실물 증서', desc: '590만 / 120회 중 80회 (후반)' },
@@ -243,24 +243,24 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 key={btn.key}
                 disabled={isScanning}
                 onClick={() => handlePresetSampleScan(btn.key as any)}
-                className="p-3.5 rounded-xl border border-ink-border bg-porcelain hover:bg-celadon-50/60 hover:border-celadon-600 text-left transition-all active:scale-[0.99] disabled:opacity-50 group"
+                className="p-3 rounded-md border border-[#E3DFD5] bg-[#FFFFFF] hover:border-[#9E7D47] text-left transition-all disabled:opacity-50 group cursor-pointer"
               >
-                <div className="text-sm font-reverence font-bold text-ink group-hover:text-celadon-900 flex items-center justify-between">
+                <div className="text-xs font-serif font-bold text-[#151719] group-hover:text-[#19382C] flex items-center justify-between">
                   <span>{btn.name}</span>
-                  <ScanLine className="w-4 h-4 text-ink-muted group-hover:text-celadon-700" />
+                  <ScanLine className="w-3.5 h-3.5 text-[#8C867B] group-hover:text-[#19382C]" />
                 </div>
-                <div className="text-xs text-ink-muted mt-0.5">{btn.desc}</div>
+                <div className="text-[11px] text-[#727782] mt-0.5 font-serif">{btn.desc}</div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* AI 비전 스캔 진행 상태 프로그레스 (애니메이션) */}
+        {/* AI 비전 스캔 진행 상태 프로그레스 */}
         {isScanning && (
-          <div className="p-5 rounded-2xl bg-celadon-900 text-white border-2 border-nobleGold-400 space-y-3 animate-pulse">
-            <div className="flex items-center justify-between">
-              <span className="font-reverence font-bold text-base flex items-center space-x-2 text-nobleGold-200">
-                <RefreshCw className="w-4 h-4 animate-spin text-nobleGold-400" />
+          <div className="p-4 rounded-lg bg-[#132B22] text-[#FAF9F6] border border-[#2D5A46] space-y-2.5">
+            <div className="flex items-center justify-between font-serif">
+              <span className="font-bold text-sm flex items-center space-x-2 text-[#FAF9F6]">
+                <RefreshCw className="w-4 h-4 animate-spin text-[#C2A26A]" />
                 <span>AI 비전 텍스트 심층 판독 중...</span>
               </span>
               <span className="font-serif text-sm font-bold text-nobleGold-300">{scanProgress}%</span>
@@ -455,82 +455,82 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
       </div>
 
       {/* 4. [컴플레인 제로 직관 전달] 한눈에 쏙 들어오는 3단계 돈의 흐름 안내판 */}
-      <div className="bg-celadon-50/70 border-2 border-celadon-600 rounded-3xl p-6 md:p-8 space-y-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-celadon-200 pb-4">
+      <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3DFD5] pb-4">
           <div>
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-celadon-800 text-white text-xs font-serif font-bold mb-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-nobleGold-400" />
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#19382C] text-[#FAF9F6] text-xs font-serif font-bold mb-1 border border-[#2A5442]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>어르신 안심 3단계 자금 흐름 요약</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-reverence font-black text-ink">
+            <h3 className="text-xl md:text-2xl font-reverence font-bold text-[#151719]">
               복잡한 상조 계산, 3단계로 명쾌하게 정리해 드립니다
             </h3>
           </div>
-          <span className="text-xs text-ink-muted font-serif">
+          <span className="text-xs text-[#727782] font-serif">
             ※ 공정거래위원회 고시 제2020-1호 법적 기준
           </span>
         </div>
 
         {/* 3단계 카드 그리드 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {/* 1단계: 통장 환급금 */}
-          <div className="bg-white rounded-2xl p-5 border border-celadon-200 shadow-xs flex flex-col justify-between space-y-3">
+          <div className="bg-[#FFFFFF] rounded-lg p-5 border border-[#E3DFD5] shadow-xs flex flex-col justify-between space-y-3">
             <div>
-              <div className="text-xs font-serif font-bold text-celadon-800 bg-celadon-100 px-2.5 py-1 rounded-full w-fit mb-2">
+              <div className="text-xs font-serif font-bold text-[#19382C] bg-[#F0F5F2] px-2.5 py-0.5 rounded border border-[#BFD4CA] w-fit mb-2">
                 1단계: 기존 상조 해약 시
               </div>
-              <h4 className="font-reverence font-bold text-base md:text-lg text-ink">
+              <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719]">
                 통장으로 돌려받는 현금
               </h4>
-              <p className="text-xs text-ink-muted mt-1 leading-relaxed">
+              <p className="text-xs text-[#727782] mt-1 leading-relaxed font-serif">
                 지금까지 낸 <b>{report.certificate.paidTotalAmount.toLocaleString()}원</b> 중 법정 환급금이 고객님 개인 은행 통장으로 즉시 입금됩니다.
               </p>
             </div>
-            <div className="pt-2 border-t border-ink-border/50 flex justify-between items-baseline">
-              <span className="text-xs text-ink-muted">통장 입금액:</span>
-              <span className="text-xl md:text-2xl font-reverence font-black text-celadon-800">
+            <div className="pt-2 border-t border-[#ECE8E0] flex justify-between items-baseline font-serif">
+              <span className="text-xs text-[#727782]">통장 입금액:</span>
+              <span className="text-xl md:text-2xl font-reverence font-black text-[#19382C]">
                 +{report.statutoryRefund.refundAmount.toLocaleString()}원
               </span>
             </div>
           </div>
 
           {/* 2단계: 배웅 장례비 */}
-          <div className="bg-white rounded-2xl p-5 border border-celadon-200 shadow-xs flex flex-col justify-between space-y-3">
+          <div className="bg-[#FFFFFF] rounded-lg p-5 border border-[#E3DFD5] shadow-xs flex flex-col justify-between space-y-3">
             <div>
-              <div className="text-xs font-serif font-bold text-nobleGold-700 bg-nobleGold-100 px-2.5 py-1 rounded-full w-fit mb-2">
+              <div className="text-xs font-serif font-bold text-[#876937] bg-[#F8F5EE] px-2.5 py-0.5 rounded border border-[#E4D5BC] w-fit mb-2">
                 2단계: 배웅 장례 치를 때
               </div>
-              <h4 className="font-reverence font-bold text-base md:text-lg text-ink">
+              <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719]">
                 배웅에 실제 결제하는 금액
               </h4>
-              <p className="text-xs text-ink-muted mt-1 leading-relaxed">
+              <p className="text-xs text-[#727782] mt-1 leading-relaxed font-serif">
                 정찰가 {report.selectedBaeungPackage.price.toLocaleString()}원에서 해약손실을 메워드리는 <b>손실보전 {report.transitionCredit.toLocaleString()}원 할인</b>이 즉시 차감됩니다.
               </p>
             </div>
-            <div className="pt-2 border-t border-ink-border/50 flex justify-between items-baseline">
-              <span className="text-xs text-ink-muted">배웅 결제 청구액:</span>
-              <span className="text-xl md:text-2xl font-reverence font-black text-ink">
+            <div className="pt-2 border-t border-[#ECE8E0] flex justify-between items-baseline font-serif">
+              <span className="text-xs text-[#727782]">배웅 결제 청구액:</span>
+              <span className="text-xl md:text-2xl font-reverence font-black text-[#151719]">
                 {(report.selectedBaeungPackage.price - report.transitionCredit).toLocaleString()}원
               </span>
             </div>
           </div>
 
           {/* 3단계: 최종 결과 */}
-          <div className="bg-gradient-to-br from-celadon-800 to-celadon-900 rounded-2xl p-5 text-white shadow-md flex flex-col justify-between space-y-3">
+          <div className="bg-[#132B22] rounded-lg p-5 text-[#FAF9F6] shadow-sm flex flex-col justify-between space-y-3 border border-[#2D5A46]">
             <div>
-              <div className="text-xs font-serif font-bold text-nobleGold-300 bg-celadon-950/60 px-2.5 py-1 rounded-full w-fit mb-2 border border-nobleGold-500/30">
+              <div className="text-xs font-serif font-bold text-[#C2A26A] bg-[#0E1E18] px-2.5 py-0.5 rounded w-fit mb-2 border border-[#2A5442]">
                 3단계: 우리 가족 최종 이익
               </div>
-              <h4 className="font-reverence font-bold text-base md:text-lg text-nobleGold-100">
+              <h4 className="font-reverence font-bold text-base md:text-lg text-[#FAF9F6]">
                 최종 순수 현금 절약액
               </h4>
-              <p className="text-xs text-celadon-200 mt-1 leading-relaxed">
+              <p className="text-xs text-[#BFD4CA] mt-1 leading-relaxed font-serif">
                 통장으로 받은 환급금을 보태어 장례를 치르시면, 기존 상조 유지 대비 순수하게 이만큼 아낍니다.
               </p>
             </div>
-            <div className="pt-2 border-t border-celadon-700 flex justify-between items-baseline">
-              <span className="text-xs text-celadon-300">절약되는 돈:</span>
-              <span className="text-2xl md:text-3xl font-reverence font-black text-nobleGold-300">
+            <div className="pt-2 border-t border-[#2D5A46] flex justify-between items-baseline font-serif">
+              <span className="text-xs text-[#BFD4CA]">절약되는 돈:</span>
+              <span className="text-2xl md:text-3xl font-reverence font-black text-[#C2A26A]">
                 {report.summary.netSavingsAmount.toLocaleString()}원
               </span>
             </div>
@@ -539,7 +539,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
       </div>
 
       {/* 5. [신규 직관 시각화] 2대 기준 비용 비교 차트 (혼선 방지 듀얼 탭) */}
-      <div className="bg-porcelain border-2 border-celadon-700/30 rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+      <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-7 space-y-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-ink-border pb-4">
           <div>
             <span className="font-reverence font-bold text-lg md:text-xl text-ink flex items-center space-x-2">

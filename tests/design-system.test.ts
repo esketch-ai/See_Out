@@ -4,13 +4,13 @@ import { BAEUNG_DESIGN_TOKENS } from '../src/web/design-system/tokens.js';
 describe('Baeung Design System Tokens (배웅 디자인 시스템 개발 환경 검증)', () => {
   it('조성우 수석 디자이너가 제정한 4대 전통 물성 배색 토큰이 무결하게 정의되어 있어야 한다', () => {
     const { colors } = BAEUNG_DESIGN_TOKENS;
-    expect(colors.hanji).toBe('#FAF8F5');
+    expect(colors.hanji).toBe('#F7F5F0');
     expect(colors.porcelain).toBe('#FFFFFF');
-    expect(colors.deepInk).toBe('#1F2226');
-    expect(colors.celadon.base).toBe('#2D4F43');
-    expect(colors.celadon.dark).toBe('#243F35');
-    expect(colors.nobleGold.base).toBe('#94784C');
-    expect(colors.crimson.base).toBe('#A33B32');
+    expect(colors.deepInk).toBe('#151719');
+    expect(colors.celadon.base).toBe('#19382C');
+    expect(colors.celadon.dark).toBe('#132B22');
+    expect(colors.nobleGold.base).toBe('#9E7D47');
+    expect(colors.crimson.base).toBe('#8B2520');
   });
 
   it('5대 핵심 전각 낙관(禮, 眞, 安, 誠, 永, 謹弔)이 정확한 한자 및 의미로 등록되어 있어야 한다', () => {

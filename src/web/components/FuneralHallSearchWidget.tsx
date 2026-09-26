@@ -47,21 +47,28 @@ export const FuneralHallSearchWidget: React.FC = () => {
 
   return (
     <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
-      {/* 헤더 */}
-      <div className="border-b border-ink-border pb-6">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-700 text-xs font-serif font-bold mb-3 border border-nobleGold-500/20">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
+      {/* 1. 상단 사진 비주얼 헤더 배너 */}
+      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border">
+        <img
+          src="/images/memorial-altar.jpg"
+          alt="정갈한 장례식장 제단 꽃장식"
+          className="w-full h-full object-cover object-center filter brightness-[0.55]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-celadon-500/20 text-celadon-200 text-xs font-serif font-bold mb-2 border border-celadon-600/30 w-fit">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
+            전국 장례식장 시설 정보 및 빈소 감면 안내
+          </h2>
+          <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
+            거주지 인근 장례식장의 분향실·안치실 규모를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
+          </p>
         </div>
-        <h2 className="text-2xl md:text-3xl font-reverence font-black text-ink tracking-tight">
-          전국 장례식장 시설 정보 및 빈소 감면 안내
-        </h2>
-        <p className="text-ink-light mt-2 text-base md:text-lg leading-relaxed">
-          거주지 인근 장례식장의 분향실·안치실 규모와 설비를 정직하게 공개하며, 배웅 사전 등록 시 빈소 임대료 최대 30% 감면 혜택을 조율해 드립니다.
-        </p>
       </div>
 
-      {/* 전국 17개 시도별 퀵 통계 칩 바 */}
+      {/* 2. 전국 17개 시도별 퀵 통계 칩 바 */}
       <div className="bg-hanji rounded-2xl p-4 border border-ink-border">
         <div className="text-xs font-serif font-bold text-ink-muted mb-2.5">
           전국 17개 광역시·도 장사 인프라 분포 (총 1,080개소)
@@ -93,7 +100,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 검색 및 필터 컨트롤러 */}
+      {/* 3. 검색 및 필터 컨트롤러 */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5">
         {/* 키워드 검색 */}
         <div className="md:col-span-6 relative">
@@ -138,7 +145,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 장례식장 카드 리스트 (검색 결과) */}
+      {/* 4. 장례식장 카드 리스트 (검색 결과) */}
       <div className="space-y-3">
         <div className="text-xs font-serif font-bold text-ink-muted">
           조회된 장례식장 ({halls.length}개소)
@@ -192,7 +199,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 선택된 식장 상세 및 배웅 할인 견적 팝업/카드 */}
+      {/* 5. 선택된 식장 상세 및 배웅 할인 견적 팝업/카드 */}
       {selectedHall && discountInfo && (
         <div className="bg-gradient-to-br from-celadon-900 to-mourning-900 text-white rounded-3xl p-6 md:p-8 shadow-xl space-y-5 border border-nobleGold-500/30">
           <div className="flex justify-between items-start">

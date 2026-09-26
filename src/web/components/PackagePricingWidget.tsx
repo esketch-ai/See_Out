@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Info, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Info, ShieldCheck, Sparkles } from 'lucide-react';
 import { BAEUNG_PACKAGES, BaeungPackageType } from '../../quote-diagnostics/index.js';
 
 export const PackagePricingWidget: React.FC = () => {
@@ -10,21 +10,28 @@ export const PackagePricingWidget: React.FC = () => {
 
   return (
     <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
-      {/* 헤더 */}
-      <div className="border-b border-ink-border pb-6">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-700 text-xs font-serif font-bold mb-3 border border-nobleGold-500/20">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>선금 0원 · 100% 후불 정산제</span>
+      {/* 1. 상단 사진 비주얼 헤더 배너 */}
+      <div className="relative rounded-2xl overflow-hidden h-44 sm:h-56 border border-ink-border">
+        <img
+          src="/images/hero-memorial.jpg"
+          alt="정직 원가 의전 용품 및 제단"
+          className="w-full h-full object-cover object-center filter brightness-[0.55]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30 w-fit">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>선금 0원 · 100% 후불 정산제</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
+            배웅 정직 원가 정찰제 의전 안내
+          </h2>
+          <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
+            유족의 슬픔과 경황없음을 틈탄 어떠한 업셀링이나 강매도 없습니다. 의전의 품격을 지키며 원가를 투명하게 공개합니다.
+          </p>
         </div>
-        <h2 className="text-2xl md:text-3xl font-reverence font-black text-ink tracking-tight">
-          배웅 정직 원가 정찰제 의전 안내
-        </h2>
-        <p className="text-ink-light mt-2 text-base md:text-lg leading-relaxed">
-          유족의 슬픔과 경황없음을 틈탄 어떠한 업셀링이나 강매도 없습니다. 의전의 품격을 지키며 원가를 투명하게 공개합니다.
-        </p>
       </div>
 
-      {/* 3대 패키지 선택 탭 */}
+      {/* 2. 3대 패키지 선택 탭 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {packages.map((pkg) => (
           <button
@@ -45,7 +52,7 @@ export const PackagePricingWidget: React.FC = () => {
         ))}
       </div>
 
-      {/* 원가 상세 투명 공개 아코디언 */}
+      {/* 3. 원가 상세 투명 공개 아코디언 */}
       <div className="border border-ink-border rounded-2xl overflow-hidden bg-hanji/30">
         <button
           onClick={() => setOpenDetail(!openDetail)}

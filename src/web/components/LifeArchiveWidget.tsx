@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Award, Image, Mic, Archive, Shield, Lock } from 'lucide-react';
+import { BookOpen, Award, Image, Mic, Archive, Shield, Lock, Sparkles } from 'lucide-react';
 
 export const LifeArchiveWidget: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'storage' | 'organization' | 'companion'>('organization');
@@ -15,20 +15,28 @@ export const LifeArchiveWidget: React.FC = () => {
 
   return (
     <div className="bg-porcelain rounded-3xl shadow-sm border border-ink-border p-6 md:p-10 space-y-8">
-      {/* 헤더 */}
-      <div className="border-b border-ink-border pb-6">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-100 text-nobleGold-700 text-xs font-serif font-bold mb-3 border border-nobleGold-500/20">
-          <span>평시 생애기록관 (Pre-mortem)</span>
+      {/* 1. 상단 실제 훈장 및 가족 사진 비주얼 헤더 */}
+      <div className="relative rounded-2xl overflow-hidden h-48 sm:h-60 border border-ink-border">
+        <img
+          src="/images/life-archive.jpg"
+          alt="훈장과 흑백 가족 사진, 소중한 회고록"
+          className="w-full h-full object-cover object-center filter brightness-[0.55]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-mourning-950 via-mourning-950/40 to-transparent flex flex-col justify-end p-6 sm:p-8">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-nobleGold-500/20 text-nobleGold-100 text-xs font-serif font-bold mb-2 border border-nobleGold-500/30 w-fit">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>평시 생애기록관 (Pre-mortem)</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-white tracking-tight">
+            내가 살아온 삶의 이야기와 흔적을 정갈하게
+          </h2>
+          <p className="text-gray-200 text-xs sm:text-sm font-serif mt-1">
+            이별의 순간이 오기 전, 평생을 바쳐 일구어 오신 귀한 기억과 유품을 정성껏 디지털로 봉안하여 가족에게 온전히 전합니다.
+          </p>
         </div>
-        <h2 className="text-2xl md:text-3xl font-reverence font-black text-ink tracking-tight">
-          내가 살아온 삶의 이야기와 흔적을 정갈하게
-        </h2>
-        <p className="text-ink-light mt-2 text-base md:text-lg leading-relaxed">
-          이별의 순간이 오기 전, 평생을 바쳐 일구어 오신 귀한 기억과 유품을 정성껏 디지털로 봉안하여 가족에게 온전히 전합니다.
-        </p>
       </div>
 
-      {/* 6대 기록 카테고리 그리드 */}
+      {/* 2. 6대 기록 카테고리 그리드 */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
         {categories.map((c, i) => {
           const Icon = c.icon;
@@ -52,7 +60,7 @@ export const LifeArchiveWidget: React.FC = () => {
         })}
       </div>
 
-      {/* 게이트키퍼(Gatekeeper) 사후 승계 프로토콜 배너 */}
+      {/* 3. 게이트키퍼(Gatekeeper) 사후 승계 프로토콜 배너 */}
       <div className="bg-mourning-900 text-white rounded-3xl p-6 md:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-white/10">
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 rounded-2xl bg-white/10 text-nobleGold-500 flex items-center justify-center shrink-0">
@@ -72,7 +80,7 @@ export const LifeArchiveWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* 생애기록관 멤버십 */}
+      {/* 4. 생애기록관 멤버십 */}
       <div className="space-y-4">
         <h3 className="text-lg font-reverence font-bold text-ink">생애기록관 정기 보존 멤버십</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">

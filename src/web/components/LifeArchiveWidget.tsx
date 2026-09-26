@@ -22,7 +22,8 @@ import {
   Calendar,
   Compass,
   FileText,
-  Key
+  Key,
+  X
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import {
@@ -31,7 +32,8 @@ import {
   SAMPLE_CONTACTS,
   SAMPLE_PRE_MORTEM_OBITUARY,
   SAMPLE_ENDING_NOTE,
-  SAMPLE_GATEKEEPER
+  SAMPLE_GATEKEEPER,
+  SAMPLE_LIFE_PHOTOS
 } from '../../life-archive/index.js';
 
 export const LifeArchiveWidget: React.FC = () => {
@@ -47,6 +49,10 @@ export const LifeArchiveWidget: React.FC = () => {
   // 부고 발송 시뮬레이션 상태
   const [isBroadcasting, setIsBroadcasting] = useState<boolean>(false);
   const [broadcastSuccess, setBroadcastSuccess] = useState<boolean>(false);
+
+  // 생전 사진 갤러리 모달 상태
+  const [showPhotoGalleryModal, setShowPhotoGalleryModal] = useState<boolean>(false);
+  const [copiedAccount, setCopiedAccount] = useState<boolean>(false);
 
   // 연락처 그룹 필터
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
@@ -415,12 +421,34 @@ export const LifeArchiveWidget: React.FC = () => {
               </div>
 
               {/* 스마트폰 부고장 프레임 */}
-              <div className="bg-[#FFFFFF] border-2 border-[#121417]/10 rounded-xl p-5 space-y-3.5 shadow-xs max-w-lg mx-auto">
+              <div className="bg-[#FFFFFF] border-2 border-[#121417]/10 rounded-xl p-5 space-y-4 shadow-sm max-w-lg mx-auto">
                 <div className="text-center pb-3 border-b border-[#ECE8E0]">
-                  <div className="text-xs font-bold text-[#8B2520]">부 고 (訃告)</div>
+                  <div className="text-xs font-bold text-[#8B2520] tracking-widest">부 고 (訃告)</div>
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
                     {SAMPLE_PRE_MORTEM_OBITUARY.title}
                   </h4>
+                </div>
+
+                {/* 고인의 생전 온화한 인물 사진 프로필 배너 */}
+                <div className="flex items-center space-x-3.5 p-3 rounded-lg bg-[#FAF8F5] border border-[#ECE8E0]">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#9E7D47] shrink-0 bg-[#121417] shadow-xs">
+                    <img
+                      src="/images/life-story-book.jpg"
+                      alt="故 김철수 님 생전 인물 사진"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-xs font-serif font-bold text-[#151719] flex items-center space-x-1.5">
+                      <span>故 김철수 베드로 님 (1938 ~ 2026)</span>
+                      <span className="text-[10px] text-[#876937] bg-[#F8F5EE] px-1.5 py-0.2 rounded border border-[#E8DFCF]">
+                        향년 88세
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#727782] font-serif mt-0.5">
+                      “성실함에는 거짓이 없으며, 가족을 향한 사랑은 마르지 않는다.”
+                    </p>
+                  </div>
                 </div>
 
                 <div className="text-xs text-[#42464E] leading-relaxed">
@@ -433,6 +461,44 @@ export const LifeArchiveWidget: React.FC = () => {
                   <p className="italic">{SAMPLE_PRE_MORTEM_OBITUARY.personalFarewell}</p>
                 </div>
 
+                {/* ★ [유저 핵심 요청] 생전 사진 및 추모 갤러리 바로가기 링크 버튼 ★ */}
+                <div className="space-y-2 pt-1">
+                  <button
+                    onClick={() => setShowPhotoGalleryModal(true)}
+                    className="w-full py-3 px-3.5 bg-[#FAF8F5] hover:bg-[#F2ECE0] border border-[#D9D3C7] hover:border-[#9E7D47] rounded-lg text-xs font-serif font-bold text-[#151719] flex items-center justify-between transition-all cursor-pointer shadow-2xs group"
+                  >
+                    <div className="flex items-center space-x-2.5">
+                      <div className="w-7 h-7 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center shrink-0">
+                        <Image className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="text-left">
+                        <div className="flex items-center space-x-1.5">
+                          <span className="font-bold text-[#19382C]">故 김철수 님의 생전 사진 및 추모 갤러리</span>
+                          <span className="text-[10px] bg-[#19382C] text-white px-1.5 py-0.2 rounded font-mono">
+                            {SAMPLE_PRE_MORTEM_OBITUARY.lifePhotoCount || 84}장
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-[#727782] font-normal">
+                          청년 시절부터 가족과 함께한 소중한 생전 모습을 확인하세요
+                        </div>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-[#9E7D47] group-hover:translate-x-1 transition-transform shrink-0" />
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('biography')}
+                    className="w-full py-2.5 px-3.5 bg-[#F0F5F2] hover:bg-[#E2EDE7] border border-[#BFD4CA] rounded-lg text-xs font-serif font-bold text-[#19382C] flex items-center justify-between transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <BookOpen className="w-3.5 h-3.5 text-[#19382C]" />
+                      <span>고인의 일생 히스토리 및 생애 평전 스토리북 읽기</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-[#19382C] group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+
+                {/* 빈소 및 계좌 정보 */}
                 <div className="text-xs space-y-1.5 pt-2 border-t border-[#ECE8E0]">
                   <div className="flex justify-between">
                     <span className="text-[#727782]">빈소 안내:</span>
@@ -442,9 +508,21 @@ export const LifeArchiveWidget: React.FC = () => {
                     <span className="text-[#727782]">장지(승화원):</span>
                     <span className="font-bold text-[#151719]">{SAMPLE_PRE_MORTEM_OBITUARY.crematoriumName}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span className="text-[#727782]">마음 전하실 곳:</span>
-                    <span className="font-bold text-[#19382C]">{SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence}</span>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="font-bold text-[#19382C]">{SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence}</span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard?.writeText(SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence || '');
+                          setCopiedAccount(true);
+                          setTimeout(() => setCopiedAccount(false), 2000);
+                        }}
+                        className="text-[10px] px-1.5 py-0.5 rounded border border-[#E3DFD5] bg-[#FAF9F6] text-[#5C6166] hover:text-[#151719] cursor-pointer"
+                      >
+                        {copiedAccount ? '복사됨' : '복사'}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -599,6 +677,111 @@ export const LifeArchiveWidget: React.FC = () => {
                   <span>{cond}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [고인 생전 사진 및 추모 갤러리 팝업 모달] (부고장 링크 클릭 시 열림) */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {showPhotoGalleryModal && (
+        <div className="fixed inset-0 z-50 bg-[#0D0E10]/80 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl border border-[#E3DFD5] flex flex-col max-h-[92vh]">
+            {/* 모달 헤더 */}
+            <div className="bg-[#121417] text-[#FAF9F6] p-4 px-5 flex items-center justify-between">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-7 h-7 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center">
+                  <Image className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="font-serif font-bold text-sm md:text-base text-[#FAF9F6] flex items-center space-x-2">
+                    <span>故 김철수 님의 생전 사진 및 추모 갤러리</span>
+                    <span className="text-[10px] bg-[#19382C] text-[#C2A26A] px-2 py-0.5 rounded border border-[#2A5442] font-mono">
+                      총 {SAMPLE_PRE_MORTEM_OBITUARY.lifePhotoCount || 84}장
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowPhotoGalleryModal(false)}
+                className="p-1.5 hover:bg-white/10 rounded-full text-[#D4CEC2] hover:text-white transition-colors cursor-pointer"
+                title="닫기"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* 모달 본문 */}
+            <div className="overflow-y-auto p-5 md:p-6 space-y-5 font-serif">
+              {/* 상단 따뜻한 회고 배너 */}
+              <div className="bg-[#FAF8F5] border border-[#ECE8E0] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div>
+                  <div className="font-bold text-[#151719] flex items-center space-x-1.5">
+                    <Heart className="w-3.5 h-3.5 text-[#8B2520] fill-[#8B2520]" />
+                    <span>“저와 함께 웃고 울었던 소중한 인연들을 기억하며 감사드립니다.”</span>
+                  </div>
+                  <p className="text-[#727782] text-[11px] mt-0.5">
+                    고인이 생전에 직접 모아둔 소중한 삶의 기록입니다. 사진을 누르시면 큰 화면으로 감상하실 수 있습니다.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowPhotoGalleryModal(false);
+                    setActiveTab('biography');
+                  }}
+                  className="px-3.5 py-2 bg-[#19382C] text-white rounded font-bold text-xs shrink-0 cursor-pointer flex items-center space-x-1.5 hover:bg-[#224A3B] transition-colors"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-[#C2A26A]" />
+                  <span>생애 평전 스토리북 읽기</span>
+                </button>
+              </div>
+
+              {/* 6대 대표 생전 사진 그리드 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {SAMPLE_LIFE_PHOTOS.map((photo) => (
+                  <div
+                    key={photo.id}
+                    className="group rounded-xl border border-[#E3DFD5] overflow-hidden bg-[#FAF9F6] hover:border-[#9E7D47] transition-all flex flex-col justify-between shadow-2xs"
+                  >
+                    <div className="relative h-44 overflow-hidden bg-[#121417]">
+                      <img
+                        src={photo.imageUrl}
+                        alt={photo.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-2 left-2 bg-[#121417]/85 text-white text-[10px] px-2 py-0.5 rounded font-mono">
+                        {photo.year}
+                      </div>
+                      <div className="absolute top-2 right-2 bg-[#19382C]/90 text-[#FAF9F6] text-[10px] px-2 py-0.5 rounded font-bold">
+                        {photo.category}
+                      </div>
+                    </div>
+
+                    <div className="p-3.5 space-y-1">
+                      <h5 className="font-serif font-bold text-xs text-[#151719] line-clamp-1">
+                        {photo.title}
+                      </h5>
+                      <p className="text-[11px] text-[#5C6166] leading-relaxed line-clamp-2">
+                        {photo.caption}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 모달 푸터 */}
+            <div className="bg-[#FAF9F6] border-t border-[#E3DFD5] p-3.5 px-5 flex items-center justify-between text-xs font-serif">
+              <span className="text-[#727782]">
+                ※ 유가족과 조문객 누구나 모바일 부고장 링크를 통해 평생 열람 및 추모가 가능합니다.
+              </span>
+              <button
+                onClick={() => setShowPhotoGalleryModal(false)}
+                className="px-4 py-2 bg-[#19382C] text-white rounded font-bold hover:bg-[#224A3B] transition-colors cursor-pointer"
+              >
+                닫기
+              </button>
             </div>
           </div>
         </div>

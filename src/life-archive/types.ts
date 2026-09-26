@@ -21,6 +21,15 @@ export interface ContactGroupSummary {
   description: string;
 }
 
+export interface LifePhotoItem {
+  id: string;
+  title: string;
+  year: string;
+  caption: string;
+  category: string;
+  imageUrl: string;
+}
+
 export interface PreMortemObituary {
   title: string;
   preamble: string;                 // 공통 부고 안내문
@@ -28,6 +37,10 @@ export interface PreMortemObituary {
   funeralHallLinkedName?: string;   // 연계 장례식장
   crematoriumName?: string;         // 연계 승화원
   accountForCondolence?: string;    // 마음 전하실 곳 계좌
+  representativePhotoUrl?: string;  // 고인 생전 대표 사진 (온화한 모습)
+  lifePhotoGalleryUrl?: string;     // 고인의 생전 사진 및 추모 갤러리 링크
+  lifePhotoCount?: number;          // 보존된 생전 사진 수 (예: 84장)
+  lifeStoryUrl?: string;            // 고인 생애 평전 링크
 }
 
 export interface LifeStoryChapter {

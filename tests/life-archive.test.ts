@@ -35,6 +35,9 @@ describe('LifeArchive Domain & Biographical Storybook Engine', () => {
     expect(obit.personalFarewell).toContain('평생 분에 넘치는 사랑');
     expect(obit.funeralHallLinkedName).toContain('서울아산병원');
     expect(obit.accountForCondolence).toBeDefined();
+    expect(obit.representativePhotoUrl).toBeDefined();
+    expect(obit.lifePhotoGalleryUrl).toBeDefined();
+    expect(obit.lifePhotoCount).toBe(84);
   });
 
   it('게이트키퍼 사후 승계 프로토콜은 1차 및 2차 대리인이 지정되어 있어야 한다', () => {

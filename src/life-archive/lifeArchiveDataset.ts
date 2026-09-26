@@ -208,6 +208,60 @@ export const SAMPLE_CONTACTS: SmartphoneContactItem[] = [
 ];
 
 /**
+ * 고인 생전 사진 갤러리 샘플 데이터 (총 84장 중 대표 6선)
+ */
+export const SAMPLE_LIFE_PHOTOS = [
+  {
+    id: 'p-1',
+    title: '백년가약 전통 혼례식 (아내 박순자 여사와 함께)',
+    year: '1963년',
+    category: '결혼 및 가족',
+    caption: '두 손을 꼭 잡고 평생의 동반자가 되기로 맹세하던 날. 검은 머리 파뿌리 될 때까지 사랑하겠다는 약속을 지켰습니다.',
+    imageUrl: '/images/life-story-book.jpg'
+  },
+  {
+    id: 'p-2',
+    title: '대한민국 1호 초대형 유조선 도크 현장에서',
+    year: '1974년',
+    category: '일터와 업적',
+    caption: '거대한 쇳물과 용접 불꽃 속에서 동료들과 함께 일군 조선 강국의 꿈. 내 청춘의 가장 뜨거웠던 땀방울이었습니다.',
+    imageUrl: '/images/escort-ceremony.jpg'
+  },
+  {
+    id: 'p-3',
+    title: '네 식구의 첫 가족사진 (정우 돌잔치)',
+    year: '1978년',
+    category: '결혼 및 가족',
+    caption: '어려운 형편이었지만 아이들의 웃음소리 하나로 온 세상을 다 가진 듯 행복했던 젊은 날의 우리 집.',
+    imageUrl: '/images/life-archive.jpg'
+  },
+  {
+    id: 'p-4',
+    title: '30년 근속 정년퇴임식과 후배들의 꽃다발',
+    year: '1998년',
+    category: '일터와 업적',
+    caption: '청춘을 바친 일터를 명예롭게 떠나며 후배들이 걸어준 꽃목걸이. 부끄러움 없이 성실하게 살았다는 자긍심.',
+    imageUrl: '/images/floral-coffin.jpg'
+  },
+  {
+    id: 'p-5',
+    title: '금혼식(결혼 50주년) 온 가족 제주도 여행',
+    year: '2015년',
+    category: '황혼과 추억',
+    caption: '자녀들과 손주들이 마련해 준 제주 바닷가에서. 아내의 주름진 손을 잡고 "고마웠소"라고 속삭였습니다.',
+    imageUrl: '/images/memorial-altar.jpg'
+  },
+  {
+    id: 'p-6',
+    title: '손자 민준이와 함께한 서재의 오후',
+    year: '2020년',
+    category: '황혼과 추억',
+    caption: '내 무릎에 앉아 재롱을 피우던 민준이. 세상 무엇과도 바꿀 수 없던 내 인생 황혼의 가장 눈부신 햇살.',
+    imageUrl: '/images/hero-memorial.jpg'
+  }
+];
+
+/**
  * 고인 사전 작성 모바일 부고장
  */
 export const SAMPLE_PRE_MORTEM_OBITUARY: PreMortemObituary = {
@@ -218,7 +272,11 @@ export const SAMPLE_PRE_MORTEM_OBITUARY: PreMortemObituary = {
     '“평생 분에 넘치는 사랑과 은혜를 받았습니다. 먼 길 가기 전, 함께 웃고 울었던 소중한 인연들께 머리 숙여 깊이 감사드립니다. 부디 슬퍼하지 마시고 저와의 따뜻했던 기억 하나만 품어 주십시오.” — 고인 김철수 올림',
   funeralHallLinkedName: '서울아산병원 장례식장 2층 20호실',
   crematoriumName: '서울시립승화원 (벽제 화장장)',
-  accountForCondolence: '신한은행 110-384-291028 (예금주: 장남 김정우)'
+  accountForCondolence: '신한은행 110-384-291028 (예금주: 장남 김정우)',
+  representativePhotoUrl: '/images/life-story-book.jpg',
+  lifePhotoGalleryUrl: '#photo-gallery',
+  lifePhotoCount: 84,
+  lifeStoryUrl: '#biography'
 };
 
 /**

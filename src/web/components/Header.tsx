@@ -34,12 +34,12 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navItems: { id: MainTab; label: string; desc: string; icon: React.FC<{ className?: string }> }[] = [
-    { id: 'home', label: '종합 의전 안내', desc: '홈 요약 및 4대 핵심 서비스 둘러보기', icon: LayoutDashboard },
-    { id: 'quote', label: '상조 증서 원가 진단', desc: '3초 카메라 스캔 & 1:1 맞춤 영수증 비교', icon: FileText },
-    { id: 'funeral-halls', label: '전국 장례식장 시설 · 감면', desc: '전국 1,080곳 빈소 시설 & 30% 감면 혜택', icon: Building2 },
-    { id: 'packages', label: '정찰제 의전 패키지', desc: '무빈소·실속형·표준형 100% 투명 정찰제', icon: PackageCheck },
-    { id: 'life-archive', label: '생애기록관 (사전 봉안)', desc: '고인의 삶을 영구 보존하는 디지털 추모관', icon: BookOpen }
+  const navItems: { id: MainTab; label: string; seal: string; desc: string; icon: React.FC<{ className?: string }> }[] = [
+    { id: 'home', label: '종합 의전 안내', seal: '禮', desc: '홈 요약 및 4대 핵심 서비스 둘러보기', icon: LayoutDashboard },
+    { id: 'quote', label: '상조 증서 원가 진단', seal: '眞', desc: '3초 카메라 스캔 & 1:1 맞춤 영수증 비교', icon: FileText },
+    { id: 'funeral-halls', label: '전국 장례식장 시설 · 감면', seal: '安', desc: '전국 1,080곳 빈소 시설 & 30% 감면 혜택', icon: Building2 },
+    { id: 'packages', label: '정찰제 의전 패키지', seal: '誠', desc: '무빈소·실속형·표준형 100% 투명 정찰제', icon: PackageCheck },
+    { id: 'life-archive', label: '생애기록관 (사전 봉안)', seal: '永', desc: '고인의 삶을 영구 보존하는 디지털 추모관', icon: BookOpen }
   ];
 
   const handleSelectNav = (tabId: MainTab) => {
@@ -57,11 +57,11 @@ export const Header: React.FC<HeaderProps> = ({
             onToggleMode(false);
             handleSelectNav('home');
           }}
-          className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer"
+          className="flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer group"
         >
           <div
             className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-reverence font-black text-xl sm:text-2xl text-white shadow-md transition-all shrink-0 ${
-              isEmergencyMode ? 'bg-crimson-600 ring-2 ring-crimson-400' : 'bg-celadon-800 ring-2 ring-nobleGold-500/40'
+              isEmergencyMode ? 'bg-crimson-600 ring-2 ring-crimson-400' : 'bg-celadon-800 ring-2 ring-nobleGold-500/40 group-hover:scale-102'
             }`}
           >
             배웅
@@ -71,8 +71,12 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="font-reverence font-black text-xl sm:text-2xl md:text-3xl tracking-tight text-ink">
                 배웅
               </span>
-              <span className="text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded font-serif font-bold bg-nobleGold-100 text-nobleGold-700 border border-nobleGold-500/30">
-                예우의전 禮
+              {/* 전통 붉은 전각 낙관 인장 */}
+              <span className="k-seal-red text-xs px-2 py-0.5" title="예도 례(禮) — 최고의 품격과 정중한 예우">
+                禮
+              </span>
+              <span className="text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded font-serif font-bold bg-nobleGold-50 text-nobleGold-700 border border-nobleGold-500/30 hidden sm:inline">
+                정직원가 의전
               </span>
             </div>
             <p className="hidden sm:block text-xs md:text-sm text-ink-muted font-serif font-medium mt-0.5">
@@ -111,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="sm:hidden">{isEmergencyMode ? '복귀 ✕' : '🚨 긴급'}</span>
           </button>
 
-          {/* 모바일 햄버거 메뉴 토글 버튼 (화면 폭 작을 때 노출) */}
+          {/* 모바일 햄버거 메뉴 토글 버튼 */}
           {!isEmergencyMode && (
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -145,6 +149,11 @@ export const Header: React.FC<HeaderProps> = ({
                       : 'border-transparent text-ink-muted hover:text-ink hover:bg-porcelain/60'
                   }`}
                 >
+                  <span className={`text-[11px] px-1.5 py-0.2 rounded font-serif font-black ${
+                    isActive ? 'bg-celadon-800 text-nobleGold-200' : 'bg-ink-border text-ink-muted'
+                  }`}>
+                    {item.seal}
+                  </span>
                   <Icon className={`w-5 h-5 ${isActive ? 'text-celadon-800' : 'text-ink-muted'}`} />
                   <span>{item.label}</span>
                 </button>

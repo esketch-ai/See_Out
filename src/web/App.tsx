@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
 import { EmergencyMode } from './components/EmergencyMode.js';
@@ -8,11 +8,20 @@ export const App: React.FC = () => {
   const [isEmergencyMode, setIsEmergencyMode] = useState<boolean>(false);
   const [isLargeFont, setIsLargeFont] = useState<boolean>(false);
 
+  // 노안 어르신을 위한 전역 폰트 크기 확장 효과 적용
+  useEffect(() => {
+    if (isLargeFont) {
+      document.documentElement.classList.add('senior-large-font');
+    } else {
+      document.documentElement.classList.remove('senior-large-font');
+    }
+  }, [isLargeFont]);
+
   return (
     <div
       className={`min-h-screen transition-all ${
         isEmergencyMode ? 'bg-mourning-950' : 'bg-hanji'
-      } ${isLargeFont ? 'text-[112%] leading-relaxed' : ''}`}
+      }`}
     >
       {/* 듀얼 모드 & 5대 GNB 글로벌 헤더 */}
       <Header

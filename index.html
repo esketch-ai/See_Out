@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>배웅 (Bae-ung) — 삼가 고인의 명복을 빌며, 정직한 예우로 모십니다</title>
     
     <!-- 구글 Noto Serif KR (경건한 명조체) & Pretendard -->
@@ -77,6 +77,16 @@
         font-weight: 700;
         border-radius: 16px;
         letter-spacing: -0.01em;
+      }
+      /* 노안 어르신 전용 큰 글씨 모드 (전역 rem 스케일링) */
+      html.senior-large-font {
+        font-size: 122% !important;
+      }
+      html.senior-large-font body {
+        line-height: 1.75;
+      }
+      html.senior-large-font .font-reverence {
+        letter-spacing: -0.015em;
       }
     </style>
   </head>

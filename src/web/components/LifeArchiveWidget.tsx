@@ -1,139 +1,608 @@
 import React, { useState } from 'react';
-import { BookOpen, Award, Image, Mic, Archive, Shield, Lock, Sparkles } from 'lucide-react';
+import {
+  BookOpen,
+  Award,
+  Image,
+  Mic,
+  Archive,
+  Shield,
+  Lock,
+  Sparkles,
+  Phone,
+  Users,
+  Send,
+  CheckCircle2,
+  Play,
+  Pause,
+  Download,
+  Share2,
+  Printer,
+  ChevronRight,
+  Heart,
+  Calendar,
+  Compass,
+  FileText,
+  Key
+} from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
+import {
+  SAMPLE_LIFE_STORY,
+  SAMPLE_CONTACT_GROUPS,
+  SAMPLE_CONTACTS,
+  SAMPLE_PRE_MORTEM_OBITUARY,
+  SAMPLE_ENDING_NOTE,
+  SAMPLE_GATEKEEPER
+} from '../../life-archive/index.js';
 
 export const LifeArchiveWidget: React.FC = () => {
-  const [selectedPlan, setSelectedPlan] = useState<'storage' | 'organization' | 'companion'>('organization');
+  // 메인 상단 탭: 'biography' (생애 평전 스토리북) | 'contacts' (스마트폰 연락처 & 부고) | 'ending_note' (사전 장례 의향서) | 'gatekeeper' (사후 승계 보안)
+  const [activeTab, setActiveTab] = useState<'biography' | 'contacts' | 'ending_note' | 'gatekeeper'>('biography');
 
-  const categories = [
-    { icon: BookOpen, name: '일기 · 친필 수첩', count: '12권 보존', desc: '비파괴 정밀 스캔 및 검색 색인' },
-    { icon: Award, name: '상장 · 훈장 · 자격', count: '8점 보존', desc: '생애 주요 성취와 자긍심의 기록' },
-    { icon: Image, name: '사진 · 가족 영상', count: '1,420장 보존', desc: '연대기별 디지털 보존 및 복원' },
-    { icon: Mic, name: '육성 회고록 인터뷰', count: '4편 보존', desc: '부모님의 따뜻한 목소리와 삶의 지혜' },
-    { icon: Archive, name: '물건 · 유품 이야기', count: '5점 보존', desc: '소중한 손때 묻은 유품의 의미 기록' },
-    { icon: Shield, name: '디지털 유언장', count: '1통 보관', desc: '사후 지정인에게만 열리는 안심 금고' }
-  ];
+  // 평전 챕터 선택 (1~4)
+  const [activeChapter, setActiveChapter] = useState<number>(1);
+
+  // 음성 플레이어 시뮬레이션 상태
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+
+  // 부고 발송 시뮬레이션 상태
+  const [isBroadcasting, setIsBroadcasting] = useState<boolean>(false);
+  const [broadcastSuccess, setBroadcastSuccess] = useState<boolean>(false);
+
+  // 연락처 그룹 필터
+  const [selectedGroup, setSelectedGroup] = useState<string>('all');
+
+  const story = SAMPLE_LIFE_STORY;
+  const currentChapter = story.chapters.find((c) => c.chapterNumber === activeChapter) || story.chapters[0];
+
+  const handleSimulateBroadcast = () => {
+    setIsBroadcasting(true);
+    setTimeout(() => {
+      setIsBroadcasting(false);
+      setBroadcastSuccess(true);
+      setTimeout(() => setBroadcastSuccess(false), 5000);
+    }, 1200);
+  };
+
+  const filteredContacts = selectedGroup === 'all'
+    ? SAMPLE_CONTACTS
+    : SAMPLE_CONTACTS.filter((c) => c.group === selectedGroup);
 
   return (
-    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-6 md:p-8 space-y-6">
-      {/* 1. 상단 실제 훈장 및 가족 사진 비주얼 헤더 */}
-      <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#2D2A26] bg-[#121417]">
+    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-5 md:p-8 space-y-7">
+      {/* 1. 상단 실제 훈장 및 가족 사진 비주얼 헤더 배너 */}
+      <div className="relative rounded-lg overflow-hidden h-48 sm:h-56 border border-[#2D2A26] bg-[#121417]">
         <img
           src="/images/life-archive.jpg"
           alt="훈장과 흑백 가족 사진, 소중한 회고록"
-          className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
+          className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-105"
         />
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
-            <TraditionalSeal sealKey="eternity" size="sm" />
-            <span>평시 생애기록관 (Pre-mortem)</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 md:p-8 relative z-10">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif border border-[#2A5442]">
+              <TraditionalSeal sealKey="eternity" size="sm" />
+              <span>배웅 핵심 주력 서비스</span>
+            </div>
+            <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded bg-[#9E7D47]/20 text-[#E8C88B] text-xs font-serif border border-[#9E7D47]/40">
+              <Shield className="w-3.5 h-3.5 text-[#E8C88B]" />
+              <span>평시 사전 준비 (Pre-Mortem) ➔ 사후 안전 승계</span>
+            </div>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
-            내가 살아온 삶의 이야기와 흔적을 정갈하게
+            배웅 스마트 생애기록관 & 디지털 평전
           </h2>
-          <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1">
-            이별의 순간이 오기 전, 평생을 바쳐 일구어 오신 귀한 기억과 유품을 정성껏 디지털로 봉안하여 가족에게 온전히 전합니다.
+          <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
+            건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전(評傳)으로 헌정됩니다.
           </p>
         </div>
       </div>
 
-      {/* 2. 6대 기록 카테고리 그리드 */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {categories.map((c, i) => {
-          const Icon = c.icon;
-          return (
-            <div
-              key={i}
-              className="p-4 rounded-lg bg-[#FAF9F6] border border-[#E3DFD5] hover:border-[#9E7D47] hover:bg-[#FFFFFF] transition-all cursor-pointer group text-left"
-            >
-              <div className="w-9 h-9 rounded-md bg-[#FFFFFF] border border-[#E3DFD5] flex items-center justify-center text-[#9E7D47] mb-2.5 shadow-xs">
-                <Icon className="w-4 h-4" />
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-serif font-bold text-[#151719] text-sm md:text-base">{c.name}</span>
-                <span className="text-[10px] font-serif font-bold bg-[#F8F5EE] text-[#876937] px-2 py-0.5 rounded border border-[#E4D5BC]">
-                  {c.count}
-                </span>
-              </div>
-              <p className="text-xs text-[#727782] mt-1 leading-relaxed font-serif">{c.desc}</p>
-            </div>
-          );
-        })}
+      {/* 2. 4대 메인 내비게이션 탭 바 */}
+      <div className="flex bg-[#F0EDE6] p-1.5 rounded-xl border border-[#E3DFD5] text-xs md:text-sm font-serif">
+        <button
+          onClick={() => setActiveTab('biography')}
+          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+            activeTab === 'biography'
+              ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
+              : 'text-[#5C6166] hover:text-[#151719]'
+          }`}
+        >
+          <BookOpen className="w-4 h-4 text-[#C2A26A]" />
+          <span>생애 평전 스토리북 & 헌정관</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('contacts')}
+          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+            activeTab === 'contacts'
+              ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
+              : 'text-[#5C6166] hover:text-[#151719]'
+          }`}
+        >
+          <Phone className="w-4 h-4 text-[#C2A26A]" />
+          <span>스마트폰 연락처 & 부고 사전발송</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('ending_note')}
+          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+            activeTab === 'ending_note'
+              ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
+              : 'text-[#5C6166] hover:text-[#151719]'
+          }`}
+        >
+          <FileText className="w-4 h-4 text-[#C2A26A]" />
+          <span>나의 엔딩노트 (사전 장례의향서)</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('gatekeeper')}
+          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+            activeTab === 'gatekeeper'
+              ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
+              : 'text-[#5C6166] hover:text-[#151719]'
+          }`}
+        >
+          <Lock className="w-4 h-4 text-[#C2A26A]" />
+          <span>사후 승계 게이트키퍼</span>
+        </button>
       </div>
 
-      {/* 3. 게이트키퍼(Gatekeeper) 사후 승계 프로토콜 배너 */}
-      <div className="bg-[#132B22] text-[#FAF9F6] rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-[#2D5A46] relative overflow-hidden">
-        {/* 전통 비단 금문 패턴 은은한 오버레이 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-30" />
-        <div className="flex items-center space-x-3 relative z-10">
-          <div className="w-10 h-10 rounded-md bg-[#0E1E18] text-[#C2A26A] flex items-center justify-center shrink-0 border border-[#2A5442]">
-            <Lock className="w-5 h-5" />
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [탭 1] 생애 평전 스토리북 & 헌정관 (Biographical Storybook) */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'biography' && (
+        <div className="space-y-6">
+          {/* 상단: 실물 양장본 책자 & 디지털 태블릿 평전 비주얼 카드 */}
+          <div className="rounded-xl border border-[#E3DFD5] overflow-hidden bg-[#FAF8F5] grid grid-cols-1 md:grid-cols-12 shadow-xs">
+            <div className="md:col-span-6 relative bg-[#121417] min-h-[300px] md:min-h-[360px] overflow-hidden">
+              <img
+                src="/images/life-story-book.jpg"
+                alt="고급 한지 양장본 생애 평전과 태블릿 회고록"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute top-3 left-3 bg-[#19382C]/90 text-white text-[11px] font-serif font-bold px-2.5 py-1 rounded shadow-xs border border-[#2A5442] flex items-center space-x-1">
+                <Award className="w-3.5 h-3.5 text-[#C2A26A]" />
+                <span>유가족 헌정용 실물 양장본 & 모바일 평전 완간</span>
+              </div>
+            </div>
+
+            <div className="md:col-span-6 p-5 md:p-6 flex flex-col justify-between space-y-4 font-serif">
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-[11px] font-bold text-[#876937] bg-[#F8F5EE] px-2 py-0.5 rounded border border-[#E8DFCF]">
+                    {story.deceasedName} (1938~2026)
+                  </span>
+                  <span className="text-xs text-[#727782]">세례명: 베드로</span>
+                </div>
+
+                <h3 className="font-reverence font-bold text-xl md:text-2xl text-[#151719] mt-2">
+                  {story.memorialTitle}
+                </h3>
+
+                <blockquote className="my-2.5 pl-3 border-l-2 border-[#9E7D47] text-xs font-serif italic text-[#876937]">
+                  {story.epitaph}
+                </blockquote>
+
+                <p className="text-xs text-[#5C6166] leading-relaxed">
+                  {story.overallSummary}
+                </p>
+              </div>
+
+              {/* 유가족 헌정사 */}
+              <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg p-3.5 space-y-1.5 text-xs">
+                <div className="flex items-center space-x-1 font-bold text-[#19382C]">
+                  <Heart className="w-3.5 h-3.5 text-[#8B2520] fill-[#8B2520]" />
+                  <span>유가족 헌정사</span>
+                </div>
+                <p className="text-[#5C6166] italic leading-relaxed">
+                  {story.familyDedication}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-1 text-xs">
+                <button
+                  onClick={() => alert('유가족 전용 실물 고급 한지 양장본 3권 인쇄 신청이 접수되었습니다.')}
+                  className="px-3.5 py-2 bg-[#19382C] text-white rounded-md font-bold hover:bg-[#224A3B] transition-colors cursor-pointer flex items-center space-x-1.5"
+                >
+                  <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
+                  <span>실물 양장본 평전 신청 (무료 헌정)</span>
+                </button>
+                <button
+                  onClick={() => alert('PDF 전자 평전 다운로드가 준비되었습니다.')}
+                  className="px-3.5 py-2 bg-[#FFFFFF] border border-[#E3DFD5] text-[#42464E] rounded-md font-bold hover:bg-[#FAF9F6] transition-colors cursor-pointer flex items-center space-x-1.5"
+                >
+                  <Download className="w-3.5 h-3.5 text-[#727782]" />
+                  <span>PDF 전자책 다운로드</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <div>
-            <div className="font-serif font-bold text-base flex items-center space-x-2">
-              <span>사후 승계 게이트키퍼 (Gatekeeper) 보안 가동</span>
-              <span className="text-[10px] font-serif font-bold bg-[#19382C] text-[#C2A26A] px-2 py-0.5 rounded border border-[#2A5442]">
-                보안 1등급
+
+          {/* 중단: 4대 챕터 연대기 인터랙티브 리더 */}
+          <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECE8E0] pb-3">
+              <div className="flex items-center space-x-2">
+                <BookOpen className="w-4 h-4 text-[#9E7D47]" />
+                <h4 className="font-serif font-bold text-sm md:text-base text-[#151719]">
+                  연대기별 생애 스토리 (전체 4장)
+                </h4>
+              </div>
+              <span className="text-xs text-[#727782] font-serif">
+                챕터를 클릭하시면 해당 시기의 발자취와 주요 업적을 읽으실 수 있습니다
               </span>
             </div>
-            <p className="text-xs text-[#BFD4CA] mt-0.5 leading-relaxed font-serif">
-              사망진단서 및 유산관리자 접근키가 공식 인증되기 전까지, 모든 기록은 암호화되어 철저히 비공개로 봉인됩니다.
-            </p>
+
+            {/* 챕터 셀렉터 탭 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-serif">
+              {story.chapters.map((ch) => (
+                <button
+                  key={ch.chapterNumber}
+                  onClick={() => setActiveChapter(ch.chapterNumber)}
+                  className={`p-3 rounded-lg border text-left transition-all cursor-pointer ${
+                    activeChapter === ch.chapterNumber
+                      ? 'border-2 border-[#19382C] bg-[#FFFFFF] shadow-2xs font-bold text-[#19382C]'
+                      : 'border-[#E3DFD5] bg-[#FAF8F5] text-[#5C6166] hover:bg-[#FFFFFF]'
+                  }`}
+                >
+                  <div className="text-[10px] text-[#876937] font-normal">{ch.period}</div>
+                  <div className="font-serif font-bold text-xs truncate mt-0.5">
+                    제{ch.chapterNumber}장. {ch.title.split('—')[0].replace(`제${ch.chapterNumber}장: `, '')}
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* 선택된 챕터 본문 뷰어 */}
+            <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4 font-serif">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#ECE8E0] pb-2.5">
+                <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719]">
+                  {currentChapter.title}
+                </h4>
+                <span className="text-xs text-[#876937] font-bold">
+                  {currentChapter.period}
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#42464E] leading-loose whitespace-pre-line">
+                {currentChapter.storyContent}
+              </p>
+
+              {/* 주요 업적 및 훈장 기록 */}
+              <div className="bg-[#FAF8F5] border border-[#E3DFD5] rounded-lg p-4 space-y-2">
+                <span className="text-xs font-bold text-[#151719] flex items-center space-x-1.5">
+                  <Award className="w-4 h-4 text-[#9E7D47]" />
+                  <span>이 시기의 주요 생애 업적 및 공적 기록</span>
+                </span>
+                <ul className="text-xs text-[#5C6166] space-y-1 pl-1">
+                  {currentChapter.keyAchievements.map((ach, idx) => (
+                    <li key={idx} className="flex items-start space-x-1.5">
+                      <span className="text-[#9E7D47] font-bold">•</span>
+                      <span>{ach}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 챕터 대표 사진 기록 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {currentChapter.featuredPhotos.map((photo, idx) => (
+                  <div key={idx} className="p-3 bg-[#FAF9F6] border border-[#ECE8E0] rounded-lg text-xs space-y-1">
+                    <div className="flex justify-between items-center text-[11px] font-bold text-[#151719]">
+                      <span>📷 {photo.title}</span>
+                      <span className="text-[#876937]">{photo.year}</span>
+                    </div>
+                    <p className="text-[#727782] text-[11px]">{photo.caption}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 하단: 고인 생전 육성 내레이션 플레이어 */}
+          <div className="bg-[#121417] text-[#FAF9F6] rounded-xl p-5 md:p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div className="flex items-center space-x-2">
+                <Mic className="w-5 h-5 text-[#C2A26A]" />
+                <h4 className="font-serif font-bold text-sm md:text-base text-[#FAF9F6]">
+                  {story.audioTribute.title}
+                </h4>
+              </div>
+              <div className="text-xs text-[#D8CEBA] font-serif">
+                녹음 일시: {story.audioTribute.recordedAt} ({story.audioTribute.duration})
+              </div>
+            </div>
+
+            {/* 오디오 컨트롤러 */}
+            <div className="bg-[#1D2126] rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/5">
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setIsPlayingAudio(!isPlayingAudio)}
+                  className="w-10 h-10 rounded-full bg-[#19382C] hover:bg-[#224A3B] text-white flex items-center justify-center shrink-0 transition-transform active:scale-95 cursor-pointer border border-[#2D5A46]"
+                >
+                  {isPlayingAudio ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5 text-[#C2A26A]" />}
+                </button>
+                <div>
+                  <div className="font-serif font-bold text-xs text-[#FAF9F6]">
+                    {isPlayingAudio ? '고인의 육성을 재생 중입니다...' : '고인의 생전 음성 듣기'}
+                  </div>
+                  <div className="text-[11px] text-[#A69E8F] font-serif">
+                    부모님의 따뜻한 목소리와 숨결을 그대로 보존하였습니다
+                  </div>
+                </div>
+              </div>
+
+              {/* 재생 파형 애니메이션 시뮬레이션 */}
+              <div className="flex items-center space-x-1 h-6">
+                {[12, 24, 16, 28, 8, 20, 14, 26, 18, 10, 22, 16].map((h, i) => (
+                  <span
+                    key={i}
+                    style={{ height: isPlayingAudio ? `${h}px` : '4px' }}
+                    className={`w-1 rounded-full transition-all duration-300 ${
+                      isPlayingAudio ? 'bg-[#C2A26A] animate-pulse' : 'bg-[#5C6166]'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* 녹음 전문(Transcript) */}
+            <div className="bg-[#181B1F] rounded-lg p-4 border border-white/5 text-xs text-[#D4CEC2] leading-relaxed font-serif">
+              <span className="text-[#C2A26A] font-bold block mb-1">육성 전문 (Transcript):</span>
+              <p className="italic">{story.audioTribute.transcript}</p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* 4. 생애기록관 멤버십 */}
-      <div className="space-y-3">
-        <h3 className="text-base font-serif font-bold text-[#151719]">생애기록관 정기 보존 멤버십</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {[
-            {
-              id: 'storage',
-              name: '기록 보관 (Storage)',
-              price: '월 4,900원',
-              desc: '자율 업로드 및 영구 보존'
-            },
-            {
-              id: 'organization',
-              name: '기록 정리 (Organization)',
-              price: '월 12,900원',
-              popular: true,
-              desc: 'AI 텍스트/음성 초안 정리 및 연표 디지털화'
-            },
-            {
-              id: 'companion',
-              name: '기록 동행 (Companionship)',
-              price: '월 29,900원',
-              desc: '전문 아키비스트 1:1 대면 인터뷰 및 실물 기록집 제작'
-            }
-          ].map((plan) => {
-            const isSelected = selectedPlan === plan.id;
-            return (
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [탭 2] 스마트폰 연락처 & 부고 사전발송 엔진 (Contacts & Obituary) */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'contacts' && (
+        <div className="space-y-6 font-serif">
+          {/* 상단: 스마트폰 연락처 사전 동기화 통계 */}
+          <div className="bg-[#FAF8F5] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECE8E0] pb-3">
+              <div>
+                <h3 className="font-serif font-bold text-base md:text-lg text-[#151719] flex items-center space-x-2">
+                  <Phone className="w-4 h-4 text-[#9E7D47]" />
+                  <span>스마트폰 주소록 사전 동기화 현황 (총 640명 정리 완료)</span>
+                </h3>
+                <p className="text-xs text-[#727782] mt-0.5">
+                  부모님의 스마트폰 연락처를 4대 그룹으로 안전하게 백업하여, 사후에 비밀번호를 몰라도 가족들이 즉시 부고를 전할 수 있습니다.
+                </p>
+              </div>
+              <span className="text-[11px] text-[#19382C] font-bold bg-[#F0F5F2] px-2.5 py-1 rounded border border-[#BFD4CA]">
+                동기화 완료: 2026. 03. 15
+              </span>
+            </div>
+
+            {/* 4대 그룹 통계 카드 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+              {SAMPLE_CONTACT_GROUPS.map((grp) => (
+                <div
+                  key={grp.group}
+                  onClick={() => setSelectedGroup(grp.group)}
+                  className={`p-3.5 rounded-lg border transition-all cursor-pointer ${
+                    selectedGroup === grp.group
+                      ? 'border-[#19382C] bg-[#FFFFFF] shadow-2xs ring-1 ring-[#19382C]/10'
+                      : 'border-[#E3DFD5] bg-[#FFFFFF] hover:border-[#9E7D47]'
+                  }`}
+                >
+                  <div className="text-[11px] text-[#727782] font-medium">{grp.name}</div>
+                  <div className="text-xl font-bold font-reverence text-[#19382C] mt-1">
+                    {grp.count}<span className="text-xs font-normal text-[#5C6166] ml-0.5">명</span>
+                  </div>
+                  <p className="text-[10px] text-[#727782] mt-1 line-clamp-1">{grp.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 중단: 고인 사전 작성 모바일 부고장 & 원터치 발송 시뮬레이터 */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 좌측 (7/12): 부고장 미리보기 */}
+            <div className="lg:col-span-7 bg-[#FAF9F6] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-[#ECE8E0] pb-3">
+                <span className="font-bold text-sm text-[#151719] flex items-center space-x-1.5">
+                  <FileText className="w-4 h-4 text-[#9E7D47]" />
+                  <span>사전 설정된 모바일 부고장 미리보기</span>
+                </span>
+                <span className="text-[11px] text-[#876937] font-bold bg-[#F8F5EE] px-2 py-0.5 rounded border border-[#E8DFCF]">
+                  고인 생전 친필 인사말 포함
+                </span>
+              </div>
+
+              {/* 스마트폰 부고장 프레임 */}
+              <div className="bg-[#FFFFFF] border-2 border-[#121417]/10 rounded-xl p-5 space-y-3.5 shadow-xs max-w-lg mx-auto">
+                <div className="text-center pb-3 border-b border-[#ECE8E0]">
+                  <div className="text-xs font-bold text-[#8B2520]">부 고 (訃告)</div>
+                  <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
+                    {SAMPLE_PRE_MORTEM_OBITUARY.title}
+                  </h4>
+                </div>
+
+                <div className="text-xs text-[#42464E] leading-relaxed">
+                  {SAMPLE_PRE_MORTEM_OBITUARY.preamble}
+                </div>
+
+                {/* 고인 생전 작별인사 하이라이트 박스 */}
+                <div className="bg-[#FAF6EE] border border-[#E8DFCF] rounded-lg p-3 text-xs text-[#876937] leading-relaxed">
+                  <span className="font-bold block mb-1">고인께서 생전에 남기신 말씀:</span>
+                  <p className="italic">{SAMPLE_PRE_MORTEM_OBITUARY.personalFarewell}</p>
+                </div>
+
+                <div className="text-xs space-y-1.5 pt-2 border-t border-[#ECE8E0]">
+                  <div className="flex justify-between">
+                    <span className="text-[#727782]">빈소 안내:</span>
+                    <span className="font-bold text-[#151719]">{SAMPLE_PRE_MORTEM_OBITUARY.funeralHallLinkedName}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#727782]">장지(승화원):</span>
+                    <span className="font-bold text-[#151719]">{SAMPLE_PRE_MORTEM_OBITUARY.crematoriumName}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#727782]">마음 전하실 곳:</span>
+                    <span className="font-bold text-[#19382C]">{SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 우측 (5/12): 사후 승계 원터치 발송 테스트 */}
+            <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
+              <div className="border-b border-[#ECE8E0] pb-3">
+                <h4 className="font-bold text-sm text-[#151719] flex items-center space-x-1.5">
+                  <Send className="w-4 h-4 text-[#19382C]" />
+                  <span>사후 원터치 부고 대량 발송</span>
+                </h4>
+                <p className="text-xs text-[#727782] mt-0.5">
+                  임종 발생 시 상주(유산관리자)의 승인으로 사전 동기화된 640명 지인에게 카카오 알림톡/문자가 동시 발송됩니다.
+                </p>
+              </div>
+
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between py-2 border-b border-[#ECE8E0]">
+                  <span className="text-[#727782]">발송 예정 인원:</span>
+                  <span className="font-bold text-[#151719]">총 640명 (연락처 전원)</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-[#ECE8E0]">
+                  <span className="text-[#727782]">발송 채널:</span>
+                  <span className="font-bold text-[#151719]">카카오 알림톡 + 비상 SMS</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-[#ECE8E0]">
+                  <span className="text-[#727782]">발송 비용:</span>
+                  <span className="font-bold text-[#19382C]">무제한 무료 지원 (배웅 특전)</span>
+                </div>
+              </div>
+
+              {/* 발송 성공 알림 */}
+              {broadcastSuccess && (
+                <div className="p-3 bg-[#F0F5F2] border border-[#BFD4CA] rounded-lg text-xs text-[#19382C] font-bold flex items-center space-x-1.5 animate-fadeIn">
+                  <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
+                  <span>640명 전원에게 맞춤 모바일 부고장이 성공적으로 발송되었습니다.</span>
+                </div>
+              )}
+
               <button
-                key={plan.id}
-                onClick={() => setSelectedPlan(plan.id as any)}
-                className={`p-4 rounded-lg text-left border transition-all relative cursor-pointer ${
-                  isSelected
-                    ? 'border-[#9E7D47] bg-[#F8F5EE] ring-1 ring-[#9E7D47]'
-                    : 'border-[#E3DFD5] bg-[#FAF9F6] hover:bg-[#FFFFFF]'
-                }`}
+                onClick={handleSimulateBroadcast}
+                disabled={isBroadcasting}
+                className="w-full py-3.5 bg-[#19382C] hover:bg-[#224A3B] disabled:opacity-50 text-white rounded-lg font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-xs"
               >
-                {plan.popular && (
-                  <span className="absolute -top-2.5 right-3 bg-[#9E7D47] text-[#0E1012] text-[10px] font-serif font-black px-2 py-0.2 rounded shadow-xs">
-                    가장 추천
-                  </span>
-                )}
-                <div className="font-serif font-bold text-sm text-[#151719]">{plan.name}</div>
-                <div className="text-lg font-serif font-black text-[#19382C] mt-1">{plan.price}</div>
-                <div className="text-xs text-[#727782] mt-1 leading-relaxed font-serif">{plan.desc}</div>
+                <Send className="w-4 h-4 text-[#C2A26A]" />
+                <span>{isBroadcasting ? '640명에게 부고장 전송 중...' : '사후 원터치 부고 발송 모의 체험'}</span>
               </button>
-            );
-          })}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [탭 3] 나의 엔딩노트 (사전 장례의향서) */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'ending_note' && (
+        <div className="space-y-6 font-serif">
+          <div className="bg-[#FAF8F5] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
+            <div className="border-b border-[#ECE8E0] pb-3">
+              <h3 className="font-serif font-bold text-base md:text-lg text-[#151719] flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-[#9E7D47]" />
+                <span>故 김철수 님의 사전 장례 의향서 (Dignified Ending Note)</span>
+              </h3>
+              <p className="text-xs text-[#727782] mt-0.5">
+                “내가 세상을 떠날 때, 자식들이 당황하거나 다투지 않도록 나의 마지막 바람을 미리 적어둡니다.”
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div className="p-4 bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg space-y-1">
+                <span className="text-[#876937] font-bold">희망 장례 형태</span>
+                <p className="text-base font-bold text-[#151719]">{SAMPLE_ENDING_NOTE.preferredFuneralType}</p>
+                <p className="text-[11px] text-[#727782]">불필요한 허례허식을 줄인 실속 가족장</p>
+              </div>
+
+              <div className="p-4 bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg space-y-1">
+                <span className="text-[#876937] font-bold">희망 종교 의식</span>
+                <p className="text-base font-bold text-[#151719]">{SAMPLE_ENDING_NOTE.preferredReligion}</p>
+                <p className="text-[11px] text-[#727782]">천주교 연령회 기도 및 성체 조문</p>
+              </div>
+
+              <div className="p-4 bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg space-y-1">
+                <span className="text-[#876937] font-bold">희망 안식 장지</span>
+                <p className="text-base font-bold text-[#151719]">{SAMPLE_ENDING_NOTE.preferredRestingPlace}</p>
+                <p className="text-[11px] text-[#727782]">자연으로 돌아가는 친환경 수목장</p>
+              </div>
+            </div>
+
+            {/* 특별 당부 사항 */}
+            <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg p-4 space-y-2 text-xs">
+              <span className="font-bold text-[#151719] block">가족들에게 남기는 3대 특별 당부:</span>
+              <ul className="space-y-1.5 text-[#5C6166]">
+                {SAMPLE_ENDING_NOTE.specialWishes.map((w, idx) => (
+                  <li key={idx} className="flex items-center space-x-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
+                    <span>{w}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [탭 4] 사후 승계 게이트키퍼(Gatekeeper) 보안 */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'gatekeeper' && (
+        <div className="space-y-6 font-serif">
+          <div className="bg-[#132B22] text-[#FAF9F6] rounded-xl p-5 md:p-6 space-y-4 border border-[#2D5A46] relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-25" />
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div className="flex items-center space-x-2.5">
+                <Lock className="w-5 h-5 text-[#C2A26A]" />
+                <h3 className="font-serif font-bold text-base md:text-lg text-[#FAF9F6]">
+                  2단계 게이트키퍼(Gatekeeper) 사후 승계 보안 현황
+                </h3>
+              </div>
+              <span className="text-xs text-[#C2A26A] font-bold bg-[#0E1E18] px-2.5 py-1 rounded border border-[#2A5442]">
+                생전 암호화 잠금 중 (E2EE 1등급)
+              </span>
+            </div>
+
+            <p className="relative z-10 text-xs text-[#D4CEC2] leading-relaxed">
+              생전에는 본인 외에 가족이라도 절대 열람할 수 없도록 철저히 암호화되어 보관됩니다. 임종 발생 시 지정된 1차·2차 대리인이 사망진단서 또는 상호 승인을 진행해야만 보안이 해제됩니다.
+            </p>
+
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="bg-[#0E1E18] p-3.5 rounded-lg border border-[#2A5442] space-y-1">
+                <span className="text-[#C2A26A] font-bold">1차 지정 대리인 (상주)</span>
+                <p className="text-[#FAF9F6] font-bold text-sm">
+                  {SAMPLE_GATEKEEPER.primaryDelegate.name} ({SAMPLE_GATEKEEPER.primaryDelegate.relationship})
+                </p>
+                <p className="text-[11px] text-[#A69E8F]">{SAMPLE_GATEKEEPER.primaryDelegate.phone} • 본인 동의 완료</p>
+              </div>
+
+              <div className="bg-[#0E1E18] p-3.5 rounded-lg border border-[#2A5442] space-y-1">
+                <span className="text-[#C2A26A] font-bold">2차 지정 대리인</span>
+                <p className="text-[#FAF9F6] font-bold text-sm">
+                  {SAMPLE_GATEKEEPER.secondaryDelegate.name} ({SAMPLE_GATEKEEPER.secondaryDelegate.relationship})
+                </p>
+                <p className="text-[11px] text-[#A69E8F]">{SAMPLE_GATEKEEPER.secondaryDelegate.phone} • 본인 동의 완료</p>
+              </div>
+            </div>
+
+            <div className="relative z-10 bg-[#0E1E18] p-3.5 rounded-lg border border-[#2A5442] text-xs text-[#D4CEC2] space-y-1">
+              <span className="font-bold text-[#C2A26A] block mb-1">봉인 해제 필수 조건:</span>
+              {SAMPLE_GATEKEEPER.unlockConditions.map((cond, idx) => (
+                <div key={idx} className="flex items-start space-x-1.5">
+                  <span className="text-[#C2A26A] font-bold">•</span>
+                  <span>{cond}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

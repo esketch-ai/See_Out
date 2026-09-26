@@ -1,0 +1,11 @@
+{
+  "name": "seeout-platform",
+  "version": "0.1.0",
+  "description": "배웅 (Bae-ung) 라이프엔딩 종합 플랫폼",
+  "type": "module",
+  "scripts": {
+    "themis:integrity": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.validateParaIntegrity()))'",
+    "themis:projects": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.listProjects(\"All\")))'",
+    "themis:search": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.searchParaDocs(process.argv[1])))]'"
+  }
+}

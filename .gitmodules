@@ -1,0 +1,3 @@
+[submodule "tools/themis-ai"]
+	path = tools/themis-ai
+	url = https://github.com/esketch-ai/Themis-AI.git

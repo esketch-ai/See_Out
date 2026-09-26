@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "docsPath": "./docs/_para",
+  "gcIntervalMs": 3600000,
+  "autoGC": true
+}

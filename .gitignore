@@ -1,0 +1,12 @@
+
+# Themis AI Security Wall
+.themis/
+.env
+*.pem
+secrets.json
+build/
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+

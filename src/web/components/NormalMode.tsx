@@ -246,7 +246,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   정직 원가 정찰제 의전 패키지
                 </h3>
                 <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  무빈소(120만), 실속형(250만), 표준형(350만) 등 수의와 관, 인력의 원가를 100% 투명하게 공개하며 촌지를 금지합니다.
+                  무빈소(120만), 2일가족장(180만), 실속형(250만), 품격형(350만) 등 수의·관·차량 원가를 100% 투명하게 공개하며 촌지를 금지합니다.
                 </p>
               </div>
 
@@ -281,7 +281,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   생애기록관 (Pre-mortem 일상 봉안)
                 </h3>
                 <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  일기, 상장, 가족 흑백 사진, 육성 회고록 등 평생의 고귀한 흔적을 정갈하게 보존하고, 사후에만 유족에게 전합니다.
+                  스마트폰 연락처 사전 동기화, 원터치 부고 발송, 생전 사진 갤러리 및 고인의 삶을 엮은 생애 평전 스토리북을 제공합니다.
                 </p>
               </div>
 

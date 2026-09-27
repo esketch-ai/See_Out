@@ -54,40 +54,40 @@ export const App: React.FC = () => {
             onEnterEmergency={() => setIsEmergencyMode(true)}
           />
 
-          <footer className="mt-20 pt-10 border-t border-[#E3DFD5] text-center text-xs md:text-sm text-[#727782] space-y-4 font-serif">
+          <footer className="mt-20 pt-10 border-t border-[#DCD6C9] text-center text-xs md:text-sm text-[#5A5E66] space-y-3 font-serif">
             {/* 30년+ 전문변호인단 법률 감수 공식 약관 링크 바 */}
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-bold text-[#42464E]">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-bold text-[#5A5E66]">
               <button
                 onClick={() => handleOpenLegal('TERMS_OF_SERVICE')}
-                className="hover:text-[#19382C] underline decoration-[#9E7D47] underline-offset-4 cursor-pointer"
+                className="hover:text-[#19382C] underline decoration-[#6E5429] underline-offset-4 cursor-pointer"
               >
                 서비스 이용약관
               </button>
               <span className="text-[#C2A26A]">|</span>
               <button
                 onClick={() => handleOpenLegal('PRIVACY_POLICY')}
-                className="text-[#19382C] hover:text-[#204738] font-black underline decoration-[#19382C] underline-offset-4 cursor-pointer"
+                className="text-[#19382C] hover:text-[#2D4F43] font-black underline decoration-[#19382C] underline-offset-4 cursor-pointer"
               >
                 개인정보 처리방침
               </button>
               <span className="text-[#C2A26A]">|</span>
               <button
                 onClick={() => handleOpenLegal('LOCATION_TERMS')}
-                className="hover:text-[#19382C] underline decoration-[#9E7D47] underline-offset-4 cursor-pointer"
+                className="hover:text-[#19382C] underline decoration-[#6E5429] underline-offset-4 cursor-pointer"
               >
                 위치기반서비스 약관
               </button>
               <span className="text-[#C2A26A]">|</span>
               <button
                 onClick={() => handleOpenLegal('OPT_OUT_REGULATION')}
-                className="hover:text-[#19382C] underline decoration-[#9E7D47] underline-offset-4 cursor-pointer"
+                className="hover:text-[#19382C] underline decoration-[#6E5429] underline-offset-4 cursor-pointer"
               >
                 e하늘 공공데이터 & 옵트아웃 규정
               </button>
               <span className="text-[#C2A26A]">|</span>
               <button
                 onClick={() => handleOpenLegal('DIGITAL_LEGACY_POLICY')}
-                className="hover:text-[#19382C] underline decoration-[#9E7D47] underline-offset-4 cursor-pointer"
+                className="hover:text-[#19382C] underline decoration-[#6E5429] underline-offset-4 cursor-pointer"
               >
                 디지털 유산 사후 승계 규약
               </button>
@@ -96,7 +96,7 @@ export const App: React.FC = () => {
             <p className="font-bold text-[#151719] text-sm md:text-base">
               배웅(Bae-ung) 라이프엔딩 플랫폼 — 고인의 마지막 가시는 길, 최고의 예우로 곁을 지키겠습니다
             </p>
-            <p className="text-xs text-[#8C867B] leading-relaxed">
+            <p className="text-xs text-[#5A5E66] leading-relaxed">
               사단법인 한국장례협회 등록 데이터 및 보건복지부 e하늘 장사정보시스템 공공 표준 준수<br />
               법률 및 컴플라이언스: 대한변호사협회 등록 30년+ 전문변호인단 법률 감수 완료 | CPO 개인정보보호책임자: privacy@baeung.kr | Themis-AI PARA 거버넌스
             </p>
@@ -113,9 +113,9 @@ export const App: React.FC = () => {
 
       {/* 5090 시니어 안심 모바일 플로팅 핫라인 바 (화면 하단 상시 고정) */}
       {!isEmergencyMode && (
-        <aside className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#121417]/95 backdrop-blur-md border-t border-[#2C2822] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
+        <aside className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#141618]/95 backdrop-blur-md border-t border-[#3D382E] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
           <div className="flex flex-col">
-            <span className="text-[11px] font-serif text-[#A39E93]">
+            <span className="text-[13px] font-serif text-[#8A929D]">
               24시 장례지도사 직통 상황실
             </span>
             <span className="text-sm font-reverence font-bold text-[#FAF9F6] tracking-tight">
@@ -125,7 +125,7 @@ export const App: React.FC = () => {
           <div className="flex items-center space-x-2">
             <a
               href="tel:1588-0000"
-              className="px-4 py-2 bg-[#19382C] border border-[#2D5A46] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center space-x-1.5 cursor-pointer hover:bg-[#204738]"
+              className="px-4 py-2 bg-[#19382C] border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center space-x-1.5 cursor-pointer hover:bg-[#2D4F43]"
             >
               <PhoneCall className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>즉시 전화 연결</span>

@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#121417] border-b border-[#2C2822] shadow-md text-[#F7F5F0] relative overflow-hidden">
+    <header className="sticky top-0 z-50 bg-[#141618] border-b border-[#3D382E] shadow-md text-[#F7F5F0] relative overflow-hidden">
       {/* 전통 왕실 비단 금문 패턴 은은한 오버레이 */}
       <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-25" />
 
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center space-x-3 cursor-pointer group"
         >
           {/* 브랜드 문장(Logo Mark) */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#19382C] border border-[#2A5442] flex items-center justify-center font-reverence font-black text-xl text-[#F7F5F0] shadow-sm tracking-tight">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#19382C] border border-[#2D4F43] flex items-center justify-center font-reverence font-black text-xl text-[#F7F5F0] shadow-sm tracking-tight">
             배웅
           </div>
           <div>
@@ -74,11 +74,11 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
               {/* 전통 주사 낙관 인장 */}
               <TraditionalSeal sealKey="courtesy" size="sm" />
-              <span className="text-[11px] px-2 py-0.5 rounded font-serif font-medium bg-[#1F2227] text-[#D8CEBA] border border-[#3D372E] hidden sm:inline">
+              <span className="text-[13px] px-2 py-0.5 rounded font-serif font-medium bg-[#1F2226] text-[#8A929D] border border-[#3D382E] hidden sm:inline">
                 至誠奉送 · 정직원가 의전
               </span>
             </div>
-            <p className="hidden sm:block text-xs text-[#A39E93] font-serif mt-0.5 tracking-tight">
+            <p className="hidden sm:block text-xs text-[#8A929D] font-serif mt-0.5 tracking-tight">
               삼가 고인의 명복을 빌며, 지극한 정성과 투명한 원가로 곁을 지킵니다
             </p>
           </div>
@@ -92,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
             className={`px-2.5 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-serif font-medium flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isLargeFont
                 ? 'bg-[#9E7D47]/20 border-[#9E7D47] text-[#F5EBD8] ring-1 ring-[#9E7D47]/40'
-                : 'bg-[#1A1D20] border-[#363229] text-[#BDB7AA] hover:text-[#F7F5F0] hover:border-[#9E7D47]/50'
+                : 'bg-[#1F2226] border-[#3D382E] text-[#8A929D] hover:text-[#F7F5F0] hover:border-[#9E7D47]/50'
             }`}
             title="노안 어르신을 위한 큰 글씨 모드"
           >
@@ -105,8 +105,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onToggleMode(!isEmergencyMode)}
             className={`px-3 sm:px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-serif font-bold flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isEmergencyMode
-                ? 'bg-[#8B2520] border-[#B83E38] text-white shadow-sm'
-                : 'bg-[#9E7D47]/15 border-[#9E7D47]/80 text-[#F4E9D5] hover:bg-[#9E7D47]/25'
+                ? 'bg-[#8B2520] border-[#8B2520] text-white shadow-sm'
+                : 'bg-[#9E7D47]/15 border-[#9E7D47]/80 text-[#F5EBD8] hover:bg-[#9E7D47]/25'
             }`}
           >
             <span className="w-2 h-2 rounded-full bg-[#C2A26A] animate-pulse" />
@@ -118,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
           {!isEmergencyMode && (
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-md bg-[#1A1D20] border border-[#363229] text-[#D8D2C5] hover:text-white focus:outline-none cursor-pointer"
+              className="md:hidden p-2 rounded-md bg-[#1F2226] border border-[#3D382E] text-[#8A929D] hover:text-white focus:outline-none cursor-pointer"
               aria-label="메뉴 열기"
             >
               {isMobileMenuOpen ? (
@@ -133,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* 2-A. 데스크톱 5대 핵심 메뉴 내비게이션 바 (GNB) */}
       {!isEmergencyMode && (
-        <nav className="hidden md:block bg-[#0D0E10] border-t border-[#23201B]">
+        <nav className="hidden md:block bg-[#0D0E10] border-t border-[#3D382E]">
           <div className="max-w-5xl mx-auto px-4 flex space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -144,18 +144,18 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => handleSelectNav(item.id)}
                   className={`py-3 px-4 text-sm sm:text-base font-serif font-medium flex items-center space-x-2 shrink-0 border-b-2 transition-all cursor-pointer ${
                     isActive
-                      ? 'border-[#C2A26A] text-[#FAF9F6] bg-[#16181B]'
-                      : 'border-transparent text-[#9E988D] hover:text-[#FAF9F6] hover:bg-[#16181B]/50'
+                      ? 'border-[#C2A26A] text-[#FAF9F6] bg-[#141618]'
+                      : 'border-transparent text-[#8A929D] hover:text-[#FAF9F6] hover:bg-[#141618]/50'
                   }`}
                 >
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded font-serif ${
-                    isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#212429] text-[#8C867B]'
+                  <span className={`text-[13px] px-1.5 py-0.2 rounded font-serif ${
+                    isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#1F2226] text-[#8A929D]'
                   }`}>
                     {item.seal}
                   </span>
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#C2A26A]' : 'text-[#7D776D]'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#C2A26A]' : 'text-[#8A929D]'}`} />
                   <span className="tracking-tight">{item.label}</span>
-                  <span className="text-[11px] text-[#69645B] font-normal hidden lg:inline">({item.hanja})</span>
+                  <span className="text-[13px] text-[#8A929D] font-normal hidden lg:inline">({item.hanja})</span>
                 </button>
               );
             })}
@@ -165,7 +165,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* 2-B. 모바일 수평 스크롤 내비게이션 탭 (메뉴 닫혀있을 때 상시 노출) */}
       {!isEmergencyMode && !isMobileMenuOpen && (
-        <nav className="md:hidden bg-[#0D0E10] border-t border-[#23201B] overflow-x-auto scrollbar-none px-3 py-2">
+        <nav className="md:hidden bg-[#0D0E10] border-t border-[#3D382E] overflow-x-auto scrollbar-none px-3 py-2">
           <div className="flex space-x-1.5 min-w-max">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -176,11 +176,11 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => handleSelectNav(item.id)}
                   className={`py-1.5 px-3 text-xs font-serif font-medium rounded-md flex items-center space-x-1.5 transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46]'
-                      : 'bg-[#16181B] border border-[#2A2722] text-[#9E988D]'
+                      ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43]'
+                      : 'bg-[#141618] border border-[#3D382E] text-[#8A929D]'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#C2A26A]' : 'text-[#7D776D]'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#C2A26A]' : 'text-[#8A929D]'}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -191,8 +191,8 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* 2-C. 모바일 전체 드로어 메뉴 */}
       {!isEmergencyMode && isMobileMenuOpen && (
-        <div className="md:hidden bg-[#121417] border-b border-[#2C2822] shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-xs font-serif text-[#A39E93] px-1 pb-2 border-b border-[#2C2822] flex justify-between items-center">
+        <div className="md:hidden bg-[#141618] border-b border-[#3D382E] shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="text-xs font-serif text-[#8A929D] px-1 pb-2 border-b border-[#3D382E] flex justify-between items-center">
             <span>배웅 전통 라이프엔딩 주요 의전</span>
             <span className="text-[#C2A26A]">5대 정례 메뉴</span>
           </div>
@@ -208,35 +208,35 @@ export const Header: React.FC<HeaderProps> = ({
                   className={`w-full p-3.5 rounded-lg flex items-center justify-between text-left transition-all cursor-pointer border ${
                     isActive
                       ? 'border-[#9E7D47] bg-[#19382C]/40 text-[#FAF9F6]'
-                      : 'border-[#26231E] bg-[#16181B] text-[#D8D2C5] hover:bg-[#1E2125]'
+                      : 'border-[#3D382E] bg-[#141618] text-[#8A929D] hover:bg-[#1F2226]'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
                     <div
                       className={`w-9 h-9 rounded-md flex items-center justify-center shrink-0 ${
-                        isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#212429] text-[#C2A26A]'
+                        isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#1F2226] text-[#C2A26A]'
                       }`}
                     >
                       <span className="text-xs font-serif">{item.seal}</span>
                     </div>
                     <div>
                       <div className="font-serif font-bold text-sm text-[#FAF9F6]">
-                        {item.label} <span className="text-xs text-[#8C867B] font-normal font-sans">({item.hanja})</span>
+                        {item.label} <span className="text-xs text-[#8A929D] font-normal font-sans">({item.hanja})</span>
                       </div>
-                      <div className="text-[11px] text-[#8C867B] font-serif mt-0.5">{item.desc}</div>
+                      <div className="text-[13px] text-[#8A929D] font-serif mt-0.5">{item.desc}</div>
                     </div>
                   </div>
-                  <ChevronRight className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#C2A26A]' : 'text-[#4A463F]'}`} />
+                  <ChevronRight className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#C2A26A]' : 'text-[#8A929D]'}`} />
                 </button>
               );
             })}
           </div>
 
           {/* 모바일 드로어 하단 핫라인 */}
-          <div className="pt-2 border-t border-[#26231E]">
+          <div className="pt-2 border-t border-[#3D382E]">
             <a
               href="tel:1588-0000"
-              className="w-full py-3 px-4 bg-[#19382C] border border-[#2D5A46] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center justify-center space-x-2 cursor-pointer hover:bg-[#204738]"
+              className="w-full py-3 px-4 bg-[#19382C] border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center justify-center space-x-2 cursor-pointer hover:bg-[#2D4F43]"
             >
               <PhoneCall className="w-4 h-4 text-[#C2A26A]" />
               <span>24시간 장례지도사 직통 상담: 1588-0000 (무료)</span>

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { BAEUNG_PACKAGES, BaeungPackageType, BaeungPackageInfo } from '../../quote-diagnostics/index.js';
 import { TraditionalSeal } from '../design-system/index.js';
+import { ModalShell, ModalToolbar } from './ModalShell.js';
 
 interface VisualProductDetail {
   id: string;
@@ -156,9 +157,9 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
   };
 
   return (
-    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-5 md:p-8 space-y-8">
+    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#DCD6C9] p-5 md:p-8 space-y-8">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
-      <div className="relative rounded-lg overflow-hidden h-48 sm:h-56 border border-[#2D2A26] bg-[#121417]">
+      <div className="relative rounded-lg overflow-hidden h-48 sm:h-56 border border-[#3D382E] bg-[#141618]">
         <img
           src="/images/hero-memorial.jpg"
           alt="정직 원가 의전 용품 및 제단"
@@ -168,39 +169,39 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 md:p-8 relative z-10">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif border border-[#2A5442]">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif border border-[#2D4F43]">
               <TraditionalSeal sealKey="sincerity" size="sm" />
               <span>선금 0원 · 100% 후불 정산제</span>
             </div>
-            <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded bg-[#9E7D47]/20 text-[#E8C88B] text-xs font-serif border border-[#9E7D47]/40">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#E8C88B]" />
+            <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded bg-[#9E7D47]/20 text-[#C2A26A] text-xs font-serif border border-[#9E7D47]/40">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>실물 사진 100% 사전 공개 · 현장 강매 0원</span>
             </div>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             배웅 정직 원가 정찰제 의전 안내
           </h2>
-          <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[#8A929D] text-xs sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
             무엇을 받는지 모른 채 계약하는 깜깜이 장례는 이제 그만. 수의, 관, 상복, 리무진까지 실제 제공되는 실물 사진과 원산지 규격을 투명하게 확인하세요.
           </p>
         </div>
       </div>
 
       {/* 2. [시각적 이해도 혁신] 4대 핵심 의전 품목 실물 갤러리 & 정밀 검증 뷰어 */}
-      <div className="bg-[#FAF8F5] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECE8E0] pb-3">
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div>
             <div className="flex items-center space-x-2">
-              <Eye className="w-4 h-4 text-[#9E7D47]" />
+              <Eye className="w-4 h-4 text-[#6E5429]" />
               <h3 className="font-serif font-bold text-base md:text-lg text-[#151719]">
                 실물 사진으로 직접 확인하는 4대 핵심 의전 품목
               </h3>
             </div>
-            <p className="text-xs text-[#727782] font-serif mt-1">
+            <p className="text-xs text-[#5A5E66] font-serif mt-1">
               "글자로만 보면 잘 모르는" 장례 용품들을 실제 촬영 사진과 공인 시험성적서로 미리 확인하실 수 있습니다.
             </p>
           </div>
-          <span className="text-[11px] text-[#9E7D47] font-serif shrink-0">
+          <span className="text-[13px] text-[#6E5429] font-serif shrink-0">
             ※ 사진을 누르시면 고화질 확대 검증이 가능합니다
           </span>
         </div>
@@ -216,11 +217,11 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 className={`p-3 rounded-lg border text-left transition-all cursor-pointer flex flex-col justify-between ${
                   isActive
                     ? 'border-2 border-[#19382C] bg-[#FFFFFF] shadow-xs ring-1 ring-[#19382C]/10'
-                    : 'border-[#E3DFD5] bg-[#FAF9F6] hover:bg-[#FFFFFF] hover:border-[#9E7D47]'
+                    : 'border-[#DCD6C9] bg-[#FAF9F6] hover:bg-[#FFFFFF] hover:border-[#9E7D47]'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-[#876937] font-bold">{prod.category}</span>
+                  <span className="text-[13px] text-[#6E5429] font-bold">{prod.category}</span>
                   {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C]" />}
                 </div>
                 <div className="font-serif font-bold text-xs text-[#151719] mt-1 line-clamp-1">
@@ -232,11 +233,11 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         </div>
 
         {/* 선택된 품목 정밀 시각화 카드 (사진 좌측 + 제원 우측) */}
-        <div className="bg-[#FFFFFF] rounded-xl border border-[#E3DFD5] overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-xs">
+        <div className="bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-xs">
           {/* 사진 영역 (md:col-span-5) */}
           <div
             onClick={() => setZoomModalItem(activeVisual)}
-            className="md:col-span-5 relative group cursor-pointer overflow-hidden bg-[#121417] min-h-[260px] md:min-h-[340px]"
+            className="md:col-span-5 relative group cursor-pointer overflow-hidden bg-[#141618] min-h-[260px] md:min-h-[340px]"
           >
             <img
               src={activeVisual.image}
@@ -249,7 +250,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span>실물 사진 크게 보기 (인증서 확인)</span>
             </div>
             {/* 원산지/인증 뱃지 */}
-            <div className="absolute top-3 left-3 bg-[#19382C]/90 text-white text-[11px] font-serif font-bold px-2.5 py-1 rounded shadow-xs border border-[#2A5442] flex items-center space-x-1">
+            <div className="absolute top-3 left-3 bg-[#19382C]/90 text-white text-[13px] font-serif font-bold px-2.5 py-1 rounded shadow-xs border border-[#2D4F43] flex items-center space-x-1">
               <Award className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>{activeVisual.originBadge}</span>
             </div>
@@ -258,18 +259,18 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
           {/* 제원 및 업셀링 방지 설명 (md:col-span-7) */}
           <div className="md:col-span-7 p-5 md:p-6 flex flex-col justify-between space-y-4 font-serif">
             <div>
-              <span className="text-[11px] font-bold text-[#876937] bg-[#F8F5EE] px-2 py-0.5 rounded border border-[#E8DFCF]">
+              <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
                 {activeVisual.category} 정밀 제원
               </span>
               <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                 {activeVisual.name}
               </h4>
-              <p className="text-xs text-[#5C6166] mt-1 leading-relaxed">
+              <p className="text-xs text-[#5A5E66] mt-1 leading-relaxed">
                 {activeVisual.description}
               </p>
 
               {/* 스펙 테이블 */}
-              <div className="mt-4 border border-[#E3DFD5] rounded-lg overflow-hidden text-xs divide-y divide-[#ECE8E0]">
+              <div className="mt-4 border border-[#DCD6C9] rounded-lg overflow-hidden text-xs divide-y divide-[#DCD6C9]">
                 {activeVisual.specs.map((s, idx) => (
                   <div key={idx} className="flex justify-between py-2 px-3 bg-[#FFFFFF] hover:bg-[#FAF9F6]">
                     <span className="font-bold text-[#42464E] w-28 shrink-0">{s.label}</span>
@@ -280,7 +281,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             </div>
 
             {/* 업셀링 주의 팁 박스 */}
-            <div className="bg-[#FAF6EE] border border-[#E8DFCF] rounded-lg p-3 text-xs text-[#876937] leading-relaxed">
+            <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 text-xs text-[#6E5429] leading-relaxed">
               {activeVisual.antiUpsellingTip}
             </div>
           </div>
@@ -288,15 +289,15 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       </div>
 
       {/* 3. [인터랙티브 진단기] 나에게 딱 맞는 패키지 3초 간편 진단기 */}
-      <div className="bg-[#FAF8F5] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECE8E0] pb-3">
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div className="flex items-center space-x-2">
-            <Sliders className="w-4 h-4 text-[#9E7D47]" />
+            <Sliders className="w-4 h-4 text-[#6E5429]" />
             <h3 className="font-serif font-bold text-sm md:text-base text-[#151719]">
               나에게 딱 맞는 정찰 패키지 3초 간편 진단
             </h3>
           </div>
-          <span className="text-xs text-[#727782] font-serif">
+          <span className="text-xs text-[#5A5E66] font-serif">
             예상 조문객 규모와 일정을 누르시면 최적 패키지가 자동 추천됩니다
           </span>
         </div>
@@ -304,7 +305,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-serif">
           {/* 조문객 규모 선택 */}
           <div>
-            <span className="text-[#5C6166] font-bold block mb-2">① 예상 조문객 규모</span>
+            <span className="text-[#5A5E66] font-bold block mb-2">① 예상 조문객 규모</span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
               {[
                 { id: 'none', label: '가족만 (무조문)' },
@@ -318,7 +319,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                   className={`py-2 px-2 rounded border text-center transition-all cursor-pointer ${
                     estimatorGuests === item.id
                       ? 'bg-[#19382C] text-white border-[#19382C] font-bold shadow-2xs'
-                      : 'bg-[#FFFFFF] text-[#42464E] border-[#E3DFD5] hover:border-[#9E7D47]'
+                      : 'bg-[#FFFFFF] text-[#42464E] border-[#DCD6C9] hover:border-[#9E7D47]'
                   }`}
                 >
                   {item.label}
@@ -329,7 +330,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
 
           {/* 장례 일정 선택 */}
           <div>
-            <span className="text-[#5C6166] font-bold block mb-2">② 장례 일정 형식</span>
+            <span className="text-[#5A5E66] font-bold block mb-2">② 장례 일정 형식</span>
             <div className="grid grid-cols-3 gap-1.5">
               {[
                 { id: '0', label: '무빈소 직장 (0일)' },
@@ -342,7 +343,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                   className={`py-2 px-2 rounded border text-center transition-all cursor-pointer ${
                     estimatorDays === item.id
                       ? 'bg-[#19382C] text-white border-[#19382C] font-bold shadow-2xs'
-                      : 'bg-[#FFFFFF] text-[#42464E] border-[#E3DFD5] hover:border-[#9E7D47]'
+                      : 'bg-[#FFFFFF] text-[#42464E] border-[#DCD6C9] hover:border-[#9E7D47]'
                   }`}
                 >
                   {item.label}
@@ -353,9 +354,9 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         </div>
 
         {/* 실시간 추천 결과 박스 */}
-        <div className="bg-[#FFFFFF] rounded-lg border border-[#D9D3C7] p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-serif">
+        <div className="bg-[#FFFFFF] rounded-lg border border-[#DCD6C9] p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-serif">
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-[#F8F5EE] text-[#9E7D47] font-bold text-xs border border-[#E8DFCF]">
+            <span className="px-2 py-0.5 rounded bg-[#F1E9DB] text-[#6E5429] font-bold text-xs border border-[#F1E9DB]">
               추천 패키지
             </span>
             <span className="font-reverence font-bold text-[#151719] text-sm md:text-base">
@@ -363,7 +364,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             </span>
           </div>
           <div className="text-xs text-[#19382C] font-bold flex items-center space-x-1">
-            <Sparkles className="w-3.5 h-3.5 text-[#9E7D47]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#6E5429]" />
             <span>기존 대형 상조(약 700~850만 원) 대비 약 400~550만 원 절감</span>
           </div>
         </div>
@@ -371,9 +372,9 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
 
       {/* 4. 4대 정찰 패키지 선택 탭 카드 그리드 (실물 썸네일 포함) */}
       <div>
-        <div className="flex items-center justify-between text-xs font-serif font-bold text-[#727782] mb-3 px-1">
+        <div className="flex items-center justify-between text-xs font-serif font-bold text-[#5A5E66] mb-3 px-1">
           <span>배웅 4대 정직 원가 정찰 패키지 라인업</span>
-          <span className="text-[11px] text-[#9E7D47]">원하시는 패키지를 탭하시면 상세 명세를 확인하실 수 있습니다</span>
+          <span className="text-[13px] text-[#6E5429]">원하시는 패키지를 탭하시면 상세 명세를 확인하실 수 있습니다</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -386,12 +387,12 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 className={`p-4 md:p-5 rounded-xl text-left border transition-all cursor-pointer relative flex flex-col justify-between ${
                   isSelected
                     ? 'border-2 border-[#19382C] bg-[#F7F5F0] shadow-sm ring-1 ring-[#19382C]/10'
-                    : 'border-[#E3DFD5] hover:border-[#9E7D47]/70 bg-[#FAF9F6]'
+                    : 'border-[#DCD6C9] hover:border-[#9E7D47]/70 bg-[#FAF9F6]'
                 }`}
               >
                 {/* 선택 활성화 인디케이터 배지 */}
                 {isSelected && (
-                  <div className="absolute -top-2.5 right-3 bg-[#19382C] text-[#FAF9F6] text-[10px] font-serif font-bold px-2 py-0.5 rounded-full shadow-xs flex items-center space-x-0.5">
+                  <div className="absolute -top-2.5 right-3 bg-[#19382C] text-[#FAF9F6] text-[13px] font-serif font-bold px-2 py-0.5 rounded-full shadow-xs flex items-center space-x-0.5">
                     <CheckCircle2 className="w-3 h-3 text-[#C2A26A]" />
                     <span>선택됨</span>
                   </div>
@@ -399,10 +400,10 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
 
                 <div>
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[11px] font-serif font-bold text-[#876937] bg-[#F8F5EE] px-2 py-0.5 rounded border border-[#E8DFCF]">
+                    <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
                       {pkg.badge || '정찰 패키지'}
                     </span>
-                    <span className="text-[10px] font-serif text-[#727782]">
+                    <span className="text-[13px] font-serif text-[#5A5E66]">
                       {pkg.stayDays === 0 ? '무빈소' : `${pkg.stayDays}일장`}
                     </span>
                   </div>
@@ -413,28 +414,28 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
 
                   <div className="text-2xl md:text-3xl font-reverence font-black text-[#19382C] mt-1.5">
                     {pkg.price.toLocaleString()}
-                    <span className="text-sm font-normal text-[#5C6166] ml-0.5">원</span>
+                    <span className="text-sm font-normal text-[#5A5E66] ml-0.5">원</span>
                   </div>
 
-                  <p className="text-xs text-[#5C6166] mt-2 font-serif leading-relaxed line-clamp-2">
+                  <p className="text-xs text-[#5A5E66] mt-2 font-serif leading-relaxed line-clamp-2">
                     {pkg.description}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#ECE8E0] space-y-1.5 text-[11px] font-serif">
+                <div className="mt-4 pt-3 border-t border-[#DCD6C9] space-y-1.5 text-[13px] font-serif">
                   <div className="flex items-center space-x-1.5 text-[#42464E]">
-                    <Users className="w-3.5 h-3.5 text-[#9E7D47] shrink-0" />
+                    <Users className="w-3.5 h-3.5 text-[#6E5429] shrink-0" />
                     <span className="truncate">{pkg.targetGuests}</span>
                   </div>
                   {pkg.staffSummary && (
-                    <div className="flex items-center space-x-1.5 text-[#5C6166]">
+                    <div className="flex items-center space-x-1.5 text-[#5A5E66]">
                       <Clock className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
                       <span className="truncate">{pkg.staffSummary}</span>
                     </div>
                   )}
                   {pkg.vehicleSummary && (
-                    <div className="flex items-center space-x-1.5 text-[#5C6166]">
-                      <Car className="w-3.5 h-3.5 text-[#9E7D47] shrink-0" />
+                    <div className="flex items-center space-x-1.5 text-[#5A5E66]">
+                      <Car className="w-3.5 h-3.5 text-[#6E5429] shrink-0" />
                       <span className="truncate">{pkg.vehicleSummary}</span>
                     </div>
                   )}
@@ -445,15 +446,15 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         </div>
 
         {/* 4-B. 선택된 패키지 실시간 부고장 연계 액션 바 */}
-        <div className="mt-4 p-4 rounded-xl bg-[#FAF8F5] border border-[#E8DFCF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-serif">
+        <div className="mt-4 p-4 rounded-xl bg-[#FAF9F6] border border-[#F1E9DB] flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-serif">
           <div>
             <div className="flex items-center space-x-2">
-              <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+              <Sparkles className="w-4 h-4 text-[#6E5429]" />
               <span className="font-bold text-sm text-[#151719]">
                 선택하신 [{currentPkg.name}] ({currentPkg.price.toLocaleString()}원)
               </span>
             </div>
-            <p className="text-xs text-[#727782] mt-0.5">
+            <p className="text-xs text-[#5A5E66] mt-0.5">
               이 패키지를 [생애기록관] 사전 의전 및 부고장에 실시간으로 동기화합니다.
             </p>
           </div>
@@ -467,8 +468,8 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               }}
               className={`px-4 py-2 rounded-md font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer border ${
                 isSynced
-                  ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D5A46]'
-                  : 'bg-[#9E7D47] hover:bg-[#B38E52] text-white border-[#876937]'
+                  ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
+                  : 'bg-[#9E7D47] hover:bg-[#9E7D47] text-[#151719] border-[#6E5429]'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -482,7 +483,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             {isSynced && onNavigateToLifeArchive && (
               <button
                 onClick={onNavigateToLifeArchive}
-                className="px-3 py-2 bg-white text-[#19382C] border border-[#BFD4CA] rounded-md font-bold text-xs hover:bg-[#F0F5F2] transition-colors cursor-pointer"
+                className="px-3 py-2 bg-white text-[#19382C] border border-[#DCE8E2] rounded-md font-bold text-xs hover:bg-[#DCE8E2] transition-colors cursor-pointer"
               >
                 부고장 확인 ➔
               </button>
@@ -492,14 +493,14 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       </div>
 
       {/* 5. [완벽 분리 공시 안내] 상조 의전비 vs 장례식장 시설비 헷갈림 방지 가이드 */}
-      <div className="rounded-xl border border-[#D9D3C7] bg-[#FAF8F5] p-5 md:p-6 space-y-4">
+      <div className="rounded-xl border border-[#DCD6C9] bg-[#FAF9F6] p-5 md:p-6 space-y-4">
         <div className="flex items-start space-x-2.5">
-          <AlertCircle className="w-5 h-5 text-[#9E7D47] shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-[#6E5429] shrink-0 mt-0.5" />
           <div>
             <h3 className="font-serif font-bold text-sm md:text-base text-[#151719]">
               장례 비용 완벽 분리 공시: 무엇이 포함되고 무엇이 별도인가요?
             </h3>
-            <p className="text-xs text-[#727782] font-serif mt-0.5 leading-relaxed">
+            <p className="text-xs text-[#5A5E66] font-serif mt-0.5 leading-relaxed">
               기존 상조회사의 "전부 다 해준다"는 과장 광고로 인해 나중에 장례식장 밥값/임대료로 수백만 원이 추가되어 겪는 유족들의 혼란과 불만을 사전에 100% 차단합니다.
             </p>
           </div>
@@ -508,12 +509,12 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-serif">
           {/* 5-A. 배웅 정찰 패키지 포함 내역 */}
           <div className="bg-[#FFFFFF] border-2 border-[#19382C]/30 rounded-lg p-4 space-y-2.5 shadow-2xs">
-            <div className="flex items-center justify-between border-b border-[#E3DFD5] pb-2">
+            <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
               <span className="font-bold text-xs md:text-sm text-[#19382C] flex items-center space-x-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                 <span>배웅 패키지 100% 포함 항목 (상조 의전)</span>
               </span>
-              <span className="text-[11px] font-bold bg-[#F0F5F2] text-[#19382C] px-2 py-0.5 rounded">
+              <span className="text-[13px] font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded">
                 선금 0원 후불제
               </span>
             </div>
@@ -546,17 +547,17 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
           </div>
 
           {/* 5-B. 장례식장 별도 직접 결제 실비 내역 */}
-          <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg p-4 space-y-2.5 shadow-2xs">
-            <div className="flex items-center justify-between border-b border-[#E3DFD5] pb-2">
-              <span className="font-bold text-xs md:text-sm text-[#876937] flex items-center space-x-1.5">
-                <Info className="w-4 h-4 text-[#876937]" />
+          <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg p-4 space-y-2.5 shadow-2xs">
+            <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
+              <span className="font-bold text-xs md:text-sm text-[#6E5429] flex items-center space-x-1.5">
+                <Info className="w-4 h-4 text-[#6E5429]" />
                 <span>장례식장 별도 결제 실비 (식장 직납)</span>
               </span>
-              <span className="text-[11px] font-bold bg-[#FAF6EE] text-[#876937] px-2 py-0.5 rounded border border-[#E8DFCF]">
+              <span className="text-[13px] font-bold bg-[#FAF9F6] text-[#6E5429] px-2 py-0.5 rounded border border-[#F1E9DB]">
                 배웅 제휴 시 30% 감면
               </span>
             </div>
-            <ul className="text-xs text-[#5C6166] space-y-1.5">
+            <ul className="text-xs text-[#5A5E66] space-y-1.5">
               <li className="flex items-center space-x-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#9E7D47]" />
                 <span><b>빈소 임대료 및 안치료</b> (이용 일수 및 평형별로 식장에 결제)</span>
@@ -574,7 +575,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 <span><b>승화원 화장 접수비</b> (시립 기준 관내 주민 약 10~16만 원 내외)</span>
               </li>
             </ul>
-            <div className="mt-2 pt-2 border-t border-[#ECE8E0] text-[11px] text-[#19382C] font-bold">
+            <div className="mt-2 pt-2 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-bold">
               💡 배웅 제휴 장례식장 이용 시 빈소 임대료를 최대 30% 즉시 현장 감면받으실 수 있습니다.
             </div>
           </div>
@@ -582,29 +583,29 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       </div>
 
       {/* 6. 선택된 패키지 원가 상세 명세 및 5대 영역 스펙 아코디언 */}
-      <div className="border border-[#E3DFD5] rounded-xl overflow-hidden bg-[#FAF9F6]">
+      <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FAF9F6]">
         <button
           onClick={() => setOpenDetail(!openDetail)}
-          className="w-full bg-[#FAF9F6] p-4 md:px-5 flex items-center justify-between font-serif font-bold text-[#151719] text-sm md:text-base hover:bg-[#F2EEE6] transition-colors cursor-pointer border-b border-[#E3DFD5]"
+          className="w-full bg-[#FAF9F6] p-4 md:px-5 flex items-center justify-between font-serif font-bold text-[#151719] text-sm md:text-base hover:bg-[#FAF9F6] transition-colors cursor-pointer border-b border-[#DCD6C9]"
         >
           <div className="flex items-center space-x-2">
-            <Info className="w-4 h-4 text-[#9E7D47]" />
+            <Info className="w-4 h-4 text-[#6E5429]" />
             <span>
               선택하신 [{currentPkg.name}] 5대 영역별 상세 원가 명세표
             </span>
           </div>
-          <div className="flex items-center space-x-2 text-xs font-normal text-[#727782]">
+          <div className="flex items-center space-x-2 text-xs font-normal text-[#5A5E66]">
             <span>{openDetail ? '명세 닫기' : '명세 펼치기'}</span>
-            <ChevronDown className={`w-4 h-4 text-[#727782] transition-transform ${openDetail ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-[#5A5E66] transition-transform ${openDetail ? 'rotate-180' : ''}`} />
           </div>
         </button>
 
         {openDetail && (
           <div className="p-5 md:p-6 bg-[#FFFFFF] space-y-4 font-serif">
             {/* 5대 영역 상세 스펙 테이블 */}
-            <div className="border border-[#E3DFD5] rounded-lg overflow-hidden text-xs">
-              <table className="w-full text-left divide-y divide-[#E3DFD5]">
-                <thead className="bg-[#FAF9F6] text-[#727782] font-medium">
+            <div className="border border-[#DCD6C9] rounded-lg overflow-hidden text-xs">
+              <table className="w-full text-left divide-y divide-[#DCD6C9]">
+                <thead className="bg-[#FAF9F6] text-[#5A5E66] font-medium">
                   <tr>
                     <th className="py-2.5 px-3 w-28">의전 영역</th>
                     <th className="py-2.5 px-3 w-40">품목 및 인력 규격</th>
@@ -612,24 +613,24 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                     <th className="py-2.5 px-3 w-32 text-right">미사용 환급</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#ECE8E0] bg-[#FFFFFF]">
+                <tbody className="divide-y divide-[#DCD6C9] bg-[#FFFFFF]">
                   {currentPkg.specs?.map((spec, idx) => (
                     <tr key={idx} className="hover:bg-[#FAF9F6]">
-                      <td className="py-3 px-3 font-bold text-[#876937]">
+                      <td className="py-3 px-3 font-bold text-[#6E5429]">
                         {spec.category}
                       </td>
                       <td className="py-3 px-3 font-medium text-[#151719]">
                         {spec.title}
                         {spec.origin && (
-                          <span className="block text-[10px] text-[#727782] font-normal mt-0.5">
+                          <span className="block text-[13px] text-[#5A5E66] font-normal mt-0.5">
                             [{spec.origin}]
                           </span>
                         )}
                       </td>
-                      <td className="py-3 px-3 text-[#5C6166] leading-relaxed">
+                      <td className="py-3 px-3 text-[#5A5E66] leading-relaxed">
                         {spec.detail}
                       </td>
-                      <td className="py-3 px-3 text-right text-[11px] font-medium text-[#19382C]">
+                      <td className="py-3 px-3 text-right text-[13px] font-medium text-[#19382C]">
                         {spec.refundNotice || '정액 포함'}
                       </td>
                     </tr>
@@ -639,65 +640,65 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             </div>
 
             {/* 미사용 품목 정직 환급제 안내 배너 */}
-            <div className="bg-[#F0F5F2] border border-[#BFD4CA] rounded-lg p-3.5 flex items-center justify-between text-xs text-[#19382C]">
+            <div className="bg-[#DCE8E2] border border-[#DCE8E2] rounded-lg p-3.5 flex items-center justify-between text-xs text-[#19382C]">
               <div className="flex items-center space-x-2">
                 <RotateCcw className="w-4 h-4 text-[#19382C] shrink-0" />
                 <span className="font-bold">
                   미사용 품목 정직 환급제: 장례 중 사용하지 않은 상복이나 이동 차량은 최종 결제 시 100% 정직하게 공제 환급됩니다.
                 </span>
               </div>
-              <span className="text-[11px] text-[#19382C] underline hidden sm:inline">약관 규정 준수</span>
+              <span className="text-[13px] text-[#19382C] underline hidden sm:inline">약관 규정 준수</span>
             </div>
           </div>
         )}
       </div>
 
       {/* 7. 4대 제로(Zero) 안심 보증 헌장 */}
-      <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-xl p-5 md:p-6 space-y-4">
-        <div className="flex items-center space-x-2 border-b border-[#ECE8E0] pb-3">
-          <ShieldCheck className="w-5 h-5 text-[#9E7D47]" />
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
+        <div className="flex items-center space-x-2 border-b border-[#DCD6C9] pb-3">
+          <ShieldCheck className="w-5 h-5 text-[#6E5429]" />
           <h3 className="font-serif font-bold text-sm md:text-base text-[#151719]">
             배웅 4대 제로(Zero) 안심 보증 헌장
           </h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-serif">
-          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E3DFD5] space-y-1">
+          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-1">
             <div className="font-bold text-[#19382C] flex items-center space-x-1">
               <span className="text-sm">①</span>
               <span>선금 0원 / 후불 정산제</span>
             </div>
-            <p className="text-[#5C6166] leading-relaxed">
+            <p className="text-[#5A5E66] leading-relaxed">
               사전 가입비, 월 납입금 일체 0원. 발인 후 모든 의전이 정상 완료된 뒤 결제합니다.
             </p>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E3DFD5] space-y-1">
+          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-1">
             <div className="font-bold text-[#8B2520] flex items-center space-x-1">
               <span className="text-sm">②</span>
               <span>촌지·수고비 요구 0원</span>
             </div>
-            <p className="text-[#5C6166] leading-relaxed">
+            <p className="text-[#5A5E66] leading-relaxed">
               지도사, 도우미의 촌지 요구는 법적으로 금지되며, 요구 시 200% 배상합니다.
             </p>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E3DFD5] space-y-1">
-            <div className="font-bold text-[#876937] flex items-center space-x-1">
+          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-1">
+            <div className="font-bold text-[#6E5429] flex items-center space-x-1">
               <span className="text-sm">③</span>
               <span>현장 강매·업셀링 0원</span>
             </div>
-            <p className="text-[#5C6166] leading-relaxed">
+            <p className="text-[#5A5E66] leading-relaxed">
               사전 약정 외 불필요한 고가 수의/유골함 강매 발생 시 해당 품목을 전액 무료 제공합니다.
             </p>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E3DFD5] space-y-1">
+          <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-1">
             <div className="font-bold text-[#19382C] flex items-center space-x-1">
               <span className="text-sm">④</span>
               <span>미사용 품목 정직 환급</span>
             </div>
-            <p className="text-[#5C6166] leading-relaxed">
+            <p className="text-[#5A5E66] leading-relaxed">
               덜 입은 상복, 미사용 차량 등 실제 쓰지 않은 품목은 계약금에서 100% 공제 환급됩니다.
             </p>
           </div>
@@ -705,15 +706,15 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       </div>
 
       {/* 8. 하단 24시 긴급 접수 및 상담 콜투액션 */}
-      <div className="bg-[#121417] text-[#FAF9F6] rounded-xl p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-[#141618] text-[#FAF9F6] rounded-xl p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded bg-[#19382C] text-[#FAF9F6] text-xs font-serif mb-1.5 border border-[#2A5442]">
+          <div className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded bg-[#19382C] text-[#FAF9F6] text-xs font-serif mb-1.5 border border-[#2D4F43]">
             <span>전국 2시간 이내 현장 출동 네트워크</span>
           </div>
           <h4 className="text-lg md:text-xl font-reverence font-bold text-[#FAF9F6]">
             지금 장례가 발생하셨거나, 사전 대비 상담이 필요하신가요?
           </h4>
-          <p className="text-xs text-[#D8CEBA] font-serif mt-0.5">
+          <p className="text-xs text-[#8A929D] font-serif mt-0.5">
             24시간 1급 장례지도사가 대기 중입니다. 언제든 부담 없이 연락 주시면 가장 정직한 길을 안내해 드립니다.
           </p>
         </div>
@@ -721,7 +722,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
           <a
             href="tel:1588-0000"
-            className="py-3 px-5 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] border border-[#2D5A46] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
+            className="py-3 px-5 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
           >
             <Phone className="w-4 h-4 text-[#C2A26A]" />
             <span>24시 긴급 출동 요청 (1588-0000)</span>
@@ -731,33 +732,42 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
 
       {/* 9. [고화질 확대 검증 모달] 소비자가 사진을 누르면 열리는 상세 뷰어 */}
       {zoomModalItem && (
-        <div className="fixed inset-0 z-50 bg-[#0D0E10]/80 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#FFFFFF] rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-[#E3DFD5] flex flex-col max-h-[90vh]">
+        <ModalShell
+            onClose={() => setZoomModalItem(null)}
+            maxWidth="max-w-2xl"
+            maxHeight="max-h-[90vh]"
+            surface="white"
+            titleId="zoom-title"
+            descriptionId="zoom-desc"
+        >
             {/* 모달 헤더 */}
-            <div className="bg-[#121417] text-[#FAF9F6] p-4 flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Award className="w-4 h-4 text-[#C2A26A]" />
-                <span className="font-serif font-bold text-sm text-[#FAF9F6]">
-                  {zoomModalItem.name} 실물 정밀 검증
-                </span>
-              </div>
-              <button
-                onClick={() => setZoomModalItem(null)}
-                className="p-1 hover:bg-white/10 rounded-full text-[#D4CEC2] hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+                        <ModalToolbar
+              titleId="zoom-title"
+              descriptionId="zoom-desc"
+              onClose={() => setZoomModalItem(null)}
+              closeLabel="확대 뷰어 닫기"
+              icon={
+                <div className="w-7 h-7 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center shrink-0">
+                  <Award className="w-4 h-4" />
+                </div>
+              }
+              title={
+                <>{zoomModalItem.name} 실물 정밀 검증</>
+              }
+              subtitle={
+                <span id="zoom-desc">고화질 실물 사진을 확대하여 원산지와 품질을 직접 확인하실 수 있습니다.</span>
+              }
+            />
 
             {/* 모달 이미지 본문 */}
             <div className="overflow-y-auto p-5 md:p-6 space-y-4 font-serif">
-              <div className="relative rounded-xl overflow-hidden border border-[#2D2A26] bg-[#000000] max-h-[360px] flex items-center justify-center">
+              <div className="relative rounded-xl overflow-hidden border border-[#3D382E] bg-[#0B0C0E] max-h-[360px] flex items-center justify-center">
                 <img
                   src={zoomModalItem.image}
                   alt={zoomModalItem.name}
                   className="w-full h-full object-contain max-h-[360px]"
                 />
-                <div className="absolute bottom-2 left-2 bg-[#121417]/85 text-white text-[11px] px-2.5 py-1 rounded">
+                <div className="absolute bottom-2 left-2 bg-[#141618]/85 text-white text-[13px] px-2.5 py-1 rounded">
                   {zoomModalItem.originBadge}
                 </div>
               </div>
@@ -766,39 +776,38 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 <h4 className="font-reverence font-bold text-lg text-[#151719]">
                   {zoomModalItem.tagline}
                 </h4>
-                <p className="text-xs text-[#5C6166] mt-1.5 leading-relaxed">
+                <p className="text-xs text-[#5A5E66] mt-1.5 leading-relaxed">
                   {zoomModalItem.description}
                 </p>
               </div>
 
               {/* 스펙 리스트 */}
-              <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-3.5 space-y-2 text-xs">
+              <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-3.5 space-y-2 text-xs">
                 <div className="font-bold text-[#151719] mb-1">상세 스펙 및 품질 보증</div>
                 {zoomModalItem.specs.map((s, idx) => (
-                  <div key={idx} className="flex justify-between py-1 border-b border-[#ECE8E0] last:border-0">
-                    <span className="text-[#727782] font-medium">{s.label}</span>
+                  <div key={idx} className="flex justify-between py-1 border-b border-[#DCD6C9] last:border-0">
+                    <span className="text-[#5A5E66] font-medium">{s.label}</span>
                     <span className="text-[#151719] font-bold">{s.value}</span>
                   </div>
                 ))}
               </div>
 
               {/* 업셀링 방지 팁 */}
-              <div className="bg-[#FAF6EE] border border-[#E8DFCF] rounded-lg p-3.5 text-xs text-[#876937] leading-relaxed">
+              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3.5 text-xs text-[#6E5429] leading-relaxed">
                 {zoomModalItem.antiUpsellingTip}
               </div>
             </div>
 
             {/* 모달 푸터 */}
-            <div className="bg-[#FAF9F6] border-t border-[#E3DFD5] p-3 px-5 flex justify-end">
+            <div className="bg-[#FAF9F6] border-t border-[#DCD6C9] p-3 px-5 flex justify-end">
               <button
                 onClick={() => setZoomModalItem(null)}
-                className="px-4 py-2 bg-[#19382C] text-white rounded font-serif text-xs font-bold hover:bg-[#224A3B] transition-colors cursor-pointer"
+                className="px-4 py-2 bg-[#19382C] text-white rounded font-serif text-xs font-bold hover:bg-[#2D4F43] transition-colors cursor-pointer"
               >
                 확인 및 닫기
               </button>
             </div>
-          </div>
-        </div>
+        </ModalShell>
       )}
     </div>
   );

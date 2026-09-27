@@ -141,9 +141,9 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   }, [selectedHall]);
 
   return (
-    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#E3DFD5] p-5 md:p-8 space-y-6">
+    <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#DCD6C9] p-5 md:p-8 space-y-6">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
-      <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#2D2A26] bg-[#121417]">
+      <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#3D382E] bg-[#141618]">
         <img
           src="/images/memorial-altar.jpg"
           alt="정갈한 장례식장 제단 꽃장식"
@@ -152,32 +152,32 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2A5442] w-fit">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-xs font-serif mb-2 border border-[#2D4F43] w-fit">
             <TraditionalSeal sealKey="peace" size="sm" />
             <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             전국 장례식장 시설 지도 및 빈소 감면 명세
           </h2>
-          <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1">
+          <p className="text-[#8A929D] text-xs sm:text-sm font-serif mt-1">
             거주지 인근 장례식장의 분향실·안치실 규모와 화장장 거리를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
           </p>
         </div>
       </div>
 
       {/* 2. 전국 17개 시도별 퀵 통계 칩 바 */}
-      <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#E3DFD5]">
-        <div className="text-xs font-serif font-bold text-[#727782] mb-2 flex items-center justify-between">
+      <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#DCD6C9]">
+        <div className="text-xs font-serif font-bold text-[#5A5E66] mb-2 flex items-center justify-between">
           <span>전국 17개 광역시·도 장사 인프라 분포 (총 1,080개소)</span>
-          <span className="text-[11px] text-[#9E7D47] hidden sm:inline">※ 시도를 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
+          <span className="text-[13px] text-[#6E5429] hidden sm:inline">※ 시도를 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-1 text-xs">
           <button
             onClick={() => setSelectedRegion('all')}
             className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
               selectedRegion === 'all'
-                ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46] shadow-xs font-bold'
-                : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#E3DFD5]'
+                ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] shadow-xs font-bold'
+                : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
             }`}
           >
             전국 전체 (1,080곳)
@@ -188,8 +188,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
               onClick={() => setSelectedRegion(s.region)}
               className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
                 selectedRegion === s.region
-                  ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D5A46] shadow-xs font-bold'
-                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#E3DFD5]'
+                  ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] shadow-xs font-bold'
+                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
               }`}
             >
               {s.region} ({s.registeredCount})
@@ -202,13 +202,13 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
         {/* 키워드 검색 */}
         <div className="md:col-span-6 relative">
-          <Search className="w-4 h-4 text-[#727782] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#5A5E66] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="장례식장 명칭 또는 지역(동/구/시)을 입력하세요..."
-            className="w-full bg-[#FAF9F6] border border-[#E3DFD5] rounded-md pl-10 pr-4 py-3 text-sm text-[#151719] placeholder-[#8C867B] focus:outline-none focus:border-[#9E7D47]"
+            className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md pl-10 pr-4 py-3 text-sm text-[#151719] placeholder-[#5A5E66] focus:outline-none focus:border-[#9E7D47]"
           />
         </div>
 
@@ -217,7 +217,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full bg-[#FAF9F6] border border-[#E3DFD5] rounded-md px-3.5 py-3 text-sm font-medium text-[#151719] focus:outline-none focus:border-[#9E7D47] font-serif"
+            className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md px-3.5 py-3 text-sm font-medium text-[#151719] focus:outline-none focus:border-[#9E7D47] font-serif"
           >
             <option value="all">전체 운영 형태</option>
             <option value="TERTIARY_HOSPITAL">대학·상급병원 부설</option>
@@ -233,21 +233,21 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
             onClick={() => setOnlyPartner(!onlyPartner)}
             className={`w-full py-3 px-3.5 rounded-md font-serif font-medium text-xs sm:text-sm flex items-center justify-center space-x-1.5 border transition-all cursor-pointer ${
               onlyPartner
-                ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D5A46]'
-                : 'bg-[#FAF9F6] text-[#42464E] border-[#E3DFD5] hover:bg-[#FFFFFF]'
+                ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
+                : 'bg-[#FAF9F6] text-[#42464E] border-[#DCD6C9] hover:bg-[#FFFFFF]'
             }`}
           >
-            <ShieldCheck className="w-4 h-4 text-[#9E7D47]" />
+            <ShieldCheck className="w-4 h-4 text-[#6E5429]" />
             <span>배웅 제휴 감면 식장만 보기</span>
           </button>
         </div>
       </div>
 
       {/* 2.5. [사업계획서 1단계 옵션 B] 무빈소·가족장 원클릭 큐레이션 필터 칩 */}
-      <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
-          <span className="text-[#9E7D47]">장례 형태 맞춤 큐레이션:</span>
-          <span className="text-[11px] text-[#727782] font-normal hidden md:inline">
+          <span className="text-[#6E5429]">장례 형태 맞춤 큐레이션:</span>
+          <span className="text-[13px] text-[#5A5E66] font-normal hidden md:inline">
             (전국 948곳 무빈소 가능 식장 전수 매칭)
           </span>
         </div>
@@ -264,8 +264,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
               onClick={() => setSelectedFuneralType(tab.id)}
               className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                 selectedFuneralType === tab.id
-                  ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs font-bold border border-[#2D5A46]'
-                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#F3EFE6] border border-[#E3DFD5]'
+                  ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs font-bold border border-[#2D4F43]'
+                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
               }`}
             >
               {tab.label}
@@ -275,18 +275,18 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
       </div>
 
       {/* 2.6. [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 연계 바 */}
-      <div className="bg-[#FAF7F0] border border-[#E8DEC8] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+      <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
           <Award className="w-4 h-4 text-[#9E7D47]" />
           <span>배웅 인증 3대 부가 제휴 연계:</span>
-          <span className="text-[11px] text-[#7A5B28] font-normal hidden md:inline">
+          <span className="text-[13px] text-[#6E5429] font-normal hidden md:inline">
             (장사법·폐기물관리법 인허가 검증 · 공정위 리베이트 제재 준수 알선 수수료 0원 정찰제)
           </span>
         </div>
 
         <button
           onClick={() => setIsAffiliateModalOpen(true)}
-          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
+          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
         >
           <span>🌿 봉안당 · 수목장림 · 유품정리 명세 보기</span>
           <ChevronRight className="w-3.5 h-3.5 text-[#C2A26A]" />
@@ -294,11 +294,11 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
       </div>
 
       {/* 모바일 전용 뷰 탭 스위처 */}
-      <div className="md:hidden flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] text-xs font-serif">
+      <div className="md:hidden flex bg-[#FAF9F6] p-1 rounded-lg border border-[#DCD6C9] text-xs font-serif">
         <button
           onClick={() => setMobileViewTab('list')}
           className={`flex-1 py-2 rounded text-center font-medium transition-all ${
-            mobileViewTab === 'list' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+            mobileViewTab === 'list' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5A5E66]'
           }`}
         >
           목록 ({halls.length})
@@ -306,7 +306,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         <button
           onClick={() => setMobileViewTab('map')}
           className={`flex-1 py-2 rounded text-center font-medium transition-all ${
-            mobileViewTab === 'map' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+            mobileViewTab === 'map' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5A5E66]'
           }`}
         >
           Google 지도 보기
@@ -315,7 +315,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           <button
             onClick={() => setMobileViewTab('detail')}
             className={`flex-1 py-2 rounded text-center font-medium transition-all ${
-              mobileViewTab === 'detail' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5C6166]'
+              mobileViewTab === 'detail' ? 'bg-[#19382C] text-white font-bold shadow-xs' : 'text-[#5A5E66]'
             }`}
           >
             선택 식장 상세
@@ -327,14 +327,14 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         {/* ─── [좌측 컬럼: 장례식장 목록] (md:col-span-5) ─── */}
         <div className={`md:col-span-5 space-y-3 ${mobileViewTab !== 'list' ? 'hidden md:block' : ''}`}>
-          <div className="flex items-center justify-between text-xs font-serif font-bold text-[#727782] px-1">
+          <div className="flex items-center justify-between text-xs font-serif font-bold text-[#5A5E66] px-1">
             <span>조회된 장례식장 ({halls.length}개소)</span>
-            <span className="text-[11px] text-[#9E7D47]">원하시는 식장을 선택하세요</span>
+            <span className="text-[13px] text-[#6E5429]">원하시는 식장을 선택하세요</span>
           </div>
 
           <div className="space-y-2.5 max-h-[750px] overflow-y-auto pr-1">
             {halls.length === 0 ? (
-              <div className="p-8 text-center text-[#727782] font-serif bg-[#FAF9F6] rounded-lg border border-[#E3DFD5]">
+              <div className="p-8 text-center text-[#5A5E66] font-serif bg-[#FAF9F6] rounded-lg border border-[#DCD6C9]">
                 조건에 맞는 장례식장이 없습니다.<br />검색어나 필터 조건을 변경해 보세요.
               </div>
             ) : (
@@ -347,7 +347,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     className={`p-4 rounded-lg border transition-all cursor-pointer text-left relative ${
                       isSelected
                         ? 'border-2 border-[#19382C] bg-[#F7F5F0] shadow-sm ring-1 ring-[#19382C]/10'
-                        : 'border-[#E3DFD5] hover:border-[#9E7D47]/70 bg-[#FFFFFF]'
+                        : 'border-[#DCD6C9] hover:border-[#9E7D47]/70 bg-[#FFFFFF]'
                     }`}
                   >
                     {/* 선택 인디케이터 바 */}
@@ -357,7 +357,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
                     <div className="flex justify-between items-start gap-2">
                       <div>
-                        <span className="text-[10px] font-serif font-medium text-[#727782] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#E3DFD5]">
+                        <span className="text-[13px] font-serif font-medium text-[#5A5E66] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#DCD6C9]">
                           {getCategoryLabel(hall.category)}
                         </span>
                         <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
@@ -365,50 +365,36 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                         </h4>
                       </div>
                       {hall.isBaeungPartner ? (
-                        <span className="shrink-0 text-xs font-serif font-bold bg-[#F0F5F2] text-[#19382C] px-2 py-0.5 rounded border border-[#BFD4CA] flex items-center space-x-1">
-                          <Sparkles className="w-3 h-3 text-[#9E7D47]" />
+                        <span className="shrink-0 text-xs font-serif font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded border border-[#DCE8E2] flex items-center space-x-1">
+                          <Sparkles className="w-3 h-3 text-[#6E5429]" />
                           <span>{Math.round(hall.discountRate * 100)}% 감면</span>
                         </span>
                       ) : (
-                        <span className="shrink-0 text-[11px] font-serif text-[#727782] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#E3DFD5]">
+                        <span className="shrink-0 text-[13px] font-serif text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
                           일반 등록
                         </span>
                       )}
                     </div>
 
-                    <div className="text-xs text-[#727782] mt-2 flex items-center space-x-1 font-serif">
-                      <MapPin className="w-3.5 h-3.5 shrink-0 text-[#9E7D47]" />
+                    <div className="text-xs text-[#5A5E66] mt-2 flex items-center space-x-1 font-serif">
+                      <MapPin className="w-3.5 h-3.5 shrink-0 text-[#6E5429]" />
                       <span className="truncate">{hall.address}</span>
                     </div>
 
                     {hall.nearestSubway && (
-                      <div className="text-[11px] text-[#5C6166] mt-1 flex items-center space-x-1 font-serif">
+                      <div className="text-[13px] text-[#5A5E66] mt-1 flex items-center space-x-1 font-serif">
                         <Train className="w-3 h-3 shrink-0 text-[#19382C]" />
                         <span className="truncate">{hall.nearestSubway}</span>
                       </div>
                     )}
 
-                    {/* [옵션 B] 무빈소 & 가족장 큐레이션 배지 */}
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {hall.allowsDirectCremation !== false && (
-                        <span className="text-[10px] font-serif font-bold text-[#19382C] bg-[#F0F5F2] px-1.5 py-0.5 rounded border border-[#BFD4CA]">
-                          🕊️ 무빈소 안치 ({(hall.directCremationFee || 400_000).toLocaleString()}원)
-                        </span>
-                      )}
-                      {hall.hasSmallFamilyRoom && (
-                        <span className="text-[10px] font-serif text-[#876937] bg-[#F8F5EE] px-1.5 py-0.5 rounded border border-[#E4D5BC]">
-                          🏡 가족장 빈소
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#ECE8E0] text-xs font-serif">
+                    <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#DCD6C9] text-xs font-serif">
                       <div>
-                        <span className="text-[#727782]">빈소/안치: </span>
+                        <span className="text-[#5A5E66]">빈소/안치: </span>
                         <span className="font-bold text-[#151719]">{hall.roomCount}실 / {hall.capacityCount}구</span>
                       </div>
                       <div className="text-right">
-                        <span className="text-[#727782]">1일 평균: </span>
+                        <span className="text-[#5A5E66]">1일 평균: </span>
                         <span className="font-reverence font-bold text-[#19382C] text-sm">
                           {hall.dailyRentEstimate.toLocaleString()}원
                         </span>
@@ -421,7 +407,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           </div>
 
           {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 / B2B 정액제 입점 안내 바 */}
-          <div className="p-3 bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg text-[11px] text-[#5C6166] font-serif space-y-2">
+          <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[13px] text-[#5A5E66] font-serif space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <span>※ 본 정보는 e하늘 공공데이터 기반이며 배웅과 비제휴 관계입니다.</span>
               {selectedHall && (
@@ -433,8 +419,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                 </button>
               )}
             </div>
-            <div className="pt-1.5 border-t border-[#ECE8E0] flex justify-between items-center text-[10px]">
-              <span className="text-[#727782]">장례식장 사업자 및 원장님 전용:</span>
+            <div className="pt-1.5 border-t border-[#DCD6C9] flex justify-between items-center text-[13px]">
+              <span className="text-[#5A5E66]">장례식장 사업자 및 원장님 전용:</span>
               <button
                 onClick={() => setIsB2BModalOpen(true)}
                 className="text-[#19382C] hover:underline font-bold cursor-pointer"
@@ -465,18 +451,18 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
           {/* 2. 선택된 식장 정밀 제원 및 감면 명세 시트 */}
           {selectedHall && discountInfo ? (
-            <div className={`rounded-xl border border-[#E3DFD5] bg-[#FFFFFF] shadow-sm overflow-hidden ${mobileViewTab === 'map' ? 'hidden md:block' : ''}`}>
+            <div className={`rounded-xl border border-[#DCD6C9] bg-[#FFFFFF] shadow-sm overflow-hidden ${mobileViewTab === 'map' ? 'hidden md:block' : ''}`}>
               {/* 시트 상단 헤더 배너 (고품격 심록 & 황동) */}
-              <div className="bg-[#121417] text-[#FAF9F6] p-5 relative overflow-hidden">
+              <div className="bg-[#141618] text-[#FAF9F6] p-5 relative overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-25" />
                 <div className="relative z-10 flex justify-between items-start gap-3">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-[11px] font-serif font-bold text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2A5442]">
+                      <span className="text-[13px] font-serif font-bold text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                         {getCategoryLabel(selectedHall.category)}
                       </span>
                       {selectedHall.isBaeungPartner && (
-                        <span className="text-[11px] font-serif font-bold bg-[#9E7D47] text-[#0D0E10] px-2 py-0.5 rounded">
+                        <span className="text-[13px] font-serif font-bold bg-[#9E7D47] text-[#0D0E10] px-2 py-0.5 rounded">
                           ★ 빈소 {discountInfo.discountRatePercentage}% 감면 제휴 식장
                         </span>
                       )}
@@ -484,7 +470,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     <h3 className="text-xl md:text-2xl font-reverence font-bold text-[#FAF9F6] mt-2">
                       {selectedHall.name}
                     </h3>
-                    <div className="flex items-center space-x-2 text-xs text-[#D8CEBA] font-serif mt-1">
+                    <div className="flex items-center space-x-2 text-xs text-[#8A929D] font-serif mt-1">
                       <MapPin className="w-3.5 h-3.5 text-[#C2A26A] shrink-0" />
                       <span className="truncate">{selectedHall.address}</span>
                       <button
@@ -497,40 +483,30 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2 shrink-0">
-                    <button
-                      onClick={() => setIsReportModalOpen(true)}
-                      className="px-2.5 py-2.5 bg-[#FAF9F6]/10 hover:bg-[#FAF9F6]/20 text-[#FAF9F6] rounded-lg border border-white/10 text-xs font-serif flex items-center space-x-1.5 transition-colors cursor-pointer"
-                      title="사업계획서 7장 광고 효과 분석 리포트"
-                    >
-                      <TrendingUp className="w-4 h-4 text-[#C2A26A]" />
-                      <span className="hidden sm:inline">성과 리포트</span>
-                    </button>
-                    <a
-                      href={`tel:${selectedHall.phone}`}
-                      className="p-3 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-lg border border-[#2A5442] flex items-center justify-center cursor-pointer shadow-sm group"
-                      title="전화 걸기"
-                    >
-                      <Phone className="w-5 h-5 text-[#C2A26A] group-hover:scale-110 transition-transform" />
-                    </a>
-                  </div>
+                  <a
+                    href={`tel:${selectedHall.phone}`}
+                    className="p-3 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-lg border border-[#2D4F43] flex items-center justify-center shrink-0 cursor-pointer shadow-sm group"
+                    title="전화 걸기"
+                  >
+                    <Phone className="w-5 h-5 text-[#C2A26A] group-hover:scale-110 transition-transform" />
+                  </a>
                 </div>
               </div>
 
               {/* 시트 본문 콘텐츠 */}
               <div className="p-5 md:p-6 space-y-5">
                 {/* 2-A. [실시간 견적기] 2일장 vs 3일장 감면 계산기 */}
-                <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-4 space-y-3">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3DFD5] pb-2.5">
+                <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-4 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-2.5">
                     <span className="font-serif font-bold text-xs md:text-sm text-[#151719] flex items-center space-x-1.5">
-                      <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+                      <Sparkles className="w-4 h-4 text-[#6E5429]" />
                       <span>빈소 임대료 감면 혜택 계산기</span>
                     </span>
-                    <div className="flex bg-[#F0EDE6] p-0.5 rounded border border-[#E3DFD5] text-xs font-serif">
+                    <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-xs font-serif">
                       <button
                         onClick={() => setStayDays(2)}
                         className={`px-3 py-1 rounded transition-all cursor-pointer ${
-                          stayDays === 2 ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
+                          stayDays === 2 ? 'bg-[#19382C] text-white font-bold' : 'text-[#5A5E66] hover:text-[#151719]'
                         }`}
                       >
                         2일장 (통상 48시간)
@@ -538,7 +514,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                       <button
                         onClick={() => setStayDays(3)}
                         className={`px-3 py-1 rounded transition-all cursor-pointer ${
-                          stayDays === 3 ? 'bg-[#19382C] text-white font-bold' : 'text-[#727782] hover:text-[#151719]'
+                          stayDays === 3 ? 'bg-[#19382C] text-white font-bold' : 'text-[#5A5E66] hover:text-[#151719]'
                         }`}
                       >
                         3일장 (72시간)
@@ -548,13 +524,13 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
                   <div className="grid grid-cols-3 gap-2 text-center font-serif py-1">
                     <div>
-                      <div className="text-[11px] text-[#727782]">일반 정상 임대료</div>
+                      <div className="text-[13px] text-[#5A5E66]">일반 정상 임대료</div>
                       <div className="text-sm md:text-base font-bold text-[#42464E] mt-0.5">
                         {discountInfo.standardTotalRent.toLocaleString()}원
                       </div>
                     </div>
-                    <div className="border-x border-[#E3DFD5]">
-                      <div className="text-[11px] text-[#9E7D47] font-bold">
+                    <div className="border-x border-[#DCD6C9]">
+                      <div className="text-[13px] text-[#6E5429] font-bold">
                         배웅 제휴 감면 ({discountInfo.discountRatePercentage}%)
                       </div>
                       <div className="text-sm md:text-base font-bold text-[#8B2520] mt-0.5">
@@ -562,7 +538,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                       </div>
                     </div>
                     <div>
-                      <div className="text-[11px] text-[#19382C] font-bold">배웅 회원 최종가</div>
+                      <div className="text-[13px] text-[#19382C] font-bold">배웅 회원 최종가</div>
                       <div className="text-base md:text-lg font-reverence font-black text-[#19382C] mt-0.5">
                         {discountInfo.discountedTotalRent.toLocaleString()}원
                       </div>
@@ -570,7 +546,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   </div>
 
                   {selectedHall.isBaeungPartner && (
-                    <div className="bg-[#F0F5F2] border border-[#BFD4CA] rounded p-2 text-center text-xs font-serif text-[#19382C]">
+                    <div className="bg-[#DCE8E2] border border-[#DCE8E2] rounded p-2 text-center text-xs font-serif text-[#19382C]">
                       💡 배웅 사전 등록 시 <b>{discountInfo.discountAmount.toLocaleString()}원</b>이 현장에서 자동 감면 적용됩니다.
                     </div>
                   )}
@@ -584,21 +560,21 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                       <span className="text-xs font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
                         공정위 리베이트 제재 지침 준수 · 100% 정찰제
                       </span>
-                      <span className="text-[11px] font-serif text-[#9E7D47] font-bold">
+                      <span className="text-[13px] font-serif text-[#6E5429] font-bold">
                         부당 알선료 0원 보증
                       </span>
                     </div>
 
-                    <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417]">
+                    <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618]">
                       공식 정찰 견적서 및 견적 참조번호(REF) 즉시 발급
                     </h4>
-                    <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
+                    <p className="text-xs text-[#5A5E66] font-serif leading-relaxed">
                       장례식장 상담 시 발급된 <b>견적 참조번호</b>를 제시하시면, 사전 등록 고객으로 인식되어 부당 추가금 없이 정찰 감면 견적을 보장받습니다.
                     </p>
 
                     <button
                       onClick={() => setIsQuoteModalOpen(true)}
-                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D5A46]"
+                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D4F43]"
                     >
                       <FileText className="w-4 h-4 text-[#C2A26A]" />
                       <span>📄 공식 정찰 견적서 & 견적 참조번호(REF) 발급</span>
@@ -611,26 +587,26 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between text-xs font-serif font-bold text-[#151719]">
                     <span className="flex items-center space-x-1.5">
-                      <Building2 className="w-4 h-4 text-[#9E7D47]" />
+                      <Building2 className="w-4 h-4 text-[#6E5429]" />
                       <span>분향실 규격별 상세 제원 및 1일 요금표</span>
                     </span>
-                    <span className="text-[11px] text-[#727782]">총 {selectedHall.roomCount}개 분향실 운영</span>
+                    <span className="text-[13px] text-[#5A5E66]">총 {selectedHall.roomCount}개 분향실 운영</span>
                   </div>
 
-                  <div className="border border-[#E3DFD5] rounded-lg overflow-hidden text-xs font-serif">
-                    <table className="w-full text-left divide-y divide-[#E3DFD5]">
-                      <thead className="bg-[#FAF9F6] text-[#727782] font-medium">
+                  <div className="border border-[#DCD6C9] rounded-lg overflow-hidden text-xs font-serif">
+                    <table className="w-full text-left divide-y divide-[#DCD6C9]">
+                      <thead className="bg-[#FAF9F6] text-[#5A5E66] font-medium">
                         <tr>
                           <th className="py-2.5 px-3">빈소 규격</th>
                           <th className="py-2.5 px-3">권장 조문객 규모</th>
                           <th className="py-2.5 px-3 text-right">1일 임대료</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#ECE8E0] bg-[#FFFFFF]">
+                      <tbody className="divide-y divide-[#DCD6C9] bg-[#FFFFFF]">
                         {roomTypes.map((rt, idx) => (
                           <tr key={idx} className="hover:bg-[#FAF9F6]">
                             <td className="py-2.5 px-3 font-medium text-[#151719]">{rt.name}</td>
-                            <td className="py-2.5 px-3 text-[#5C6166]">{rt.recommendedGuests}</td>
+                            <td className="py-2.5 px-3 text-[#5A5E66]">{rt.recommendedGuests}</td>
                             <td className="py-2.5 px-3 text-right font-reverence font-bold text-[#19382C]">
                               {rt.dailyPrice.toLocaleString()}원
                             </td>
@@ -643,7 +619,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
                 {/* 2-C. [정밀 제원 2] 연계 화장시설(승화원) 이동 시간 및 거리 */}
                 {selectedHall.nearestCrematorium && (
-                  <div className="p-3.5 rounded-lg border border-[#E3DFD5] bg-[#FAF9F6] space-y-1.5 text-xs font-serif">
+                  <div className="p-3.5 rounded-lg border border-[#DCD6C9] bg-[#FAF9F6] space-y-1.5 text-xs font-serif">
                     <div className="flex items-center justify-between font-bold text-[#151719]">
                       <span className="flex items-center space-x-1.5">
                         <Flame className="w-4 h-4 text-[#8B2520]" />
@@ -653,11 +629,11 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                         약 {selectedHall.crematoriumTravelMinutes}분 소요 ({selectedHall.crematoriumDistanceKm}km)
                       </span>
                     </div>
-                    <div className="flex items-center justify-between text-[#5C6166]">
+                    <div className="flex items-center justify-between text-[#5A5E66]">
                       <span>시설명: <b>{selectedHall.nearestCrematorium}</b></span>
                       <span>운구 차량 이동 지원</span>
                     </div>
-                    <p className="text-[11px] text-[#727782] pt-1 border-t border-[#ECE8E0]">
+                    <p className="text-[13px] text-[#5A5E66] pt-1 border-t border-[#DCD6C9]">
                       ※ 발인 당일 승화원 화장 접수 및 전용 리무진 운구는 배웅 1급 장례지도사가 원스톱으로 전담합니다.
                     </p>
                   </div>
@@ -665,8 +641,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
                 {/* 2-D. [정밀 제원 3] 교통 접근성 및 주차 인프라 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-serif">
-                  <div className="p-3 rounded-lg border border-[#E3DFD5] bg-[#FFFFFF] space-y-1">
-                    <span className="text-[#727782] flex items-center space-x-1 font-bold">
+                  <div className="p-3 rounded-lg border border-[#DCD6C9] bg-[#FFFFFF] space-y-1">
+                    <span className="text-[#5A5E66] flex items-center space-x-1 font-bold">
                       <Train className="w-3.5 h-3.5 text-[#19382C]" />
                       <span>대중교통 안내</span>
                     </span>
@@ -675,9 +651,9 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-lg border border-[#E3DFD5] bg-[#FFFFFF] space-y-1">
-                    <span className="text-[#727782] flex items-center space-x-1 font-bold">
-                      <Car className="w-3.5 h-3.5 text-[#9E7D47]" />
+                  <div className="p-3 rounded-lg border border-[#DCD6C9] bg-[#FFFFFF] space-y-1">
+                    <span className="text-[#5A5E66] flex items-center space-x-1 font-bold">
+                      <Car className="w-3.5 h-3.5 text-[#6E5429]" />
                       <span>주차 시설 안내</span>
                     </span>
                     <p className="text-[#151719] font-medium leading-relaxed">
@@ -688,12 +664,12 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
                 {/* 2-E. 유족 편의시설 칩 */}
                 <div>
-                  <div className="text-xs font-serif font-bold text-[#727782] mb-1.5">제공 편의시설</div>
+                  <div className="text-xs font-serif font-bold text-[#5A5E66] mb-1.5">제공 편의시설</div>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedHall.conveniences.map((conv, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded text-[11px] font-serif bg-[#FAF9F6] text-[#42464E] border border-[#E3DFD5]"
+                        className="px-2 py-0.5 rounded text-[13px] font-serif bg-[#FAF9F6] text-[#42464E] border border-[#DCD6C9]"
                       >
                         ✓ {conv}
                       </span>
@@ -702,7 +678,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                 </div>
 
                 {/* 2-E-2. 3대 모듈 실시간 연계 액션 버튼 */}
-                <div className="pt-2 border-t border-[#ECE8E0] space-y-2">
+                <div className="pt-2 border-t border-[#DCD6C9] space-y-2">
                   <button
                     onClick={() => {
                       onSelectHallForFuneral?.(selectedHall);
@@ -711,11 +687,11 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     }}
                     className={`w-full py-2.5 px-4 rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer border ${
                       isSynced
-                        ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D5A46]'
-                        : 'bg-[#9E7D47]/15 hover:bg-[#9E7D47]/25 text-[#705322] border-[#9E7D47]/40'
+                        ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
+                        : 'bg-[#9E7D47]/15 hover:bg-[#9E7D47]/25 text-[#6E5429] border-[#9E7D47]/40'
                     }`}
                   >
-                    <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+                    <Sparkles className="w-4 h-4 text-[#6E5429]" />
                     <span>
                       {isSynced
                         ? `✓ [${selectedHall.name}] 생애기록관 부고장에 실시간 연동 완료!`
@@ -726,7 +702,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   {isSynced && onNavigateToLifeArchive && (
                     <button
                       onClick={onNavigateToLifeArchive}
-                      className="w-full text-center text-xs text-[#19382C] font-bold underline cursor-pointer hover:text-[#224A3B]"
+                      className="w-full text-center text-xs text-[#19382C] font-bold underline cursor-pointer hover:text-[#2D4F43]"
                     >
                       동기화된 생애기록관 부고장 확인하러 가기 ➔
                     </button>
@@ -734,32 +710,32 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                 </div>
 
                 {/* 2-E-3. 3대 부가 제휴사 퀵 링크 */}
-                <div className="pt-2 border-t border-[#ECE8E0]">
+                <div className="pt-2 border-t border-[#DCD6C9]">
                   <button
                     onClick={() => setIsAffiliateModalOpen(true)}
-                    className="w-full py-2 px-3 bg-[#FAF7F0] hover:bg-[#F3EFE6] text-[#7A5B28] border border-[#E8DEC8] rounded-md text-xs font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full py-2 px-3 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border border-[#F1E9DB] rounded-md text-xs font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="flex items-center space-x-1.5">
                       <Award className="w-3.5 h-3.5 text-[#9E7D47]" />
                       <span>장례 후 안치·유품정리 (인증 봉안당·수목장림·유품정리 정찰제 제휴)</span>
                     </span>
-                    <span className="text-[11px] text-[#9E7D47]">상세 보기 ➔</span>
+                    <span className="text-[13px] text-[#6E5429]">상세 보기 ➔</span>
                   </button>
                 </div>
 
                 {/* 2-F. 하단 의전 신청 액션 바 */}
-                <div className="pt-2 border-t border-[#ECE8E0] flex flex-col sm:flex-row gap-2.5">
+                <div className="pt-2 border-t border-[#DCD6C9] flex flex-col sm:flex-row gap-2.5">
                   <a
                     href={`tel:${selectedHall.phone}`}
-                    className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#F2EEE6] text-[#151719] border border-[#E3DFD5] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all"
+                    className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all"
                   >
-                    <Phone className="w-4 h-4 text-[#9E7D47]" />
+                    <Phone className="w-4 h-4 text-[#6E5429]" />
                     <span>장례식장 직통 문의 ({selectedHall.phone})</span>
                   </a>
 
                   <a
                     href="tel:1588-0000"
-                    className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] border border-[#2D5A46] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
+                    className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-md font-serif font-bold text-xs md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
                   >
                     <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
                     <span>배웅 24시 빈소 우선 배정 신청</span>
@@ -768,7 +744,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
               </div>
             </div>
           ) : (
-            <div className="p-12 text-center text-[#727782] font-serif bg-[#FAF9F6] rounded-xl border border-[#E3DFD5]">
+            <div className="p-12 text-center text-[#5A5E66] font-serif bg-[#FAF9F6] rounded-xl border border-[#DCD6C9]">
               좌측 목록이나 지도에서 장례식장을 선택하시면<br />상세 시설 제원과 실시간 빈소 감면 명세가 노출됩니다.
             </div>
           )}

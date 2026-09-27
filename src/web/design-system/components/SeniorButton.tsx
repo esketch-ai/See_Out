@@ -24,10 +24,10 @@ export const SeniorButton: React.FC<SeniorButtonProps> = ({
   const minHeightClass = isLargeTouch ? 'min-h-[64px] py-4 px-7 text-lg md:text-xl' : 'py-3 px-5 text-base';
 
   const variantClasses = {
-    primary: 'bg-[#19382C] hover:bg-[#132B22] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#19382C]',
-    emergency: 'bg-[#8B2520] hover:bg-[#731E1A] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#8B2520]',
+    primary: 'bg-[#19382C] hover:bg-[#19382C] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#19382C]',
+    emergency: 'bg-[#8B2520] hover:bg-[#731C18] active:scale-[0.98] text-[#FAF9F6] shadow-xs border border-[#8B2520]',
     outline: 'bg-[#FFFFFF] hover:bg-[#FAF9F6] active:scale-[0.98] text-[#19382C] border border-[#19382C]',
-    ghost: 'bg-transparent hover:bg-[#FAF9F6] active:scale-[0.98] text-[#121417] hover:text-[#19382C]'
+    ghost: 'bg-transparent hover:bg-[#FAF9F6] active:scale-[0.98] text-[#141618] hover:text-[#19382C]'
   }[variant];
 
   return (

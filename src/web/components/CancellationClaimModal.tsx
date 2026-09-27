@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { CancellationClaimData } from '../../quote-diagnostics/types.js';
 import { TraditionalSeal } from '../design-system/index.js';
+import { ModalShell, ModalToolbar } from './ModalShell.js';
 
 interface CancellationClaimModalProps {
   claimData: CancellationClaimData;
@@ -75,69 +76,74 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0D0E10]/85 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto font-serif">
-      <div className="bg-[#FAF9F6] rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-[#E3DFD5] flex flex-col my-auto max-h-[96vh]">
+    <ModalShell
+        onClose={onClose}
+        maxWidth="max-w-4xl"
+        maxHeight="max-h-[96vh]"
+        surface="paper"
+        overlayScroll
+        serif
+        titleId="claim-title"
+        descriptionId="claim-desc"
+    >
         {/* 상단 컨트롤 툴바 (인쇄 시 숨김 no-print) */}
-        <div className="no-print bg-[#121417] text-[#FAF9F6] p-4 px-6 flex items-center justify-between border-b border-white/10 shrink-0">
-          <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center border border-[#2D5A46]">
+                <ModalToolbar
+          titleId="claim-title"
+          descriptionId="claim-desc"
+          onClose={onClose}
+          closeLabel="내용증명 닫기"
+          icon={
+            <div className="w-8 h-8 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center border border-[#2D4F43] shrink-0">
               <Scale className="w-4 h-4" />
             </div>
-            <div>
-              <h3 className="font-serif font-bold text-base text-[#FAF9F6] flex items-center space-x-2">
-                <span>법정 해약환급금 지급 청구서 (내용증명 표준 서식)</span>
-                <span className="text-[10px] bg-red-950/60 text-red-300 px-2 py-0.5 rounded border border-red-800/50">
-                  공정위 고시 제2020-1호 준수
-                </span>
-              </h3>
-              <p className="text-xs text-[#A69E8F] font-serif">
-                공정거래위원회 기준에 의거하여 상조회사 본사에 내용증명으로 발송할 수 있는 법적 효력 청구서입니다.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={handleCopy}
-              className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
-            >
-              {copiedText ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
-              <span>{copiedText ? '복사 완료' : '전문 텍스트 복사'}</span>
-            </button>
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2 bg-[#19382C] hover:bg-[#224A3B] text-white rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D5A46]"
-            >
-              <Printer className="w-4 h-4 text-[#C2A26A]" />
-              <span>A4 인쇄 / PDF 저장</span>
-            </button>
-            <button
-              onClick={onClose}
-              className="p-1.5 hover:bg-white/10 rounded-full text-[#D4CEC2] hover:text-white transition-colors cursor-pointer"
-              title="닫기 (ESC)"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+          }
+          title={
+            <>
+              법정 해약환급금 지급 청구서 (내용증명 표준 서식){' '}
+              <span className="text-[13px] bg-red-950/60 text-red-300 px-2 py-0.5 rounded border border-red-800/50 align-middle">
+                공정위 고시 제2020-1호 준수
+              </span>
+            </>
+          }
+          subtitle={
+            <span id="claim-desc">공정거래위원회 기준에 의거하여 상조회사 본사에 내용증명으로 발송할 수 있는 법적 효력 청구서입니다.</span>
+          }
+        >
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
+          >
+            {copiedText ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
+            <span>{copiedText ? '복사 완료' : '전문 텍스트 복사'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+          >
+            <Printer className="w-4 h-4 text-[#C2A26A]" />
+            <span>A4 인쇄 / PDF 저장</span>
+          </button>
+        </ModalToolbar>
 
         {/* 본문 컨테이너 */}
         <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF9F6]">
           {/* ───────────────────────────────────────────────────────────── */}
           {/* A4 인쇄 규격 내용증명 공문서 포맷 */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="print-booklet-page bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-8 sm:p-14 space-y-6 shadow-xs relative">
+          <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border border-[#DCD6C9] rounded-[24px] p-8 sm:p-14 space-y-6 shadow-xs relative">
             {/* 상단 공문서 헤더 */}
             <div className="border-b-2 border-[#151719] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-xs text-[#876937] font-bold tracking-widest block uppercase">
+                <span className="text-xs text-[#6E5429] font-bold tracking-widest block uppercase">
                   Official Legal Notice
                 </span>
                 <h1 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-0.5">
                   선불식 할부계약 해제 및 법정 해약환급금 지급 청구서 (내용증명)
                 </h1>
               </div>
-              <span className="text-xs font-mono text-[#727782] shrink-0">
+              <span className="text-xs font-mono text-[#5A5E66] shrink-0">
                 문서 번호: {claimData.claimId}
               </span>
             </div>
@@ -145,8 +151,8 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             {/* 1. 수신인 & 발신인 그리드 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               {/* 수신인 */}
-              <div className="bg-[#FAF8F5] p-4 rounded-lg border border-[#ECE8E0] space-y-2">
-                <span className="font-bold text-[#151719] block border-b border-[#E3DFD5] pb-1">
+              <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
+                <span className="font-bold text-[#151719] block border-b border-[#DCD6C9] pb-1">
                   1. 수신인 (상조회사)
                 </span>
                 <div className="space-y-1 text-[#42464E]">
@@ -157,38 +163,38 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
               </div>
 
               {/* 발신인 */}
-              <div className="bg-[#FAF8F5] p-4 rounded-lg border border-[#ECE8E0] space-y-2">
-                <span className="font-bold text-[#151719] block border-b border-[#E3DFD5] pb-1">
+              <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
+                <span className="font-bold text-[#151719] block border-b border-[#DCD6C9] pb-1">
                   2. 발신인 (가입 계약자)
                 </span>
                 <div className="space-y-1.5">
                   <div className="flex items-center space-x-1">
-                    <span className="w-14 text-[#727782] shrink-0">성명:</span>
+                    <span className="w-14 text-[#5A5E66] shrink-0">성명:</span>
                     <input
                       type="text"
                       value={claimantName}
                       onChange={(e) => setClaimantName(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#E3DFD5] rounded text-xs font-bold text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs font-bold text-[#151719] w-full"
                     />
                     <span className="print-only font-bold text-[#151719]">{claimantName}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <span className="w-14 text-[#727782] shrink-0">연락처:</span>
+                    <span className="w-14 text-[#5A5E66] shrink-0">연락처:</span>
                     <input
                       type="text"
                       value={claimantPhone}
                       onChange={(e) => setClaimantPhone(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#E3DFD5] rounded text-xs text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantPhone}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <span className="w-14 text-[#727782] shrink-0">주소:</span>
+                    <span className="w-14 text-[#5A5E66] shrink-0">주소:</span>
                     <input
                       type="text"
                       value={claimantAddress}
                       onChange={(e) => setClaimantAddress(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#E3DFD5] rounded text-xs text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantAddress}</span>
                   </div>
@@ -199,19 +205,19 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             {/* 2. 가입 계약 체결 내역 */}
             <div className="space-y-2 text-xs">
               <span className="font-bold text-[#151719] block">3. 계약 체결 사항</span>
-              <div className="border border-[#E3DFD5] rounded-lg overflow-hidden">
-                <table className="w-full text-left divide-y divide-[#E3DFD5]">
-                  <tbody className="divide-y divide-[#E3DFD5] bg-[#FFFFFF]">
+              <div className="border border-[#DCD6C9] rounded-lg overflow-hidden">
+                <table className="w-full text-left divide-y divide-[#DCD6C9]">
+                  <tbody className="divide-y divide-[#DCD6C9] bg-[#FFFFFF]">
                     <tr>
-                      <th className="bg-[#FAF9F6] p-2.5 w-1/4 text-[#727782] font-medium">계약(회원)번호</th>
+                      <th className="bg-[#FAF9F6] p-2.5 w-1/4 text-[#5A5E66] font-medium">계약(회원)번호</th>
                       <td className="p-2.5 font-mono font-bold text-[#151719]">{claimData.contractNumber}</td>
-                      <th className="bg-[#FAF9F6] p-2.5 w-1/4 text-[#727782] font-medium">상품명</th>
+                      <th className="bg-[#FAF9F6] p-2.5 w-1/4 text-[#5A5E66] font-medium">상품명</th>
                       <td className="p-2.5 font-bold text-[#151719]">{claimData.productName}</td>
                     </tr>
                     <tr>
-                      <th className="bg-[#FAF9F6] p-2.5 text-[#727782] font-medium">총 약정금액</th>
+                      <th className="bg-[#FAF9F6] p-2.5 text-[#5A5E66] font-medium">총 약정금액</th>
                       <td className="p-2.5 text-[#151719]">{claimData.totalContractAmount.toLocaleString()}원 ({claimData.totalInstallments}회 약정)</td>
-                      <th className="bg-[#FAF9F6] p-2.5 text-[#727782] font-medium">실 납입 누계액</th>
+                      <th className="bg-[#FAF9F6] p-2.5 text-[#5A5E66] font-medium">실 납입 누계액</th>
                       <td className="p-2.5 font-bold text-[#8B2520]">{claimData.paidTotalAmount.toLocaleString()}원 ({claimData.paidInstallments}회 납입)</td>
                     </tr>
                   </tbody>
@@ -220,24 +226,24 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
 
             {/* 3. 법정 해약환급금 산출 내역 및 지급 요청 */}
-            <div className="bg-[#FAF8F5] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-xs">
-              <div className="flex items-center justify-between border-b border-[#E3DFD5] pb-2">
+            <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-xs">
+              <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
                 <span className="font-reverence font-bold text-sm text-[#19382C]">
                   4. 법정 해약환급금 산출 명세 및 지급 계좌
                 </span>
-                <span className="text-[11px] font-bold text-[#9E7D47]">
+                <span className="text-[13px] font-bold text-[#6E5429]">
                   공정위 체증 환급률 적용
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#FFFFFF] p-4 rounded-lg border border-[#E3DFD5]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#FFFFFF] p-4 rounded-lg border border-[#DCD6C9]">
                 <div>
-                  <span className="text-[#727782] block">법정 지급 청구 금액:</span>
+                  <span className="text-[#5A5E66] block">법정 지급 청구 금액:</span>
                   <span className="text-2xl font-reverence font-black text-[#19382C]">
                     금 {claimData.statutoryRefundAmount.toLocaleString()}원정
                   </span>
                 </div>
-                <div className="text-xs text-[#5C6166] sm:text-right space-y-0.5">
+                <div className="text-xs text-[#5A5E66] sm:text-right space-y-0.5">
                   <p>실 납입금: {claimData.paidTotalAmount.toLocaleString()}원</p>
                   <p>법정 모집수수료 공제 후 실 수령 권리액</p>
                 </div>
@@ -245,28 +251,28 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
 
               {/* 환급 수령 계좌 인풋 */}
               <div className="pt-2 space-y-1.5">
-                <span className="text-[#8C867B] font-bold block">환급금 수령 지정 계좌:</span>
+                <span className="text-[#5A5E66] font-bold block">환급금 수령 지정 계좌:</span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <input
                     type="text"
                     value={refundBank}
                     onChange={(e) => setRefundBank(e.target.value)}
                     placeholder="은행명"
-                    className="no-print p-2 bg-white border border-[#E3DFD5] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundAccount}
                     onChange={(e) => setRefundAccount(e.target.value)}
                     placeholder="계좌번호"
-                    className="no-print p-2 bg-white border border-[#E3DFD5] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundHolder}
                     onChange={(e) => setRefundHolder(e.target.value)}
                     placeholder="예금주"
-                    className="no-print p-2 bg-white border border-[#E3DFD5] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
                   />
                 </div>
                 <p className="print-only text-sm font-bold text-[#151719] pt-1">
@@ -276,7 +282,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
 
             {/* 4. 법적 근거 및 지연배상금 고지문 */}
-            <div className="p-4 bg-[#FFFFFF] border border-[#E3DFD5] rounded-lg space-y-2 text-xs text-[#42464E] leading-relaxed">
+            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-xs text-[#42464E] leading-relaxed">
               <span className="font-bold text-[#151719] block">
                 5. 법적 근거 및 지연배상금 가산 고지
               </span>
@@ -302,7 +308,6 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </ModalShell>
   );
 };

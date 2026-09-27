@@ -245,7 +245,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
         <div className="space-y-2">
           <label className="text-xs font-serif font-bold text-[#151719] flex items-center space-x-1.5">
             <Sparkles className="w-3.5 h-3.5 text-[#9E7D47]" />
-            <span>또는 실제 상조사 실물 증서 샘플을 원터치로 스캔해 보세요:</span>
+            <span>또는 실제 상조사 계약 증서 예시를 눌러 바로 확인해 보세요:</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {[
@@ -350,7 +350,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           {showDirectTextInput && (
             <div className="mt-2.5 p-4 rounded-lg bg-[#FFFFFF] border border-[#E3DFD5] space-y-2.5">
               <label className="text-xs font-bold text-[#151719] block font-serif">
-                상조 가입 증서 텍스트 (OCR 추출 원문 또는 직접 입력)
+                상조 가입 증서 내용 (사진 자동인식 내용 또는 직접 입력)
               </label>
               <textarea
                 rows={4}

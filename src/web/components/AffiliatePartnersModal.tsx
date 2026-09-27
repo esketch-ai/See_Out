@@ -103,10 +103,10 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
             </div>
             <div>
               <h3 className="font-reverence font-bold text-base sm:text-lg text-[#FAF9F6]">
-                배웅 인증 3대 부가 제휴사 디렉터리
+                배웅 인증 3대 장사 제휴처 (봉안당 · 수목장 · 유품정리)
               </h3>
               <p className="text-[11px] text-[#A8B2A9]">
-                사업계획서 3.3절 & 4.4절 준수 · 법정 인허가 필증 검증 및 알선 수수료 0원 정찰제
+                지자체 정식 인허가 필증 검증 완료 · 리베이트 0원 투명 정찰제
               </p>
             </div>
           </div>

@@ -134,7 +134,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                   心理 · 法律 專業諮問
                 </span>
                 <span className="bg-[#264E3D] text-[#FAF9F6] text-[10px] px-2 py-0.5 rounded font-mono font-bold">
-                  중개수수료 0원 공공 디렉터리
+                  중개수수료 0원 공공 안심 연결
                 </span>
               </div>
               <h3 className="font-reverence font-bold text-base sm:text-lg text-[#FAF9F6] leading-tight">
@@ -231,7 +231,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                   <p className="text-xs sm:text-sm text-[#42464E] leading-relaxed font-serif">
                     고인의 사망 사실을 안 날로부터 3개월 이내에 신청해야 하는 <b>상속포기 및 한정승인</b>,
                     가족 간 분쟁을 미연에 방지하는 <b>상속재산분할·유류분 반환</b>, <b>유언공증과 성년후견</b>까지
-                    배웅은 어떠한 수수료도 떼지 않고 100% 무료 직통 디렉터리를 제공합니다.
+                    배웅은 어떠한 수수료도 떼지 않고 100% 무료 직통 안심 연결을 제공합니다.
                   </p>
                 </div>
 
@@ -242,17 +242,17 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                 </div>
               </div>
 
-              {/* [특화 위젯] 3개월 상속 골든타임 실시간 계산기 */}
+              {/* [특화 위젯] 빚 대물림 방지: 상속포기·한정승인 3개월 필수 기한 계산기 */}
               <div className="bg-[#FFFFFF] border-2 border-[#19382C] rounded-xl p-4 sm:p-5 shadow-xs space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E3DFD5] pb-3">
                   <div className="flex items-center space-x-2">
                     <Timer className="w-5 h-5 text-[#19382C]" />
                     <div>
                       <h5 className="font-reverence font-bold text-base text-[#151719]">
-                        민법 제1019조 상속포기·한정승인 3개월 골든타임 계산기
+                        빚 대물림 방지: 상속포기·한정승인 3개월 필수 기한 계산기
                       </h5>
                       <p className="text-xs text-[#727782]">
-                        고인의 임종일자(사망일)를 입력하시면 법정 신고 만료일과 잔여 D-day를 즉시 산출합니다.
+                        고인의 임종일자(사망일)를 입력하시면 빚 상속 방지를 위한 법정 신고 만료일과 잔여 D-day를 즉시 산출합니다.
                       </p>
                     </div>
                   </div>

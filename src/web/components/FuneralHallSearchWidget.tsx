@@ -429,7 +429,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   onClick={() => setIsOptOutModalOpen(true)}
                   className="text-[#8B2520] hover:underline font-bold shrink-0 cursor-pointer text-left"
                 >
-                  [정보 정정·게재 중단(Opt-out) 신청]
+                  [장례식장 정보 수정 · 비노출 요청 (옵트아웃)]
                 </button>
               )}
             </div>

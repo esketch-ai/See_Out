@@ -64,10 +64,10 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
             </div>
             <div>
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6]">
-                장례식장 정보 정정 및 게재 중단(Opt-Out) 접수 창구
+                장례식장 정보 수정 및 비노출(게재 중단) 요청 접수 창구
               </h3>
               <p className="text-[11px] text-[#A8B2A9]">
-                사업계획서 3.1절 및 4.3절 준수 · 신속한 권리자 권익 보호
+                장례식장 원장님 및 관리자 전용 · 24시간 이내 신속 처리
               </p>
             </div>
           </div>

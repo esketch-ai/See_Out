@@ -145,7 +145,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               className="px-3.5 py-1.5 bg-black/60 hover:bg-black/90 text-[#E8C88B] rounded-md font-bold transition-all flex items-center space-x-1.5 cursor-pointer border border-[#C2A26A]/40 shadow-xs"
             >
               <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
-              <span>빈소 헌정 키오스크 송출 (Altar TV)</span>
+              <span>빈소 디지털 헌정 화면 (추모 TV 모니터)</span>
             </button>
           </div>
         </div>
@@ -162,7 +162,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <BookOpen className="w-4 h-4 text-[#C2A26A]" />
-          <span>생애 평전 스토리북</span>
+          <span>생애 평전 (살아온 이야기)</span>
         </button>
 
         <button
@@ -174,7 +174,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Mic className="w-4 h-4 text-[#C2A26A]" />
-          <span>AI 생애 구술 인터뷰어</span>
+          <span>생애 회고 (음성 인터뷰)</span>
         </button>
 
         <button
@@ -186,7 +186,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Phone className="w-4 h-4 text-[#C2A26A]" />
-          <span>스마트폰 연락처 & 부고</span>
+          <span>모바일 부고장 & 연락처</span>
         </button>
 
         <button
@@ -198,7 +198,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <FileText className="w-4 h-4 text-[#C2A26A]" />
-          <span>사전 엔딩노트</span>
+          <span>사전 장례 의향서 (엔딩노트)</span>
         </button>
 
         <button
@@ -210,7 +210,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Lock className="w-4 h-4 text-[#C2A26A]" />
-          <span>사후 승계 게이트키퍼</span>
+          <span>사후 유산관리 가족대표 (게이트키퍼)</span>
         </button>
       </div>
 
@@ -286,7 +286,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                   className="px-3.5 py-2 bg-[#121417] text-[#FAF9F6] border border-white/20 rounded-md font-bold hover:bg-[#1D2126] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs"
                 >
                   <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
-                  <span>빈소 헌정 키오스크 (Altar TV)</span>
+                  <span>빈소 디지털 헌정 화면 (추모 TV 모니터)</span>
                 </button>
               </div>
             </div>
@@ -816,21 +816,21 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               <div className="flex items-center space-x-2.5">
                 <Lock className="w-5 h-5 text-[#C2A26A]" />
                 <h3 className="font-serif font-bold text-base md:text-lg text-[#FAF9F6]">
-                  2단계 게이트키퍼(Gatekeeper) 사후 승계 보안 현황
+                  사후 유산관리 가족대표 (디지털 유산 승계 보안)
                 </h3>
               </div>
               <span className="text-xs text-[#C2A26A] font-bold bg-[#0E1E18] px-2.5 py-1 rounded border border-[#2A5442]">
-                생전 암호화 잠금 중 (E2EE 1등급)
+                생전 암호화 안심 잠금 중
               </span>
             </div>
 
             <p className="relative z-10 text-xs text-[#D4CEC2] leading-relaxed">
-              생전에는 본인 외에 가족이라도 절대 열람할 수 없도록 철저히 암호화되어 보관됩니다. 임종 발생 시 지정된 1차·2차 대리인이 사망진단서 또는 상호 승인을 진행해야만 보안이 해제됩니다.
+              어르신 생전에는 비밀이 철저히 지켜지며, 사후에 미리 지정해 둔 1차·2차 가족대표(상주/자녀)가 사망진단서 확인 또는 상호 승인을 거쳐야만 평전과 의향서가 안전하게 열립니다.
             </p>
 
             <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="bg-[#0E1E18] p-3.5 rounded-lg border border-[#2A5442] space-y-1">
-                <span className="text-[#C2A26A] font-bold">1차 지정 대리인 (상주)</span>
+                <span className="text-[#C2A26A] font-bold">1차 지정 가족대표 (상주)</span>
                 <p className="text-[#FAF9F6] font-bold text-sm">
                   {SAMPLE_GATEKEEPER.primaryDelegate.name} ({SAMPLE_GATEKEEPER.primaryDelegate.relationship})
                 </p>
@@ -838,7 +838,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               </div>
 
               <div className="bg-[#0E1E18] p-3.5 rounded-lg border border-[#2A5442] space-y-1">
-                <span className="text-[#C2A26A] font-bold">2차 지정 대리인</span>
+                <span className="text-[#C2A26A] font-bold">2차 지정 가족대표 (승계 가족)</span>
                 <p className="text-[#FAF9F6] font-bold text-sm">
                   {SAMPLE_GATEKEEPER.secondaryDelegate.name} ({SAMPLE_GATEKEEPER.secondaryDelegate.relationship})
                 </p>

@@ -25,11 +25,18 @@ import {
   ChevronRight,
   X,
   FileText,
-  Scale
+  Scale,
+  TrendingUp,
+  Award,
+  Trees
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import { FuneralHallMap } from './FuneralHallMap.js';
 import { FuneralHallQuoteModal } from './FuneralHallQuoteModal.js';
+import { PartnerPerformanceReportModal } from './PartnerPerformanceReportModal.js';
+import { OptOutModal } from './OptOutModal.js';
+import { AffiliatePartnersModal } from './AffiliatePartnersModal.js';
+import { OptOutService } from '../../compliance/index.js';
 
 export interface FuneralHallSearchWidgetProps {
   selectedFuneralHallId?: string;
@@ -52,18 +59,22 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isOptOutModalOpen, setIsOptOutModalOpen] = useState(false);
+  const [isAffiliateModalOpen, setIsAffiliateModalOpen] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
-  // 검색 결과 (장례 형태 필터 연동)
+  // 검색 결과 (장례 형태 필터 및 옵트아웃 게재 중단 식장 제외)
   const halls = useMemo(() => {
-    return FuneralHallService.searchHalls({
+    const raw = FuneralHallService.searchHalls({
       keyword: keyword.trim() || undefined,
       region: selectedRegion === 'all' ? undefined : (selectedRegion as RegionCode),
       category: selectedCategory === 'all' ? undefined : (selectedCategory as FuneralHallCategory),
       onlyPartner: onlyPartner ? true : undefined,
       funeralType: selectedFuneralType === 'all' ? undefined : selectedFuneralType
     });
-  }, [keyword, selectedRegion, selectedCategory, onlyPartner, selectedFuneralType]);
+    return raw.filter((h) => !OptOutService.isHallHidden(h.id));
+  }, [keyword, selectedRegion, selectedCategory, onlyPartner, selectedFuneralType, isOptOutModalOpen]);
 
   // 최초 로드 시 또는 검색 결과 변경 시 첫 번째 식장 자동 선택
   useEffect(() => {
@@ -261,6 +272,25 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         </div>
       </div>
 
+      {/* 2.6. [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 연계 바 */}
+      <div className="bg-[#FAF7F0] border border-[#E8DEC8] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
+          <Award className="w-4 h-4 text-[#9E7D47]" />
+          <span>배웅 인증 3대 부가 제휴 연계:</span>
+          <span className="text-[11px] text-[#7A5B28] font-normal hidden md:inline">
+            (장사법·폐기물관리법 인허가 검증 · 공정위 리베이트 제재 준수 알선 수수료 0원 정찰제)
+          </span>
+        </div>
+
+        <button
+          onClick={() => setIsAffiliateModalOpen(true)}
+          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
+        >
+          <span>🌿 봉안당 · 수목장림 · 유품정리 명세 보기</span>
+          <ChevronRight className="w-3.5 h-3.5 text-[#C2A26A]" />
+        </button>
+      </div>
+
       {/* 모바일 전용 뷰 탭 스위처 */}
       <div className="md:hidden flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] text-xs font-serif">
         <button
@@ -387,6 +417,21 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
               })
             )}
           </div>
+
+          {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 안내 바 */}
+          <div className="p-3 bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg text-[11px] text-[#5C6166] font-serif space-y-1">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span>※ 본 정보는 e하늘 공공데이터 기반이며 배웅과 비제휴 관계입니다.</span>
+              {selectedHall && (
+                <button
+                  onClick={() => setIsOptOutModalOpen(true)}
+                  className="text-[#8B2520] hover:underline font-bold shrink-0 cursor-pointer text-left"
+                >
+                  [정보 정정·게재 중단(Opt-out) 신청]
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* ─── [우측 컬럼: 인터랙티브 지도 + 선택된 식장 종합 상세 시트] (md:col-span-7) ─── */}
@@ -441,13 +486,23 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                     </div>
                   </div>
 
-                  <a
-                    href={`tel:${selectedHall.phone}`}
-                    className="p-3 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-lg border border-[#2A5442] flex items-center justify-center shrink-0 cursor-pointer shadow-sm group"
-                    title="전화 걸기"
-                  >
-                    <Phone className="w-5 h-5 text-[#C2A26A] group-hover:scale-110 transition-transform" />
-                  </a>
+                  <div className="flex items-center space-x-2 shrink-0">
+                    <button
+                      onClick={() => setIsReportModalOpen(true)}
+                      className="px-2.5 py-2.5 bg-[#FAF9F6]/10 hover:bg-[#FAF9F6]/20 text-[#FAF9F6] rounded-lg border border-white/10 text-xs font-serif flex items-center space-x-1.5 transition-colors cursor-pointer"
+                      title="사업계획서 7장 광고 효과 분석 리포트"
+                    >
+                      <TrendingUp className="w-4 h-4 text-[#C2A26A]" />
+                      <span className="hidden sm:inline">성과 리포트</span>
+                    </button>
+                    <a
+                      href={`tel:${selectedHall.phone}`}
+                      className="p-3 bg-[#19382C] hover:bg-[#204738] text-[#FAF9F6] rounded-lg border border-[#2A5442] flex items-center justify-center cursor-pointer shadow-sm group"
+                      title="전화 걸기"
+                    >
+                      <Phone className="w-5 h-5 text-[#C2A26A] group-hover:scale-110 transition-transform" />
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -667,6 +722,20 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   )}
                 </div>
 
+                {/* 2-E-3. 3대 부가 제휴사 퀵 링크 */}
+                <div className="pt-2 border-t border-[#ECE8E0]">
+                  <button
+                    onClick={() => setIsAffiliateModalOpen(true)}
+                    className="w-full py-2 px-3 bg-[#FAF7F0] hover:bg-[#F3EFE6] text-[#7A5B28] border border-[#E8DEC8] rounded-md text-xs font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <Award className="w-3.5 h-3.5 text-[#9E7D47]" />
+                      <span>장례 후 안치·유품정리 (인증 봉안당·수목장림·유품정리 정찰제 제휴)</span>
+                    </span>
+                    <span className="text-[11px] text-[#9E7D47]">상세 보기 ➔</span>
+                  </button>
+                </div>
+
                 {/* 2-F. 하단 의전 신청 액션 바 */}
                 <div className="pt-2 border-t border-[#ECE8E0] flex flex-col sm:flex-row gap-2.5">
                   <a
@@ -703,6 +772,28 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           onClose={() => setIsQuoteModalOpen(false)}
         />
       )}
+
+      {/* [사업계획서 1단계 옵션 1] 장례식장 파트너 4단계 성과 리포트 모달 */}
+      {isReportModalOpen && selectedHall && (
+        <PartnerPerformanceReportModal
+          hall={selectedHall}
+          onClose={() => setIsReportModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 1단계 옵션 2] 옵트아웃(정보 정정·게재 중단) 모달 */}
+      {isOptOutModalOpen && selectedHall && (
+        <OptOutModal
+          hall={selectedHall}
+          onClose={() => setIsOptOutModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 모달 */}
+      <AffiliatePartnersModal
+        isOpen={isAffiliateModalOpen}
+        onClose={() => setIsAffiliateModalOpen(false)}
+      />
     </div>
   );
 };

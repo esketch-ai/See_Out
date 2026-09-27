@@ -596,17 +596,35 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                   </button>
                 </div>
 
-                {/* 빈소 및 계좌 정보 (실시간 동기화 값) */}
-                <div className="text-xs space-y-1.5 pt-2 border-t border-[#ECE8E0]">
-                  <div className="flex justify-between">
-                    <span className="text-[#727782]">빈소 안내:</span>
-                    <span className="font-bold text-[#151719]">{activeObituary.funeralHallLinkedName}</span>
+                {/* 빈소 및 계좌 정보 (전국 장례식장 실시간 동기화 값) */}
+                <div className="text-xs space-y-2 pt-2.5 border-t border-[#ECE8E0] font-serif">
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="text-[#727782] shrink-0">빈소 안내:</span>
+                    <span className="font-bold text-[#151719] text-right">{activeObituary.funeralHallLinkedName}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#727782]">장지(승화원):</span>
-                    <span className="font-bold text-[#151719]">{activeObituary.crematoriumName}</span>
+                  {funeralSetting.address && (
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-[#727782] shrink-0">도로명 주소:</span>
+                      <span className="text-[#42464E] text-right text-[11px]">{funeralSetting.address}</span>
+                    </div>
+                  )}
+                  {funeralSetting.nearestSubway && (
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-[#727782] shrink-0">대중교통:</span>
+                      <span className="text-[#19382C] font-medium text-right text-[11px]">{funeralSetting.nearestSubway}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="text-[#727782] shrink-0">직통 문의:</span>
+                    <span className="font-mono text-[#19382C] font-bold text-right text-[11px]">
+                      {funeralSetting.virtualPhone ? `${funeralSetting.virtualPhone} (배웅 0507 안심번호)` : funeralSetting.phone}
+                    </span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="text-[#727782] shrink-0">장지(승화원):</span>
+                    <span className="font-bold text-[#151719] text-right">{activeObituary.crematoriumName}</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1 border-t border-[#F0EDE6]">
                     <span className="text-[#727782]">마음 전하실 곳:</span>
                     <div className="flex items-center space-x-1.5">
                       <span className="font-bold text-[#19382C]">{activeObituary.accountForCondolence}</span>
@@ -622,6 +640,18 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                       </button>
                     </div>
                   </div>
+                  {funeralSetting.navigationLink && (
+                    <div className="pt-1">
+                      <a
+                        href={funeralSetting.navigationLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full py-1.5 px-2 bg-[#FAF7F0] hover:bg-[#F3EFE6] border border-[#E8DEC8] text-[#7A5B28] rounded text-[11px] font-bold flex items-center justify-center space-x-1 transition-colors"
+                      >
+                        <span>🗺️ 카카오맵 실시간 길찾기 바로가기</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   X,
   Printer,
@@ -16,6 +16,7 @@ import { PartnerPerformanceReport } from '../../tracking/types.js';
 import { FunnelMeasurementEngine } from '../../tracking/funnelMeasurementEngine.js';
 import { FuneralHallEntity } from '../../funeral-halls/types.js';
 import { TraditionalSeal } from '../design-system/index.js';
+import { B2BPartnerAdmissionModal } from './B2BPartnerAdmissionModal.js';
 
 interface PartnerPerformanceReportModalProps {
   hall: FuneralHallEntity;
@@ -26,6 +27,7 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
   hall,
   onClose
 }) => {
+  const [isB2BModalOpen, setIsB2BModalOpen] = useState(false);
   const report: PartnerPerformanceReport = FunnelMeasurementEngine.generatePartnerReport(
     hall.id,
     hall.name
@@ -229,7 +231,13 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
                   알선 수수료: <b>0원</b> | 문의 건수 증가에 따른 추가 비용: <b>0원</b>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setIsB2BModalOpen(true)}
+                  className="px-3 py-1 bg-[#19382C] hover:bg-[#204738] text-white rounded text-xs font-bold transition-colors cursor-pointer"
+                >
+                  제휴 협약 신청 / 변경
+                </button>
                 <span className="text-[11px] font-bold text-[#19382C] bg-[#F0F5F2] px-2.5 py-1 rounded border border-[#BFD4CA]">
                   ✓ 정액제 계약 유지 중
                 </span>
@@ -238,6 +246,13 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
           </div>
         </div>
       </div>
+
+      {isB2BModalOpen && (
+        <B2BPartnerAdmissionModal
+          initialHall={hall}
+          onClose={() => setIsB2BModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

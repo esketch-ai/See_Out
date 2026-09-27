@@ -118,4 +118,13 @@ export class VirtualCallBridgeService {
   public static getSubstantialCallCount(hallId: string): number {
     return this.callLogs.filter((c) => c.hallId === hallId && c.isSubstantialCall).length;
   }
+
+  /**
+   * 장례식장 ID 기반 가상번호 조회 편의 헬퍼
+   */
+  public static getVirtualNumberForHall(hallId: string): string {
+    return this.getVirtualNumber(hallId, '1588-0000');
+  }
 }
+
+export const VirtualCallService = VirtualCallBridgeService;

@@ -36,6 +36,7 @@ import { FuneralHallQuoteModal } from './FuneralHallQuoteModal.js';
 import { PartnerPerformanceReportModal } from './PartnerPerformanceReportModal.js';
 import { OptOutModal } from './OptOutModal.js';
 import { AffiliatePartnersModal } from './AffiliatePartnersModal.js';
+import { B2BPartnerAdmissionModal } from './B2BPartnerAdmissionModal.js';
 import { OptOutService } from '../../compliance/index.js';
 
 export interface FuneralHallSearchWidgetProps {
@@ -62,6 +63,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isOptOutModalOpen, setIsOptOutModalOpen] = useState(false);
   const [isAffiliateModalOpen, setIsAffiliateModalOpen] = useState(false);
+  const [isB2BModalOpen, setIsB2BModalOpen] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
   // 검색 결과 (장례 형태 필터 및 옵트아웃 게재 중단 식장 제외)
@@ -418,8 +420,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
             )}
           </div>
 
-          {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 안내 바 */}
-          <div className="p-3 bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg text-[11px] text-[#5C6166] font-serif space-y-1">
+          {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 / B2B 정액제 입점 안내 바 */}
+          <div className="p-3 bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg text-[11px] text-[#5C6166] font-serif space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <span>※ 본 정보는 e하늘 공공데이터 기반이며 배웅과 비제휴 관계입니다.</span>
               {selectedHall && (
@@ -430,6 +432,15 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   [정보 정정·게재 중단(Opt-out) 신청]
                 </button>
               )}
+            </div>
+            <div className="pt-1.5 border-t border-[#ECE8E0] flex justify-between items-center text-[10px]">
+              <span className="text-[#727782]">장례식장 사업자 및 원장님 전용:</span>
+              <button
+                onClick={() => setIsB2BModalOpen(true)}
+                className="text-[#19382C] hover:underline font-bold cursor-pointer"
+              >
+                [🏛️ 월 30만원 정액제 제휴 입점 신청 ➔]
+              </button>
             </div>
           </div>
         </div>
@@ -794,6 +805,14 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         isOpen={isAffiliateModalOpen}
         onClose={() => setIsAffiliateModalOpen(false)}
       />
+
+      {/* [사업계획서 1단계 방안 C] 장례식장 B2B 정액제 제휴 입점 신청 모달 */}
+      {isB2BModalOpen && (
+        <B2BPartnerAdmissionModal
+          initialHall={selectedHall || undefined}
+          onClose={() => setIsB2BModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

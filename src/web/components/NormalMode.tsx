@@ -14,6 +14,7 @@ import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkDa
 import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
+import { VirtualCallService } from '../../tracking/index.js';
 
 interface NormalModeProps {
   currentTab: MainTab;
@@ -49,13 +50,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         <FuneralHallSearchWidget
           selectedFuneralHallId={funeralSetting.funeralHallId}
           onSelectHallForFuneral={(hall) => {
+            const virtPhone = VirtualCallService.getVirtualNumberForHall(hall.id);
+            const crematoriumText = hall.nearestCrematorium
+              ? `${hall.nearestCrematorium}${hall.crematoriumDistanceKm ? ` (차량 ${hall.crematoriumDistanceKm}km)` : ''}`
+              : '서울시립승화원 (벽제 화장장)';
             setFuneralSetting((prev: FuneralSetting) => ({
               ...prev,
               funeralHallId: hall.id,
               funeralHallName: hall.name,
               address: hall.address,
               phone: hall.phone,
-              discountRate: Math.round(hall.discountRate * 100)
+              virtualPhone: virtPhone,
+              nearestSubway: hall.nearestSubway || '대중교통 접근 용이',
+              discountRate: Math.round(hall.discountRate * 100),
+              crematoriumName: crematoriumText,
+              roomName: hall.roomTypes?.[0]?.name || '특실 1호실',
+              navigationLink: `https://map.kakao.com/link/search/${encodeURIComponent(hall.name)}`
             }));
           }}
           onNavigateToLifeArchive={() => onSelectTab('life-archive')}

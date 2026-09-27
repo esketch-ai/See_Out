@@ -53,7 +53,7 @@ export class OptOutService {
       requesterRole: params.requesterRole,
       requesterName: params.requesterName.trim(),
       requesterPhone: params.requesterPhone.trim(),
-      requesterEmail: params.requesterEmail.trim(),
+      requesterEmail: params.requesterEmail?.trim() || '',
       details: params.details.trim(),
       status: 'RECEIVED',
       submittedAt: new Date().toISOString()

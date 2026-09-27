@@ -131,6 +131,7 @@ export class FuneralHallService {
     discountAmount: number;
     discountedTotalRent: number;
     discountRatePercentage: number;
+    stayDays: number;
   } {
     const hall = this.getHallById(hallId);
     if (!hall) {
@@ -146,7 +147,8 @@ export class FuneralHallService {
       standardTotalRent,
       discountAmount,
       discountedTotalRent,
-      discountRatePercentage
+      discountRatePercentage,
+      stayDays: days
     };
   }
 

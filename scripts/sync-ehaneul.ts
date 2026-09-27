@@ -16,6 +16,7 @@ async function main() {
   console.log(`   - 정상 반영 건수: ${result.totalProcessed}건`);
   console.log(`   - 신규 장례식장 감지: ${result.newHallsCount}건`);
   console.log(`   - 가격 변동 감지: ${result.priceUpdatesCount}건`);
+  console.log(`   - 🕊️ 무빈소(직송·안치) 가능 식장 분류: ${result.directCremationHallsCount}건 (${Math.round((result.directCremationHallsCount / result.totalFetched) * 100)}%)`);
   console.log(`   - 비정상 수치(이상치) 차단: ${result.outliersBlockedCount}건`);
   console.log(`   - 옵트아웃(게재중단) 제외: ${result.optOutSkippedCount}건`);
 

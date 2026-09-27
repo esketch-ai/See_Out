@@ -43,6 +43,7 @@ export interface EhaneulSyncResult {
   priceUpdatesCount: number;
   outliersBlockedCount: number;
   optOutSkippedCount: number;
+  directCremationHallsCount: number;
   diffLogs: SyncDiffItem[];
   success: boolean;
   statusMessage: string;
@@ -73,12 +74,17 @@ export class EhaneulSyncWorker {
     let priceUpdatesCount = 0;
     let outliersBlockedCount = 0;
     let optOutSkippedCount = 0;
+    let directCremationHallsCount = 0;
 
     // 1. e하늘 공공 API 데이터 피드 수집
     const records = await this.fetchEhaneulRecords(options);
 
     // 2. 레코드별 정규화, 이상치 검증 및 동기화 처리
     for (const raw of records) {
+      if (raw.allowsDirectCremation !== false) {
+        directCremationHallsCount++;
+      }
+
       // 2-1. 옵트아웃(게재 중단/삭제) 시설 여부 확인 (3.1/4.3절 준수)
       const mappedId = this.generateHallId(raw.region, raw.facilityName);
       if (OptOutService.isHallHidden(mappedId) || OptOutService.isHallHidden(raw.facilityId)) {
@@ -118,7 +124,7 @@ export class EhaneulSyncWorker {
           hallId: mappedId,
           hallName: raw.facilityName,
           changeType: 'NEW_HALL',
-          detail: `신규 장례식장 등록: ${raw.address} (빈소 ${raw.roomCount}실 / 일임대료 ${raw.dailyRent.toLocaleString()}원)`,
+          detail: `신규 장례식장 등록: ${raw.address} (빈소 ${raw.roomCount}실 / 일임대료 ${raw.dailyRent.toLocaleString()}원 / 무빈소: ${raw.allowsDirectCremation !== false ? '가능' : '불가'})`,
           timestamp
         });
       } else {
@@ -147,9 +153,10 @@ export class EhaneulSyncWorker {
       priceUpdatesCount,
       outliersBlockedCount,
       optOutSkippedCount,
+      directCremationHallsCount,
       diffLogs,
       success: true,
-      statusMessage: `보건복지부 e하늘 동기화 완료: ${records.length}건 수집 / 변동 ${priceUpdatesCount}건 / 신규 ${newHallsCount}건 / 이상치 차단 ${outliersBlockedCount}건 / 옵트아웃 제외 ${optOutSkippedCount}건`
+      statusMessage: `보건복지부 e하늘 동기화 완료: ${records.length}건 수집 / 변동 ${priceUpdatesCount}건 / 신규 ${newHallsCount}건 / 무빈소 가능 ${directCremationHallsCount}건 / 이상치 차단 ${outliersBlockedCount}건 / 옵트아웃 제외 ${optOutSkippedCount}건`
     };
 
     this.lastSyncResult = result;

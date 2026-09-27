@@ -385,6 +385,6 @@ if (fail.length) {
   for (const f of fail) console.error('     · ' + f);
   process.exitCode = 1;
 } else {
-  
+  console.log(`   ✓ 위반 0건 — 팝업 ${rows.length} · 페이지 ${pageRows.length}`);
 }
 

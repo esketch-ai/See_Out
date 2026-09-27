@@ -214,4 +214,46 @@ describe('클릭 가능 요소의 시맨틱 — Task 10', () => {
       expect(card.match(/<\/button>/g)?.length, `카드 ${i + 1} 닫는 태그 수`).toBe(1);
     });
   });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // React 훅 규칙: 조건부 렌더 분기 아래에 훅을 두면 안 된다.
+  //
+  // `if (!isOpen) return null;` 아래에 useMemo 가 있으면 「닫힘 → 열림」 전이에서
+  // 훅 개수가 늘어난다. React 는 이를 #310 (Rendered more hooks than during
+  // the previous render) 로 거부하고 컴포넌트 트리 전체를 백화면으로 죽인다.
+  // 단위 테스트는 컴포넌트를 렌더하지 않으므로 188건 전부 통과해도 놓친다.
+  // ─────────────────────────────────────────────────────────────────────────
+  it('조건부 렌더 모달은 훅을 전부 호출한 뒤에 return null 해야 한다', () => {
+    const HOOK =
+      /(?<![\w.])(useState|useMemo|useEffect|useRef|useCallback|useReducer|useLayoutEffect|useModalA11y|useBodyScrollLock|useDialogFocus)\s*\(/;
+    const { readdirSync, statSync } = require('node:fs') as typeof import('node:fs');
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((e) => {
+        const fp = join(dir, e);
+        return statSync(fp).isDirectory() ? walk(fp) : /\.tsx?$/.test(e) ? [fp] : [];
+      });
+    const offenders: string[] = [];
+
+    for (const f of walk(join(ROOT, 'src/web/components'))) {
+      const src = readFileSync(f, 'utf8');
+      const lines = src.split('\n');
+      const guardIdx = lines.findIndex((l) => /^\s*if\s*\(\s*!?(isOpen|open|visible|show)\b[^)]*\)\s*return\s+null/.test(l));
+      if (guardIdx < 0) continue;
+
+      for (let i = guardIdx + 1; i < lines.length; i += 1) {
+        // 빈 줄은 건너뛴다 — 빈 줄의 indent 는 0 이므로 여기서 break 하면
+        // 훅이 있는 다음 줄을 검사하기 전에 루프가 죽는다.
+        if (lines[i].trim() === '') continue;
+        const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
+        const guardIndent = lines[guardIdx].match(/^\s*/)?.[0].length ?? 0;
+        if (indent < guardIndent) break;
+        if (HOOK.test(lines[i])) {
+          offenders.push(`${f}:${i + 1} — ${lines[i].trim().slice(0, 48)}`);
+        }
+      }
+    }
+
+    expect(offenders, '조기 반환 뒤에 훅이 있는 컴포넌트\n' + offenders.join('\n')).toHaveLength(0);
+  });
+
 });

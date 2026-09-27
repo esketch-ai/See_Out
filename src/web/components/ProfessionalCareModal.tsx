@@ -65,9 +65,10 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
   const [bookingResult, setBookingResult] = useState<ConsultationBookingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  if (!isOpen) return null;
-
   // 상속 기한 계산 결과
+  // ⚠️ isOpen 조기 반환보다 위여야 한다. 아래에 두면 「닫힘→열림」 전이에서
+  //    훅 개수가 늘어 React #310 (Rendered more hooks) 이 발생해
+  //    화면 전체가 백화면으로 죽는다.
   const inheritanceDeadlines: InheritanceDeadlines | null = useMemo(() => {
     try {
       if (!deathDateInput) return null;
@@ -76,6 +77,8 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
       return null;
     }
   }, [deathDateInput]);
+
+  if (!isOpen) return null;
 
   // 전문가 목록 필터링
   const professionals = ProfessionalCareService.getProfessionalsByVertical(activeVertical).filter((p) => {

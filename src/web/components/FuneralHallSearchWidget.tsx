@@ -27,7 +27,17 @@ import {
 import { TraditionalSeal } from '../design-system/index.js';
 import { FuneralHallMap } from './FuneralHallMap.js';
 
-export const FuneralHallSearchWidget: React.FC = () => {
+export interface FuneralHallSearchWidgetProps {
+  selectedFuneralHallId?: string;
+  onSelectHallForFuneral?: (hall: FuneralHallEntity) => void;
+  onNavigateToLifeArchive?: () => void;
+}
+
+export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = ({
+  selectedFuneralHallId,
+  onSelectHallForFuneral,
+  onNavigateToLifeArchive
+}) => {
   const [keyword, setKeyword] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -35,6 +45,7 @@ export const FuneralHallSearchWidget: React.FC = () => {
   const [selectedHall, setSelectedHall] = useState<FuneralHallEntity | null>(null);
   const [stayDays, setStayDays] = useState<2 | 3>(2);
   const [copiedAddress, setCopiedAddress] = useState(false);
+  const [isSynced, setIsSynced] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
   // 검색 결과
@@ -539,6 +550,38 @@ export const FuneralHallSearchWidget: React.FC = () => {
                       </span>
                     ))}
                   </div>
+                </div>
+
+                {/* 2-E-2. 3대 모듈 실시간 연계 액션 버튼 */}
+                <div className="pt-2 border-t border-[#ECE8E0] space-y-2">
+                  <button
+                    onClick={() => {
+                      onSelectHallForFuneral?.(selectedHall);
+                      setIsSynced(true);
+                      setTimeout(() => setIsSynced(false), 3500);
+                    }}
+                    className={`w-full py-2.5 px-4 rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer border ${
+                      isSynced
+                        ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D5A46]'
+                        : 'bg-[#9E7D47]/15 hover:bg-[#9E7D47]/25 text-[#705322] border-[#9E7D47]/40'
+                    }`}
+                  >
+                    <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+                    <span>
+                      {isSynced
+                        ? `✓ [${selectedHall.name}] 생애기록관 부고장에 실시간 연동 완료!`
+                        : `이 장례식장을 생애기록관 모바일 부고장에 실시간 연동`}
+                    </span>
+                  </button>
+
+                  {isSynced && onNavigateToLifeArchive && (
+                    <button
+                      onClick={onNavigateToLifeArchive}
+                      className="w-full text-center text-xs text-[#19382C] font-bold underline cursor-pointer hover:text-[#224A3B]"
+                    >
+                      동기화된 생애기록관 부고장 확인하러 가기 ➔
+                    </button>
+                  )}
                 </div>
 
                 {/* 2-F. 하단 의전 신청 액션 바 */}

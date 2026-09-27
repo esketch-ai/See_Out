@@ -23,7 +23,9 @@ import {
   Compass,
   FileText,
   Key,
-  X
+  X,
+  Tv,
+  RefreshCw
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import {
@@ -33,12 +35,28 @@ import {
   SAMPLE_PRE_MORTEM_OBITUARY,
   SAMPLE_ENDING_NOTE,
   SAMPLE_GATEKEEPER,
-  SAMPLE_LIFE_PHOTOS
+  SAMPLE_LIFE_PHOTOS,
+  DEFAULT_FUNERAL_SETTING,
+  createObituaryFromSetting,
+  FuneralSetting
 } from '../../life-archive/index.js';
+import { MemorialBookletModal } from './MemorialBookletModal.js';
+import { AltarKioskModal } from './AltarKioskModal.js';
+import { VoiceInterviewSection } from './VoiceInterviewSection.js';
 
-export const LifeArchiveWidget: React.FC = () => {
-  // 메인 상단 탭: 'biography' (생애 평전 스토리북) | 'contacts' (스마트폰 연락처 & 부고) | 'ending_note' (사전 장례 의향서) | 'gatekeeper' (사후 승계 보안)
-  const [activeTab, setActiveTab] = useState<'biography' | 'contacts' | 'ending_note' | 'gatekeeper'>('biography');
+interface LifeArchiveWidgetProps {
+  funeralSetting?: FuneralSetting;
+  onUpdateFuneralSetting?: (setting: FuneralSetting) => void;
+  onNavigateTab?: (tab: string) => void;
+}
+
+export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
+  funeralSetting = DEFAULT_FUNERAL_SETTING,
+  onUpdateFuneralSetting,
+  onNavigateTab
+}) => {
+  // 메인 상단 탭: 'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'
+  const [activeTab, setActiveTab] = useState<'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'>('biography');
 
   // 평전 챕터 선택 (1~4)
   const [activeChapter, setActiveChapter] = useState<number>(1);
@@ -50,8 +68,10 @@ export const LifeArchiveWidget: React.FC = () => {
   const [isBroadcasting, setIsBroadcasting] = useState<boolean>(false);
   const [broadcastSuccess, setBroadcastSuccess] = useState<boolean>(false);
 
-  // 생전 사진 갤러리 모달 상태
+  // 모달 상태 (생전 사진 갤러리, A4 양장본 평전 책자, 빈소 헌정 키오스크)
   const [showPhotoGalleryModal, setShowPhotoGalleryModal] = useState<boolean>(false);
+  const [isBookletModalOpen, setIsBookletModalOpen] = useState<boolean>(false);
+  const [isAltarKioskOpen, setIsAltarKioskOpen] = useState<boolean>(false);
   const [copiedAccount, setCopiedAccount] = useState<boolean>(false);
 
   // 연락처 그룹 필터
@@ -59,6 +79,7 @@ export const LifeArchiveWidget: React.FC = () => {
 
   const story = SAMPLE_LIFE_STORY;
   const currentChapter = story.chapters.find((c) => c.chapterNumber === activeChapter) || story.chapters[0];
+  const activeObituary = createObituaryFromSetting(funeralSetting, SAMPLE_PRE_MORTEM_OBITUARY);
 
   const handleSimulateBroadcast = () => {
     setIsBroadcasting(true);
@@ -101,50 +122,80 @@ export const LifeArchiveWidget: React.FC = () => {
           <p className="text-[#D4CEC2] text-xs sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
             건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전(評傳)으로 헌정됩니다.
           </p>
+
+          {/* 상단 퀵 액션: A4 책자 인쇄 & 빈소 키오스크 송출 */}
+          <div className="flex flex-wrap items-center gap-2.5 mt-3 pt-3 border-t border-white/10 text-xs font-serif">
+            <button
+              onClick={() => setIsBookletModalOpen(true)}
+              className="px-3.5 py-1.5 bg-[#19382C] text-[#FAF9F6] rounded-md font-bold hover:bg-[#224A3B] transition-all flex items-center space-x-1.5 cursor-pointer border border-[#2D5A46] shadow-xs"
+            >
+              <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
+              <span>A4 양장본 평전 인쇄 / PDF 저장</span>
+            </button>
+            <button
+              onClick={() => setIsAltarKioskOpen(true)}
+              className="px-3.5 py-1.5 bg-black/60 hover:bg-black/90 text-[#E8C88B] rounded-md font-bold transition-all flex items-center space-x-1.5 cursor-pointer border border-[#C2A26A]/40 shadow-xs"
+            >
+              <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
+              <span>빈소 헌정 키오스크 송출 (Altar TV)</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* 2. 4대 메인 내비게이션 탭 바 */}
-      <div className="flex bg-[#F0EDE6] p-1.5 rounded-xl border border-[#E3DFD5] text-xs md:text-sm font-serif">
+      {/* 2. 5대 메인 내비게이션 탭 바 */}
+      <div className="flex bg-[#F0EDE6] p-1.5 rounded-xl border border-[#E3DFD5] text-xs md:text-sm font-serif overflow-x-auto">
         <button
           onClick={() => setActiveTab('biography')}
-          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+          className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
             activeTab === 'biography'
               ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
               : 'text-[#5C6166] hover:text-[#151719]'
           }`}
         >
           <BookOpen className="w-4 h-4 text-[#C2A26A]" />
-          <span>생애 평전 스토리북 & 헌정관</span>
+          <span>생애 평전 스토리북</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('interview')}
+          className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+            activeTab === 'interview'
+              ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
+              : 'text-[#5C6166] hover:text-[#151719]'
+          }`}
+        >
+          <Mic className="w-4 h-4 text-[#C2A26A]" />
+          <span>AI 생애 구술 인터뷰어</span>
         </button>
 
         <button
           onClick={() => setActiveTab('contacts')}
-          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+          className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
             activeTab === 'contacts'
               ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
               : 'text-[#5C6166] hover:text-[#151719]'
           }`}
         >
           <Phone className="w-4 h-4 text-[#C2A26A]" />
-          <span>스마트폰 연락처 & 부고 사전발송</span>
+          <span>스마트폰 연락처 & 부고</span>
         </button>
 
         <button
           onClick={() => setActiveTab('ending_note')}
-          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+          className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
             activeTab === 'ending_note'
               ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
               : 'text-[#5C6166] hover:text-[#151719]'
           }`}
         >
           <FileText className="w-4 h-4 text-[#C2A26A]" />
-          <span>나의 엔딩노트 (사전 장례의향서)</span>
+          <span>사전 엔딩노트</span>
         </button>
 
         <button
           onClick={() => setActiveTab('gatekeeper')}
-          className={`flex-1 py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
+          className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
             activeTab === 'gatekeeper'
               ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs'
               : 'text-[#5C6166] hover:text-[#151719]'
@@ -209,18 +260,25 @@ export const LifeArchiveWidget: React.FC = () => {
 
               <div className="flex flex-wrap gap-2 pt-1 text-xs">
                 <button
-                  onClick={() => alert('유가족 전용 실물 고급 한지 양장본 3권 인쇄 신청이 접수되었습니다.')}
-                  className="px-3.5 py-2 bg-[#19382C] text-white rounded-md font-bold hover:bg-[#224A3B] transition-colors cursor-pointer flex items-center space-x-1.5"
+                  onClick={() => setIsBookletModalOpen(true)}
+                  className="px-3.5 py-2 bg-[#19382C] text-white rounded-md font-bold hover:bg-[#224A3B] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs"
                 >
                   <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
-                  <span>실물 양장본 평전 신청 (무료 헌정)</span>
+                  <span>실물 양장본 평전 신청 (A4 인쇄 / PDF)</span>
                 </button>
                 <button
-                  onClick={() => alert('PDF 전자 평전 다운로드가 준비되었습니다.')}
+                  onClick={() => setIsBookletModalOpen(true)}
                   className="px-3.5 py-2 bg-[#FFFFFF] border border-[#E3DFD5] text-[#42464E] rounded-md font-bold hover:bg-[#FAF9F6] transition-colors cursor-pointer flex items-center space-x-1.5"
                 >
                   <Download className="w-3.5 h-3.5 text-[#727782]" />
                   <span>PDF 전자책 다운로드</span>
+                </button>
+                <button
+                  onClick={() => setIsAltarKioskOpen(true)}
+                  className="px-3.5 py-2 bg-[#121417] text-[#FAF9F6] border border-white/20 rounded-md font-bold hover:bg-[#1D2126] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs"
+                >
+                  <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
+                  <span>빈소 헌정 키오스크 (Altar TV)</span>
                 </button>
               </div>
             </div>
@@ -363,7 +421,16 @@ export const LifeArchiveWidget: React.FC = () => {
       )}
 
       {/* ───────────────────────────────────────────────────────────────────────────────── */}
-      {/* [탭 2] 스마트폰 연락처 & 부고 사전발송 엔진 (Contacts & Obituary) */}
+      {/* [탭 2] AI 생애 구술 인터뷰어 (Voice-to-Biography) */}
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'interview' && (
+        <VoiceInterviewSection
+          onOpenBooklet={() => setIsBookletModalOpen(true)}
+        />
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────────────────────── */}
+      {/* [탭 3] 스마트폰 연락처 & 부고 사전발송 엔진 (Contacts & Obituary) */}
       {/* ───────────────────────────────────────────────────────────────────────────────── */}
       {activeTab === 'contacts' && (
         <div className="space-y-6 font-serif">
@@ -420,12 +487,32 @@ export const LifeArchiveWidget: React.FC = () => {
                 </span>
               </div>
 
+              {/* 3대 모듈 실시간 동기화 상태 배너 */}
+              <div className="bg-[#132B22] text-[#FAF9F6] rounded-lg p-3 px-4 border border-[#2D5A46] text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+                <div className="flex items-center space-x-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <div>
+                    <span className="font-bold text-[#E8C88B] block">전국 장례식장 & 정찰 패키지 1초 실시간 연계 중</span>
+                    <span className="text-[11px] text-[#D4CEC2]">
+                      {funeralSetting.funeralHallName} ({funeralSetting.roomName}) • {funeralSetting.packageName} ({funeralSetting.packagePrice.toLocaleString()}원)
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsAltarKioskOpen(true)}
+                  className="px-2.5 py-1 bg-[#0E1E18] hover:bg-[#152E24] text-[#C2A26A] text-[11px] font-bold rounded border border-[#2D5A46] flex items-center space-x-1 transition-colors cursor-pointer shrink-0"
+                >
+                  <Tv className="w-3 h-3 text-[#C2A26A]" />
+                  <span>빈소 키오스크 송출</span>
+                </button>
+              </div>
+
               {/* 스마트폰 부고장 프레임 */}
               <div className="bg-[#FFFFFF] border-2 border-[#121417]/10 rounded-xl p-5 space-y-4 shadow-sm max-w-lg mx-auto">
                 <div className="text-center pb-3 border-b border-[#ECE8E0]">
                   <div className="text-xs font-bold text-[#8B2520] tracking-widest">부 고 (訃告)</div>
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
-                    {SAMPLE_PRE_MORTEM_OBITUARY.title}
+                    {activeObituary.title}
                   </h4>
                 </div>
 
@@ -440,25 +527,25 @@ export const LifeArchiveWidget: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-xs font-serif font-bold text-[#151719] flex items-center space-x-1.5">
-                      <span>故 김철수 베드로 님 (1938 ~ 2026)</span>
+                      <span>{funeralSetting.deceasedName} ({funeralSetting.birthDate?.slice(0, 4)} ~ 2026)</span>
                       <span className="text-[10px] text-[#876937] bg-[#F8F5EE] px-1.5 py-0.2 rounded border border-[#E8DFCF]">
-                        향년 88세
+                        향년 {funeralSetting.age || 88}세
                       </span>
                     </div>
                     <p className="text-[11px] text-[#727782] font-serif mt-0.5">
-                      “성실함에는 거짓이 없으며, 가족을 향한 사랑은 마르지 않는다.”
+                      {funeralSetting.motto || '“성실함에는 거짓이 없으며, 가족을 향한 사랑은 마르지 않는다.”'}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-xs text-[#42464E] leading-relaxed">
-                  {SAMPLE_PRE_MORTEM_OBITUARY.preamble}
+                  {activeObituary.preamble}
                 </div>
 
                 {/* 고인 생전 작별인사 하이라이트 박스 */}
                 <div className="bg-[#FAF6EE] border border-[#E8DFCF] rounded-lg p-3 text-xs text-[#876937] leading-relaxed">
                   <span className="font-bold block mb-1">고인께서 생전에 남기신 말씀:</span>
-                  <p className="italic">{SAMPLE_PRE_MORTEM_OBITUARY.personalFarewell}</p>
+                  <p className="italic">{activeObituary.personalFarewell}</p>
                 </div>
 
                 {/* ★ [유저 핵심 요청] 생전 사진 및 추모 갤러리 바로가기 링크 버튼 ★ */}
@@ -473,9 +560,9 @@ export const LifeArchiveWidget: React.FC = () => {
                       </div>
                       <div className="text-left">
                         <div className="flex items-center space-x-1.5">
-                          <span className="font-bold text-[#19382C]">故 김철수 님의 생전 사진 및 추모 갤러리</span>
+                          <span className="font-bold text-[#19382C]">{funeralSetting.deceasedName} 생전 사진 및 추모 갤러리</span>
                           <span className="text-[10px] bg-[#19382C] text-white px-1.5 py-0.2 rounded font-mono">
-                            {SAMPLE_PRE_MORTEM_OBITUARY.lifePhotoCount || 84}장
+                            {activeObituary.lifePhotoCount || 84}장
                           </span>
                         </div>
                         <div className="text-[10px] text-[#727782] font-normal">
@@ -496,25 +583,36 @@ export const LifeArchiveWidget: React.FC = () => {
                     </div>
                     <ChevronRight className="w-4 h-4 text-[#19382C] group-hover:translate-x-1 transition-transform" />
                   </button>
+
+                  <button
+                    onClick={() => setIsAltarKioskOpen(true)}
+                    className="w-full py-2.5 px-3.5 bg-[#121417] hover:bg-[#1D2126] text-[#FAF9F6] border border-white/20 rounded-lg text-xs font-serif font-bold flex items-center justify-between transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
+                      <span>빈소 전용 디지털 헌정 모니터 뷰어 (Altar TV)</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-[#C2A26A] group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
 
-                {/* 빈소 및 계좌 정보 */}
+                {/* 빈소 및 계좌 정보 (실시간 동기화 값) */}
                 <div className="text-xs space-y-1.5 pt-2 border-t border-[#ECE8E0]">
                   <div className="flex justify-between">
                     <span className="text-[#727782]">빈소 안내:</span>
-                    <span className="font-bold text-[#151719]">{SAMPLE_PRE_MORTEM_OBITUARY.funeralHallLinkedName}</span>
+                    <span className="font-bold text-[#151719]">{activeObituary.funeralHallLinkedName}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#727782]">장지(승화원):</span>
-                    <span className="font-bold text-[#151719]">{SAMPLE_PRE_MORTEM_OBITUARY.crematoriumName}</span>
+                    <span className="font-bold text-[#151719]">{activeObituary.crematoriumName}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-[#727782]">마음 전하실 곳:</span>
                     <div className="flex items-center space-x-1.5">
-                      <span className="font-bold text-[#19382C]">{SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence}</span>
+                      <span className="font-bold text-[#19382C]">{activeObituary.accountForCondolence}</span>
                       <button
                         onClick={() => {
-                          navigator.clipboard?.writeText(SAMPLE_PRE_MORTEM_OBITUARY.accountForCondolence || '');
+                          navigator.clipboard?.writeText(activeObituary.accountForCondolence || '');
                           setCopiedAccount(true);
                           setTimeout(() => setCopiedAccount(false), 2000);
                         }}
@@ -785,6 +883,33 @@ export const LifeArchiveWidget: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {/* 실물 양장본 평전 (A4 인쇄 & PDF 내보내기) 모달 */}
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {isBookletModalOpen && (
+        <MemorialBookletModal
+          story={story}
+          lifePhotos={SAMPLE_LIFE_PHOTOS}
+          onClose={() => setIsBookletModalOpen(false)}
+        />
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {/* 빈소 전용 디지털 헌정 모니터 뷰어 (Altar TV Kiosk) 모달 */}
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {isAltarKioskOpen && (
+        <AltarKioskModal
+          story={story}
+          lifePhotos={SAMPLE_LIFE_PHOTOS}
+          setting={funeralSetting}
+          onClose={() => setIsAltarKioskOpen(false)}
+          onOpenBooklet={() => {
+            setIsAltarKioskOpen(false);
+            setIsBookletModalOpen(true);
+          }}
+        />
       )}
     </div>
   );

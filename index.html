@@ -225,6 +225,34 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 20h10v-10h20v10h10 M20 0v10h-10v20h10v10' fill='none' stroke='%239E7D47' stroke-width='0.75' stroke-opacity='0.15'/%3E%3Crect x='15' y='15' width='10' height='10' fill='none' stroke='%239E7D47' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
         background-repeat: repeat;
       }
+
+      /* ═══════════ 생애 평전 A4 고화질 책자 인쇄 및 PDF 내보내기 전용 스타일 ═══════════ */
+      @media print {
+        body {
+          background-color: #FFFFFF !important;
+          color: #000000 !important;
+        }
+        /* 인쇄 시 비필수 웹 UI 요소(헤더, 네비게이션, 모달 배경 등) 숨김 처리 */
+        header, footer, aside, .no-print, .btn-senior-reverence {
+          display: none !important;
+        }
+        .print-only {
+          display: block !important;
+        }
+        .print-booklet-page {
+          page-break-after: always;
+          break-after: page;
+          padding: 2cm 1.8cm;
+          box-sizing: border-box;
+          min-height: 28cm;
+          background: #FFFFFF !important;
+          color: #111111 !important;
+        }
+        .print-booklet-page:last-child {
+          page-break-after: avoid;
+          break-after: avoid;
+        }
+      }
     </style>
   </head>
   <body class="bg-hanji text-ink selection:bg-pine-100 selection:text-pine-900">

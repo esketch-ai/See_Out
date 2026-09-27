@@ -4,7 +4,10 @@ import {
   SAMPLE_CONTACT_GROUPS,
   SAMPLE_PRE_MORTEM_OBITUARY,
   SAMPLE_ENDING_NOTE,
-  SAMPLE_GATEKEEPER
+  SAMPLE_GATEKEEPER,
+  DEFAULT_FUNERAL_SETTING,
+  createObituaryFromSetting,
+  VOICE_INTERVIEW_QUESTIONS
 } from '../src/life-archive/index.js';
 
 describe('LifeArchive Domain & Biographical Storybook Engine', () => {
@@ -51,5 +54,33 @@ describe('LifeArchive Domain & Biographical Storybook Engine', () => {
     expect(SAMPLE_ENDING_NOTE.preferredFuneralType).toContain('2일 가족장');
     expect(SAMPLE_ENDING_NOTE.preferredRestingPlace).toContain('수목장');
     expect(SAMPLE_ENDING_NOTE.specialWishes.length).toBe(3);
+  });
+
+  it('3대 모듈 실시간 동기화 헬퍼는 장례식장 및 패키지 변경 시 모바일 부고장에 즉각 반영되어야 한다', () => {
+    const customSetting = {
+      ...DEFAULT_FUNERAL_SETTING,
+      funeralHallName: '삼성서울병원장례식장',
+      roomName: '지하 1층 1호실',
+      packageName: '배웅 정직 2일 가족장',
+      condolenceAccount: '국민은행 987-654-3210 (예금주: 김정우)'
+    };
+
+    const syncedObituary = createObituaryFromSetting(customSetting);
+    expect(syncedObituary.funeralHallLinkedName).toBe('삼성서울병원장례식장 지하 1층 1호실');
+    expect(syncedObituary.accountForCondolence).toBe('국민은행 987-654-3210 (예금주: 김정우)');
+    expect(syncedObituary.title).toContain('故 김철수 님 부고');
+  });
+
+  it('AI 생애 구술 인터뷰어 데이터셋은 4대 표준 질문과 AI 산문 평전을 구비해야 한다', () => {
+    expect(VOICE_INTERVIEW_QUESTIONS.length).toBe(4);
+    const categories = VOICE_INTERVIEW_QUESTIONS.map((q) => q.category);
+    expect(categories).toEqual(['유년과 고향', '청춘과 땀방울', '가족과 사랑', '삶의 지혜와 당부']);
+
+    VOICE_INTERVIEW_QUESTIONS.forEach((q, idx) => {
+      expect(q.targetChapterNumber).toBe(idx + 1);
+      expect(q.questionAudioText.length).toBeGreaterThan(10);
+      expect(q.sampleSpokenAnswer.length).toBeGreaterThan(20);
+      expect(q.aiSynthesizedProse.length).toBeGreaterThan(50);
+    });
   });
 });

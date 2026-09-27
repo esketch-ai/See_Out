@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall } from 'lucide-react';
 import { MainTab } from './Header.js';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
@@ -6,6 +6,8 @@ import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
 import { LifeArchiveWidget } from './LifeArchiveWidget.js';
 import { PackagePricingWidget } from './PackagePricingWidget.js';
 import { TraditionalSeal } from '../design-system/index.js';
+
+import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 
 interface NormalModeProps {
   currentTab: MainTab;
@@ -18,6 +20,9 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   onSelectTab,
   onEnterEmergency
 }) => {
+  // 3대 모듈(전국 장례식장, 정찰 패키지, 생애기록관) 간 실시간 동기화 상태
+  const [funeralSetting, setFuneralSetting] = useState<FuneralSetting>(DEFAULT_FUNERAL_SETTING);
+
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
     return (
@@ -30,7 +35,20 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   if (currentTab === 'funeral-halls') {
     return (
       <div className="space-y-6 pb-20">
-        <FuneralHallSearchWidget />
+        <FuneralHallSearchWidget
+          selectedFuneralHallId={funeralSetting.funeralHallId}
+          onSelectHallForFuneral={(hall) => {
+            setFuneralSetting((prev: FuneralSetting) => ({
+              ...prev,
+              funeralHallId: hall.id,
+              funeralHallName: hall.name,
+              address: hall.address,
+              phone: hall.phone,
+              discountRate: Math.round(hall.discountRate * 100)
+            }));
+          }}
+          onNavigateToLifeArchive={() => onSelectTab('life-archive')}
+        />
       </div>
     );
   }
@@ -38,7 +56,17 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   if (currentTab === 'packages') {
     return (
       <div className="space-y-6 pb-20">
-        <PackagePricingWidget />
+        <PackagePricingWidget
+          onSelectPackageForFuneral={(pkg) => {
+            setFuneralSetting((prev: FuneralSetting) => ({
+              ...prev,
+              packageType: pkg.type,
+              packageName: pkg.name,
+              packagePrice: pkg.price
+            }));
+          }}
+          onNavigateToLifeArchive={() => onSelectTab('life-archive')}
+        />
       </div>
     );
   }
@@ -46,7 +74,11 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   if (currentTab === 'life-archive') {
     return (
       <div className="space-y-6 pb-20">
-        <LifeArchiveWidget />
+        <LifeArchiveWidget
+          funeralSetting={funeralSetting}
+          onUpdateFuneralSetting={setFuneralSetting}
+          onNavigateTab={(tab) => onSelectTab(tab as MainTab)}
+        />
       </div>
     );
   }

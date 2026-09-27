@@ -96,3 +96,42 @@ export interface GatekeeperProtocol {
   unlockConditions: string[];
   lastConfirmedDate: string;
 }
+
+/**
+ * 전국 장례식장, 정찰 패키지, 생애기록관 부고장 간 실시간 동기화 설정 모델
+ */
+export interface FuneralSetting {
+  funeralHallId: string;
+  funeralHallName: string;
+  roomName: string;
+  address: string;
+  phone: string;
+  discountRate: number;
+  crematoriumName: string;
+  packageType: 'simple_non_hall' | 'family_2day' | 'economic_3day' | 'standard_3day' | string;
+  packageName: string;
+  packagePrice: number;
+  deceasedName: string;
+  deceasedClan?: string;
+  birthDate?: string;
+  deathDate?: string;
+  age?: number;
+  motto?: string;
+  chiefMourners: string[];
+  departureDateTime: string;
+  condolenceAccount: string;
+}
+
+/**
+ * AI 생애 구술 인터뷰어 문답 및 평전 합성 질문 모델
+ */
+export interface VoiceInterviewQuestion {
+  id: string;
+  category: string;
+  title: string;
+  questionAudioText: string;
+  sampleSpokenAnswer: string;
+  aiSynthesizedProse: string;
+  targetChapterNumber: number;
+}
+

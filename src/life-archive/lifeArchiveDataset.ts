@@ -4,7 +4,9 @@ import {
   SmartphoneContactItem,
   PreMortemObituary,
   EndingNote,
-  GatekeeperProtocol
+  GatekeeperProtocol,
+  FuneralSetting,
+  VoiceInterviewQuestion
 } from './types.js';
 
 /**
@@ -320,3 +322,87 @@ export const SAMPLE_GATEKEEPER: GatekeeperProtocol = {
     '봉인 해제 즉시 스마트폰 640명 지인 연락처 열람 및 원터치 모바일 부고 발송 활성화'
   ]
 };
+
+/**
+ * 3대 모듈(전국 장례식장, 정찰 패키지, 생애기록관) 간 실시간 동기화 기본값
+ */
+export const DEFAULT_FUNERAL_SETTING: FuneralSetting = {
+  funeralHallId: 'fh-seoul-asan',
+  funeralHallName: '서울아산병원장례식장',
+  roomName: '2층 특20호실',
+  address: '서울 송파구 올림픽로43길 88 (풍납동)',
+  phone: '02-3010-2000',
+  discountRate: 0,
+  crematoriumName: '서울시립승화원 (벽제 화장장)',
+  packageType: 'standard_3day',
+  packageName: '배웅 정직 실속 3일장',
+  packagePrice: 2_500_000,
+  deceasedName: '故 김철수 님',
+  deceasedClan: '김해(金海)',
+  birthDate: '1938년 4월 12일',
+  deathDate: '2026년 3월 25일',
+  age: 88,
+  motto: '“성실함에는 거짓이 없으며, 가족을 향한 사랑은 마르지 않는다.”',
+  chiefMourners: ['장남 김정우', '차녀 김수연', '자부 박미영', '사위 이진수', '손자 김민준'],
+  departureDateTime: '2026년 3월 27일 (금) 오전 07시 30분',
+  condolenceAccount: '신한은행 110-384-291028 (예금주: 장남 김정우)'
+};
+
+/**
+ * AI 생애 구술 인터뷰어 4대 표준 질문 및 문답 데이터셋
+ */
+export const VOICE_INTERVIEW_QUESTIONS: VoiceInterviewQuestion[] = [
+  {
+    id: 'q1',
+    category: '유년과 고향',
+    title: '어릴 적 고향과 부모님에 대한 따스한 기억',
+    questionAudioText: '“어르신, 어린 시절 나고 자란 고향의 모습과 부모님에 대한 가장 따뜻했던 기억을 들려주세요.”',
+    sampleSpokenAnswer: '충무 앞바다에서 물질하던 어머니가 밤에 쪄주던 군고구마 맛이 아직도 생각나요. 전쟁통이라 참 가난했지만 어머니의 따뜻한 품과 바다 냄새는 지금도 가슴에 생생합니다.',
+    aiSynthesizedProse: '통영 앞바다의 푸른 물결과 어머니의 온기 어린 군고구마는 소년 철수의 가슴속에 꺼지지 않는 삶의 등대가 되었다. 전쟁의 혹독한 궁핍 속에서도 부모님이 베풀어준 사랑은 훗날 그가 거친 세파를 꿋꿋이 헤쳐 나가는 가장 든든한 정신적 자양분이 되었다.',
+    targetChapterNumber: 1
+  },
+  {
+    id: 'q2',
+    category: '청춘과 땀방울',
+    title: '청년 시절 산업 현장의 땀방울과 보람',
+    questionAudioText: '“젊은 날 처음 세상에 나아가 땀 흘리며 일하셨던 순간과 가장 보람찼던 도전은 무엇이었나요?”',
+    sampleSpokenAnswer: '울산 조선소 바닥에서 한겨울에 칼바람 맞아가며 쇳덩이를 용접했어요. 손발이 다 얼어 터져도 우리 손으로 거대한 배를 띄우던 날, 사나이들끼리 부둥켜안고 펑펑 울었지요.',
+    aiSynthesizedProse: '거친 쇳가루와 영하의 칼바람 속에서도 그의 망치질은 멈추지 않았다. 대한민국 최초의 초대형 유조선이 바다로 진수되던 순간, 그의 이마에 맺힌 땀방울은 조국 근대화의 자랑스러운 주춧돌이 되었으며 그 무엇과도 바꿀 수 없는 청춘의 훈장이었다.',
+    targetChapterNumber: 2
+  },
+  {
+    id: 'q3',
+    category: '가족과 사랑',
+    title: '반려자와 자녀들을 품에 안았던 벅찬 감동',
+    questionAudioText: '“평생을 함께한 반려자를 처음 만났을 때와, 아이들이 태어나 품에 안았을 때의 심정은 어떠셨나요?”',
+    sampleSpokenAnswer: '순자 씨를 중매로 처음 만난 날 참 곱고 수줍어했어요. 그리고 정우 녀석이 태어나서 내 새끼손가락을 꽉 쥐었을 때, 아 이제 진짜 어른이 되었구나 세상에 무서울 게 없더군요.',
+    aiSynthesizedProse: '단아한 박순자 여사와의 소박한 혼례, 그리고 첫 아들 정우가 작은 손으로 아비의 손가락을 꼭 쥐었던 그날의 전율. 그는 가족이라는 세상에서 가장 숭고한 쉼터를 위해 기꺼이 자신의 온 생애를 바치기로 굳게 다짐하였다.',
+    targetChapterNumber: 3
+  },
+  {
+    id: 'q4',
+    category: '삶의 지혜와 당부',
+    title: '사랑하는 자녀와 후손들에게 남기는 당부',
+    questionAudioText: '“일평생을 살아오시며 얻은 가장 큰 배움과, 사랑하는 자녀와 후손들에게 남기고 싶은 말씀은 무엇인가요?”',
+    sampleSpokenAnswer: '남 속이지 말고 정직하게 살면 결국 남는 게 있단다. 형제끼리 절대 돈 때문에 다투지 말고, 힘들 때 서로 보듬어줘라. 너희들이 내 자식이라 참 행복했다.',
+    aiSynthesizedProse: '“정직한 땀방울에는 거짓이 없단다.” 황혼의 문턱에서 고인이 남긴 마지막 가르침은 소박하지만 영원히 빛나는 인생의 나침반이었다. 서로를 보듬으며 우애하라는 아비의 당부는 남겨진 자손들의 가슴속에 영원한 사랑의 언어로 아로새겨졌다.',
+    targetChapterNumber: 4
+  }
+];
+
+/**
+ * 장례 설정(FuneralSetting) 객체를 기반으로 실시간 모바일 부고장 데이터를 자동 생성/동기화하는 헬퍼
+ */
+export function createObituaryFromSetting(
+  setting: FuneralSetting,
+  baseObituary: PreMortemObituary = SAMPLE_PRE_MORTEM_OBITUARY
+): PreMortemObituary {
+  return {
+    ...baseObituary,
+    title: `${setting.deceasedName} 부고 (배웅 정찰제 의전 연계)`,
+    funeralHallLinkedName: `${setting.funeralHallName} ${setting.roomName}`,
+    crematoriumName: setting.crematoriumName,
+    accountForCondolence: setting.condolenceAccount
+  };
+}
+

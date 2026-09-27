@@ -111,9 +111,20 @@ const VISUAL_PRODUCTS: VisualProductDetail[] = [
   }
 ];
 
-export const PackagePricingWidget: React.FC = () => {
-  const [selectedPackage, setSelectedPackage] = useState<BaeungPackageType>('economic_3day');
+export interface PackagePricingWidgetProps {
+  selectedPackageType?: BaeungPackageType;
+  onSelectPackageForFuneral?: (pkg: BaeungPackageInfo) => void;
+  onNavigateToLifeArchive?: () => void;
+}
+
+export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
+  selectedPackageType = 'economic_3day',
+  onSelectPackageForFuneral,
+  onNavigateToLifeArchive
+}) => {
+  const [selectedPackage, setSelectedPackage] = useState<BaeungPackageType>(selectedPackageType);
   const [openDetail, setOpenDetail] = useState<boolean>(true);
+  const [isSynced, setIsSynced] = useState<boolean>(false);
 
   // 시각화 갤러리 활성 탭
   const [activeVisualTab, setActiveVisualTab] = useState<string>('shroud');
@@ -431,6 +442,52 @@ export const PackagePricingWidget: React.FC = () => {
               </button>
             );
           })}
+        </div>
+
+        {/* 4-B. 선택된 패키지 실시간 부고장 연계 액션 바 */}
+        <div className="mt-4 p-4 rounded-xl bg-[#FAF8F5] border border-[#E8DFCF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-serif">
+          <div>
+            <div className="flex items-center space-x-2">
+              <Sparkles className="w-4 h-4 text-[#9E7D47]" />
+              <span className="font-bold text-sm text-[#151719]">
+                선택하신 [{currentPkg.name}] ({currentPkg.price.toLocaleString()}원)
+              </span>
+            </div>
+            <p className="text-xs text-[#727782] mt-0.5">
+              이 패키지를 [생애기록관] 사전 의전 및 부고장에 실시간으로 동기화합니다.
+            </p>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => {
+                onSelectPackageForFuneral?.(currentPkg);
+                setIsSynced(true);
+                setTimeout(() => setIsSynced(false), 3500);
+              }}
+              className={`px-4 py-2 rounded-md font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer border ${
+                isSynced
+                  ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D5A46]'
+                  : 'bg-[#9E7D47] hover:bg-[#B38E52] text-white border-[#876937]'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>
+                {isSynced
+                  ? '✓ 생애기록관 부고장에 연동 완료!'
+                  : '생애기록관 의전 설정에 실시간 연동'}
+              </span>
+            </button>
+
+            {isSynced && onNavigateToLifeArchive && (
+              <button
+                onClick={onNavigateToLifeArchive}
+                className="px-3 py-2 bg-white text-[#19382C] border border-[#BFD4CA] rounded-md font-bold text-xs hover:bg-[#F0F5F2] transition-colors cursor-pointer"
+              >
+                부고장 확인 ➔
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

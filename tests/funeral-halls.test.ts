@@ -109,4 +109,58 @@ describe('Andrej Karpathy 3원칙 검증: 전국 장례식장 데이터 무결�
       }).toThrow();
     });
   });
+
+  describe('사업계획서 1단계 옵션 B: 무빈소·가족장 큐레이션 및 견적 참조번호(REF) 검증', () => {
+    it('무빈소(direct_cremation) 필터 시 직송·안치 가능 식장만 필터링되어야 한다', () => {
+      const results = FuneralHallService.searchHalls({ funeralType: 'direct_cremation' });
+      expect(results.length).toBeGreaterThan(0);
+      results.forEach((h) => {
+        expect(h.allowsDirectCremation).not.toBe(false);
+      });
+    });
+
+    it('소규모 가족장(small_family) 필터 시 전용 빈소 보유 식장만 필터링되어야 한다', () => {
+      const results = FuneralHallService.searchHalls({ funeralType: 'small_family' });
+      expect(results.length).toBeGreaterThan(0);
+      results.forEach((h) => {
+        expect(h.hasSmallFamilyRoom).not.toBe(false);
+      });
+    });
+
+    it('견적 참조번호(REF) 발급 시 고유 번호(REF-2026-KR-XXXX)와 공정위 준수 문구가 포함되어야 한다', () => {
+      const quote = FuneralHallService.generateQuoteReference({
+        hallId: 'fh-seoul-asan',
+        funeralType: 'direct_cremation',
+        applicantName: '김정우',
+        applicantPhone: '010-3849-2910'
+      });
+
+      expect(quote.referenceCode).toMatch(/^REF-2026-KR-\d{4}$/);
+      expect(quote.hallName).toBe('서울아산병원장례식장');
+      expect(quote.funeralType).toBe('direct_cremation');
+      expect(quote.roomDailyRent).toBe(0); // 무빈소이므로 빈소 임대료 0원
+      expect(quote.stayDays).toBe(0);
+      expect(quote.coldStorageDailyFee).toBe(150_000);
+      expect(quote.encoffinmentRoomFee).toBe(150_000);
+      // 안치실 2일(30만) + 입관실(15만) = 45만 원
+      expect(quote.facilitySubtotal).toBe(450_000);
+      expect(quote.finalFacilityCost).toBe(450_000);
+      expect(quote.legalComplianceNote).toContain('공정거래위원회');
+      expect(quote.counselingNotice).toContain(quote.referenceCode);
+    });
+
+    it('제휴 식장에서 소규모 가족장 견적 발급 시 배웅 감면이 올바르게 차감되어야 한다', () => {
+      // 부산 시민장례식장 (30% 제휴 감면 식장)
+      const quote = FuneralHallService.generateQuoteReference({
+        hallId: 'fh-busan-simin',
+        funeralType: 'small_family',
+        stayDays: 2
+      });
+
+      expect(quote.hallName).toBe('(주)시민장례식장');
+      expect(quote.roomDailyRent).toBeGreaterThan(0);
+      expect(quote.baeungDiscountAmount).toBeGreaterThan(0);
+      expect(quote.finalFacilityCost).toBe(quote.facilitySubtotal - quote.baeungDiscountAmount);
+    });
+  });
 });

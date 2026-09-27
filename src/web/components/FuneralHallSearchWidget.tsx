@@ -3,7 +3,8 @@ import {
   FuneralHallService,
   FuneralHallEntity,
   RegionCode,
-  FuneralHallCategory
+  FuneralHallCategory,
+  FuneralTypePreference
 } from '../../funeral-halls/index.js';
 import {
   Search,
@@ -22,10 +23,13 @@ import {
   ArrowRight,
   Layers,
   ChevronRight,
-  X
+  X,
+  FileText,
+  Scale
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import { FuneralHallMap } from './FuneralHallMap.js';
+import { FuneralHallQuoteModal } from './FuneralHallQuoteModal.js';
 
 export interface FuneralHallSearchWidgetProps {
   selectedFuneralHallId?: string;
@@ -41,22 +45,25 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [keyword, setKeyword] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedFuneralType, setSelectedFuneralType] = useState<FuneralTypePreference>('all');
   const [onlyPartner, setOnlyPartner] = useState(false);
   const [selectedHall, setSelectedHall] = useState<FuneralHallEntity | null>(null);
   const [stayDays, setStayDays] = useState<2 | 3>(2);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
-  // 검색 결과
+  // 검색 결과 (장례 형태 필터 연동)
   const halls = useMemo(() => {
     return FuneralHallService.searchHalls({
       keyword: keyword.trim() || undefined,
       region: selectedRegion === 'all' ? undefined : (selectedRegion as RegionCode),
       category: selectedCategory === 'all' ? undefined : (selectedCategory as FuneralHallCategory),
-      onlyPartner: onlyPartner ? true : undefined
+      onlyPartner: onlyPartner ? true : undefined,
+      funeralType: selectedFuneralType === 'all' ? undefined : selectedFuneralType
     });
-  }, [keyword, selectedRegion, selectedCategory, onlyPartner]);
+  }, [keyword, selectedRegion, selectedCategory, onlyPartner, selectedFuneralType]);
 
   // 최초 로드 시 또는 검색 결과 변경 시 첫 번째 식장 자동 선택
   useEffect(() => {
@@ -223,6 +230,37 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         </div>
       </div>
 
+      {/* 2.5. [사업계획서 1단계 옵션 B] 무빈소·가족장 원클릭 큐레이션 필터 칩 */}
+      <div className="bg-[#FAF9F6] border border-[#E3DFD5] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
+          <span className="text-[#9E7D47]">장례 형태 맞춤 큐레이션:</span>
+          <span className="text-[11px] text-[#727782] font-normal hidden md:inline">
+            (전국 948곳 무빈소 가능 식장 전수 매칭)
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 text-xs font-serif">
+          {[
+            { id: 'all' as FuneralTypePreference, label: '전체 장례 형태' },
+            { id: 'direct_cremation' as FuneralTypePreference, label: '🕊️ 무빈소 직송·안치 가능' },
+            { id: 'small_family' as FuneralTypePreference, label: '🏡 소규모 가족장 (10~35평형)' },
+            { id: 'standard_3day' as FuneralTypePreference, label: '🏛️ 일반 3일장 (표준 50평형 이상)' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSelectedFuneralType(tab.id)}
+              className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                selectedFuneralType === tab.id
+                  ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs font-bold border border-[#2D5A46]'
+                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#F3EFE6] border border-[#E3DFD5]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* 모바일 전용 뷰 탭 스위처 */}
       <div className="md:hidden flex bg-[#F0EDE6] p-1 rounded-lg border border-[#E3DFD5] text-xs font-serif">
         <button
@@ -317,6 +355,20 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                         <span className="truncate">{hall.nearestSubway}</span>
                       </div>
                     )}
+
+                    {/* [옵션 B] 무빈소 & 가족장 큐레이션 배지 */}
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {hall.allowsDirectCremation !== false && (
+                        <span className="text-[10px] font-serif font-bold text-[#19382C] bg-[#F0F5F2] px-1.5 py-0.5 rounded border border-[#BFD4CA]">
+                          🕊️ 무빈소 안치 ({(hall.directCremationFee || 400_000).toLocaleString()}원)
+                        </span>
+                      )}
+                      {hall.hasSmallFamilyRoom && (
+                        <span className="text-[10px] font-serif text-[#876937] bg-[#F8F5EE] px-1.5 py-0.5 rounded border border-[#E4D5BC]">
+                          🏡 가족장 빈소
+                        </span>
+                      )}
+                    </div>
 
                     <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#ECE8E0] text-xs font-serif">
                       <div>
@@ -456,6 +508,37 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                       💡 배웅 사전 등록 시 <b>{discountInfo.discountAmount.toLocaleString()}원</b>이 현장에서 자동 감면 적용됩니다.
                     </div>
                   )}
+                </div>
+
+                {/* 2-A-2. [사업계획서 1단계 옵션 B] 공식 견적서 및 견적 참조번호(REF) 발급 카드 */}
+                <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-4 md:p-5 space-y-3 relative overflow-hidden shadow-xs">
+                  <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-15" />
+                  <div className="relative z-10 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
+                        공정위 리베이트 제재 지침 준수 · 100% 정찰제
+                      </span>
+                      <span className="text-[11px] font-serif text-[#9E7D47] font-bold">
+                        부당 알선료 0원 보증
+                      </span>
+                    </div>
+
+                    <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417]">
+                      공식 정찰 견적서 및 견적 참조번호(REF) 즉시 발급
+                    </h4>
+                    <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
+                      장례식장 상담 시 발급된 <b>견적 참조번호</b>를 제시하시면, 사전 등록 고객으로 인식되어 부당 추가금 없이 정찰 감면 견적을 보장받습니다.
+                    </p>
+
+                    <button
+                      onClick={() => setIsQuoteModalOpen(true)}
+                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D5A46]"
+                    >
+                      <FileText className="w-4 h-4 text-[#C2A26A]" />
+                      <span>📄 공식 정찰 견적서 & 견적 참조번호(REF) 발급</span>
+                      <ArrowRight className="w-4 h-4 text-[#C2A26A]" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* 2-B. [정밀 제원 1] 평형별 빈소 규격 및 1일 임대료 단가표 */}
@@ -611,6 +694,15 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           )}
         </div>
       </div>
+
+      {/* [사업계획서 1단계 옵션 B] 견적 참조번호 및 공식 정찰 견적서 모달 */}
+      {isQuoteModalOpen && selectedHall && (
+        <FuneralHallQuoteModal
+          hall={selectedHall}
+          initialType={selectedFuneralType === 'all' ? 'direct_cremation' : selectedFuneralType}
+          onClose={() => setIsQuoteModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

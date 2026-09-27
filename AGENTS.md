@@ -1,0 +1,171 @@
+# 배웅(Bae-ung) — 작업 규칙
+
+이 저장소는 **노안 유족(50·90세)** 이 현장에서 읽는 서비스다.
+설계와 개발은 아래 규칙을 지키는 것을 전제로 한다. 규칙은 실측으로 만들어졌고,
+각 항목마다 그것이 왜 생겼는지가 적혀 있다.
+
+## 검증 — 커밋 전에 반드시
+
+```bash
+npm run verify        # tsc + vitest(213) + 브라우저 전수 감사
+```
+
+브라우저 감사만 따로 돌리려면:
+
+```bash
+npm run audit:ui                                  # 빌드하고 띄워서 검사
+BASE_URL=https://esketch-ai.github.io/See_Out/ npm run audit:ui:run   # 라이브 검사
+```
+
+`npm test` **만으로는 통과해도 된다.** 아래 「단위 테스트가 못 잡는 것」을 참조.
+
+---
+
+## 1. 팔레트 — 이름으로도, hex 로도 우회하지 않는다
+
+**진실의 원천은 `src/web/design-system/tokens.ts` 하나뿐이다.**
+새 색을 쓰려면 그 파일에 먼저 등재하고, `tokens.ts` 밖에서는 토큰값만 인용한다.
+
+```tsx
+// 금지 — 토큰에 없는 값
+className="text-red-300"        // #FCA5A5
+style={{ color: '#B5B0A0' }}
+
+// 정본 인용
+className="text-[#E08578]"      // rouge.onDarkStrong (묵흑면 긴급 7.17:1)
+```
+
+**면(surface)에 따라 토큰이 갈린다.** 이 오독이 실제로 반복됐다.
+
+| 면 | 보조문자 토큰 | 근거 |
+|---|---|---|
+| 묵흑면 (`#0D0E10` `#141618` `#1F2226`) | `ink.mutedOnDark` `#8A929D` | 6.14:1 |
+| 비취면 (`#132B22` `#19382C`) | `pine.muted` `#A8B2A9` | 6.88:1 |
+
+바우처 헤더에 `ink.mutedOnDark` 를 비취면 위에 썼다가 4.07:1 로 떨어졌다.
+
+> **왜 놓쳤나** — `token-drift` 란치는 `#[0-9A-Fa-f]{6}` 만 검사한다.
+> `text-red-300` 은 6자리 hex 가 아니라 통과했고, 이름 팔레트 44종 191건이
+> 그대로 배포됐다. 이제 이름까지 검사한다(`tests/token-drift.test.ts`).
+
+**중립색 `text-white` `bg-black/*` 는 기능적 스크림 용도로 허용한다.**
+
+---
+
+## 2. 타이포 — 13px 는 하한이다 (N-7)
+
+```tsx
+// 금지
+className="text-xs"          // Tailwind text-xs = 12px, N-7 위반
+className="text-[11px]"
+
+// 최소
+className="text-[13px]"       // typography.micro — 법적 고지·라벨 한정
+```
+
+> **왜 놓쳤나** — N-7 검사기가 `text-[Npx]` 만 세고 `text-xs` 를 통과시켰다.
+> 「13px 미만 95건 제거」 라고 보고한 뒤 실제 라이브에서 462건이 더 있었다.
+> 지금은 검사기가 이름 스케일까지 본다.
+
+본문은 18px 가 표준(`body`)이다. 13px 를 산문에 쓰지 않는다.
+
+---
+
+## 3. 모달 — 여는 순간의 계약
+
+팝업은 `ModalShell` 또는 `useModalA11y(onClose, isOpen)` 를 쓴다. 손으로 짜지 않는다.
+
+필수 계약 6가지 — 전부 `scripts/audit-ui.mjs` 가 판정한다.
+
+```
+role="dialog" · aria-modal="true" · 포커스 진입 · Tab 비이탈 · ESC 닫힘 · body 잠금 해제
+```
+
+### isOpen 을 부모가 소유하면 훅을 먼저 모두 호출한다
+
+```tsx
+// 금지 — React #310 으로 화면 전체가 백화면이 된다
+const x = useMemo(...);
+if (!isOpen) return null;          // ← 이 아래에서 훅을 호출하면 크래시
+const y = useMemo(...);            //   「닫힘 → 열림」 전이에서 훅 개수가 늘어
+```
+
+**모든 훅을 호출한 뒤에** `return null` 한다.
+
+> **왜 생겼나** — 이 한 줄로 「상속 변호사」 버튼을 누르면 사이트 전체가 죽었다.
+> 단위 테스트 213건이 전부 통과했다. 컴포넌트를 렌더하지 않으므로
+> 훅 순서를 볼 수 없다. `tests/modal-accessibility.test.ts` 가 정적으로 막는다.
+
+### 조건부 마운트 모달은 `isOpen` 을 셸에 전달한다
+
+`useModalA11y(onClose)` 로 상수를 주면 `isOpen` 이 false 가 되어도 cleanup 이
+안 돌아 body 잠금이 남는다. `useModalA11y(onClose, isOpen)` 로 넘긴다.
+
+---
+
+## 4. 감사 도구를 믿기 전에, 감사를 검증한다
+
+`scripts/audit-ui.mjs` 는 **실패할 수 없다면 무의미**하다. 새 검사 항목을
+넣거나 판정 기준을 바꾸면 반드시 주입으로 확인한다.
+
+```bash
+# 1) 위반을 만든다  2) audit 가 exit 1 로 떨어지는지 본다  3) 되돌린다
+python3 - <<'EOF'
+f='src/web/components/LegalPolicyModal.tsx'
+s=open(f,encoding='utf-8').read()
+s=s.replace("text-[#5A5E66]","text-[#DCD6C9]",1)   # 백색 위 1.45:1
+open(f,'w',encoding='utf-8').write(s)
+EOF
+npm run build:web && npx vite preview --port 4310 & sleep 6
+node scripts/audit-ui.mjs; echo "exit=$?"   # 1 이어야 한다
+git checkout src/web/components/LegalPolicyModal.tsx
+```
+
+### 이 감사 도구가 교정한 오독 — 반복하지 말 것
+
+- **그라디언트 위 텍스트.** `backgroundColor` 로는 조회되지 않아 조상을
+  합성하면 크림색으로 계산한다. 바우처 헤더가 2.3:1 로 잘못 보고됐다.
+  **반드시 `backgroundImage` 를 먼저 본다.** 실제치는 4.1:1 이었고
+  그 위에 진짜 결함이 겹쳐 있었다.
+- **`page.evaluate(fn, arg)` 는 인자를 하나만 넘긴다.** 색 목록을
+  `[CANON, sel]` 로 넘기면 Set 이 비어 「팔레트밖」 이 전부 오탐이 된다.
+  `evaluate(fn, { list, rootSel })` 로 객체 하나로 넘긴다.
+- **한글 정규식은 렌더 타깃에 따라 깨진다.** 탭·버튼 탐색은
+  `document.querySelectorAll('button')[i]` 인덱스로 한다.
+
+---
+
+## 5. 단위 테스트가 못 잡는 것
+
+`vitest` 는 컴포넌트를 렌더하지 않는다. 문자열과 정규식으로만 본다.
+아래는 **테스트 213건이 전부 통과한 상태로 배포된 실제 결함**이다.
+
+| 결함 | 규모 | 잡는 곳 |
+|---|---|---|
+| 훅 순서 위반 → 클릭 시 백화면 | 1건 | `tests/modal-accessibility.test.ts` |
+| `text-xs` 12px | 462건 | `tests/modal-accessibility.test.ts` (N-7) |
+| 이름 팔레트 (`text-red-300` 등) | 191건 | `tests/token-drift.test.ts` |
+| 대비 미달 (비취면 위 ink 토큰) | 7건 | `scripts/audit-ui.mjs` |
+| 그라디언트 위 대비 오독 | 도구 결함 | `scripts/audit-ui.mjs` |
+
+**문자열로 보이면 놓친다. 화면을 열어 재야 나온다.**
+구조·색·폰트는 `npm run audit:ui` 가 단언한다.
+
+---
+
+## 6. 카피
+
+- 「듀얼 스탠바이」 → **「이중안심(二重安心)」**. `main` 확정한 용어다.
+- 죽은 분신 duel 같은 기계어를 유족에게 쓰지 않는다.
+- 「고인의 곁을 지킵니다」 류의 1인칭 존대 어조를 유지한다.
+
+---
+
+## 정본 문서
+
+- `docs/_para/20_areas/design-token-canonical-2026.md` — AREA-DESIGN-2026-009
+- `src/web/design-system/tokens.ts` — 색·타이포·간격의 유일한 원천
+- `src/web/components/ModalShell.tsx` — 모달 계약의 유일한 원천
+
+규칙을 바꿀 때는 문서·토큰·감사를 **같이** 고친다. 셋이 어긋나면
+감사가 조용히 통과하고 그 공백으로 다음 결함이 들어온다.

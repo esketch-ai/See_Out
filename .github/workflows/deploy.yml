@@ -31,18 +31,34 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci || npm install
+        - name: Install dependencies
+          run: npm ci || npm install
 
-      - name: Run verification test suite
-        run: npm test
+        - name: Install browser for UI audit
+          run: npx playwright install --with-deps chromium
 
-      - name: Build web application
-        env:
-          BASE_PATH: /See_Out/
-        run: npm run build:web
+        - name: Run verification test suite
+          run: npm test
 
-      - name: Prepare GitHub Pages files (.nojekyll & 404.html)
+        - name: Build web application
+          env:
+            BASE_PATH: /See_Out/
+          run: npm run build:web
+
+        # 단위 테스트가 통과한 상태에서 아래 결함이 실제 배포돼 있었다.
+        #   - ProfessionalCareModal 이 isOpen 분기 아래 훅을 호출 → 클릭 시
+        #     React #310 으로 화면 전체가 백화면
+        #   - text-xs(12px) 462건 — N-7 「13px 금지」 위반
+        #   - text-red-300 등 이름 팔레트 44종 191건 — 정본 밖
+        # 전부 컴포넌트를 렌더하지 않는 단위 테스트가 통과하는 종류다.
+        # 실제 브라우저로 팝업 25종과 탭 5개를 열어 판정한다.
+        - name: Audit rendered UI
+          run: |
+            npx vite preview --port 4310 &
+            sleep 8
+            node scripts/audit-ui.mjs
+
+        - name: Prepare GitHub Pages files (.nojekyll & 404.html)
         run: |
           touch dist/.nojekyll
           cp dist/index.html dist/404.html

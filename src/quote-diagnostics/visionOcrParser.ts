@@ -199,7 +199,7 @@ export class VisionOcrParser {
     },
     preed590: {
       title: '프리드라이프 늘푸른 590 실물 증서 샘플',
-      imagePath: '/images/hero-memorial.jpg',
+      imagePath: '/images/floral-coffin.jpg',
       sampleText: `[프리드라이프 상조 회원증서]
 회원번호: P-2021-11409
 회사명: (주)프리드라이프

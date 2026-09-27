@@ -161,13 +161,13 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
       <div className="relative rounded-lg overflow-hidden h-48 sm:h-56 border border-[#3D382E] bg-[#141618]">
         <img
-          src="/images/hero-memorial.jpg"
-          alt="정직 원가 의전 용품 및 제단"
-          className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-105"
+          src="/images/floral-coffin.jpg"
+          alt="정직 원가 의전 용품 및 생화 꽃관"
+          className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-100"
         />
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
-        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 md:p-8 relative z-10">
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10]/90 via-[#0D0E10]/45 to-transparent flex flex-col justify-end p-6 md:p-8 relative z-10">
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-[13px] font-serif border border-[#2D4F43]">
               <TraditionalSeal sealKey="sincerity" size="sm" />
@@ -178,10 +178,10 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span>실물 사진 100% 사전 공개 · 현장 강매 0원</span>
             </div>
           </div>
-          <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight drop-shadow-md">
             배웅 정직 원가 정찰제 의전 안내
           </h2>
-          <p className="text-[#8A929D] text-[13px] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[#DCE8E2] text-[13px] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed drop-shadow-xs">
             무엇을 받는지 모른 채 계약하는 깜깜이 장례는 이제 그만. 수의, 관, 상복, 리무진까지 실제 제공되는 실물 사진과 원산지 규격을 투명하게 확인하세요.
           </p>
         </div>

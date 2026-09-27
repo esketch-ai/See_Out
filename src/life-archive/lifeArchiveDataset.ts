@@ -259,7 +259,7 @@ export const SAMPLE_LIFE_PHOTOS = [
     year: '2020년',
     category: '황혼과 추억',
     caption: '내 무릎에 앉아 재롱을 피우던 민준이. 세상 무엇과도 바꿀 수 없던 내 인생 황혼의 가장 눈부신 햇살.',
-    imageUrl: '/images/hero-memorial.jpg'
+    imageUrl: '/images/life-archive.jpg'
   }
 ];
 

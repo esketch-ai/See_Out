@@ -115,27 +115,27 @@ export const NormalMode: React.FC<NormalModeProps> = ({
     <div className="space-y-12 pb-24">
       {/* 1. 고품격 시각 비주얼 히어로 배너 (경건한 추모와 24시 긴급 지원) */}
       <div className="relative rounded-xl overflow-hidden shadow-lg border border-[#3D382E] bg-[#141618]">
-        {/* 실제 백국화와 촛불의 경건한 사진 배경 */}
+        {/* 창호 햇살과 청자 백국화·백합의 따뜻하고 경건한 추모 배경 */}
         <img
           src="/images/hero-memorial.jpg"
-          alt="배웅 경건 의전 추모 배경"
-          className="w-full h-80 sm:h-96 object-cover object-center filter brightness-[0.38] contrast-105"
+          alt="배웅 단아한 헌화와 평온한 영면 추모 배경"
+          className="w-full h-80 sm:h-96 md:h-[440px] object-cover object-center filter brightness-[0.88] contrast-100"
         />
 
         {/* 삼국·조선 전통 길상 구름문(雲紋) 은은한 오버레이 */}
-        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
+        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-15" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/70 to-transparent flex flex-col justify-end p-6 sm:p-10 relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10]/95 via-[#0D0E10]/60 to-transparent flex flex-col justify-end p-6 sm:p-10 relative z-10">
           <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/80 text-[#8A929D] border border-[#2D4F43] text-[13px] md:text-sm font-serif">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/90 text-[#FAF9F6] border border-[#2D4F43] text-[13px] md:text-sm font-serif">
               <TraditionalSeal sealKey="mourningCondolence" size="sm" />
               <span>至誠奉送 · 24시간 전국 전담 의전 지도사 대기</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-reverence font-black text-[#FAF9F6] leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-reverence font-black text-[#FAF9F6] leading-tight tracking-tight drop-shadow-md">
               고인의 마지막 가시는 길,<br />
               지극한 예(禮)와 정직함으로 모십니다
             </h1>
-            <p className="text-sm md:text-base text-[#8A929D] font-serif leading-relaxed">
+            <p className="text-sm md:text-base text-[#DCE8E2] font-serif leading-relaxed drop-shadow-xs">
               임종을 맞이하셨다면 당황하지 마십시오. 2시간 이내에 국가공인 1급 장례지도사가 유족의 곁으로 달려가 처음부터 끝까지 정성을 다하겠습니다.
             </p>
           </div>
@@ -291,8 +291,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
               <img
-                src="/images/hero-memorial.jpg"
-                alt="정직 원가 의전 용품"
+                src="/images/floral-coffin.jpg"
+                alt="정직 원가 의전 용품 및 생화 꽃관"
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">

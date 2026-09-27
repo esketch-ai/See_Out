@@ -22,7 +22,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
         </div>
         <button
           onClick={onExitEmergency}
-          className="text-xs bg-[#1F2226] border border-[#3D382E] hover:border-[#C2A26A] text-[#8A929D] px-3.5 py-1.5 rounded-md font-serif font-medium transition-all"
+          className="text-[13px] bg-[#1F2226] border border-[#3D382E] hover:border-[#C2A26A] text-[#8A929D] px-3.5 py-1.5 rounded-md font-serif font-medium transition-all"
         >
           평시 안내 화면 복귀 ✕
         </button>
@@ -52,7 +52,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
               <Phone className="w-6 h-6" />
             </div>
             <div className="text-left">
-              <div className="text-xs font-serif text-[#DCE8E2]">전화 상담이 가장 신속하고 편안하십니다</div>
+              <div className="text-[13px] font-serif text-[#DCE8E2]">전화 상담이 가장 신속하고 편안하십니다</div>
               <div className="text-xl sm:text-2xl font-reverence font-black tracking-tight text-[#FAF9F6] mt-0.5">
                 24시 전담 의전 상황실 즉시 연결 (1588-0000)
               </div>
@@ -71,7 +71,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
             <div key={s.num} className="flex-1 flex items-center">
               <div className="flex flex-col items-center flex-1">
                 <div
-                  className={`w-8 h-8 rounded-md flex items-center justify-center font-bold text-xs font-serif ${
+                  className={`w-8 h-8 rounded-md flex items-center justify-center font-bold text-[13px] font-serif ${
                     step >= s.num
                       ? 'bg-[#9E7D47] text-[#0D0E10]'
                       : 'bg-[#1F2226] text-[#8A929D]'
@@ -119,7 +119,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   }`}
                 >
                   <div className="font-reverence font-bold text-lg">{loc.title}</div>
-                  <div className="text-xs text-[#8A929D] mt-1 font-serif">{loc.desc}</div>
+                  <div className="text-[13px] text-[#8A929D] mt-1 font-serif">{loc.desc}</div>
                 </button>
               ))}
             </div>
@@ -172,9 +172,9 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
               >
                 <div className="flex justify-between items-center">
                   <span className="font-reverence font-bold text-lg">배웅 제휴 감면 장례식장 추천</span>
-                  <span className="text-xs bg-[#19382C] text-[#C2A26A] px-2.5 py-0.5 rounded border border-[#2D4F43] font-serif">임대료 최대 30% 감면</span>
+                  <span className="text-[13px] bg-[#19382C] text-[#C2A26A] px-2.5 py-0.5 rounded border border-[#2D4F43] font-serif">임대료 최대 30% 감면</span>
                 </div>
-                <p className="text-xs text-[#8A929D] mt-1.5 leading-relaxed font-serif">
+                <p className="text-[13px] text-[#8A929D] mt-1.5 leading-relaxed font-serif">
                   현재 고인이 계신 곳에서 가장 가깝고 예우가 정갈한 빈소 예약을 즉시 조율해 드립니다.
                 </p>
               </button>
@@ -188,7 +188,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 }`}
               >
                 <span className="font-reverence font-bold text-lg">이미 희망하시는 장례식장이 있습니다</span>
-                <p className="text-xs text-[#8A929D] mt-1.5 leading-relaxed font-serif">
+                <p className="text-[13px] text-[#8A929D] mt-1.5 leading-relaxed font-serif">
                   가족분들께서 원하시는 장례식장으로 안전하고 정중하게 운구하여 모십니다.
                 </p>
               </button>
@@ -234,7 +234,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
             </div>
 
             <div>
-              <span className="text-[#C2A26A] text-xs font-serif font-bold tracking-widest">
+              <span className="text-[#C2A26A] text-[13px] font-serif font-bold tracking-widest">
                 의전팀 출동 접수 완료
               </span>
               <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] mt-1">
@@ -259,7 +259,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[#8A929D] text-sm">배웅 의전 서약</span>
-                <span className="text-xs font-bold text-[#DCE8E2] flex items-center space-x-1.5">
+                <span className="text-[13px] font-bold text-[#DCE8E2] flex items-center space-x-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
                   <span>선금 0원 · 부당 추가금 0원 · 촌지 전면 금지</span>
                 </span>

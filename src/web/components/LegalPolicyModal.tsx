@@ -76,7 +76,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-xs font-bold flex items-center space-x-1.5 border border-[#2D4F43] cursor-pointer"
+              className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[13px] font-bold flex items-center space-x-1.5 border border-[#2D4F43] cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span className="hidden sm:inline">약관 전문 인쇄</span>
@@ -91,7 +91,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-xs font-medium">
+        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-[13px] font-medium">
           {tabs.map((tab) => (
             <button
               key={tab.type}
@@ -113,7 +113,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
         {/* 본문 스크롤 영역 */}
         <div className="p-5 sm:p-8 overflow-y-auto space-y-6 text-[#151719] bg-[#FAF9F6]">
           {/* 상단 30년 전문 변호인단 감수 확인 배너 */}
-          <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-xs space-y-2">
+          <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[13px] space-y-2">
             <div className="flex items-start space-x-2 text-[#6E5429]">
               <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5 text-[#9E7D47]" />
               <div>
@@ -143,13 +143,13 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
               placeholder="약관 내 키워드 검색 (예: '통신비밀보호법', '리베이트', '환급금', '위치정보')..."
-              className="w-full bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg pl-10 pr-4 py-2.5 text-xs text-[#151719] placeholder-[#5A5E66] focus:outline-none focus:border-[#9E7D47]"
+              className="w-full bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg pl-10 pr-4 py-2.5 text-[13px] text-[#151719] placeholder-[#5A5E66] focus:outline-none focus:border-[#9E7D47]"
             />
           </div>
 
           {/* 검색 결과가 있을 경우 우선 표시 */}
           {searchKeyword.trim().length >= 2 && (
-            <div className="bg-[#FFFFFF] border border-[#DCE8E2] rounded-xl p-4 text-xs space-y-2">
+            <div className="bg-[#FFFFFF] border border-[#DCE8E2] rounded-xl p-4 text-[13px] space-y-2">
               <div className="font-bold text-[#19382C] flex items-center justify-between">
                 <span>‘{searchKeyword}’ 검색 결과 ({searchResults.length}건)</span>
                 <button
@@ -187,7 +187,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
                   <h4 className="font-reverence font-black text-xl sm:text-2xl text-[#141618]">
                     {currentDoc.title}
                   </h4>
-                  <div className="text-xs text-[#5A5E66] mt-1 space-x-3">
+                  <div className="text-[13px] text-[#5A5E66] mt-1 space-x-3">
                     <span>시행일자: <b>{currentDoc.effectiveDate}</b></span>
                     <span>버전: <b>{currentDoc.version}</b></span>
                   </div>
@@ -198,14 +198,14 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
               </div>
 
               {/* 전문 */}
-              <div className="mt-4 p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-xs text-[#5A5E66] leading-relaxed">
+              <div className="mt-4 p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-[13px] text-[#5A5E66] leading-relaxed">
                 <span className="font-bold text-[#151719] block mb-1">【전 문】</span>
                 {currentDoc.preamble}
               </div>
             </div>
 
             {/* 조항 본문 */}
-            <div className="space-y-6 text-xs text-[#151719] leading-relaxed">
+            <div className="space-y-6 text-[13px] text-[#151719] leading-relaxed">
               {currentDoc.sections.map((sec, idx) => (
                 <div key={idx} className="space-y-2 border-b border-[#DCD6C9] pb-4 last:border-0 last:pb-0">
                   <div className="font-bold text-sm text-[#19382C] flex items-center space-x-2">
@@ -235,7 +235,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
           </div>
 
           {/* 5대 법률 준수 매트릭스 요약 표 */}
-          <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-2 text-xs">
+          <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-2 text-[13px]">
             <h5 className="font-bold text-[#151719] flex items-center space-x-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
               <span>대한민국 5대 관계 법령 적격 준수 감사 결과표</span>
@@ -260,7 +260,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
         </div>
 
         {/* 하단 고정 닫기 툴바 */}
-        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-xs">
+        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[13px]">
           <span className="text-[#5A5E66] text-[13px]">
             법률 준법 지원: legal@baeung.kr · 고문 변호인단 직통 1588-0000
           </span>

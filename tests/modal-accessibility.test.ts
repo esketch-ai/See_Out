@@ -175,14 +175,19 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
         return statSync(f).isDirectory() ? walk(f) : /\.tsx?$/.test(e) ? [f] : [];
       });
     const offenders: string[] = [];
-    for (const f of walk(join(ROOT, 'src'))) {
-      const src = readFileSync(f, 'utf8');
-      for (const m of src.matchAll(/text-\[(\d+)px\]/g)) {
-        if (Number(m[1]) < MIN_PX) {
-          offenders.push(`${f.replace(ROOT + '/', '')}: text-[${m[1]}px]`);
+      for (const f of walk(join(ROOT, 'src'))) {
+        const src = readFileSync(f, 'utf8');
+        // Tailwind 네임드 스케일도 검사한다. text-xs 는 12px 로 N-7 위반이다.
+        // 임의값만 세면 「95건 제거」 를 보고하면서 실제로는 462 건이 남는다.
+        for (const m of src.matchAll(/(?:^|[\s"'`:])([\w:]*text-xs)\b/g)) {
+          offenders.push(`${f.replace(ROOT + '/', '')}: ${m[1]} (=12px)`);
+        }
+        for (const m of src.matchAll(/text-\[(\d+)px\]/g)) {
+          if (Number(m[1]) < MIN_PX) {
+            offenders.push(`${f.replace(ROOT + '/', '')}: text-[${m[1]}px]`);
+          }
         }
       }
-    }
     expect(offenders, `통치 N-7 위반 (최소 ${MIN_PX}px):\n  ${offenders.join('\n  ')}`).toEqual([]);
   });
 });

@@ -112,7 +112,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
           <button
             type="button"
             onClick={handleCopy}
-            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
           >
             {copiedText ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
             <span>{copiedText ? '복사 완료' : '전문 텍스트 복사'}</span>
@@ -120,7 +120,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>A4 인쇄 / PDF 저장</span>
@@ -136,20 +136,20 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             {/* 상단 공문서 헤더 */}
             <div className="border-b-2 border-[#151719] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-xs text-[#6E5429] font-bold tracking-widest block uppercase">
+                <span className="text-[13px] text-[#6E5429] font-bold tracking-widest block uppercase">
                   Official Legal Notice
                 </span>
                 <h1 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-0.5">
                   선불식 할부계약 해제 및 법정 해약환급금 지급 청구서 (내용증명)
                 </h1>
               </div>
-              <span className="text-xs font-mono text-[#5A5E66] shrink-0">
+              <span className="text-[13px] font-mono text-[#5A5E66] shrink-0">
                 문서 번호: {claimData.claimId}
               </span>
             </div>
 
             {/* 1. 수신인 & 발신인 그리드 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
               {/* 수신인 */}
               <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
                 <span className="font-bold text-[#151719] block border-b border-[#DCD6C9] pb-1">
@@ -174,7 +174,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                       type="text"
                       value={claimantName}
                       onChange={(e) => setClaimantName(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs font-bold text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] font-bold text-[#151719] w-full"
                     />
                     <span className="print-only font-bold text-[#151719]">{claimantName}</span>
                   </div>
@@ -184,7 +184,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                       type="text"
                       value={claimantPhone}
                       onChange={(e) => setClaimantPhone(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantPhone}</span>
                   </div>
@@ -194,7 +194,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                       type="text"
                       value={claimantAddress}
                       onChange={(e) => setClaimantAddress(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantAddress}</span>
                   </div>
@@ -203,7 +203,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
 
             {/* 2. 가입 계약 체결 내역 */}
-            <div className="space-y-2 text-xs">
+            <div className="space-y-2 text-[13px]">
               <span className="font-bold text-[#151719] block">3. 계약 체결 사항</span>
               <div className="border border-[#DCD6C9] rounded-lg overflow-hidden">
                 <table className="w-full text-left divide-y divide-[#DCD6C9]">
@@ -226,7 +226,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
 
             {/* 3. 법정 해약환급금 산출 내역 및 지급 요청 */}
-            <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-xs">
+            <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-[13px]">
               <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
                 <span className="font-reverence font-bold text-sm text-[#19382C]">
                   4. 법정 해약환급금 산출 명세 및 지급 계좌
@@ -243,7 +243,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                     금 {claimData.statutoryRefundAmount.toLocaleString()}원정
                   </span>
                 </div>
-                <div className="text-xs text-[#5A5E66] sm:text-right space-y-0.5">
+                <div className="text-[13px] text-[#5A5E66] sm:text-right space-y-0.5">
                   <p>실 납입금: {claimData.paidTotalAmount.toLocaleString()}원</p>
                   <p>법정 모집수수료 공제 후 실 수령 권리액</p>
                 </div>
@@ -258,21 +258,21 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                     value={refundBank}
                     onChange={(e) => setRefundBank(e.target.value)}
                     placeholder="은행명"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundAccount}
                     onChange={(e) => setRefundAccount(e.target.value)}
                     placeholder="계좌번호"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundHolder}
                     onChange={(e) => setRefundHolder(e.target.value)}
                     placeholder="예금주"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-xs text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
                   />
                 </div>
                 <p className="print-only text-sm font-bold text-[#151719] pt-1">
@@ -282,7 +282,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             </div>
 
             {/* 4. 법적 근거 및 지연배상금 고지문 */}
-            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-xs text-[#42464E] leading-relaxed">
+            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-[13px] text-[#42464E] leading-relaxed">
               <span className="font-bold text-[#151719] block">
                 5. 법적 근거 및 지연배상금 가산 고지
               </span>
@@ -303,7 +303,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
                 <span className="text-base font-reverence font-bold text-[#151719]">
                   발신인: {claimantName}
                 </span>
-                <span className="k-seal-red px-2 py-0.5 text-xs">印</span>
+                <span className="k-seal-red px-2 py-0.5 text-[13px]">印</span>
               </div>
             </div>
           </div>

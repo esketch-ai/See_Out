@@ -69,7 +69,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-xs flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>A4 바우처 인쇄 / 저장</span>
@@ -93,32 +93,32 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                   <span className="text-[13px] uppercase tracking-widest text-[#C2A26A] font-bold block">
                     Bae-ung Loss Protection Guarantee
                   </span>
-                  <span className="text-xs text-[#8A929D] font-mono">
+                  <span className="text-[13px] text-[#8A929D] font-mono">
                     쿠폰 코드: <strong className="text-[#C2A26A]">VOUCHER-500K-DS2026</strong>
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-[#C2A26A] font-bold bg-[#0A1511] px-3 py-1 rounded-md border border-[#2D4F43] w-fit">
+              <span className="text-[13px] text-[#C2A26A] font-bold bg-[#0A1511] px-3 py-1 rounded-md border border-[#2D4F43] w-fit">
                 평생 유효 • 정산 시 100% 현장 차감
               </span>
             </div>
 
             {/* 바우처 메인 액면가 */}
             <div className="relative z-10 text-center space-y-2 py-4">
-              <span className="text-xs sm:text-sm text-[#8A929D] tracking-wider block">
+              <span className="text-[13px] sm:text-sm text-[#8A929D] tracking-wider block">
                 [ {existingCompany} ] 해약 손실 보전 보증권
               </span>
               <div className="text-3xl sm:text-5xl font-reverence font-black text-[#C2A26A] tracking-tight">
                 {creditAmount.toLocaleString()} <span className="text-xl sm:text-2xl text-[#FAF9F6] font-normal">KRW</span>
               </div>
-              <p className="text-xs sm:text-sm text-[#8A929D] font-serif max-w-lg mx-auto leading-relaxed pt-1">
+              <p className="text-[13px] sm:text-sm text-[#8A929D] font-serif max-w-lg mx-auto leading-relaxed pt-1">
                 기존 상조 중도 해약으로 인한 위약금 손실을 유족의 고통으로 남겨두지 않습니다.
                 배웅 후불 정산 시 아래 3대 실물 의전 업그레이드로 즉시 전액 차감 보전됩니다.
               </p>
             </div>
 
             {/* 3대 실물 보전 혜택 상세 카드 그리드 */}
-            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
               {/* 혜택 1: 궁중 생화 꽃염습 */}
               <div className="bg-[#0A1511]/80 backdrop-blur-xs p-4 rounded-xl border border-[#2D4F43] space-y-2 flex flex-col justify-between">
                 <div>
@@ -172,7 +172,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
             </div>
 
             {/* 바우처 사용 안내 규칙 */}
-            <div className="relative z-10 bg-[#0A1511]/80 p-4 rounded-xl border border-[#2D4F43] text-xs text-[#8A929D] space-y-1.5">
+            <div className="relative z-10 bg-[#0A1511]/80 p-4 rounded-xl border border-[#2D4F43] text-[13px] text-[#8A929D] space-y-1.5">
               <span className="font-bold text-[#C2A26A] block">바우처 이용 및 정산 방법:</span>
               <p className="leading-relaxed">
                 • 실제 임종 발생 시 배웅 1급 장례지도사에게 기존 상조 해약 증빙(해약 통지서, 문자, 또는 입금 내역)을 제시해 주시면 최종 정산서에서 위 3대 혜택 금액(총 50만 원)이 즉시 차감 반영됩니다.
@@ -197,7 +197,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
             <div className="no-print pt-2 flex justify-end">
               <button
                 onClick={onOpenDualStandby}
-                className="py-2.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-lg font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer"
+                className="py-2.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-lg font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
                 <span>이중안심 사전등록증 보기</span>
                 <ArrowRight className="w-4 h-4 text-[#C2A26A]" />

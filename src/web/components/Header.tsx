@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
                 至誠奉送 · 정직원가 의전
               </span>
             </div>
-            <p className="hidden sm:block text-xs text-[#8A929D] font-serif mt-0.5 tracking-tight">
+            <p className="hidden sm:block text-[13px] text-[#8A929D] font-serif mt-0.5 tracking-tight">
               삼가 고인의 명복을 빌며, 지극한 정성과 투명한 원가로 곁을 지킵니다
             </p>
           </div>
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 글자 크기 토글 (어르신 배려 모드) */}
           <button
             onClick={onToggleLargeFont}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-serif font-medium flex items-center space-x-1.5 border transition-all cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-md text-[13px] sm:text-sm font-serif font-medium flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isLargeFont
                 ? 'bg-[#9E7D47]/20 border-[#9E7D47] text-[#F5EBD8] ring-1 ring-[#9E7D47]/40'
                 : 'bg-[#1F2226] border-[#3D382E] text-[#8A929D] hover:text-[#F7F5F0] hover:border-[#9E7D47]/50'
@@ -103,7 +103,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 24시 긴급 의전 지원 핫라인 토글 */}
           <button
             onClick={() => onToggleMode(!isEmergencyMode)}
-            className={`px-3 sm:px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-serif font-bold flex items-center space-x-1.5 border transition-all cursor-pointer ${
+            className={`px-3 sm:px-3.5 py-1.5 rounded-md text-[13px] sm:text-sm font-serif font-bold flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isEmergencyMode
                 ? 'bg-[#8B2520] border-[#8B2520] text-white shadow-sm'
                 : 'bg-[#9E7D47]/15 border-[#9E7D47]/80 text-[#F5EBD8] hover:bg-[#9E7D47]/25'
@@ -174,7 +174,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   key={item.id}
                   onClick={() => handleSelectNav(item.id)}
-                  className={`py-1.5 px-3 text-xs font-serif font-medium rounded-md flex items-center space-x-1.5 transition-all cursor-pointer ${
+                  className={`py-1.5 px-3 text-[13px] font-serif font-medium rounded-md flex items-center space-x-1.5 transition-all cursor-pointer ${
                     isActive
                       ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43]'
                       : 'bg-[#141618] border border-[#3D382E] text-[#8A929D]'
@@ -192,7 +192,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* 2-C. 모바일 전체 드로어 메뉴 */}
       {!isEmergencyMode && isMobileMenuOpen && (
         <div className="md:hidden bg-[#141618] border-b border-[#3D382E] shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-xs font-serif text-[#8A929D] px-1 pb-2 border-b border-[#3D382E] flex justify-between items-center">
+          <div className="text-[13px] font-serif text-[#8A929D] px-1 pb-2 border-b border-[#3D382E] flex justify-between items-center">
             <span>배웅 전통 라이프엔딩 주요 의전</span>
             <span className="text-[#C2A26A]">5대 정례 메뉴</span>
           </div>
@@ -217,11 +217,11 @@ export const Header: React.FC<HeaderProps> = ({
                         isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#1F2226] text-[#C2A26A]'
                       }`}
                     >
-                      <span className="text-xs font-serif">{item.seal}</span>
+                      <span className="text-[13px] font-serif">{item.seal}</span>
                     </div>
                     <div>
                       <div className="font-serif font-bold text-sm text-[#FAF9F6]">
-                        {item.label} <span className="text-xs text-[#8A929D] font-normal font-sans">({item.hanja})</span>
+                        {item.label} <span className="text-[13px] text-[#8A929D] font-normal font-sans">({item.hanja})</span>
                       </div>
                       <div className="text-[13px] text-[#8A929D] font-serif mt-0.5">{item.desc}</div>
                     </div>
@@ -236,7 +236,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="pt-2 border-t border-[#3D382E]">
             <a
               href="tel:1588-0000"
-              className="w-full py-3 px-4 bg-[#19382C] border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center justify-center space-x-2 cursor-pointer hover:bg-[#2D4F43]"
+              className="w-full py-3 px-4 bg-[#19382C] border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-[13px] rounded-md flex items-center justify-center space-x-2 cursor-pointer hover:bg-[#2D4F43]"
             >
               <PhoneCall className="w-4 h-4 text-[#C2A26A]" />
               <span>24시간 장례지도사 직통 상담: 1588-0000 (무료)</span>

@@ -120,7 +120,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           <TraditionalSeal sealKey="mourningCondolence" size="sm" />
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-xs uppercase tracking-widest text-[#C2A26A] font-bold">
+              <span className="text-[13px] uppercase tracking-widest text-[#C2A26A] font-bold">
                 Bae-ung Altar TV Kiosk System
               </span>
               <span className="inline-flex items-center px-2 py-0.5 rounded text-[13px] bg-red-950/60 text-red-300 border border-red-800/50">
@@ -138,7 +138,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 음성 플레이어 제어 */}
           <button
             onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-            className={`px-3 py-1.5 rounded text-xs font-serif flex items-center space-x-1.5 border transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded text-[13px] font-serif flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isPlayingAudio
                 ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
                 : 'bg-white/5 text-[#8A929D] border-white/10 hover:bg-white/10'
@@ -161,7 +161,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 슬라이드쇼 재생/정지 */}
           <button
             onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 text-xs font-serif flex items-center space-x-1.5 border border-white/10 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 text-[13px] font-serif flex items-center space-x-1.5 border border-white/10 transition-colors cursor-pointer"
           >
             {isAutoPlay ? <Pause className="w-3.5 h-3.5 text-[#C2A26A]" /> : <Play className="w-3.5 h-3.5 text-[#C2A26A]" />}
             <span className="hidden sm:inline">{isAutoPlay ? '일시정지' : '자동재생'}</span>
@@ -171,7 +171,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {onOpenBooklet && (
             <button
               onClick={onOpenBooklet}
-              className="px-3 py-1.5 rounded bg-[#9E7D47]/20 hover:bg-[#9E7D47]/30 text-xs font-serif text-[#C2A26A] flex items-center space-x-1.5 border border-[#9E7D47]/40 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded bg-[#9E7D47]/20 hover:bg-[#9E7D47]/30 text-[13px] font-serif text-[#C2A26A] flex items-center space-x-1.5 border border-[#9E7D47]/40 transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span className="hidden md:inline">A4 평전 인쇄</span>
@@ -222,22 +222,22 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
 
             {/* 고인 함자 및 생몰년 */}
             <div className="text-center space-y-2">
-              <span className="text-xs text-[#8A929D] tracking-widest uppercase block">
+              <span className="text-[13px] text-[#8A929D] tracking-widest uppercase block">
                 永眠 · 至誠奉送
               </span>
               <h1 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight">
                 {setting.deceasedName}
               </h1>
-              <p className="text-xs text-[#C2A26A] font-medium">
+              <p className="text-[13px] text-[#C2A26A] font-medium">
                 {setting.birthDate} ~ {setting.deathDate} (향년 {setting.age || 88}세)
               </p>
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-xs italic text-[#8A929D] leading-relaxed">
+              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-[13px] italic text-[#8A929D] leading-relaxed">
                 {setting.motto || story.epitaph}
               </div>
             </div>
 
             {/* 빈소 및 발인 상세 정보 */}
-            <div className="bg-[#141618] rounded-xl p-4 border border-white/10 space-y-3 text-xs">
+            <div className="bg-[#141618] rounded-xl p-4 border border-white/10 space-y-3 text-[13px]">
               <div className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-[#C2A26A] shrink-0 mt-0.5" />
                 <div>
@@ -265,7 +265,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
             </div>
 
             {/* 상주 및 유가족 */}
-            <div className="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5 text-xs">
+            <div className="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5 text-[13px]">
               <span className="text-[#C2A26A] font-bold block text-[13px]">상주 및 유족 일동</span>
               <div className="flex flex-wrap gap-1.5 text-[#DCD6C9]">
                 {setting.chiefMourners.map((m, idx) => (
@@ -280,7 +280,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 좌측 하단 조문 계좌 */}
           <div className="pt-4 border-t border-white/10 text-center">
             <span className="text-[13px] text-[#8A929D] block">마음 전하실 곳 (비대면 조문)</span>
-            <p className="text-xs text-[#FAF9F6] font-mono font-bold mt-0.5">{setting.condolenceAccount}</p>
+            <p className="text-[13px] text-[#FAF9F6] font-mono font-bold mt-0.5">{setting.condolenceAccount}</p>
           </div>
         </aside>
 
@@ -312,16 +312,16 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
 
                 {/* 사진 연도 및 장소 배지 */}
                 <div className="absolute top-4 left-4 flex items-center space-x-2">
-                  <span className="px-3 py-1 bg-black/75 text-[#C2A26A] text-xs font-mono font-bold rounded-md border border-[#C2A26A]/50">
+                  <span className="px-3 py-1 bg-black/75 text-[#C2A26A] text-[13px] font-mono font-bold rounded-md border border-[#C2A26A]/50">
                     {currentPhoto.year}년
                   </span>
-                  <span className="px-3 py-1 bg-black/75 text-white/90 text-xs font-serif rounded-md border border-white/20">
+                  <span className="px-3 py-1 bg-black/75 text-white/90 text-[13px] font-serif rounded-md border border-white/20">
                     {currentPhoto.category}
                   </span>
                 </div>
 
                 {/* 사진 번호 인덱스 */}
-                <div className="absolute top-4 right-4 px-3 py-1 bg-black/75 text-xs text-[#8A929D] font-mono rounded-md border border-white/20">
+                <div className="absolute top-4 right-4 px-3 py-1 bg-black/75 text-[13px] text-[#8A929D] font-mono rounded-md border border-white/20">
                   {currentPhotoIdx + 1} / {lifePhotos.length}
                 </div>
 
@@ -330,7 +330,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                   <h3 className="text-lg md:text-xl font-reverence font-bold text-[#FAF9F6]">
                     {currentPhoto.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-[#8A929D] font-serif max-w-2xl mx-auto">
+                  <p className="text-[13px] md:text-sm text-[#8A929D] font-serif max-w-2xl mx-auto">
                     {currentPhoto.caption}
                   </p>
                 </div>
@@ -350,7 +350,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 하단: 실시간 썸네일 스트립 & 생전 육성 내레이션 바 */}
           <div className="relative z-10 space-y-4 pt-4 shrink-0">
             {/* 생전 육성 내레이션 바 */}
-            <div className="bg-[#141618]/90 backdrop-blur-md rounded-xl p-3 px-5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-serif">
+            <div className="bg-[#141618]/90 backdrop-blur-md rounded-xl p-3 px-5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] font-serif">
               <div className="flex items-center space-x-3">
                 <div className="w-7 h-7 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center border border-[#2D4F43] shrink-0">
                   <Volume2 className="w-3.5 h-3.5 animate-pulse" />
@@ -359,7 +359,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                   <span className="text-[#C2A26A] font-bold text-[13px] block">
                     생전 육성 회고 음성 송출 중 • {story.audioTribute.duration}
                   </span>
-                  <p className="text-[#FAF9F6] text-xs font-medium">
+                  <p className="text-[#FAF9F6] text-[13px] font-medium">
                     “{story.audioTribute.transcript.slice(0, 52)}...”
                   </p>
                 </div>

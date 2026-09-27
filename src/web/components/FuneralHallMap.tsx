@@ -86,7 +86,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
             <span>지도 제공: 구글</span>
           </div>
 
-          <div className="text-xs font-serif font-bold text-[#151719] truncate max-w-[180px] sm:max-w-xs">
+          <div className="text-[13px] font-serif font-bold text-[#151719] truncate max-w-[180px] sm:max-w-xs">
             {selectedHall ? (
               <span className="flex items-center space-x-1">
                 <MapPin className="w-3.5 h-3.5 text-[#8B2520] shrink-0 fill-[#8B2520]/20" />
@@ -99,7 +99,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
         </div>
 
         {/* 컨트롤 버튼 그룹: 줌 / 지도 모드 / 길찾기 */}
-        <div className="flex items-center space-x-1.5 text-xs font-serif">
+        <div className="flex items-center space-x-1.5 text-[13px] font-serif">
           {/* 일반 지도 / 위성 지도 토글 */}
           <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-[13px]">
             <button
@@ -215,7 +215,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
 
         {/* 선택 식장 플로팅 정보 배너 (Google 지도 좌측 상단 오버레이) */}
         {selectedHall && (
-          <div className="absolute top-2.5 left-2.5 max-w-[280px] sm:max-w-xs bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#DCD6C9] rounded-lg p-2.5 shadow-md text-xs font-serif space-y-1 pointer-events-auto">
+          <div className="absolute top-2.5 left-2.5 max-w-[280px] sm:max-w-xs bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#DCD6C9] rounded-lg p-2.5 shadow-md text-[13px] font-serif space-y-1 pointer-events-auto">
             <div className="flex items-center justify-between gap-1">
               <span className="font-bold text-[#151719] truncate">{selectedHall.name}</span>
               {selectedHall.isBaeungPartner && (

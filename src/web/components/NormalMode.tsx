@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall, CheckCircle2, HeartHandshake, Scale } from 'lucide-react';
 import { MainTab } from './Header.js';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
 import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
@@ -9,6 +9,8 @@ import { TraditionalSeal } from '../design-system/index.js';
 import { DualStandbyModal } from './DualStandbyModal.js';
 import { CancellationClaimModal } from './CancellationClaimModal.js';
 import { LossCreditVoucherModal } from './LossCreditVoucherModal.js';
+import { ProfessionalCareModal } from './ProfessionalCareModal.js';
+import { CareVertical } from '../../professional-care/index.js';
 import { SAMPLE_DUAL_STANDBY, DualStandbyService } from '../../quote-diagnostics/dualStandbyService.js';
 import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkData.js';
 import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
@@ -34,6 +36,10 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   const [isDualStandbyModalOpen, setIsDualStandbyModalOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
   const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false);
+
+  // 생전·유족 심리상담 & 상속 전문 변호사 부가 서비스 모달 상태
+  const [isCareModalOpen, setIsCareModalOpen] = useState(false);
+  const [careModalVertical, setCareModalVertical] = useState<CareVertical>('PSYCHOLOGY_CARE');
 
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
@@ -543,6 +549,68 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
+      {/* 4.5. [신규 부가 서비스] 생전 마음돌봄·유족 사별 애도 심리상담 & 상속·유산·채무방어 전문 변호사 상담 */}
+      <div className="bg-[#FAF9F6] border-2 border-[#19382C]/30 rounded-xl p-6 md:p-8 space-y-6 shadow-sm relative overflow-hidden">
+        {/* 살창 격자문 은은한 워터마크 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-xs font-serif font-bold border border-[#19382C]/20">
+              <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+              <span>전문가 연계 부가 서비스 · 변호사법 제34조 준수 (알선 수수료 0원)</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
+              마음의 치유부터 상속의 안심까지,<br className="hidden sm:inline" />
+              <span className="text-[#19382C]">공인 전문가 직통 상담</span>으로 지켜드립니다
+            </h3>
+            <p className="text-xs sm:text-sm text-[#42464E] font-serif leading-relaxed">
+              임종 전 불안과 사별 후 유족의 비탄을 치유하는 <b>국가공인 1급 심리상담</b>과
+              빚 대물림 방지(3개월 골든타임 한정승인) 및 유산 분할을 위한 <b>대한변협 등록 상속 전문 변호사</b>를
+              플랫폼 중개 수수료 없이 100% 무료 직통 디렉터리로 연결합니다.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-serif text-[#151719]">
+              <div className="flex items-center space-x-2 bg-[#FFFFFF] p-2.5 rounded-lg border border-[#E3DFD5]">
+                <HeartHandshake className="w-4 h-4 text-[#19382C] shrink-0" />
+                <div>
+                  <span className="font-bold block">생전 마음돌봄 & 유족 사별 애도상담</span>
+                  <span className="text-[11px] text-[#727782]">보건복지부 1급 정신건강임상심리사 정찰제</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 bg-[#FFFFFF] p-2.5 rounded-lg border border-[#E3DFD5]">
+                <Scale className="w-4 h-4 text-[#876937] shrink-0" />
+                <div>
+                  <span className="font-bold block">상속포기 3개월 골든타임 & 유산 분할</span>
+                  <span className="text-[11px] text-[#727782]">대한변협 등록 상속전문변호사 0원 직통</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+            <button
+              onClick={() => {
+                setCareModalVertical('PSYCHOLOGY_CARE');
+                setIsCareModalOpen(true);
+              }}
+              className="py-3 px-5 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-serif font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-xs transition-all cursor-pointer border border-[#2D5A46]"
+            >
+              <HeartHandshake className="w-4 h-4 text-[#C2A26A]" />
+              <span>🌿 전문 심리상담 (애도치유) 안내</span>
+            </button>
+            <button
+              onClick={() => {
+                setCareModalVertical('LEGAL_INHERITANCE');
+                setIsCareModalOpen(true);
+              }}
+              className="py-3 px-5 bg-[#FFFFFF] hover:bg-[#F3EFE6] text-[#19382C] border border-[#19382C]/30 active:scale-[0.99] rounded-xl font-serif font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer"
+            >
+              <Scale className="w-4 h-4 text-[#876937]" />
+              <span>⚖️ 상속 변호사 & 골든타임 계산기</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* 5. 하단 배웅 4대 의전 안심 헌장 */}
       <div className="bg-[#132B22] text-[#FAF9F6] rounded-xl p-8 md:p-12 text-center space-y-4 border border-[#2D5A46] shadow-sm relative overflow-hidden">
         {/* 전통 비단 금문 패턴 은은한 오버레이 */}
@@ -607,6 +675,13 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           }}
         />
       )}
+
+      {/* [부가 서비스 모달] 전문 심리상담 및 상속 변호사 안심 디렉터리 모달 */}
+      <ProfessionalCareModal
+        isOpen={isCareModalOpen}
+        initialVertical={careModalVertical}
+        onClose={() => setIsCareModalOpen(false)}
+      />
     </div>
   );
 };

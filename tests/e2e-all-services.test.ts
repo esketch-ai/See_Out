@@ -7,6 +7,7 @@ import { createObituaryFromSetting, DEFAULT_FUNERAL_SETTING, FuneralSetting } fr
 import { OptOutService } from '../src/compliance/index.js';
 import { AffiliateService } from '../src/affiliate-partners/index.js';
 import { B2BAdmissionService } from '../src/b2b/index.js';
+import { ProfessionalCareService } from '../src/professional-care/index.js';
 
 describe('🏛️ Full Platform End-to-End Service Audit (전체 서비스 통합 라이프사이클 종합 검증)', () => {
   // 1. 견적 진단 및 영수증 대조
@@ -175,5 +176,40 @@ describe('🏛️ Full Platform End-to-End Service Audit (전체 서비스 통�
     expect(app.monthlyAdFee).toBe(300_000);
     expect(app.commissionRate).toBe(0);
     expect(app.expectedRoiPercentage).toBeGreaterThanOrEqual(800);
+  });
+
+  // 9. 생전·유족 심리상담 & 상속 전문 변호사 0원 수수료 자문 서비스
+  it('9. 전문 케어 및 법률 자문: 변호사법 제34조(수수료 0원) 준수, 3개월 상속 골든타임 산출, 안심 예약이 정상 구동되어야 한다', () => {
+    // 9.1. 전체 공인 전문가 조회 및 변호사법 제34조 준수 검증
+    const professionals = ProfessionalCareService.getAllProfessionals();
+    expect(professionals.length).toBeGreaterThanOrEqual(6);
+    professionals.forEach(p => {
+      const compliance = ProfessionalCareService.verifyAttorneyLawAct34Compliance(p);
+      expect(compliance.isCompliant).toBe(true);
+      expect(p.platformReferralFee).toBe(0);
+    });
+
+    // 9.2. 상속포기/한정승인 3개월 골든타임 계산기 검증 (사망일: 2026-09-01, 기준일: 2026-09-20)
+    const deadlines = ProfessionalCareService.calculateInheritanceDeadlines('2026-09-01', '2026-09-20');
+    expect(deadlines.limitedAcceptanceDeadline).toBe('2026-12-01');
+    expect(deadlines.daysRemainingAcceptance).toBeGreaterThan(60);
+    expect(deadlines.estateTaxDeadline).toBe('2027-03-31');
+
+    // 9.3. 0원 수수료 직통 안심 예약 검증
+    const booking = ProfessionalCareService.bookConsultation({
+      clientName: '박지훈',
+      clientPhone: '010-8888-9999',
+      professionalId: 'law-inh-01',
+      targetCategory: 'ESTATE_DEBT_DEFENSE',
+      preferredDate: '2026-10-10',
+      memo: '한정승인 절차 및 상속재산 목록 작성 상담',
+      agreedToZeroCommission: true,
+      privacyAgreed: true
+    });
+
+    expect(booking.bookingId).toMatch(/^CARE-BK-\d{8}-\d{4}$/);
+    expect(booking.platformFeeCharged).toBe(0);
+    expect(booking.status).toBe('CONFIRMED');
+    expect(booking.virtualPhone).toBe('0507-1854-9301');
   });
 });

@@ -25,7 +25,9 @@ import {
   Key,
   X,
   Tv,
-  RefreshCw
+  RefreshCw,
+  HeartHandshake,
+  Scale
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import {
@@ -43,6 +45,8 @@ import {
 import { MemorialBookletModal } from './MemorialBookletModal.js';
 import { AltarKioskModal } from './AltarKioskModal.js';
 import { VoiceInterviewSection } from './VoiceInterviewSection.js';
+import { ProfessionalCareModal } from './ProfessionalCareModal.js';
+import { CareVertical } from '../../professional-care/index.js';
 
 interface LifeArchiveWidgetProps {
   funeralSetting?: FuneralSetting;
@@ -73,6 +77,10 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   const [isBookletModalOpen, setIsBookletModalOpen] = useState<boolean>(false);
   const [isAltarKioskOpen, setIsAltarKioskOpen] = useState<boolean>(false);
   const [copiedAccount, setCopiedAccount] = useState<boolean>(false);
+
+  // 생전·유족 심리상담 및 상속 전문 변호사 부가 자문 모달
+  const [isCareModalOpen, setIsCareModalOpen] = useState<boolean>(false);
+  const [careModalVertical, setCareModalVertical] = useState<CareVertical>('PSYCHOLOGY_CARE');
 
   // 연락처 그룹 필터
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
@@ -752,6 +760,47 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                 ))}
               </ul>
             </div>
+
+            {/* 생전 웰다잉 마음돌봄 & 사후 상속·유산 법률 연계 배너 */}
+            <div className="bg-[#FAF9F6] border border-[#19382C]/30 rounded-lg p-4 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-1.5 text-[11px] font-bold text-[#19382C]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>엔딩노트 전문 연계 · 변호사법 제34조 준수 (알선 수수료 0원)</span>
+                  </div>
+                  <h4 className="font-serif font-bold text-sm text-[#151719]">
+                    생전 마음돌봄 상담 및 유언공증·상속포기 3개월 골든타임 자문
+                  </h4>
+                  <p className="text-[11px] text-[#727782] leading-relaxed">
+                    임종 전 죽음 불안 완화 및 삶의 회고를 위한 <b>공인 심리상담</b>과, 고인의 유지를 합법적으로 보호하는 <b>상속 전문 변호사 직통 연결</b>을 무료로 지원합니다.
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-2 shrink-0">
+                  <button
+                    onClick={() => {
+                      setCareModalVertical('PSYCHOLOGY_CARE');
+                      setIsCareModalOpen(true);
+                    }}
+                    className="px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#F3EFE6] text-[#19382C] border border-[#19382C]/30 rounded-md text-xs font-serif font-bold flex items-center space-x-1 transition-colors cursor-pointer"
+                  >
+                    <HeartHandshake className="w-3.5 h-3.5 text-[#19382C]" />
+                    <span>마음돌봄 상담</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCareModalVertical('LEGAL_INHERITANCE');
+                      setIsCareModalOpen(true);
+                    }}
+                    className="px-3 py-1.5 bg-[#19382C] hover:bg-[#204738] text-white rounded-md text-xs font-serif font-bold flex items-center space-x-1 transition-colors cursor-pointer shadow-xs"
+                  >
+                    <Scale className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>상속 변호사 자문</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -941,6 +990,15 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }}
         />
       )}
+
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {/* 생전·유족 전문 심리상담 및 상속 전문 변호사 부가 자문 모달 */}
+      {/* ───────────────────────────────────────────────────────────────── */}
+      <ProfessionalCareModal
+        isOpen={isCareModalOpen}
+        initialVertical={careModalVertical}
+        onClose={() => setIsCareModalOpen(false)}
+      />
     </div>
   );
 };

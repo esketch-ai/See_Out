@@ -3,6 +3,8 @@ import {
   StandbyRegistration,
   LossProtectionVoucher
 } from './types.js';
+import { EmergencyDispatchEngine } from '../emergency/dispatchEngine.js';
+import { formatISODate } from '../utils/dateUtils.js';
 
 /**
  * 듀얼 스탠바이 (Dual-Standby) 및 손실 보전 바우처 관리 엔진
@@ -71,7 +73,7 @@ export class DualStandbyEngine {
       voucherCode,
       voucherAmount,
       issuedTo: req.registrantName.trim() || '신청 고객',
-      issuedAt: new Date().toISOString().slice(0, 10),
+      issuedAt: formatISODate(),
       validUntil: '영구 유효 (평생 보장)',
       isRedeemed: false,
       applicableBenefits: [
@@ -80,6 +82,13 @@ export class DualStandbyEngine {
         '유족 전용 한지 전통 고급 납골함 지원'
       ]
     };
+
+    // 신청 상조사/지역 정보 기반 관할 전담 지도사 매칭
+    const matchedDirector = EmergencyDispatchEngine.getDirectorForLocation({
+      location: req.existingCompany
+    });
+    const assignedDirectorName = `${matchedDirector.name} 수석 장례지도사 (국가공인 1급 ${matchedDirector.experienceYears}년 경력)`;
+    const assignedDirectorPhone = matchedDirector.directPhone;
 
     const registration: StandbyRegistration = {
       registrationId: regId,
@@ -91,9 +100,9 @@ export class DualStandbyEngine {
       existingProduct: req.existingProduct?.trim() || '상조 기본 상품',
       paidTotalAmount: paid,
       voucher,
-      assignedDirectorName: '조성우 수석 장례지도사 (국가공인 1급 34년 경력)',
-      assignedDirectorPhone: '010-8820-1588',
-      registeredAt: new Date().toISOString().slice(0, 10),
+      assignedDirectorName,
+      assignedDirectorPhone,
+      registeredAt: formatISODate(),
       status: 'ACTIVE'
     };
 

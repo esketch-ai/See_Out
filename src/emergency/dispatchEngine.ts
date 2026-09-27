@@ -150,9 +150,26 @@ export class EmergencyDispatchEngine {
   }
 
   /**
+   * 주소, 지역명 또는 키워드로부터 최적의 전담 지도사 조회
+   */
+  public static getDirectorForLocation(params?: {
+    location?: string;
+    region?: RegionCode | string;
+    preferredDirectorId?: string;
+  }): FuneralDirectorEntity {
+    if (params?.preferredDirectorId) {
+      const found = this.directors.find(d => d.id === params.preferredDirectorId);
+      if (found) return found;
+    }
+    const combined = `${params?.location || ''} ${params?.region || ''}`.trim();
+    const region = this.detectRegionFromText(combined);
+    return this.findBestDirector(region, combined);
+  }
+
+  /**
    * 지역 및 상세 위치에 따른 전담 지도사 배정
    */
-  private static findBestDirector(region: RegionCode, text: string): FuneralDirectorEntity {
+  public static findBestDirector(region: RegionCode, text: string = ''): FuneralDirectorEntity {
     const q = text.toLowerCase();
 
     // 서울 내 동/서 분기

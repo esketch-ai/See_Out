@@ -34,19 +34,19 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
 }) => {
   // 등록 완료 상태 여부 (기본값: true - 진단 결과로부터 즉시 발급)
   const [isIssued, setIsIssued] = useState<boolean>(true);
-  const [registrantName, setRegistrantName] = useState<string>(initialData.registrantName || '김정우');
-  const [registrantPhone, setRegistrantPhone] = useState<string>(initialData.registrantPhone || '010-3849-2910');
-  const [beneficiaryName, setBeneficiaryName] = useState<string>(initialData.beneficiaryName || '故 김철수 님');
-  const [relationship, setRelationship] = useState<string>(initialData.relationship || '부친(父)');
+  const [registrantName, setRegistrantName] = useState<string>(initialData.registrantName || '신청 유가족');
+  const [registrantPhone, setRegistrantPhone] = useState<string>(initialData.registrantPhone || '');
+  const [beneficiaryName, setBeneficiaryName] = useState<string>(initialData.beneficiaryName || '피공제자 (고인)');
+  const [relationship, setRelationship] = useState<string>(initialData.relationship || '가족');
 
-  const regId = initialData.registrationId || 'DS-2026-KR-8831';
-  const existingCompany = initialData.existingCompany || 'B상조 (보람상조)';
-  const existingProduct = initialData.existingProduct || '보람 프리미엄 450';
-  const paidTotalAmount = initialData.paidTotalAmount || 1_260_000;
-  const estimatedRefund = initialData.estimatedRefund || 453_600;
+  const regId = initialData.registrationId || 'DS-2026-KR-0001';
+  const existingCompany = initialData.existingCompany || '기존 가입 상조사';
+  const existingProduct = initialData.existingProduct || '표준 상조 상품';
+  const paidTotalAmount = initialData.paidTotalAmount || 1_200_000;
+  const estimatedRefund = initialData.estimatedRefund || 400_000;
   const lossProtectionCredit = initialData.lossProtectionCredit || 500_000;
-  const directorName = initialData.assignedDirectorName || '조성우 수석 장례지도사 (국가공인 1급 34년 경력)';
-  const directorPhone = initialData.assignedDirectorPhone || '010-8820-1588';
+  const directorName = initialData.assignedDirectorName || '배웅 전담 장례지도사 (국가공인 1급)';
+  const directorPhone = initialData.assignedDirectorPhone || '1588-0000';
 
   const handlePrint = () => {
     window.print();
@@ -123,7 +123,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C]" />
                   <span>사전 무약정 승인 완료 (보증 유효)</span>
                 </span>
-                <p className="text-[13px] text-[#5A5E66] mt-0.5">등록일: 2026년 09월 27일 • 선금 0원 / 위약금 0원</p>
+                <p className="text-[13px] text-[#5A5E66] mt-0.5">등록일: {initialData.registeredAt || '당일 발급'} • 선금 0원 / 위약금 0원</p>
               </div>
             </div>
 

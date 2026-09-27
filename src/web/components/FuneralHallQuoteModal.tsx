@@ -28,12 +28,16 @@ import { useModalA11y } from './ModalShell.js';
 interface FuneralHallQuoteModalProps {
   hall: FuneralHallEntity;
   initialType?: FuneralTypePreference;
+  initialApplicantName?: string;
+  initialApplicantPhone?: string;
   onClose: () => void;
 }
 
 export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
   hall,
   initialType = 'direct_cremation',
+  initialApplicantName = '',
+  initialApplicantPhone = '',
   onClose
 }) => {
   // 공용 셸과 동일한 모달 접근성 계약 (포커스 트랩 · ESC · aria-modal)
@@ -41,8 +45,8 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
   const [selectedType, setSelectedType] = useState<FuneralTypePreference>(
     initialType === 'all' ? 'direct_cremation' : initialType
   );
-  const [applicantName, setApplicantName] = useState('김정우');
-  const [applicantPhone, setApplicantPhone] = useState('010-3849-2910');
+  const [applicantName, setApplicantName] = useState(initialApplicantName);
+  const [applicantPhone, setApplicantPhone] = useState(initialApplicantPhone);
   const [copiedMemo, setCopiedMemo] = useState(false);
 
   // 선택된 장례 형태에 따른 정밀 견적서 생성
@@ -50,8 +54,8 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
     hallId: hall.id,
     funeralType: selectedType,
     stayDays: selectedType === 'direct_cremation' ? 0 : 2,
-    applicantName,
-    applicantPhone
+    applicantName: applicantName.trim() || undefined,
+    applicantPhone: applicantPhone.trim() || undefined
   });
 
   const handlePrint = () => {
@@ -104,7 +108,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
               className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#FAF9F6]/10 hover:bg-[#FAF9F6]/20 text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/10"
               title="상담 텍스트 복사"
             >
-              {copiedMemo ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+              {copiedMemo ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4" />}
               <span className="hidden sm:inline">{copiedMemo ? '복사 완료' : '견적 번호 복사'}</span>
             </button>
             <button
@@ -265,6 +269,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                       type="text"
                       value={applicantName}
                       onChange={(e) => setApplicantName(e.target.value)}
+                      placeholder="배웅 유가족"
                       className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[13px] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
                     />
                   </div>
@@ -274,6 +279,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                       type="text"
                       value={applicantPhone}
                       onChange={(e) => setApplicantPhone(e.target.value)}
+                      placeholder="010-0000-0000"
                       className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[13px] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
                     />
                   </div>
@@ -386,7 +392,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 onClick={handleCopyMemo}
                 className="flex-1 py-3.5 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#19382C] border-2 border-[#19382C] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer"
               >
-                {copiedMemo ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                {copiedMemo ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedMemo ? '복사 완료되었습니다' : '견적 번호 & 상담 메모 복사'}</span>
               </button>
 

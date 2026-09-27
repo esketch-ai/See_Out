@@ -478,7 +478,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                         className="p-1 hover:text-white transition-colors cursor-pointer shrink-0"
                         title="주소 복사"
                       >
-                        {copiedAddress ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedAddress ? <Check className="w-3.5 h-3.5 text-[#243F35]" /> : <Copy className="w-3.5 h-3.5" />}
                       </button>
                     </div>
                   </div>

@@ -84,7 +84,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
 
             {/* 중앙 타이틀 및 고인 사진 */}
             <div className="relative z-10 space-y-6 my-auto max-w-lg">
-              <div className="relative mx-auto w-36 h-44 rounded-lg overflow-hidden border-2 border-[#9E7D47]/70 shadow-md bg-gray-100">
+              <div className="relative mx-auto w-36 h-44 rounded-lg overflow-hidden border-2 border-[#9E7D47]/70 shadow-md bg-[#F1EDE3]">
                 <img
                   src="/images/life-story-book.jpg"
                   alt={story.deceasedName}
@@ -203,7 +203,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
                     key={pIdx}
                     className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg space-y-2"
                   >
-                    <div className="h-36 rounded overflow-hidden bg-gray-100 relative">
+                    <div className="h-36 rounded overflow-hidden bg-[#F1EDE3] relative">
                       <img
                         src="/images/life-archive.jpg"
                         alt={photo.title}

@@ -123,8 +123,8 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
               <span className="text-[13px] uppercase tracking-widest text-[#C2A26A] font-bold">
                 Bae-ung Altar TV Kiosk System
               </span>
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-[13px] bg-red-950/60 text-red-300 border border-red-800/50">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-1" />
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-[13px] bg-[#8B2520]/60 text-[#E08578] border border-[#731C18]/50">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D4665A] animate-pulse mr-1" />
                 빈소 현장 실시간 송출 중
               </span>
             </div>
@@ -190,7 +190,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 닫기 */}
           <button
             onClick={onClose}
-            className="p-2 rounded bg-white/5 hover:bg-red-900/40 text-[#8A929D] hover:text-white border border-white/10 transition-colors cursor-pointer"
+            className="p-2 rounded bg-white/5 hover:bg-[#731C18]/40 text-[#8A929D] hover:text-white border border-white/10 transition-colors cursor-pointer"
             title="닫기 (ESC)"
           >
             <X className="w-4 h-4" />

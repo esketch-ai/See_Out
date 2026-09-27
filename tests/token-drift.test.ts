@@ -223,4 +223,41 @@ describe('레거시 별칭 상태', () => {
     // 구 토큰 값이 index.html 에 남아 있으면 마이그레이션 대상
     expect(html).toContain('#F7F5F0');
   });
+
+  /**
+   * 네임드 팔레트 래치 — 토큰 색을 hex 로 적지 않고 Tailwind 이름으로 우회하는
+   * 경로를 막는다.
+   *
+   * ■ 이 테스트가 막는 회귀 (2026-09-27 실측)
+   *   팝업 전수 감사에서 AltarKioskModal 과 CancellationClaimModal 의 상태 배지가
+   *   `text-red-300` (#FCA5A5) 로 검출됐다. 44종 191건의 Tailwind 기본 팔레트
+   *   클래스가 코드에 남아 있었다.
+   *
+   * ■ 왜 기존 래치를 통과했나
+   *   위 테스트는 /#[0-9A-Fa-f]{6}/ 만 검사한다. `text-red-300` 은 6자리 hex 가
+   *   아니라서 검출 대상이 아니다. 즉 「팔레트밖 0건」 래치가 이름 기반 색을
+   *   통째로 놓치고 있었다. 화면을 실제로 열어서 computed color 를 재야만
+   *   드러나는 결함이었다.
+   */
+  it('정본 외 Tailwind 이름 팔레트 클래스가 없어야 한다', () => {
+    // 중립색(white/black/transparent)은 기능적 스크림·표면 용도이므로 허용한다.
+    const NAMED =
+      /(?<![\w-])(?:bg|text|border|from|to|via|ring|fill|stroke|decoration|divide|outline|accent|shadow)-(red|blue|green|yellow|orange|purple|pink|indigo|slate|gray|zinc|neutral|stone|amber|lime|emerald|sky|cyan|teal|violet|fuchsia|rose)-\d{2,3}\b/g;
+    const offenders: string[] = [];
+
+    for (const file of collectSourceFiles(SRC)) {
+      if (DEFINITION_FILES.some((d) => file.endsWith(d))) continue;
+      const src = readFileSync(file, 'utf8');
+      for (const m of src.matchAll(NAMED)) {
+        const line = src.slice(0, m.index).split('\n').length;
+        offenders.push(`${file.replace(process.cwd() + '/', '')}:${line} — ${m[0]}`);
+      }
+    }
+
+    expect(
+      offenders,
+      `정본 이름 팔레트 위반 ${offenders.length}건:\n  ${offenders.join('\n  ')}`
+    ).toEqual([]);
+  });
+
 });

@@ -499,7 +499,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               {/* 3대 모듈 실시간 동기화 상태 배너 */}
               <div className="bg-[#19382C] text-[#FAF9F6] rounded-lg p-3 px-4 border border-[#2D4F43] text-[13px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#2D4F43] animate-pulse shrink-0" />
                   <div>
                     <span className="font-bold text-[#C2A26A] block">전국 장례식장 & 정찰 패키지 1초 실시간 연계 중</span>
                     <span className="text-[13px] text-[#5A5E66]">

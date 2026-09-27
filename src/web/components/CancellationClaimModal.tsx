@@ -66,7 +66,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
 「할부거래에 관한 법률」 제34조 제2항 및 공정거래위원회 고시 제2020-1호 「선불식 할부계약의 해약환급금 산정기준」에 의거하여, 귀사는 본 통고서를 송달받은 날로부터 3영업일 이내에 위 법정 환급금을 상기 지정 계좌로 지급하여 주시기 바랍니다.
 만약 정당한 사유 없이 3영업일 이내에 환급금을 미지급할 경우, 동법 제34조 제3항에 의거 연 15%의 지연이자(지연배상금)가 가산 청구되며, 관할 공정거래위원회 및 한국소비자원에 정식 분쟁 조정과 과태료 처분을 신청할 것임을 엄중히 통지합니다.
 
-2026년 09월 27일
+${claimData.claimDate || '발송 당일'}
 발신인: ${claimantName} (인)`;
 
   const handleCopy = () => {
@@ -100,7 +100,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
           title={
             <>
               법정 해약환급금 지급 청구서 (내용증명 표준 서식){' '}
-              <span className="text-[13px] bg-red-950/60 text-red-300 px-2 py-0.5 rounded border border-red-800/50 align-middle">
+              <span className="text-[13px] bg-[#8B2520]/60 text-[#E08578] px-2 py-0.5 rounded border border-[#731C18]/50 align-middle">
                 공정위 고시 제2020-1호 준수
               </span>
             </>
@@ -114,7 +114,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             onClick={handleCopy}
             className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
           >
-            {copiedText ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
+            {copiedText ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
             <span>{copiedText ? '복사 완료' : '전문 텍스트 복사'}</span>
           </button>
           <button
@@ -297,7 +297,7 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
             {/* 날짜 및 발신인 서명 날인란 */}
             <div className="pt-6 text-center space-y-3">
               <p className="text-sm font-bold text-[#151719]">
-                2026년 09월 27일
+                {claimData.claimDate || '발송 당일'}
               </p>
               <div className="flex items-center justify-center space-x-2">
                 <span className="text-base font-reverence font-bold text-[#151719]">

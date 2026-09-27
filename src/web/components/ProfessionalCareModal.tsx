@@ -283,9 +283,9 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                     <div
                       className={`p-3.5 rounded-lg border flex items-center justify-between ${
                         inheritanceDeadlines.isAcceptanceExpired
-                          ? 'bg-red-50 border-red-300 text-red-900'
+                          ? 'bg-[#FAF9F6] border-[#D4665A] text-[#731C18]'
                           : inheritanceDeadlines.warningLevel === 'CRITICAL'
-                          ? 'bg-amber-50 border-amber-300 text-amber-900'
+                          ? 'bg-[#F1E9DB] border-[#C2A26A] text-[#6E5429]'
                           : 'bg-[#DCE8E2] border-[#DCE8E2] text-[#19382C]'
                       }`}
                     >
@@ -302,14 +302,14 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                       </div>
                       <div className="text-right">
                         {inheritanceDeadlines.isAcceptanceExpired ? (
-                          <span className="inline-block px-3 py-1 bg-red-600 text-white rounded font-mono font-bold text-[13px]">
+                          <span className="inline-block px-3 py-1 bg-[#8B2520] text-white rounded font-mono font-bold text-[13px]">
                             기한 경과 (특별한정승인 검토 필요)
                           </span>
                         ) : (
                           <span
                             className={`inline-block px-3 py-1 rounded font-mono font-black text-sm ${
                               inheritanceDeadlines.warningLevel === 'CRITICAL'
-                                ? 'bg-amber-600 text-white animate-pulse'
+                                ? 'bg-[#6E5429] text-white animate-pulse'
                                 : 'bg-[#19382C] text-white'
                             }`}
                           >
@@ -627,7 +627,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
               /* 신청 서식 작성 폼 */
               <form onSubmit={handleSubmitBooking} className="space-y-3.5 text-[13px]">
                 {errorMessage && (
-                  <div className="p-2.5 bg-red-50 border border-red-200 text-red-700 rounded-md text-[13px] flex items-center space-x-2">
+                  <div className="p-2.5 bg-[#FAF9F6] border border-[#D4665A]/40 text-[#8B2520] rounded-md text-[13px] flex items-center space-x-2">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -636,7 +636,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block font-bold text-[#151719] mb-1">
-                      의뢰인 성명 <span className="text-red-500">*</span>
+                      의뢰인 성명 <span className="text-[#D4665A]">*</span>
                     </label>
                     <input
                       type="text"
@@ -649,7 +649,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                   </div>
                   <div>
                     <label className="block font-bold text-[#151719] mb-1">
-                      연락처 (휴대전화) <span className="text-red-500">*</span>
+                      연락처 (휴대전화) <span className="text-[#D4665A]">*</span>
                     </label>
                     <input
                       type="tel"

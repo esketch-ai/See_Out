@@ -20,7 +20,15 @@ export const BENCHMARK_CERT_B_PREMIUM450: CertificateExtractionSchema = {
   paidTotalAmount: 1_260_000,
   remainingAmount: 3_240_000,
   hasMaturityRefund100: false,
-  confidenceScore: 0.98
+  confidenceScore: 0.98,
+  subscriberName: '김정우',
+  subscriberPhone: '010-3849-2910',
+  beneficiaryName: '故 김철수 님',
+  relationship: '부친(父)',
+  subscriberAddress: '서울특별시 송파구 올림픽로 300 (신천동)',
+  refundBank: '신한은행',
+  refundAccount: '110-384-291028',
+  refundHolder: '김정우'
 };
 
 /**
@@ -39,7 +47,15 @@ export const BENCHMARK_CERT_P_EVERGREEN590: CertificateExtractionSchema = {
   paidTotalAmount: 3_920_000,
   remainingAmount: 1_980_000,
   hasMaturityRefund100: false,
-  confidenceScore: 0.99
+  confidenceScore: 0.99,
+  subscriberName: '이수민',
+  subscriberPhone: '010-5219-4820',
+  beneficiaryName: '故 박영희 님',
+  relationship: '모친(母)',
+  subscriberAddress: '부산광역시 해운대구 센텀남대로 35',
+  refundBank: '국민은행',
+  refundAccount: '921-02-184920',
+  refundHolder: '이수민'
 };
 
 /**
@@ -58,5 +74,13 @@ export const BENCHMARK_CERT_H_SAFE480_MATURE: CertificateExtractionSchema = {
   paidTotalAmount: 4_800_000,
   remainingAmount: 0,
   hasMaturityRefund100: true,
-  confidenceScore: 0.97
+  confidenceScore: 0.97,
+  subscriberName: '최진호',
+  subscriberPhone: '010-9182-7731',
+  beneficiaryName: '故 강순자 님',
+  relationship: '모친(母)',
+  subscriberAddress: '경기도 성남시 분당구 판교역로 166',
+  refundBank: '하나은행',
+  refundAccount: '620-192840-102',
+  refundHolder: '최진호'
 };

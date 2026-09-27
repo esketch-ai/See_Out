@@ -20,6 +20,14 @@ export interface CertificateExtractionSchema {
   remainingAmount: number;           // 잔여 납입 예정액 (원, 예: 3,240,000)
   hasMaturityRefund100: boolean;     // 만기 시 100% 환급 특약 여부
   confidenceScore: number;           // OCR 신뢰도 (0.00 ~ 1.00)
+  subscriberName?: string;           // 가입자 / 신청인 성함 (예: "김정우")
+  subscriberPhone?: string;          // 가입자 연락처 (예: "010-3849-2910")
+  beneficiaryName?: string;          // 피공제자 (고인) 성함 (예: "김철수")
+  relationship?: string;             // 고인과의 관계 (예: "부친(父)")
+  subscriberAddress?: string;        // 가입자 소재지
+  refundBank?: string;               // 환급 수령 은행
+  refundAccount?: string;            // 환급 수령 계좌
+  refundHolder?: string;             // 환급 예금주
 }
 
 /**
@@ -149,6 +157,7 @@ export interface DualStandbyRegistration {
   lossProtectionCredit: number;      // 배웅 해약 손실 보전 크레딧 (최대 50만 원 상당)
   assignedDirectorName: string;      // 24시 전담 배정 장례지도사
   assignedDirectorPhone: string;     // 직통 번호
+  region?: string;                   // 관할 권역
   registeredAt: string;              // 사전 등록 일시
   status: 'active' | 'exercised' | 'converted';
 }

@@ -1146,15 +1146,16 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
       {isDualStandbyModalOpen && (
         <DualStandbyModal
           initialData={DualStandbyService.createRegistration({
-            registrantName: '김정우 (장남)',
-            registrantPhone: '010-3849-2910',
-            beneficiaryName: '故 김철수 님',
-            relationship: '부친(父)',
+            registrantName: report.certificate.subscriberName || '신청 유가족',
+            registrantPhone: report.certificate.subscriberPhone || '',
+            beneficiaryName: report.certificate.beneficiaryName || '피공제자 (고인)',
+            relationship: report.certificate.relationship || '가족',
             existingCompany: report.certificate.competitorName,
             existingProduct: report.certificate.productName,
             paidTotalAmount: report.certificate.paidTotalAmount,
             estimatedRefund: report.statutoryRefund.refundAmount,
-            lossAmount: report.statutoryRefund.lossAmount
+            lossAmount: report.statutoryRefund.lossAmount,
+            address: report.certificate.subscriberAddress
           })}
           onClose={() => setIsDualStandbyModalOpen(false)}
           onOpenCancellationClaim={() => {
@@ -1174,12 +1175,12 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           claimData={DualStandbyService.createCancellationClaim({
             cert: report.certificate,
             refund: report.statutoryRefund,
-            claimantName: '김정우',
-            claimantPhone: '010-3849-2910',
-            claimantAddress: '서울특별시 송파구 올림픽로 300 (신천동)',
-            refundBank: '신한은행',
-            refundAccount: '110-384-291028',
-            refundHolder: '김정우'
+            claimantName: report.certificate.subscriberName,
+            claimantPhone: report.certificate.subscriberPhone,
+            claimantAddress: report.certificate.subscriberAddress,
+            refundBank: report.certificate.refundBank,
+            refundAccount: report.certificate.refundAccount,
+            refundHolder: report.certificate.refundHolder
           })}
           onClose={() => setIsClaimModalOpen(false)}
         />

@@ -10,6 +10,7 @@ import {
   FUNERAL_HALLS_DATASET,
   REGIONAL_STATISTICS
 } from './funeralHallsDataset.js';
+import { formatKoreanDate, getRelativeKoreanDate } from '../utils/dateUtils.js';
 
 /**
  * 전국 장례식장 인프라 및 검색 서비스
@@ -195,7 +196,7 @@ export class FuneralHallService {
     const finalFacilityCost = facilitySubtotal - baeungDiscountAmount;
 
     const applicantName = params.applicantName?.trim() || '배웅 유가족';
-    const applicantPhone = params.applicantPhone?.trim() || '010-3849-2910';
+    const applicantPhone = params.applicantPhone?.trim() || '';
 
     return {
       referenceCode,
@@ -214,8 +215,8 @@ export class FuneralHallService {
       finalFacilityCost,
       applicantName,
       applicantPhone,
-      issuedAt: '2026년 09월 27일',
-      validUntil: '발급일로부터 30일간 보증',
+      issuedAt: formatKoreanDate(),
+      validUntil: `${getRelativeKoreanDate(30)}까지 (발급일로부터 30일간 보증)`,
       legalComplianceNote:
         '「독점규제 및 공정거래에 관한 법률」 및 공정거래위원회 2026.3 리베이트 제재 지침 준수 · 알선 수수료 0원 정찰 견적',
       counselingNotice:

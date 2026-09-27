@@ -158,7 +158,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
                   제{q.targetChapterNumber}장 • {q.category}
                 </span>
                 {isSaved && (
-                  <span className="text-[13px] text-green-400 font-normal flex items-center space-x-0.5">
+                  <span className="text-[13px] text-[#243F35] font-normal flex items-center space-x-0.5">
                     <BookmarkCheck className="w-3 h-3" />
                     <span>저장완료</span>
                   </span>
@@ -203,13 +203,13 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
         <div className="p-6 bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl flex flex-col items-center justify-center text-center space-y-4">
           <div className="relative">
             {isRecording && (
-              <span className="absolute -inset-3 rounded-full bg-red-500/20 animate-ping pointer-events-none" />
+              <span className="absolute -inset-3 rounded-full bg-[#8B2520]/20 animate-ping pointer-events-none" />
             )}
             <button
               onClick={toggleRecording}
               className={`w-20 h-20 rounded-full flex flex-col items-center justify-center shadow-lg transition-all cursor-pointer border-2 ${
                 isRecording
-                  ? 'bg-red-700 border-red-500 text-white animate-pulse'
+                  ? 'bg-[#731C18] border-[#8B2520] text-white animate-pulse'
                   : 'bg-[#19382C] border-[#2D4F43] text-[#FAF9F6] hover:bg-[#2D4F43]'
               }`}
             >
@@ -221,7 +221,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             <div className="text-sm font-bold text-[#151719] flex items-center justify-center space-x-2">
               <span>{isRecording ? '어르신 음성을 경청하고 있습니다...' : '마이크를 누르고 편안히 말씀해 주세요'}</span>
               {isRecording && (
-                <span className="text-[13px] font-mono text-red-600 font-bold">
+                <span className="text-[13px] font-mono text-[#D4665A] font-bold">
                   {String(Math.floor(recordingSeconds / 60)).padStart(2, '0')}:
                   {String(recordingSeconds % 60).padStart(2, '0')}
                 </span>
@@ -240,7 +240,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
               {[40, 70, 95, 60, 85, 100, 45, 90, 75, 50, 80, 65].map((h, i) => (
                 <span
                   key={i}
-                  className="w-1.5 bg-red-600 rounded-full animate-bounce"
+                  className="w-1.5 bg-[#8B2520] rounded-full animate-bounce"
                   style={{
                     height: `${h}%`,
                     animationDuration: `${0.6 + (i % 4) * 0.2}s`

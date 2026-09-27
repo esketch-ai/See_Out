@@ -4,6 +4,7 @@ import {
   PartnerPerformanceReport
 } from './types.js';
 import { VirtualCallBridgeService } from './virtualCallService.js';
+import { getCurrentMonthPeriod, getCurrentYearMonth } from '../utils/dateUtils.js';
 
 /**
  * 4단계 효과 측정 퍼널 및 데이터-과금 분리 엔진
@@ -51,8 +52,10 @@ export class FunnelMeasurementEngine {
   public static generatePartnerReport(
     hallId: string,
     hallName: string,
-    period: string = '2026년 09월 01일 ~ 09월 27일'
+    period?: string
   ): PartnerPerformanceReport {
+    const reportingPeriod = period || getCurrentMonthPeriod();
+    const ym = getCurrentYearMonth();
     const base = this.baselineMetrics.get(hallId) || {
       impressions: 450,
       engagements: 120,
@@ -79,13 +82,13 @@ export class FunnelMeasurementEngine {
     const callConnectRate = Math.round((substantialCalls / Math.max(1, contactAttempts)) * 1000) / 10;
     const quoteConversionRate = Math.round((quoteReferencesIssued / Math.max(1, engagements)) * 1000) / 10;
 
-    const reportId = `REP-2026-09-${hallId.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 10)}`;
+    const reportId = `REP-${ym}-${hallId.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 10)}`;
 
     return {
       reportId,
       hallId,
       hallName,
-      reportingPeriod: period,
+      reportingPeriod,
       impressions,
       engagements,
       contactAttempts,

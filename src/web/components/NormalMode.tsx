@@ -217,7 +217,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             onClick={() => onSelectTab('quote')}
             className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-gray-100">
+            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
               <img
                 src="/images/escort-ceremony.jpg"
                 alt="정중한 의전 지도사 예우"
@@ -253,7 +253,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             onClick={() => onSelectTab('funeral-halls')}
             className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-gray-100">
+            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
               <img
                 src="/images/memorial-altar.jpg"
                 alt="정갈한 장례식장 제단 꽃장식"
@@ -289,7 +289,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             onClick={() => onSelectTab('packages')}
             className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-gray-100">
+            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
               <img
                 src="/images/hero-memorial.jpg"
                 alt="정직 원가 의전 용품"
@@ -325,7 +325,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             onClick={() => onSelectTab('life-archive')}
             className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-gray-100">
+            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
               <img
                 src="/images/life-archive.jpg"
                 alt="소중한 삶의 기억과 훈장, 옛 사진"
@@ -656,12 +656,12 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           claimData={DualStandbyService.createCancellationClaim({
             cert: BENCHMARK_CERT_B_PREMIUM450,
             refund: StatutoryRefundCalculator.calculateRefund(BENCHMARK_CERT_B_PREMIUM450),
-            claimantName: '김정우',
-            claimantPhone: '010-3849-2910',
-            claimantAddress: '서울특별시 송파구 올림픽로 300 (신천동)',
-            refundBank: '신한은행',
-            refundAccount: '110-384-291028',
-            refundHolder: '김정우'
+            claimantName: BENCHMARK_CERT_B_PREMIUM450.subscriberName,
+            claimantPhone: BENCHMARK_CERT_B_PREMIUM450.subscriberPhone,
+            claimantAddress: BENCHMARK_CERT_B_PREMIUM450.subscriberAddress,
+            refundBank: BENCHMARK_CERT_B_PREMIUM450.refundBank,
+            refundAccount: BENCHMARK_CERT_B_PREMIUM450.refundAccount,
+            refundHolder: BENCHMARK_CERT_B_PREMIUM450.refundHolder
           })}
           onClose={() => setIsClaimModalOpen(false)}
         />

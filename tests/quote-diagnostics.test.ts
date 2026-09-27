@@ -151,8 +151,8 @@ describe('DualStandbyService (듀얼 스탠바이 및 공정위 내용증명 서
     expect(reg.status).toBe('active');
     expect(reg.lossProtectionCredit).toBeLessThanOrEqual(500_000);
     expect(reg.lossProtectionCredit).toBeGreaterThanOrEqual(200_000);
-    expect(reg.assignedDirectorName).toContain('조성우');
-    expect(reg.assignedDirectorPhone).toBe('010-8820-1588');
+    expect(reg.assignedDirectorName).toContain('수석 장례지도사');
+    expect(reg.assignedDirectorPhone).toMatch(/^010-\d{4}-\d{4}$/);
   });
 
   it('손실액이 매우 큰 경우에도 최대 보전 크레딧 한도인 50만 원을 초과하지 않아야 한다', () => {

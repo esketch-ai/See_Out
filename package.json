@@ -12,6 +12,7 @@
     "dev": "vite",
     "build:web": "vite build",
     "preview": "vite preview",
+    "deploy": "node scripts/deploy-gh-pages.js",
     "build": "tsc"
   },
   "devDependencies": {

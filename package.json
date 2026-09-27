@@ -9,6 +9,7 @@
     "themis:search": "node -e 'import(\"./tools/themis-ai/build/para/manager.js\").then(async m => console.log(await m.searchParaDocs(process.argv[1])))]'",
     "test": "vitest run",
     "demo:diagnostics": "npx tsx src/demo.ts",
+    "sync:ehaneul": "npx tsx scripts/sync-ehaneul.ts",
     "dev": "vite",
     "build:web": "vite build",
     "preview": "vite preview",

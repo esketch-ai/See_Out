@@ -173,7 +173,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                 • 실제 임종 발생 시 배웅 1급 장례지도사에게 기존 상조 해약 증빙(해약 통지서, 문자, 또는 입금 내역)을 제시해 주시면 최종 정산서에서 위 3대 혜택 금액(총 50만 원)이 즉시 차감 반영됩니다.
               </p>
               <p className="text-[11px] text-[#A69E8F]">
-                • 본 바우처는 배웅 듀얼 스탠바이 사전 등록 회원 전용 혜택이며, 타인 양도가 가능합니다.
+                • 본 바우처는 배웅 이중안심(二重安心) 사전 등록 고객 전용 혜택이며, 타인 양도가 가능합니다.
               </p>
             </div>
 
@@ -187,14 +187,14 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
             </div>
           </div>
 
-          {/* 하단 듀얼 스탠바이 증서 보기 바로가기 */}
+          {/* 하단 이중안심 등록증 보기 바로가기 */}
           {onOpenDualStandby && (
             <div className="no-print pt-2 flex justify-end">
               <button
                 onClick={onOpenDualStandby}
                 className="py-2.5 px-4 bg-[#19382C] hover:bg-[#224A3B] text-[#FAF9F6] border border-[#2D5A46] rounded-lg font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
-                <span>듀얼 스탠바이 정식 등록증 보기</span>
+                <span>이중안심 사전등록증 보기</span>
                 <ArrowRight className="w-4 h-4 text-[#C2A26A]" />
               </button>
             </div>

@@ -353,7 +353,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
-      {/* 3.5. [옵션 2 특화] 배웅 듀얼 스탠바이 (Dual-Standby) 사전 무약정 등록 퀵 런처 배너 */}
+      {/* 3.5. [옵션 2 특화] 배웅 이중안심(二重安心) 사전등록 (기존 상조 그대로 0원 대비) 퀵 런처 배너 */}
       <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 sm:p-8 space-y-6 shadow-sm relative overflow-hidden">
         {/* 한옥 살창 격자문 은은한 워터마크 */}
         <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
@@ -362,14 +362,14 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-xs font-serif font-bold border border-[#19382C]/20">
               <ShieldCheck className="w-4 h-4 text-[#19382C]" />
-              <span>기존 상조 가입 고객 전용 · 사전 무약정 0원</span>
+              <span>기존 상조 유지 고객 전용 · 사전 비용 0원 안심 대비</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
               기존 상조 해약 걱정 없이,<br className="hidden sm:inline" />
-              <span className="text-[#19382C]">배웅 듀얼 스탠바이 (비용 0원)</span>로 안심을 더하세요
+              <span className="text-[#19382C]">배웅 『이중 안심 사전등록 (二重安心)』</span>으로 하나 더 준비하세요
             </h3>
             <p className="text-xs sm:text-sm text-[#42464E] font-serif leading-relaxed">
-              기존 선불식 상조는 해약하지 않고 그대로 두십시오. 위급한 순간 1초 만에 최적의 의전을 선택할 수 있는 <b>우선 출동권</b>과 <b>50만 원 상당의 해약 손실 보전 바우처</b>를 지금 즉시 0원에 확보해 드립니다.
+              이미 가입하신 상조는 해약하지 마시고 그대로 두십시오. 위급한 순간 1초 만에 더 유리한 의전을 선택할 수 있도록 <b>비상 우선 출동권</b>과 <b>50만 원 상당의 해약 손실 보전 지원권</b>을 지금 즉시 0원에 하나 더 마련해 드립니다.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 text-xs font-serif text-[#151719]">
               <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#E3DFD5]">
@@ -382,7 +382,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               </div>
               <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#E3DFD5]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="truncate">50만 원 보전 바우처</span>
+                <span className="truncate">50만 원 손실보전 지원권</span>
               </div>
             </div>
           </div>
@@ -393,7 +393,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               className="py-3.5 px-6 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-reverence font-bold text-sm sm:text-base flex items-center justify-center space-x-2 shadow-md transition-all cursor-pointer border border-[#2D5A46]"
             >
               <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
-              <span>🛡️ 듀얼 스탠바이 등록증 발급</span>
+              <span>🛡️ 이중안심 사전등록증 발급 (0원)</span>
             </button>
             <button
               onClick={() => onSelectTab('quote')}

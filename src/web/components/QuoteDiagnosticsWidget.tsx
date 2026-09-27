@@ -953,7 +953,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           </p>
         </div>
 
-        {/* 6.5. [옵션 2 핵심] 3중 소비자 권익 보호 & 듀얼 스탠바이 실천 조치 */}
+        {/* 6.5. [옵션 2 핵심] 3중 소비자 권익 보호 & 이중안심(二重安心) 사전 대비 조치 */}
         <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 md:p-8 space-y-6 shadow-sm relative overflow-hidden">
           {/* 한옥 살창 격자문 은은한 워터마크 */}
           <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
@@ -980,7 +980,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
 
             {/* 3대 실천 액션 카드 그리드 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-              {/* 1. 듀얼 스탠바이 사전 안심 등록증 */}
+              {/* 1. 이중안심(二重安心) 사전 등록증 */}
               <div className="bg-[#FFFFFF] border-2 border-[#19382C]/30 hover:border-[#19382C] rounded-xl p-5 flex flex-col justify-between space-y-4 transition-all hover:shadow-md group">
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
@@ -990,15 +990,15 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                     <ShieldCheck className="w-5 h-5 text-[#19382C]" />
                   </div>
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417] group-hover:text-[#19382C] transition-colors">
-                    듀얼 스탠바이 사전 무약정 등록증
+                    이중안심(二重安心) 사전 등록증
                   </h4>
                   <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
-                    기존 상조를 해약하지 않고 그대로 유지한 채, 위급 시 배웅 우선 출동권과 실비 할인권을 <b>0원</b>에 확보합니다.
+                    기존 상조를 해약하지 않고 그대로 두신 채, 위급 시 더 유리한 곳을 선택할 수 있도록 <b>비용 0원</b>으로 배웅을 비상용으로 하나 더 등록해 둡니다.
                   </p>
                   <ul className="text-[11px] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#ECE8E0]">
                     <li className="flex items-center space-x-1.5">
                       <span className="text-[#19382C] font-bold">✓</span>
-                      <span>위급 시 상조 vs 배웅 1초 양자택일</span>
+                      <span>위급 시 기존 상조 vs 배웅 1초 선택</span>
                     </li>
                     <li className="flex items-center space-x-1.5">
                       <span className="text-[#19382C] font-bold">✓</span>
@@ -1011,7 +1011,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   onClick={() => setIsDualStandbyModalOpen(true)}
                   className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs md:text-sm flex items-center justify-center space-x-1.5 shadow-xs transition-all cursor-pointer border border-[#2D5A46]"
                 >
-                  <span>🛡️ 안심 등록증 즉시 발급</span>
+                  <span>🛡️ 이중안심 등록증 발급 (0원)</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#C2A26A]" />
                 </button>
               </div>

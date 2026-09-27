@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall } from 'lucide-react';
+import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall, CheckCircle2 } from 'lucide-react';
 import { MainTab } from './Header.js';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
 import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
 import { LifeArchiveWidget } from './LifeArchiveWidget.js';
 import { PackagePricingWidget } from './PackagePricingWidget.js';
 import { TraditionalSeal } from '../design-system/index.js';
+import { DualStandbyModal } from './DualStandbyModal.js';
+import { CancellationClaimModal } from './CancellationClaimModal.js';
+import { LossCreditVoucherModal } from './LossCreditVoucherModal.js';
+import { SAMPLE_DUAL_STANDBY, DualStandbyService } from '../../quote-diagnostics/dualStandbyService.js';
+import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkData.js';
+import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 
@@ -22,6 +28,11 @@ export const NormalMode: React.FC<NormalModeProps> = ({
 }) => {
   // 3대 모듈(전국 장례식장, 정찰 패키지, 생애기록관) 간 실시간 동기화 상태
   const [funeralSetting, setFuneralSetting] = useState<FuneralSetting>(DEFAULT_FUNERAL_SETTING);
+
+  // 듀얼 스탠바이 & 소비자 권익 보호 모달 상태
+  const [isDualStandbyModalOpen, setIsDualStandbyModalOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false);
 
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
@@ -326,6 +337,59 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
+      {/* 3.5. [옵션 2 특화] 배웅 듀얼 스탠바이 (Dual-Standby) 사전 무약정 등록 퀵 런처 배너 */}
+      <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 sm:p-8 space-y-6 shadow-sm relative overflow-hidden">
+        {/* 한옥 살창 격자문 은은한 워터마크 */}
+        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+        
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-xs font-serif font-bold border border-[#19382C]/20">
+              <ShieldCheck className="w-4 h-4 text-[#19382C]" />
+              <span>기존 상조 가입 고객 전용 · 사전 무약정 0원</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
+              기존 상조 해약 걱정 없이,<br className="hidden sm:inline" />
+              <span className="text-[#19382C]">배웅 듀얼 스탠바이 (비용 0원)</span>로 안심을 더하세요
+            </h3>
+            <p className="text-xs sm:text-sm text-[#42464E] font-serif leading-relaxed">
+              기존 선불식 상조는 해약하지 않고 그대로 두십시오. 위급한 순간 1초 만에 최적의 의전을 선택할 수 있는 <b>우선 출동권</b>과 <b>50만 원 상당의 해약 손실 보전 바우처</b>를 지금 즉시 0원에 확보해 드립니다.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 text-xs font-serif text-[#151719]">
+              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#E3DFD5]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
+                <span className="truncate">사전 약정금 0원</span>
+              </div>
+              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#E3DFD5]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
+                <span className="truncate">24시 전담 지도사 배정</span>
+              </div>
+              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#E3DFD5]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
+                <span className="truncate">50만 원 보전 바우처</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+            <button
+              onClick={() => setIsDualStandbyModalOpen(true)}
+              className="py-3.5 px-6 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-reverence font-bold text-sm sm:text-base flex items-center justify-center space-x-2 shadow-md transition-all cursor-pointer border border-[#2D5A46]"
+            >
+              <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
+              <span>🛡️ 듀얼 스탠바이 등록증 발급</span>
+            </button>
+            <button
+              onClick={() => onSelectTab('quote')}
+              className="py-3.5 px-6 bg-[#FFFFFF] hover:bg-[#F3EFE6] text-[#19382C] border border-[#19382C]/30 active:scale-[0.99] rounded-xl font-serif font-bold text-sm sm:text-base flex items-center justify-center space-x-2 transition-all cursor-pointer"
+            >
+              <span>📊 내 상조 증서 1:1 원가 진단</span>
+              <ArrowRight className="w-4 h-4 text-[#19382C]" />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* 4. [신규 이정환 박사·조성우 수석 감수] 전통 3일장 상장례(喪葬禮) 3폭 병풍(屛風) 정례 절차도 */}
       <div className="bg-[#FFFFFF] border border-[#E3DFD5] rounded-xl p-6 md:p-9 space-y-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3DFD5] pb-4">
@@ -487,6 +551,52 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           </p>
         </div>
       </div>
+
+      {/* [옵션 2 모달 1] 듀얼 스탠바이 사전 안심 등록증 모달 */}
+      {isDualStandbyModalOpen && (
+        <DualStandbyModal
+          initialData={SAMPLE_DUAL_STANDBY}
+          onClose={() => setIsDualStandbyModalOpen(false)}
+          onOpenCancellationClaim={() => {
+            setIsDualStandbyModalOpen(false);
+            setIsClaimModalOpen(true);
+          }}
+          onOpenVoucherModal={() => {
+            setIsDualStandbyModalOpen(false);
+            setIsVoucherModalOpen(true);
+          }}
+        />
+      )}
+
+      {/* [옵션 2 모달 2] 공정위 법정 해약환급금 내용증명 모달 */}
+      {isClaimModalOpen && (
+        <CancellationClaimModal
+          claimData={DualStandbyService.createCancellationClaim({
+            cert: BENCHMARK_CERT_B_PREMIUM450,
+            refund: StatutoryRefundCalculator.calculateRefund(BENCHMARK_CERT_B_PREMIUM450),
+            claimantName: '김정우',
+            claimantPhone: '010-3849-2910',
+            claimantAddress: '서울특별시 송파구 올림픽로 300 (신천동)',
+            refundBank: '신한은행',
+            refundAccount: '110-384-291028',
+            refundHolder: '김정우'
+          })}
+          onClose={() => setIsClaimModalOpen(false)}
+        />
+      )}
+
+      {/* [옵션 2 모달 3] 해약 손실 보전 바우처 모달 */}
+      {isVoucherModalOpen && (
+        <LossCreditVoucherModal
+          creditAmount={500_000}
+          existingCompany="B상조 (보람상조)"
+          onClose={() => setIsVoucherModalOpen(false)}
+          onOpenDualStandby={() => {
+            setIsVoucherModalOpen(false);
+            setIsDualStandbyModalOpen(true);
+          }}
+        />
+      )}
     </div>
   );
 };

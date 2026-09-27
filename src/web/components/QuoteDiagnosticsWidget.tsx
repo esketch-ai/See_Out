@@ -26,8 +26,15 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
-  ArrowRight
+  ArrowRight,
+  FileText,
+  Gift,
+  Scale
 } from 'lucide-react';
+import { DualStandbyModal } from './DualStandbyModal.js';
+import { CancellationClaimModal } from './CancellationClaimModal.js';
+import { LossCreditVoucherModal } from './LossCreditVoucherModal.js';
+import { DualStandbyService } from '../../quote-diagnostics/dualStandbyService.js';
 
 export const QuoteDiagnosticsWidget: React.FC = () => {
   // 프리셋 선택 상태
@@ -35,6 +42,11 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
   
   // 비교 관점 기준 상태 ('future_cash': 앞으로 지갑에서 더 나갈 돈 기준 | 'total_all_time': 과거 납입금 포함 전체 총비용)
   const [comparisonPerspective, setComparisonPerspective] = useState<'future_cash' | 'total_all_time'>('future_cash');
+
+  // 듀얼 스탠바이 & 소비자 권익 보호 3대 모달 상태
+  const [isDualStandbyModalOpen, setIsDualStandbyModalOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false);
 
   // FAQ 아코디언 열림 상태
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -940,6 +952,144 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             기존 상품을 해약하고 환급금을 받더라도, 배웅의 정찰제 실비를 이용하시는 것이 최종적으로 {report.summary.netSavingsAmount.toLocaleString()}원 더 정직하고 유리합니다.
           </p>
         </div>
+
+        {/* 6.5. [옵션 2 핵심] 3중 소비자 권익 보호 & 듀얼 스탠바이 실천 조치 */}
+        <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 md:p-8 space-y-6 shadow-sm relative overflow-hidden">
+          {/* 한옥 살창 격자문 은은한 워터마크 */}
+          <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+          
+          <div className="relative z-10 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3DFD5] pb-4">
+              <div>
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-xs font-serif font-bold mb-1 border border-[#19382C]/20">
+                  <ShieldCheck className="w-4 h-4 text-[#19382C]" />
+                  <span>지금 섣불리 해약하지 마십시오 · 배웅 3중 안심 보장제</span>
+                </div>
+                <h3 className="font-reverence font-bold text-xl md:text-2xl text-[#121417] tracking-tight">
+                  유가족의 권리를 완벽히 지키는 3대 공식 실천 조치
+                </h3>
+                <p className="text-xs sm:text-sm text-[#5C6166] font-serif mt-1">
+                  기존 상조는 그대로 둔 채 <b>비용 0원</b>으로 권리를 확보하고, 해약 결정 시 법정 환급금과 위약금 손실을 100% 보전받으세요.
+                </p>
+              </div>
+              <div className="shrink-0 bg-[#0E1E18] text-[#C2A26A] px-3.5 py-1.5 rounded-lg text-xs font-serif font-bold border border-[#2D5A46] text-center">
+                ✓ 위약금 손실 0원 실현<br />
+                <span className="text-[11px] text-[#FAF9F6] font-normal">비용 0원 무약정 보장</span>
+              </div>
+            </div>
+
+            {/* 3대 실천 액션 카드 그리드 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+              {/* 1. 듀얼 스탠바이 사전 안심 등록증 */}
+              <div className="bg-[#FFFFFF] border-2 border-[#19382C]/30 hover:border-[#19382C] rounded-xl p-5 flex flex-col justify-between space-y-4 transition-all hover:shadow-md group">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded">
+                      조치 1 · 비용 0원
+                    </span>
+                    <ShieldCheck className="w-5 h-5 text-[#19382C]" />
+                  </div>
+                  <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417] group-hover:text-[#19382C] transition-colors">
+                    듀얼 스탠바이 사전 무약정 등록증
+                  </h4>
+                  <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
+                    기존 상조를 해약하지 않고 그대로 유지한 채, 위급 시 배웅 우선 출동권과 실비 할인권을 <b>0원</b>에 확보합니다.
+                  </p>
+                  <ul className="text-[11px] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#ECE8E0]">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#19382C] font-bold">✓</span>
+                      <span>위급 시 상조 vs 배웅 1초 양자택일</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#19382C] font-bold">✓</span>
+                      <span>24시간 전담 지도사 직통 핫라인</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => setIsDualStandbyModalOpen(true)}
+                  className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#204738] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs md:text-sm flex items-center justify-center space-x-1.5 shadow-xs transition-all cursor-pointer border border-[#2D5A46]"
+                >
+                  <span>🛡️ 안심 등록증 즉시 발급</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C2A26A]" />
+                </button>
+              </div>
+
+              {/* 2. 공정위 법정 해약환급금 내용증명 신청서 */}
+              <div className="bg-[#FFFFFF] border-2 border-[#8B2520]/30 hover:border-[#8B2520] rounded-xl p-5 flex flex-col justify-between space-y-4 transition-all hover:shadow-md group">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-serif font-bold text-[#8B2520] bg-[#8B2520]/10 px-2 py-0.5 rounded">
+                      조치 2 · 법적 권리
+                    </span>
+                    <Scale className="w-5 h-5 text-[#8B2520]" />
+                  </div>
+                  <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417] group-hover:text-[#8B2520] transition-colors">
+                    공정위 법정 해약환급금 내용증명 청구서
+                  </h4>
+                  <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
+                    상조사의 핑계나 환급 지연을 원천 차단하기 위해 <b>공정거래위원회 고시 제2020-1호</b> 기준 정식 법적 청구서를 자동 생성합니다.
+                  </p>
+                  <ul className="text-[11px] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#ECE8E0]">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#8B2520] font-bold">✓</span>
+                      <span>3영업일 내 강제 입금 및 15% 지연이자 명시</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#8B2520] font-bold">✓</span>
+                      <span>보람/프리드/현대 법인 대표 주소 자동 매칭</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => setIsClaimModalOpen(true)}
+                  className="w-full py-2.5 px-3 bg-[#8B2520] hover:bg-[#731F1B] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs md:text-sm flex items-center justify-center space-x-1.5 shadow-xs transition-all cursor-pointer border border-[#A63630]"
+                >
+                  <span>📜 내용증명 청구서 자동 생성</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#FAF9F6]" />
+                </button>
+              </div>
+
+              {/* 3. 50만 원 해약 손실 보전 크레딧 바우처 */}
+              <div className="bg-[#FFFFFF] border-2 border-[#9E7D47]/30 hover:border-[#9E7D47] rounded-xl p-5 flex flex-col justify-between space-y-4 transition-all hover:shadow-md group">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-serif font-bold text-[#876937] bg-[#F8F5EE] px-2 py-0.5 rounded border border-[#E4D5BC]">
+                      조치 3 · 100% 손실 보전
+                    </span>
+                    <Gift className="w-5 h-5 text-[#9E7D47]" />
+                  </div>
+                  <h4 className="font-reverence font-bold text-base md:text-lg text-[#121417] group-hover:text-[#876937] transition-colors">
+                    50만 원 해약 손실 보전 크레딧 바우처
+                  </h4>
+                  <p className="text-xs text-[#5C6166] font-serif leading-relaxed">
+                    상조 해약으로 발생한 위약금 손실을 배웅이 의전 필수 품목 3대 패키지(꽃침대, 리무진, 각인)로 <b>100% 현물 보전</b>해 드립니다.
+                  </p>
+                  <ul className="text-[11px] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#ECE8E0]">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#9E7D47] font-bold">✓</span>
+                      <span>생화 꽃구름 침대(30만) + 리무진 연장(15만)</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="text-[#9E7D47] font-bold">✓</span>
+                      <span>고급 유골함 영구 금박 각인(5만 원)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => setIsVoucherModalOpen(true)}
+                  className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#876937] border-2 border-[#9E7D47] active:scale-[0.99] rounded-lg font-reverence font-bold text-xs md:text-sm flex items-center justify-center space-x-1.5 shadow-xs transition-all cursor-pointer"
+                >
+                  <span>🏷️ 50만 원 보전 바우처 확인</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#9E7D47]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 7. [컴플레인 방지] 오해와 불안을 없애는 3대 투명성 FAQ 아코디언 */}
@@ -991,6 +1141,62 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           })}
         </div>
       </div>
+
+      {/* [옵션 2 모달 1] 듀얼 스탠바이 사전 안심 등록증 모달 */}
+      {isDualStandbyModalOpen && (
+        <DualStandbyModal
+          initialData={DualStandbyService.createRegistration({
+            registrantName: '김정우 (장남)',
+            registrantPhone: '010-3849-2910',
+            beneficiaryName: '故 김철수 님',
+            relationship: '부친(父)',
+            existingCompany: report.certificate.competitorName,
+            existingProduct: report.certificate.productName,
+            paidTotalAmount: report.certificate.paidTotalAmount,
+            estimatedRefund: report.statutoryRefund.refundAmount,
+            lossAmount: report.statutoryRefund.lossAmount
+          })}
+          onClose={() => setIsDualStandbyModalOpen(false)}
+          onOpenCancellationClaim={() => {
+            setIsDualStandbyModalOpen(false);
+            setIsClaimModalOpen(true);
+          }}
+          onOpenVoucherModal={() => {
+            setIsDualStandbyModalOpen(false);
+            setIsVoucherModalOpen(true);
+          }}
+        />
+      )}
+
+      {/* [옵션 2 모달 2] 공정위 법정 해약환급금 내용증명 청구서 모달 */}
+      {isClaimModalOpen && (
+        <CancellationClaimModal
+          claimData={DualStandbyService.createCancellationClaim({
+            cert: report.certificate,
+            refund: report.statutoryRefund,
+            claimantName: '김정우',
+            claimantPhone: '010-3849-2910',
+            claimantAddress: '서울특별시 송파구 올림픽로 300 (신천동)',
+            refundBank: '신한은행',
+            refundAccount: '110-384-291028',
+            refundHolder: '김정우'
+          })}
+          onClose={() => setIsClaimModalOpen(false)}
+        />
+      )}
+
+      {/* [옵션 2 모달 3] 50만 원 해약 손실 보전 크레딧 바우처 모달 */}
+      {isVoucherModalOpen && (
+        <LossCreditVoucherModal
+          creditAmount={report.transitionCredit || 500_000}
+          existingCompany={report.certificate.competitorName}
+          onClose={() => setIsVoucherModalOpen(false)}
+          onOpenDualStandby={() => {
+            setIsVoucherModalOpen(false);
+            setIsDualStandbyModalOpen(true);
+          }}
+        />
+      )}
     </div>
   );
 };

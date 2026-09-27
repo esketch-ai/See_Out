@@ -6,7 +6,9 @@ import {
   BENCHMARK_CERT_B_PREMIUM450,
   BENCHMARK_CERT_P_EVERGREEN590,
   BENCHMARK_CERT_H_SAFE480_MATURE,
-  CertificateExtractionSchema
+  CertificateExtractionSchema,
+  DualStandbyService,
+  SAMPLE_DUAL_STANDBY
 } from '../src/quote-diagnostics/index.js';
 
 describe('StatutoryRefundCalculator (공정위 고시 기준 해약환급금 엔진)', () => {
@@ -128,5 +130,81 @@ describe('QuoteDiagnosticsEngine (1:1 영수증 손익 진단 종합 엔진)', (
     // 우측 총액 검증
     const rightSum = report.rightBaeungReceipt.lineItems.reduce((acc, i) => acc + i.amount, 0);
     expect(rightSum).toBe(report.rightBaeungReceipt.totalAmount);
+  });
+});
+
+describe('DualStandbyService (듀얼 스탠바이 및 공정위 내용증명 서비스)', () => {
+  it('듀얼 스탠바이 사전 등록증 생성 시 고유 번호(DS-2026-KR-XXXX)와 50만 원 한도 손실보전 크레딧이 산정되어야 한다', () => {
+    const reg = DualStandbyService.createRegistration({
+      registrantName: '김정우 (장남)',
+      registrantPhone: '010-3849-2910',
+      beneficiaryName: '故 김철수 님',
+      relationship: '부친(父)',
+      existingCompany: '보람상조',
+      existingProduct: '보람 프리미엄 450',
+      paidTotalAmount: 1_260_000,
+      estimatedRefund: 453_600,
+      lossAmount: 806_400
+    });
+
+    expect(reg.registrationId).toMatch(/^DS-2026-KR-\d{4}$/);
+    expect(reg.status).toBe('active');
+    expect(reg.lossProtectionCredit).toBeLessThanOrEqual(500_000);
+    expect(reg.lossProtectionCredit).toBeGreaterThanOrEqual(200_000);
+    expect(reg.assignedDirectorName).toContain('조성우');
+    expect(reg.assignedDirectorPhone).toBe('010-8820-1588');
+  });
+
+  it('손실액이 매우 큰 경우에도 최대 보전 크레딧 한도인 50만 원을 초과하지 않아야 한다', () => {
+    const reg = DualStandbyService.createRegistration({
+      registrantName: '이영희',
+      registrantPhone: '010-1234-5678',
+      beneficiaryName: '故 박순자 님',
+      existingCompany: '프리드라이프',
+      existingProduct: '프리드 590',
+      paidTotalAmount: 4_000_000,
+      estimatedRefund: 2_000_000,
+      lossAmount: 2_000_000 // 40% = 80만 원이지만 50만 원 한도 적용
+    });
+
+    expect(reg.lossProtectionCredit).toBe(500_000);
+  });
+
+  it('공정위 기준 법정 해약환급금 내용증명 신청서가 주요 상조사 법인 대표와 주소를 올바르게 매칭해야 한다', () => {
+    // 1) 보람상조
+    const claimBoram = DualStandbyService.createCancellationClaim({
+      cert: BENCHMARK_CERT_B_PREMIUM450,
+      refund: StatutoryRefundCalculator.calculateRefund(BENCHMARK_CERT_B_PREMIUM450),
+      claimantName: '김정우',
+      claimantPhone: '010-3849-2910'
+    });
+
+    expect(claimBoram.competitorCeo).toBe('오준오');
+    expect(claimBoram.competitorAddress).toContain('마포대로 130');
+    expect(claimBoram.claimId).toMatch(/^REQ-2026-\d{6}$/);
+    expect(claimBoram.legalBasis).toContain('할부거래에 관한 법률');
+    expect(claimBoram.statutoryRefundAmount).toBeGreaterThan(0);
+
+    // 2) 프리드라이프
+    const claimPreed = DualStandbyService.createCancellationClaim({
+      cert: BENCHMARK_CERT_P_EVERGREEN590,
+      refund: StatutoryRefundCalculator.calculateRefund(BENCHMARK_CERT_P_EVERGREEN590)
+    });
+    expect(claimPreed.competitorCeo).toBe('김만기');
+    expect(claimPreed.competitorAddress).toContain('통일로 92');
+
+    // 3) 현대라이프
+    const claimHyundai = DualStandbyService.createCancellationClaim({
+      cert: BENCHMARK_CERT_H_SAFE480_MATURE,
+      refund: StatutoryRefundCalculator.calculateRefund(BENCHMARK_CERT_H_SAFE480_MATURE)
+    });
+    expect(claimHyundai.competitorCeo).toBe('정승환');
+    expect(claimHyundai.competitorAddress).toContain('테헤란로 418');
+  });
+
+  it('기본 샘플 SAMPLE_DUAL_STANDBY가 유효한 구조를 갖추어야 한다', () => {
+    expect(SAMPLE_DUAL_STANDBY.registrationId).toBe('DS-2026-KR-8831');
+    expect(SAMPLE_DUAL_STANDBY.lossProtectionCredit).toBe(500_000);
+    expect(SAMPLE_DUAL_STANDBY.status).toBe('active');
   });
 });

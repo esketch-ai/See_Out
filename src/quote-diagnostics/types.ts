@@ -132,3 +132,50 @@ export interface DiagnosticComparisonReport {
     callToActionBadge: string;       // 헤드라인 배너 문구
   };
 }
+
+/**
+ * 듀얼 스탠바이 (Dual-Standby, 무약정 사전 예치 등록) 모델
+ */
+export interface DualStandbyRegistration {
+  registrationId: string;            // 예: "DS-2026-KR-7729"
+  registrantName: string;            // 신청자/상주 성함
+  registrantPhone: string;           // 비상 연락처
+  beneficiaryName: string;           // 피공제자(고인 또는 부모님) 성함
+  relationship: string;              // 관계 (부친, 모친, 본인 등)
+  existingCompany: string;           // 가입 중인 기존 상조사명
+  existingProduct: string;           // 가입 상품명
+  paidTotalAmount: number;           // 현재 납입 총액
+  estimatedRefund: number;           // 예상 법정 해약환급금
+  lossProtectionCredit: number;      // 배웅 해약 손실 보전 크레딧 (최대 50만 원 상당)
+  assignedDirectorName: string;      // 24시 전담 배정 장례지도사
+  assignedDirectorPhone: string;     // 직통 번호
+  registeredAt: string;              // 사전 등록 일시
+  status: 'active' | 'exercised' | 'converted';
+}
+
+/**
+ * 공정위 기준 선불식 할부계약 해제 및 법정 해약환급금 지급 청구서 (내용증명) 모델
+ */
+export interface CancellationClaimData {
+  claimId: string;
+  claimantName: string;              // 계약자 성함
+  claimantPhone: string;             // 연락처
+  claimantAddress: string;           // 주소
+  competitorName: string;            // 상조사명
+  competitorCeo: string;             // 대표이사
+  competitorAddress: string;         // 상조사 본사 주소
+  contractNumber: string;            // 증서 번호
+  productName: string;               // 가입 상품명
+  contractDate: string;              // 계약 체결일
+  totalContractAmount: number;       // 총 계약금
+  paidInstallments: number;          // 실 납입 회차
+  totalInstallments: number;         // 약정 납입 회차
+  paidTotalAmount: number;           // 실 납입 총액
+  statutoryRefundAmount: number;     // 법정 환급 청구 금액
+  refundAccountBank: string;         // 환급 수령 은행
+  refundAccountNumber: string;        // 계좌번호
+  refundAccountHolder: string;       // 예금주
+  legalBasis: string;                // 적용 법률 (할부거래법 제34조 및 공정위 고시 제2020-1호)
+  claimDate: string;                 // 청구 일자
+}
+

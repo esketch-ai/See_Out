@@ -45,11 +45,11 @@ export const App: React.FC = () => {
             onEnterEmergency={() => setIsEmergencyMode(true)}
           />
 
-          <footer className="mt-20 pt-10 border-t border-[#E3DFD5] text-center text-xs md:text-sm text-[#727782] space-y-3 font-serif">
+          <footer className="mt-20 pt-10 border-t border-[#DCD6C9] text-center text-xs md:text-sm text-[#5A5E66] space-y-3 font-serif">
             <p className="font-bold text-[#151719] text-sm md:text-base">
               배웅(Bae-ung) 라이프엔딩 플랫폼 — 고인의 마지막 가시는 길, 최고의 예우로 곁을 지키겠습니다
             </p>
-            <p className="text-xs text-[#8C867B] leading-relaxed">
+            <p className="text-xs text-[#5A5E66] leading-relaxed">
               사단법인 한국장례협회 등록 데이터 및 보건복지부 e하늘 장사정보시스템 공공 표준 준수<br />
               지식 체계 및 아키텍처: Themis-AI PARA 거버넌스 | 30년+ 박사급 전문가 위원회 검수 완료
             </p>
@@ -59,9 +59,9 @@ export const App: React.FC = () => {
 
       {/* 5090 시니어 안심 모바일 플로팅 핫라인 바 (화면 하단 상시 고정) */}
       {!isEmergencyMode && (
-        <aside className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#121417]/95 backdrop-blur-md border-t border-[#2C2822] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
+        <aside className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#141618]/95 backdrop-blur-md border-t border-[#3D382E] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
           <div className="flex flex-col">
-            <span className="text-[11px] font-serif text-[#A39E93]">
+            <span className="text-[13px] font-serif text-[#8A929D]">
               24시 장례지도사 직통 상황실
             </span>
             <span className="text-sm font-reverence font-bold text-[#FAF9F6] tracking-tight">
@@ -71,7 +71,7 @@ export const App: React.FC = () => {
           <div className="flex items-center space-x-2">
             <a
               href="tel:1588-0000"
-              className="px-4 py-2 bg-[#19382C] border border-[#2D5A46] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center space-x-1.5 cursor-pointer hover:bg-[#204738]"
+              className="px-4 py-2 bg-[#19382C] border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-xs rounded-md flex items-center space-x-1.5 cursor-pointer hover:bg-[#2D4F43]"
             >
               <PhoneCall className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>즉시 전화 연결</span>

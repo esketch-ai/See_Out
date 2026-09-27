@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Phone, MapPin, Building2, CheckCircle2, Clock, ShieldCheck, ArrowRight, Heart } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Phone, MapPin, Building2, CheckCircle2, Clock, ShieldCheck, ArrowRight, Heart, Car, Navigation, Award } from 'lucide-react';
+import { EmergencyDispatchEngine, DispatchMatchResult } from '../../emergency/index.js';
 
 export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExitEmergency }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -7,6 +8,16 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
   const [locationDetail, setLocationDetail] = useState('');
   const [funeralHallChoice, setFuneralHallChoice] = useState<'recommended' | 'designated' | ''>('');
   const [hallName, setHallName] = useState('');
+
+  // 고인 위치 및 희망 식장에 따른 지역별 지능형 전담 지도사 및 동적 ETA 매칭
+  const dispatchResult: DispatchMatchResult = useMemo(() => {
+    return EmergencyDispatchEngine.matchDispatch({
+      deceasedLocationType: (deceasedLocation as any) || 'hospital',
+      locationDetail,
+      funeralHallChoice: (funeralHallChoice as any) || 'recommended',
+      hallName
+    });
+  }, [deceasedLocation, locationDetail, funeralHallChoice, hallName]);
 
   return (
     <div className="min-h-screen bg-[#0D0E10] text-[#FAF9F6] pb-24 relative overflow-hidden">
@@ -234,31 +245,94 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
             </div>
 
             <div>
-              <span className="text-[#C2A26A] text-[13px] font-serif font-bold tracking-widest">
-                의전팀 출동 접수 완료
-              </span>
-              <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] mt-1">
-                전담 장례지도사가 가족의 곁으로 출발하였습니다
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-[#C2A26A] text-[13px] font-serif font-bold tracking-widest">
+                  의전팀 긴급 급파 접수 완료
+                </span>
+                <span className="text-[13px] bg-[#1F2226] text-[#8A929D] px-2 py-0.5 rounded border border-[#3D382E] font-mono">
+                  {dispatchResult.dispatchId}
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] mt-2">
+                {dispatchResult.detectedRegion} 전담 의전팀이 현장으로 출발하였습니다
               </h2>
               <p className="text-[#8A929D] text-sm md:text-base mt-2 leading-relaxed font-serif">
-                국가공인 1급 전담 지도사가 유족분들의 경황없는 마음을 보살피며 끝까지 함께하겠습니다.
+                {dispatchResult.detectedLocationSummary} 방면으로 국가공인 1급 지도사와 특수 운구차량이 실시간 급파되었습니다.
               </p>
             </div>
 
             <div className="bg-[#0D0E10] rounded-lg p-5 border border-[#3D382E] space-y-3.5 text-left font-serif">
-              <div className="flex items-center justify-between pb-3 border-b border-[#1F2226]">
-                <span className="text-[#8A929D] text-sm">현장 도착 예정 시간</span>
-                <span className="text-xl font-reverence font-bold text-[#C2A26A] flex items-center space-x-1.5">
-                  <Clock className="w-5 h-5" />
-                  <span>약 40분 이내 도착</span>
+              {/* 1. 도착 예정 시간 (동적 계산) */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#1F2226] gap-1">
+                <div>
+                  <span className="text-[#8A929D] text-sm">현장 도착 예정 시간</span>
+                  <div className="text-[13px] text-[#8A929D] mt-0.5">
+                    {dispatchResult.assignedDirector.baseCenterName} ➔ 현장 ({dispatchResult.distanceKm}km)
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-lg sm:text-xl font-reverence font-bold text-[#C2A26A] flex items-center sm:justify-end space-x-1.5">
+                    <Clock className="w-5 h-5" />
+                    <span>{dispatchResult.estimatedArrivalTimeFormatted}</span>
+                  </span>
+                  <span className="text-[13px] text-[#C2A26A] font-sans font-medium flex items-center sm:justify-end space-x-1 mt-0.5">
+                    <Navigation className="w-3.5 h-3.5" />
+                    <span>실시간 경로 관제 중 (교통 원활)</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* 2. 배정 지도사 (지역별 동적 배정) */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#1F2226] gap-1">
+                <div>
+                  <span className="text-[#8A929D] text-sm">배정 지도사 ({dispatchResult.detectedRegion} 전담)</span>
+                  <div className="text-[13px] text-[#8A929D] mt-0.5">
+                    경력 {dispatchResult.assignedDirector.experienceYears}년 · 누적 의전 {dispatchResult.assignedDirector.completedCases}건 (평점 ★{dispatchResult.assignedDirector.ratingAvg})
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-base font-bold text-[#FAF9F6] flex items-center sm:justify-end space-x-1.5">
+                    <Award className="w-4 h-4 text-[#C2A26A]" />
+                    <span>{dispatchResult.assignedDirector.name} 수석 장례지도사 ({dispatchResult.assignedDirector.licenseNo})</span>
+                  </span>
+                  <span className="text-[13px] text-[#C2A26A] font-mono sm:justify-end flex mt-0.5">
+                    안심 직통: {dispatchResult.assignedDirector.virtualPhone}
+                  </span>
+                </div>
+              </div>
+
+              {/* 3. 배차 운구차량 */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#1F2226] gap-1">
+                <span className="text-[#8A929D] text-sm">배차 특수 운구차량</span>
+                <span className="text-sm font-bold text-[#FAF9F6] flex items-center sm:justify-end space-x-1.5">
+                  <Car className="w-4 h-4 text-[#C2A26A]" />
+                  <span>{dispatchResult.vehicleDispatchInfo}</span>
                 </span>
               </div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#1F2226]">
-                <span className="text-[#8A929D] text-sm">배정 지도사</span>
-                <span className="text-base font-bold text-[#FAF9F6]">김진우 전담 장례지도사 (자격 제11-0421호)</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[#8A929D] text-sm">배웅 의전 서약</span>
+
+              {/* 4. 연계 장례식장 (추천인 경우) */}
+              {dispatchResult.recommendedFuneralHall && funeralHallChoice === 'recommended' && (
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#1F2226] gap-1">
+                  <div>
+                    <span className="text-[#8A929D] text-sm">연계 추천 장례식장</span>
+                    <div className="text-[13px] text-[#8A929D] mt-0.5">
+                      {dispatchResult.recommendedFuneralHall.address}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-bold text-[#FAF9F6]">
+                      {dispatchResult.recommendedFuneralHall.name}
+                    </span>
+                    <span className="text-[13px] text-[#C2A26A] block mt-0.5">
+                      배웅 사전등록 빈소 {dispatchResult.recommendedFuneralHall.discountRatePercentage}% 감면 확보
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* 5. 배웅 의전 서약 */}
+              <div className="flex items-center justify-between pt-0.5">
+                <span className="text-[#8A929D] text-sm">배웅 3대 의전 서약</span>
                 <span className="text-[13px] font-bold text-[#DCE8E2] flex items-center space-x-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
                   <span>선금 0원 · 부당 추가금 0원 · 촌지 전면 금지</span>
@@ -268,11 +342,11 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
 
             <div className="space-y-2.5 pt-1">
               <a
-                href="tel:1588-0000"
+                href={`tel:${dispatchResult.assignedDirector.virtualPhone}`}
                 className="w-full btn-senior-reverence bg-[#9E7D47] hover:bg-[#9E7D47] text-[#0D0E10] font-black flex items-center justify-center space-x-2 text-lg shadow-sm"
               >
                 <Phone className="w-5 h-5" />
-                <span>전담 지도사 직통 전화 걸기 (1588-0000)</span>
+                <span>{dispatchResult.assignedDirector.name} 지도사 직통 전화 걸기 ({dispatchResult.assignedDirector.virtualPhone})</span>
               </a>
 
               <button

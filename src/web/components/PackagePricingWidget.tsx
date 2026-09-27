@@ -469,7 +469,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               className={`px-4 py-2 rounded-md font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer border ${
                 isSynced
                   ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
-                  : 'bg-[#9E7D47] hover:bg-[#9E7D47] text-[#151719] border-[#876937]'
+                  : 'bg-[#9E7D47] hover:bg-[#9E7D47] text-[#151719] border-[#6E5429]'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />

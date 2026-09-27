@@ -37,10 +37,10 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navItems: { id: MainTab; label: string; hanja: string; seal: string; desc: string; icon: React.FC<{ className?: string }> }[] = [
     { id: 'home', label: '종합 의전', hanja: '綜合儀典', seal: '禮', desc: '홈 요약 및 4대 핵심 서비스 둘러보기', icon: LayoutDashboard },
-    { id: 'quote', label: '원가 진단', hanja: '原價診斷', seal: '眞', desc: '3초 카메라 스캔 & 1:1 맞춤 영수증 비교', icon: FileText },
+    { id: 'quote', label: '원가 진단', hanja: '原價診斷', seal: '眞', desc: '3초 증서 사진 판독 & 1:1 맞춤 영수증 비교', icon: FileText },
     { id: 'funeral-halls', label: '장례식장', hanja: '葬禮式場', seal: '安', desc: '전국 1,080곳 빈소 시설 & 30% 감면 혜택', icon: Building2 },
     { id: 'packages', label: '정찰 패키지', hanja: '定札儀禮', seal: '誠', desc: '무빈소·2일가족장·실속·품격 4대 투명 정찰제', icon: PackageCheck },
-    { id: 'life-archive', label: '생애기록관', hanja: '生涯記錄', seal: '永', desc: '스마트폰 사전 부고 승계 & 생애 평전 스토리북', icon: BookOpen }
+    { id: 'life-archive', label: '생애기록관', hanja: '生涯記錄', seal: '永', desc: '모바일 부고장 & 생애 평전 (살아온 이야기)', icon: BookOpen }
   ];
 
   const handleSelectNav = (tabId: MainTab) => {

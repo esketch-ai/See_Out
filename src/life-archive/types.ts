@@ -120,6 +120,9 @@ export interface FuneralSetting {
   chiefMourners: string[];
   departureDateTime: string;
   condolenceAccount: string;
+  virtualPhone?: string;
+  nearestSubway?: string;
+  navigationLink?: string;
 }
 
 /**

@@ -304,7 +304,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
 
           {/* 하단 액션 버튼들 */}
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-            <div className="text-xs text-[#A69E8F] flex items-center space-x-1.5">
+            <div className="text-xs text-[#8A929D] flex items-center space-x-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#C2A26A]" />
               <span>영구 보존판 A4 양장본 평전 및 디지털 뷰어에 실시간 연동됩니다</span>
             </div>

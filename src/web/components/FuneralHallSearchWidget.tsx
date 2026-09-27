@@ -3,7 +3,8 @@ import {
   FuneralHallService,
   FuneralHallEntity,
   RegionCode,
-  FuneralHallCategory
+  FuneralHallCategory,
+  FuneralTypePreference
 } from '../../funeral-halls/index.js';
 import {
   Search,
@@ -22,10 +23,21 @@ import {
   ArrowRight,
   Layers,
   ChevronRight,
-  X
+  X,
+  FileText,
+  Scale,
+  TrendingUp,
+  Award,
+  Trees
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import { FuneralHallMap } from './FuneralHallMap.js';
+import { FuneralHallQuoteModal } from './FuneralHallQuoteModal.js';
+import { PartnerPerformanceReportModal } from './PartnerPerformanceReportModal.js';
+import { OptOutModal } from './OptOutModal.js';
+import { AffiliatePartnersModal } from './AffiliatePartnersModal.js';
+import { B2BPartnerAdmissionModal } from './B2BPartnerAdmissionModal.js';
+import { OptOutService } from '../../compliance/index.js';
 
 export interface FuneralHallSearchWidgetProps {
   selectedFuneralHallId?: string;
@@ -41,22 +53,30 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [keyword, setKeyword] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedFuneralType, setSelectedFuneralType] = useState<FuneralTypePreference>('all');
   const [onlyPartner, setOnlyPartner] = useState(false);
   const [selectedHall, setSelectedHall] = useState<FuneralHallEntity | null>(null);
   const [stayDays, setStayDays] = useState<2 | 3>(2);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isOptOutModalOpen, setIsOptOutModalOpen] = useState(false);
+  const [isAffiliateModalOpen, setIsAffiliateModalOpen] = useState(false);
+  const [isB2BModalOpen, setIsB2BModalOpen] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
-  // 검색 결과
+  // 검색 결과 (장례 형태 필터 및 옵트아웃 게재 중단 식장 제외)
   const halls = useMemo(() => {
-    return FuneralHallService.searchHalls({
+    const raw = FuneralHallService.searchHalls({
       keyword: keyword.trim() || undefined,
       region: selectedRegion === 'all' ? undefined : (selectedRegion as RegionCode),
       category: selectedCategory === 'all' ? undefined : (selectedCategory as FuneralHallCategory),
-      onlyPartner: onlyPartner ? true : undefined
+      onlyPartner: onlyPartner ? true : undefined,
+      funeralType: selectedFuneralType === 'all' ? undefined : selectedFuneralType
     });
-  }, [keyword, selectedRegion, selectedCategory, onlyPartner]);
+    return raw.filter((h) => !OptOutService.isHallHidden(h.id));
+  }, [keyword, selectedRegion, selectedCategory, onlyPartner, selectedFuneralType, isOptOutModalOpen]);
 
   // 최초 로드 시 또는 검색 결과 변경 시 첫 번째 식장 자동 선택
   useEffect(() => {
@@ -223,6 +243,56 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         </div>
       </div>
 
+      {/* 2.5. [사업계획서 1단계 옵션 B] 무빈소·가족장 원클릭 큐레이션 필터 칩 */}
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
+          <span className="text-[#6E5429]">장례 형태 맞춤 큐레이션:</span>
+          <span className="text-[13px] text-[#5A5E66] font-normal hidden md:inline">
+            (전국 948곳 무빈소 가능 식장 전수 매칭)
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 text-xs font-serif">
+          {[
+            { id: 'all' as FuneralTypePreference, label: '전체 장례 형태' },
+            { id: 'direct_cremation' as FuneralTypePreference, label: '🕊️ 무빈소 직송·안치 가능' },
+            { id: 'small_family' as FuneralTypePreference, label: '🏡 소규모 가족장 (10~35평형)' },
+            { id: 'standard_3day' as FuneralTypePreference, label: '🏛️ 일반 3일장 (표준 50평형 이상)' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSelectedFuneralType(tab.id)}
+              className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                selectedFuneralType === tab.id
+                  ? 'bg-[#19382C] text-[#FAF9F6] shadow-xs font-bold border border-[#2D4F43]'
+                  : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 2.6. [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 연계 바 */}
+      <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center space-x-2 text-xs font-serif font-bold text-[#151719] shrink-0">
+          <Award className="w-4 h-4 text-[#9E7D47]" />
+          <span>배웅 인증 3대 부가 제휴 연계:</span>
+          <span className="text-[13px] text-[#6E5429] font-normal hidden md:inline">
+            (장사법·폐기물관리법 인허가 검증 · 공정위 리베이트 제재 준수 알선 수수료 0원 정찰제)
+          </span>
+        </div>
+
+        <button
+          onClick={() => setIsAffiliateModalOpen(true)}
+          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
+        >
+          <span>🌿 봉안당 · 수목장림 · 유품정리 명세 보기</span>
+          <ChevronRight className="w-3.5 h-3.5 text-[#C2A26A]" />
+        </button>
+      </div>
+
       {/* 모바일 전용 뷰 탭 스위처 */}
       <div className="md:hidden flex bg-[#FAF9F6] p-1 rounded-lg border border-[#DCD6C9] text-xs font-serif">
         <button
@@ -334,6 +404,30 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                 );
               })
             )}
+          </div>
+
+          {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 / B2B 정액제 입점 안내 바 */}
+          <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[13px] text-[#5A5E66] font-serif space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span>※ 본 정보는 e하늘 공공데이터 기반이며 배웅과 비제휴 관계입니다.</span>
+              {selectedHall && (
+                <button
+                  onClick={() => setIsOptOutModalOpen(true)}
+                  className="text-[#8B2520] hover:underline font-bold shrink-0 cursor-pointer text-left"
+                >
+                  [장례식장 정보 수정 · 비노출 요청 (옵트아웃)]
+                </button>
+              )}
+            </div>
+            <div className="pt-1.5 border-t border-[#DCD6C9] flex justify-between items-center text-[13px]">
+              <span className="text-[#5A5E66]">장례식장 사업자 및 원장님 전용:</span>
+              <button
+                onClick={() => setIsB2BModalOpen(true)}
+                className="text-[#19382C] hover:underline font-bold cursor-pointer"
+              >
+                [🏛️ 월 30만원 정액제 제휴 입점 신청 ➔]
+              </button>
+            </div>
           </div>
         </div>
 
@@ -456,6 +550,37 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                       💡 배웅 사전 등록 시 <b>{discountInfo.discountAmount.toLocaleString()}원</b>이 현장에서 자동 감면 적용됩니다.
                     </div>
                   )}
+                </div>
+
+                {/* 2-A-2. [사업계획서 1단계 옵션 B] 공식 견적서 및 견적 참조번호(REF) 발급 카드 */}
+                <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-4 md:p-5 space-y-3 relative overflow-hidden shadow-xs">
+                  <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-15" />
+                  <div className="relative z-10 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
+                        공정위 리베이트 제재 지침 준수 · 100% 정찰제
+                      </span>
+                      <span className="text-[13px] font-serif text-[#6E5429] font-bold">
+                        부당 알선료 0원 보증
+                      </span>
+                    </div>
+
+                    <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618]">
+                      공식 정찰 견적서 및 견적 참조번호(REF) 즉시 발급
+                    </h4>
+                    <p className="text-xs text-[#5A5E66] font-serif leading-relaxed">
+                      장례식장 상담 시 발급된 <b>견적 참조번호</b>를 제시하시면, 사전 등록 고객으로 인식되어 부당 추가금 없이 정찰 감면 견적을 보장받습니다.
+                    </p>
+
+                    <button
+                      onClick={() => setIsQuoteModalOpen(true)}
+                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D4F43]"
+                    >
+                      <FileText className="w-4 h-4 text-[#C2A26A]" />
+                      <span>📄 공식 정찰 견적서 & 견적 참조번호(REF) 발급</span>
+                      <ArrowRight className="w-4 h-4 text-[#C2A26A]" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* 2-B. [정밀 제원 1] 평형별 빈소 규격 및 1일 임대료 단가표 */}
@@ -584,6 +709,20 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
                   )}
                 </div>
 
+                {/* 2-E-3. 3대 부가 제휴사 퀵 링크 */}
+                <div className="pt-2 border-t border-[#DCD6C9]">
+                  <button
+                    onClick={() => setIsAffiliateModalOpen(true)}
+                    className="w-full py-2 px-3 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border border-[#F1E9DB] rounded-md text-xs font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <Award className="w-3.5 h-3.5 text-[#9E7D47]" />
+                      <span>장례 후 안치·유품정리 (인증 봉안당·수목장림·유품정리 정찰제 제휴)</span>
+                    </span>
+                    <span className="text-[13px] text-[#6E5429]">상세 보기 ➔</span>
+                  </button>
+                </div>
+
                 {/* 2-F. 하단 의전 신청 액션 바 */}
                 <div className="pt-2 border-t border-[#DCD6C9] flex flex-col sm:flex-row gap-2.5">
                   <a
@@ -611,6 +750,45 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
           )}
         </div>
       </div>
+
+      {/* [사업계획서 1단계 옵션 B] 견적 참조번호 및 공식 정찰 견적서 모달 */}
+      {isQuoteModalOpen && selectedHall && (
+        <FuneralHallQuoteModal
+          hall={selectedHall}
+          initialType={selectedFuneralType === 'all' ? 'direct_cremation' : selectedFuneralType}
+          onClose={() => setIsQuoteModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 1단계 옵션 1] 장례식장 파트너 4단계 성과 리포트 모달 */}
+      {isReportModalOpen && selectedHall && (
+        <PartnerPerformanceReportModal
+          hall={selectedHall}
+          onClose={() => setIsReportModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 1단계 옵션 2] 옵트아웃(정보 정정·게재 중단) 모달 */}
+      {isOptOutModalOpen && selectedHall && (
+        <OptOutModal
+          hall={selectedHall}
+          onClose={() => setIsOptOutModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 모달 */}
+      <AffiliatePartnersModal
+        isOpen={isAffiliateModalOpen}
+        onClose={() => setIsAffiliateModalOpen(false)}
+      />
+
+      {/* [사업계획서 1단계 방안 C] 장례식장 B2B 정액제 제휴 입점 신청 모달 */}
+      {isB2BModalOpen && (
+        <B2BPartnerAdmissionModal
+          initialHall={selectedHall || undefined}
+          onClose={() => setIsB2BModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

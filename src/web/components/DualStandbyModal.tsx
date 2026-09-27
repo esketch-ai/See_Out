@@ -99,7 +99,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
         {/* 인쇄 본문 영역 */}
         <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF9F6]">
           {/* ───────────────────────────────────────────────────────────── */}
-          {/* 정식 듀얼 스탠바이 안심 등록 증서 (Museum-grade Korean Heritage Design) */}
+          {/* 정식 이중안심 사전 등록 증서 (Museum-grade Korean Heritage Design) */}
           {/* ───────────────────────────────────────────────────────────── */}
           <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border-2 border-[#C2A26A]/50 rounded-[24px] p-6 sm:p-12 space-y-6 shadow-sm relative overflow-hidden">
             {/* 귀갑문 전통 패턴 워터마크 */}
@@ -130,7 +130,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             {/* 증서 타이틀 */}
             <div className="relative z-10 text-center space-y-2 py-2">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black text-[#151719] tracking-tight">
-                배웅 듀얼 스탠바이 (Dual-Standby) 사전 안심 등록증
+                배웅 이중안심(二重安心) 사전 등록증
               </h1>
               <p className="text-xs sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
                 본 증서는 기존 선불식 상조에 가입 중인 유족이 부당한 위약금 손실을 입지 않고,
@@ -185,7 +185,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                 <div className="p-3.5 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-1">
                   <div className="flex items-center space-x-1 font-bold text-[#19382C]">
                     <span className="text-sm font-reverence">①</span>
-                    <span>임종 시 1초 실시간 재비교 및 최종 선택권</span>
+                    <span>기존 상조 유지 & 임종 시 1초 최종 선택권</span>
                   </div>
                   <p className="text-[#5A5E66] leading-relaxed">
                     임종 발생 시 기존 상조와 배웅 후불 견적을 즉각 재비교한 후, 유족에게 가장 유리한 방식을 100% 자율 선택할 수 있습니다.
@@ -196,7 +196,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                 <div className="p-3.5 bg-[#FFFFFF] border border-[#C2A26A]/60 rounded-lg space-y-1 bg-[#FAF9F6]">
                   <div className="flex items-center space-x-1 font-bold text-[#6E5429]">
                     <span className="text-sm font-reverence">②</span>
-                    <span>해약 손실 {lossProtectionCredit.toLocaleString()}원 의전 크레딧 즉시 보전</span>
+                    <span>해약 손실 {lossProtectionCredit.toLocaleString()}원 지원금 즉시 보전</span>
                   </div>
                   <p className="text-[#5A5E66] leading-relaxed">
                     기존 상조 해약에 따른 손실액을 배웅 궁중 생화 꽃침대, 고급 리무진 업그레이드 바우처로 최대 {lossProtectionCredit.toLocaleString()}원까지 차감 보전합니다.
@@ -207,7 +207,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                 <div className="p-3.5 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-1">
                   <div className="flex items-center space-x-1 font-bold text-[#19382C]">
                     <span className="text-sm font-reverence">③</span>
-                    <span>24시간 1급 장례지도사 2시간 내 현장 도착</span>
+                    <span>사전 등록비·연회비 0원 평생 보증</span>
                   </div>
                   <p className="text-[#5A5E66] leading-relaxed">
                     임종 즉시 전담 장례지도사({directorName})가 지정되어 2시간 이내에 전국 어디든 신속히 출동합니다.
@@ -218,7 +218,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                 <div className="p-3.5 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-1">
                   <div className="flex items-center space-x-1 font-bold text-[#19382C]">
                     <span className="text-sm font-reverence">④</span>
-                    <span>전국 1,142개 협력 장례식장 빈소 감면</span>
+                    <span>전국 1,080개 협력 장례식장 빈소 감면</span>
                   </div>
                   <p className="text-[#5A5E66] leading-relaxed">
                     배웅 사전 등록 회원 자격으로 전국 협력 장례식장의 분향실 및 안치실 사용료를 최대 30% 현장 직할인 받으실 수 있습니다.

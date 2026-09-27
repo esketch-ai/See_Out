@@ -350,7 +350,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           {showDirectTextInput && (
             <div className="mt-2.5 p-4 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-2.5">
               <label className="text-xs font-bold text-[#151719] block font-serif">
-                상조 가입 증서 텍스트 (OCR 추출 원문 또는 직접 입력)
+                상조 가입 증서 내용 (사진 자동인식 내용 또는 직접 입력)
               </label>
               <textarea
                 rows={4}
@@ -953,7 +953,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           </p>
         </div>
 
-        {/* 6.5. [옵션 2 핵심] 3중 소비자 권익 보호 & 듀얼 스탠바이 실천 조치 */}
+        {/* 6.5. [옵션 2 핵심] 3중 소비자 권익 보호 & 이중안심(二重安心) 사전 대비 조치 */}
         <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 md:p-8 space-y-6 shadow-sm relative overflow-hidden">
           {/* 한옥 살창 격자문 은은한 워터마크 */}
           <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
@@ -980,7 +980,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
 
             {/* 3대 실천 액션 카드 그리드 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-              {/* 1. 듀얼 스탠바이 사전 안심 등록증 */}
+              {/* 1. 이중안심(二重安心) 사전 등록증 */}
               <div className="bg-[#FFFFFF] border-2 border-[#19382C]/30 hover:border-[#19382C] rounded-xl p-5 flex flex-col justify-between space-y-4 transition-all hover:shadow-md group">
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
@@ -998,7 +998,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   <ul className="text-[13px] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#DCD6C9]">
                     <li className="flex items-center space-x-1.5">
                       <span className="text-[#19382C] font-bold">✓</span>
-                      <span>위급 시 상조 vs 배웅 1초 양자택일</span>
+                      <span>위급 시 기존 상조 vs 배웅 1초 선택</span>
                     </li>
                     <li className="flex items-center space-x-1.5">
                       <span className="text-[#19382C] font-bold">✓</span>
@@ -1011,7 +1011,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   onClick={() => setIsDualStandbyModalOpen(true)}
                   className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-xs md:text-sm flex items-center justify-center space-x-1.5 shadow-xs transition-all cursor-pointer border border-[#2D4F43]"
                 >
-                  <span>🛡️ 안심 등록증 즉시 발급</span>
+                  <span>🛡️ 이중안심 등록증 발급 (0원)</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#C2A26A]" />
                 </button>
               </div>

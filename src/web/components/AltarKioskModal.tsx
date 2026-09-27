@@ -141,7 +141,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
             className={`px-3 py-1.5 rounded text-xs font-serif flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isPlayingAudio
                 ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
-                : 'bg-white/5 text-[#A69E8F] border-white/10 hover:bg-white/10'
+                : 'bg-white/5 text-[#8A929D] border-white/10 hover:bg-white/10'
             }`}
             title="생전 육성 회고 음성 on/off"
           >
@@ -190,7 +190,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
           {/* 닫기 */}
           <button
             onClick={onClose}
-            className="p-2 rounded bg-white/5 hover:bg-red-900/40 text-[#A69E8F] hover:text-white border border-white/10 transition-colors cursor-pointer"
+            className="p-2 rounded bg-white/5 hover:bg-red-900/40 text-[#8A929D] hover:text-white border border-white/10 transition-colors cursor-pointer"
             title="닫기 (ESC)"
           >
             <X className="w-4 h-4" />
@@ -222,7 +222,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
 
             {/* 고인 함자 및 생몰년 */}
             <div className="text-center space-y-2">
-              <span className="text-xs text-[#A69E8F] tracking-widest uppercase block">
+              <span className="text-xs text-[#8A929D] tracking-widest uppercase block">
                 永眠 · 至誠奉送
               </span>
               <h1 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight">
@@ -231,7 +231,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
               <p className="text-xs text-[#C2A26A] font-medium">
                 {setting.birthDate} ~ {setting.deathDate} (향년 {setting.age || 88}세)
               </p>
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-xs italic text-[#A69E8F] leading-relaxed">
+              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-xs italic text-[#8A929D] leading-relaxed">
                 {setting.motto || story.epitaph}
               </div>
             </div>
@@ -243,7 +243,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                 <div>
                   <span className="text-[#8A929D] block text-[13px]">빈소 위치</span>
                   <p className="text-[#FAF9F6] font-bold">{setting.funeralHallName} {setting.roomName}</p>
-                  <p className="text-[13px] text-[#A69E8F] mt-0.5">{setting.address}</p>
+                  <p className="text-[13px] text-[#8A929D] mt-0.5">{setting.address}</p>
                 </div>
               </div>
 
@@ -321,7 +321,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                 </div>
 
                 {/* 사진 번호 인덱스 */}
-                <div className="absolute top-4 right-4 px-3 py-1 bg-black/75 text-xs text-[#A69E8F] font-mono rounded-md border border-white/20">
+                <div className="absolute top-4 right-4 px-3 py-1 bg-black/75 text-xs text-[#8A929D] font-mono rounded-md border border-white/20">
                   {currentPhotoIdx + 1} / {lifePhotos.length}
                 </div>
 
@@ -330,7 +330,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                   <h3 className="text-lg md:text-xl font-reverence font-bold text-[#FAF9F6]">
                     {currentPhoto.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-[#A69E8F] font-serif max-w-2xl mx-auto">
+                  <p className="text-xs md:text-sm text-[#8A929D] font-serif max-w-2xl mx-auto">
                     {currentPhoto.caption}
                   </p>
                 </div>
@@ -364,7 +364,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2 text-[13px] text-[#A69E8F] shrink-0">
+              <div className="flex items-center space-x-2 text-[13px] text-[#8A929D] shrink-0">
                 <span>자동 사진 전환: 4.5초 간격</span>
                 <span>•</span>
                 <span>전체 84장 수록</span>

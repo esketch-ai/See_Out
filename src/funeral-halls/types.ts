@@ -67,6 +67,43 @@ export interface FuneralHallEntity {
     dailyPrice: number;
     recommendedGuests: string;
   }[];
+  // [사업계획서 1단계 - 무빈소·가족장 큐레이션 및 공시 기준일 필드]
+  allowsDirectCremation?: boolean;   // 무빈소 직송·안치 가능 여부 (전국 948개소/약 92%)
+  directCremationFee?: number;      // 1일 안치실+입관실 기본 실비 (평균 30만~55만원)
+  hasSmallFamilyRoom?: boolean;     // 10~35평형 소규모 가족장 전용 빈소 보유 여부
+  pricingBaseDate?: string;         // 가격 공시 기준일 (예: "2023.06 보건복지부 e하늘 공시")
+  isPriceVerified?: boolean;        // 현장 최신 가격 검증 여부
+}
+
+/**
+ * 장례 형태 구분 (무빈소 직송 vs 소규모 가족장 vs 일반 3일장)
+ */
+export type FuneralTypePreference = 'all' | 'direct_cremation' | 'small_family' | 'standard_3day';
+
+/**
+ * 사업계획서 7.3절 기준 견적 참조번호(REF) 및 공식 견적서 모델
+ */
+export interface FuneralHallQuoteReference {
+  referenceCode: string;          // 고유 식별 참조번호 (예: "REF-2026-KR-7729")
+  hallId: string;                 // 장례식장 ID
+  hallName: string;               // 장례식장 명칭
+  hallPhone: string;              // 장례식장 직통 연락처
+  hallAddress: string;            // 장례식장 도로명 주소
+  funeralType: FuneralTypePreference; // 선택한 장례 형태
+  funeralTypeName: string;        // 표시 명칭 (예: "무빈소 직송·안치식", "소규모 가족장")
+  roomDailyRent: number;          // 1일 빈소 임대료
+  stayDays: number;               // 빈소 임대 일수 (0일 또는 2일)
+  coldStorageDailyFee: number;    // 1일 안치실 사용료
+  encoffinmentRoomFee: number;    // 입관실 1회 사용료
+  facilitySubtotal: number;       // 장례식장 시설 사용료 정가 합계
+  baeungDiscountAmount: number;   // 배웅 사전 등록 감면 할인액
+  finalFacilityCost: number;      // 최종 시설 부담액 (정가 - 감면액)
+  applicantName: string;          // 신청인 성함
+  applicantPhone: string;         // 신청인 연락처
+  issuedAt: string;               // 발급 일시 (예: "2026년 09월 27일 19:42")
+  validUntil: string;             // 견적 보증 유효기간 (발급일로부터 30일)
+  legalComplianceNote: string;    // 공정거래위원회 리베이트 금지 고시 준수 명시
+  counselingNotice: string;       // 장례식장 상담 시 안내 멘트
 }
 
 /**
@@ -88,4 +125,7 @@ export interface FuneralHallSearchFilter {
   onlyPartner?: boolean;             // 배웅 제휴 할인 식장만 조회
   minRooms?: number;                 // 최소 빈소 수
   minCapacity?: number;              // 최소 안치실 수용량
+  funeralType?: FuneralTypePreference; // 무빈소 / 소규모 가족장 / 일반 3일장 필터
+  allowsDirectCremation?: boolean;   // 무빈소 가능 식장만 조회
+  hasSmallFamilyRoom?: boolean;      // 소규모 가족장 빈소 보유 식장만 조회
 }

@@ -58,8 +58,29 @@ describe('공용 모달 셸 — 계약', () => {
   });
 
   it('배경 스크롤을 잠그고 해제해야 한다', () => {
-    expect(SHELL).toContain("document.body.style.overflow = 'hidden'");
-    expect(SHELL).toMatch(/scrollLockCount === 0[\s\S]{0,80}document\.body\.style\.overflow = previous/);
+    // lockCount 는 모듈 레벨이어야 한다. 인스턴스 로컬이면 모달이 여러 개
+    // 중첩될 때 하나가 닫혀도 잠금이 풀린다.
+    expect(SHELL).toMatch(/^let lockCount = 0;$/m);
+    expect(SHELL).toMatch(/if \(lockCount === 0\) \{\s*lockPrevOverflow = body\.style\.overflow/);
+    // 마지막 하나가 닫힐 때만 원래 값으로 복원한다
+    expect(SHELL).toMatch(
+      /lockCount = Math\.max\(0, lockCount - 1\);[\s\S]{0,200}lockCount === 0[\s\S]{0,240}body\.style\.overflow = lockPrevOverflow/
+    );
+    expect(SHELL).toContain('removeAttribute(SCROLL_LOCK_ATTR)');
+  });
+
+  it('모달이 닫히면 잠금이 실제로 풀려야 한다 (useModalA11y 는 active 를 받는다)', () => {
+    // isOpen 을 모듈에 알리지 못하면 「언마운트가 아니라 재렌더」가 되어
+    // cleanup 이 호출되지 않고 body 잠금이 남는다.
+    expect(SHELL).toMatch(/export function useModalA11y\(onClose: \(\) => void, active = true/);
+    expect(SHELL).toMatch(/useBodyScrollLock\(active\);/);
+  });
+
+  it('조건을 만족할 때까지 포커스 이동을 미뤄야 한다 (조건부 렌더링 모달)', () => {
+    // isOpen 이 true 로 바뀐 직후에는 ref 가 아직 null 이다. 이때 포커스를 트리거
+    // 버튼에 남겨두면 ESC 가 닫지 못하고, Tab 이 배경으로 이탈한다.
+    expect(SHELL).toMatch(/if \(!panel\) \{\s*rafId = requestAnimationFrame\(focusFirst\)/);
+    expect(SHELL).toContain('cancelAnimationFrame(rafId)');
   });
 
   it('닫기 단추에 「닫기 (ESC)」 문구와 접근성 이름을 부여해야 한다', () => {

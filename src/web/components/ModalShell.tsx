@@ -29,17 +29,37 @@ const FOCUSABLE = [
 ].join(',');
 
 /** 모달이 여러 겹으로 열릴 수 있으므로 잠금 횟수를 센다 */
-let scrollLockCount = 0;
+/**
+ * 배경 스크롤 잠금.
+ *
+ * 모듈 레벨 카운터로 구현한다. 모달 인스턴스가 여러 개여도(중첩 가능)
+ * 마지막 하나가 닫힐 때만 원래 값으로 복원된다.
+ * React 19 StrictMode 의 이펙트 재실행(setup → cleanup → setup)은
+ * 카운터를 0 까지 내리지 않으므로 원래 값이 보존된다.
+ */
+const SCROLL_LOCK_ATTR = 'data-baeung-scroll-lock';
+let lockCount = 0;
+let lockPrevOverflow = '';
 
-export function useBodyScrollLock(active: boolean): void {
+function useBodyScrollLock(active: boolean): void {
   useEffect(() => {
     if (!active) return;
-    const previous = document.body.style.overflow;
-    scrollLockCount += 1;
-    if (scrollLockCount === 1) document.body.style.overflow = 'hidden';
+    const body = document.body;
+
+    if (lockCount === 0) {
+      lockPrevOverflow = body.style.overflow;
+      body.setAttribute(SCROLL_LOCK_ATTR, '1');
+      body.style.overflow = 'hidden';
+    }
+    lockCount += 1;
+
     return () => {
-      scrollLockCount -= 1;
-      if (scrollLockCount === 0) document.body.style.overflow = previous;
+      lockCount = Math.max(0, lockCount - 1);
+      if (lockCount === 0) {
+        body.removeAttribute(SCROLL_LOCK_ATTR);
+        body.style.overflow = lockPrevOverflow;
+        lockPrevOverflow = '';
+      }
     };
   }, [active]);
 }
@@ -52,19 +72,29 @@ export function useBodyScrollLock(active: boolean): void {
 export function useDialogFocus(active: boolean, onEscape?: () => void) {
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreRef = useRef<HTMLElement | null>(null);
+  let rafId = 0;
 
   // 1) 열릴 때 첫 조작 가능 요소로 이동, 이전 위치 기억
   useEffect(() => {
     if (!active) return;
     restoreRef.current = document.activeElement as HTMLElement | null;
 
-    const panel = panelRef.current;
-    if (!panel) return;
-    // 첫 조작 가능 요소를 우선하되, 없으면 패널 자체에 두어 포커스가 사라지지 않게 한다
-    const first = panel.querySelector<HTMLElement>(FOCUSABLE);
-    (first ?? panel).focus({ preventScroll: true });
+    // 조건부 렌더링되는 모달은 이 이펌트가 실행될 때 ref 가 아직 연결되지 않은
+    // 경우가 있다 (isOpen 이 true 로 바뀐 직후). panelRef.current 가 null 이면
+    // 다음 프레임까지 미룬다 — 포커스를 트리거 버튼에 남겨두면 ESC 가 닫지 못한다.
+    const focusFirst = () => {
+      const panel = panelRef.current;
+      if (!panel) {
+        rafId = requestAnimationFrame(focusFirst);
+        return;
+      }
+      const first = panel.querySelector<HTMLElement>(FOCUSABLE);
+      (first ?? panel).focus({ preventScroll: true });
+    };
+    focusFirst();
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       // 2) 닫히면 원래 위치로 복귀 (다음 행동 지점을 되찾아 준다)
       const target = restoreRef.current;
       if (target && document.contains(target)) {
@@ -271,3 +301,41 @@ export const ModalToolbar: React.FC<ModalToolbarProps> = ({
     </div>
   </div>
 );
+
+/**
+ * 모달 접근성 계약 훅 — 기존 구조를 그대로 둔 채 배웅 모달 기준을 부여한다.
+ *
+ * 2026-09-27: main 이 추가한 신규 모달 7종(LegalPolicy · OptOut · ProfessionalCare
+ * · FuneralHallQuote · AffiliatePartners · B2BPartnerAdmission · PartnerPerformanceReport)
+ * 이 ModalShell 을 쓰지 않아 포커스 트랩·ESC·aria-modal 이 전무했다.
+ * 구조를 리팩터링하지 않고 계약을 부착하기 위해 이 훅을 제공한다.
+ *
+ * 사용:
+ *   const { overlayProps, panelProps } = useModalA11y(onClose);
+ *   <div {...overlayProps} className="fixed inset-0 …">
+ *     <div {...panelProps} className="…">
+ */
+export function useModalA11y(onClose: () => void, active = true, titleId?: string) {
+  const { panelRef, handleKeyDown } = useDialogFocus(active, onClose);
+  useBodyScrollLock(active);
+  const autoId = useId();
+
+  return {
+    overlayProps: {
+      onMouseDown: (e: React.MouseEvent) => {
+        // 오버레이 클릭으로 닫지 않는다 — 진행 중인 의전·법률 문서를 실수로 닫으면 복구 불가
+        if (e.target === e.currentTarget) e.preventDefault();
+      }
+    },
+    panelProps: {
+      // ref 를 그대로 전달해야 트랩이 패널 DOM 을 실제로 참조한다.
+      // (중간 객체를 거쳐 복사하면 최초 렌더 시점의 null 만 남고 트랩이 무력화된다)
+      ref: panelRef,
+      role: 'dialog' as const,
+      'aria-modal': true as const,
+      'aria-label': titleId,
+      tabIndex: -1,
+      onKeyDown: handleKeyDown
+    }
+  };
+}

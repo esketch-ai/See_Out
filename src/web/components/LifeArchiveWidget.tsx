@@ -25,7 +25,9 @@ import {
   Key,
   X,
   Tv,
-  RefreshCw
+  RefreshCw,
+  HeartHandshake,
+  Scale
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import { ModalShell, ModalToolbar } from './ModalShell.js';
@@ -44,6 +46,8 @@ import {
 import { MemorialBookletModal } from './MemorialBookletModal.js';
 import { AltarKioskModal } from './AltarKioskModal.js';
 import { VoiceInterviewSection } from './VoiceInterviewSection.js';
+import { ProfessionalCareModal } from './ProfessionalCareModal.js';
+import { CareVertical } from '../../professional-care/index.js';
 
 interface LifeArchiveWidgetProps {
   funeralSetting?: FuneralSetting;
@@ -74,6 +78,10 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   const [isBookletModalOpen, setIsBookletModalOpen] = useState<boolean>(false);
   const [isAltarKioskOpen, setIsAltarKioskOpen] = useState<boolean>(false);
   const [copiedAccount, setCopiedAccount] = useState<boolean>(false);
+
+  // 생전·유족 심리상담 및 상속 전문 변호사 부가 자문 모달
+  const [isCareModalOpen, setIsCareModalOpen] = useState<boolean>(false);
+  const [careModalVertical, setCareModalVertical] = useState<CareVertical>('PSYCHOLOGY_CARE');
 
   // 연락처 그룹 필터
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
@@ -138,7 +146,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               className="px-3.5 py-1.5 bg-black/60 hover:bg-black/90 text-[#C2A26A] rounded-md font-bold transition-all flex items-center space-x-1.5 cursor-pointer border border-[#C2A26A]/40 shadow-xs"
             >
               <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
-              <span>빈소 헌정 키오스크 송출 (Altar TV)</span>
+              <span>빈소 디지털 헌정 화면 (추모 TV 모니터)</span>
             </button>
           </div>
         </div>
@@ -155,7 +163,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <BookOpen className="w-4 h-4 text-[#C2A26A]" />
-          <span>생애 평전 스토리북</span>
+          <span>생애 평전 (살아온 이야기)</span>
         </button>
 
         <button
@@ -167,7 +175,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Mic className="w-4 h-4 text-[#C2A26A]" />
-          <span>AI 생애 구술 인터뷰어</span>
+          <span>생애 회고 (음성 인터뷰)</span>
         </button>
 
         <button
@@ -179,7 +187,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Phone className="w-4 h-4 text-[#C2A26A]" />
-          <span>스마트폰 연락처 & 부고</span>
+          <span>모바일 부고장 & 연락처</span>
         </button>
 
         <button
@@ -191,7 +199,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <FileText className="w-4 h-4 text-[#C2A26A]" />
-          <span>사전 엔딩노트</span>
+          <span>사전 장례 의향서 (엔딩노트)</span>
         </button>
 
         <button
@@ -203,7 +211,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }`}
         >
           <Lock className="w-4 h-4 text-[#C2A26A]" />
-          <span>사후 승계 게이트키퍼</span>
+          <span>사후 유산관리 가족대표 (게이트키퍼)</span>
         </button>
       </div>
 
@@ -279,7 +287,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                   className="px-3.5 py-2 bg-[#141618] text-[#FAF9F6] border border-white/20 rounded-md font-bold hover:bg-[#1F2226] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs"
                 >
                   <Tv className="w-3.5 h-3.5 text-[#C2A26A]" />
-                  <span>빈소 헌정 키오스크 (Altar TV)</span>
+                  <span>빈소 디지털 헌정 화면 (추모 TV 모니터)</span>
                 </button>
               </div>
             </div>
@@ -392,7 +400,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                   <div className="font-serif font-bold text-xs text-[#FAF9F6]">
                     {isPlayingAudio ? '고인의 육성을 재생 중입니다...' : '고인의 생전 음성 듣기'}
                   </div>
-                  <div className="text-[13px] text-[#A69E8F] font-serif">
+                  <div className="text-[13px] text-[#8A929D] font-serif">
                     부모님의 따뜻한 목소리와 숨결을 그대로 보존하였습니다
                   </div>
                 </div>
@@ -623,6 +631,18 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                       </button>
                     </div>
                   </div>
+                  {funeralSetting.navigationLink && (
+                    <div className="pt-1">
+                      <a
+                        href={funeralSetting.navigationLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full py-1.5 px-2 bg-[#FAF9F6] hover:bg-[#FAF9F6] border border-[#F1E9DB] text-[#6E5429] rounded text-[13px] font-bold flex items-center justify-center space-x-1 transition-colors"
+                      >
+                        <span>🗺️ 카카오맵 실시간 길찾기 바로가기</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -723,6 +743,47 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                 ))}
               </ul>
             </div>
+
+            {/* 생전 웰다잉 마음돌봄 & 사후 상속·유산 법률 연계 배너 */}
+            <div className="bg-[#FAF9F6] border border-[#19382C]/30 rounded-lg p-4 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-1.5 text-[13px] font-bold text-[#19382C]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>엔딩노트 전문 연계 · 변호사법 제34조 준수 (알선 수수료 0원)</span>
+                  </div>
+                  <h4 className="font-serif font-bold text-sm text-[#151719]">
+                    생전 마음돌봄 상담 및 유언공증·상속포기 3개월 골든타임 자문
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] leading-relaxed">
+                    임종 전 죽음 불안 완화 및 삶의 회고를 위한 <b>공인 심리상담</b>과, 고인의 유지를 합법적으로 보호하는 <b>상속 전문 변호사 직통 연결</b>을 무료로 지원합니다.
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-2 shrink-0">
+                  <button
+                    onClick={() => {
+                      setCareModalVertical('PSYCHOLOGY_CARE');
+                      setIsCareModalOpen(true);
+                    }}
+                    className="px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#19382C] border border-[#19382C]/30 rounded-md text-xs font-serif font-bold flex items-center space-x-1 transition-colors cursor-pointer"
+                  >
+                    <HeartHandshake className="w-3.5 h-3.5 text-[#19382C]" />
+                    <span>마음돌봄 상담</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCareModalVertical('LEGAL_INHERITANCE');
+                      setIsCareModalOpen(true);
+                    }}
+                    className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md text-xs font-serif font-bold flex items-center space-x-1 transition-colors cursor-pointer shadow-xs"
+                  >
+                    <Scale className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>상속 변호사 자문</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -738,7 +799,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
               <div className="flex items-center space-x-2.5">
                 <Lock className="w-5 h-5 text-[#C2A26A]" />
                 <h3 className="font-serif font-bold text-base md:text-lg text-[#FAF9F6]">
-                  2단계 게이트키퍼(Gatekeeper) 사후 승계 보안 현황
+                  사후 유산관리 가족대표 (디지털 유산 승계 보안)
                 </h3>
               </div>
               <span className="text-xs text-[#C2A26A] font-bold bg-[#0A1511] px-2.5 py-1 rounded border border-[#2D4F43]">
@@ -756,7 +817,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                 <p className="text-[#FAF9F6] font-bold text-sm">
                   {SAMPLE_GATEKEEPER.primaryDelegate.name} ({SAMPLE_GATEKEEPER.primaryDelegate.relationship})
                 </p>
-                <p className="text-[13px] text-[#A69E8F]">{SAMPLE_GATEKEEPER.primaryDelegate.phone} • 본인 동의 완료</p>
+                <p className="text-[13px] text-[#8A929D]">{SAMPLE_GATEKEEPER.primaryDelegate.phone} • 본인 동의 완료</p>
               </div>
 
               <div className="bg-[#0A1511] p-3.5 rounded-lg border border-[#2D4F43] space-y-1">
@@ -764,7 +825,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
                 <p className="text-[#FAF9F6] font-bold text-sm">
                   {SAMPLE_GATEKEEPER.secondaryDelegate.name} ({SAMPLE_GATEKEEPER.secondaryDelegate.relationship})
                 </p>
-                <p className="text-[13px] text-[#A69E8F]">{SAMPLE_GATEKEEPER.secondaryDelegate.phone} • 본인 동의 완료</p>
+                <p className="text-[13px] text-[#8A929D]">{SAMPLE_GATEKEEPER.secondaryDelegate.phone} • 본인 동의 완료</p>
               </div>
             </div>
 
@@ -917,6 +978,15 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
           }}
         />
       )}
+
+      {/* ───────────────────────────────────────────────────────────────── */}
+      {/* 생전·유족 전문 심리상담 및 상속 전문 변호사 부가 자문 모달 */}
+      {/* ───────────────────────────────────────────────────────────────── */}
+      <ProfessionalCareModal
+        isOpen={isCareModalOpen}
+        initialVertical={careModalVertical}
+        onClose={() => setIsCareModalOpen(false)}
+      />
     </div>
   );
 };

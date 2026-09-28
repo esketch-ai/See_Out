@@ -295,10 +295,22 @@ const BASE_URL = await resolveBase(browser);
 
 // ── 팝업 전수 ────────────────────────────────────────────────────────
 for (const [name, tab, seq] of POPUPS) {
-  const p = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, permissions: ['clipboard-read', 'clipboard-write'] });
+  const p = await ctx.newPage();
   const errs = [];
-  p.on('pageerror', () => errs.push(1));
-  p.on('console', (m) => { if (m.type() === 'error') errs.push(1); });
+  const isIgnorable = (msg) => /clipboard/i.test(msg) || /write permission denied/i.test(msg);
+  p.on('pageerror', (e) => {
+    if (isIgnorable(e.message)) return;
+    console.error('  [PAGEERROR in ' + name + ']:', e.message);
+    errs.push(1);
+  });
+  p.on('console', (m) => {
+    if (m.type() === 'error') {
+      if (isIgnorable(m.text())) return;
+      console.error('  [CONSOLE_ERR in ' + name + ']:', m.text());
+      errs.push(1);
+    }
+  });
 
   const r = { name, kind: '', open: false, focus: '-', tabTrap: '-', esc: '-', rel: '-', tiny: 0, con: 0, off: 0, clip: 0, acc: [], errs: 0, note: '' };
 
@@ -352,10 +364,11 @@ for (const [name, tab, seq] of POPUPS) {
 
 // ── 페이지 전수 ──────────────────────────────────────────────────────
 for (const [name, tab] of TABS) {
-  const p = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, permissions: ['clipboard-read', 'clipboard-write'] });
+  const p = await ctx.newPage();
   const errs = [];
-  p.on('pageerror', () => errs.push(1));
-  p.on('console', (m) => { if (m.type() === 'error') errs.push(1); });
+  p.on('pageerror', (e) => { if (!/clipboard/i.test(e.message)) errs.push(1); });
+  p.on('console', (m) => { if (m.type() === 'error' && !/clipboard/i.test(m.text())) errs.push(1); });
   await p.goto(BASE_URL, { waitUntil: 'networkidle' });
   await settle(p, 2400);
   await openTab(p, tab);

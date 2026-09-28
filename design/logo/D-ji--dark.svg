@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="배웅 지로 시안">
+  <title>시안 D — 지로(之) : 묵흑면(상단 바) 변형</title>
+  <!-- 가장 강한 제안. 「至誠之禮」 의 之(之).
+       전각은 문장이 아니라 한 획이다. 서화에 찍히는 낙관은 설명하지 않는다.
+       노안 유족이 24px 높이에서 읽어야 하는 자리(상단 바, 브라우저 탭, 앱 아이콘)에서
+       「뜻을 아는」 형태보다 「눈에 걸리는」 한 획이 낫다. -->
+  <defs>
+    <filter id="d-press" x="-10%" y="-10%" width="120%" height="120%">
+      <!-- 인장을 종이에 눌렀을 때 실크가 퍼지는 가장자리 -->
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 묵흑면(상단 바 #0D0E10) 전용. 인주가 묵흑 위에서 가장 먼저 읽힌다 -->
+  <rect width="240" height="240" fill="#0D0E10"/>
+
+  <!-- 1. 之 의 첫 획 — 짧은 점. 「시작」 -->
+  <path d="M148 62 q10 4 16 12" fill="none" stroke="#8B2520" stroke-width="13" stroke-linecap="round"/>
+
+  <!-- 2. 之 의 둘째 획 — 꺾어지는 몸통. 이 획이 「사람이」 다. -->
+  <path d="M78 92 q34 -10 74 6 q-30 18 -20 44" fill="none" stroke="#8B2520" stroke-width="15" stroke-linecap="round" filter="url(#d-press)"/>
+
+  <!-- 3. 之 의 셋째 획 — 나란히 뻗는 밑줄. 「떠나지 않는다」 -->
+  <path d="M64 176 q56 14 112 0" fill="none" stroke="#8B2520" stroke-width="13" stroke-linecap="round" filter="url(#d-press)"/>
+
+  <!-- 4. 落款 — 印 자국. 작게, 하단에. 넉넉한 여백(기둥 2)이 「한지여백」 을 지킨다 -->
+  <g transform="translate(176 84)" filter="url(#d-press)">
+    <rect x="-17" y="-17" width="34" height="34" rx="2" fill="none" stroke="#C2A26A" stroke-width="3"/>
+    <path d="M-8 -2 q8 6 16 0" fill="none" stroke="#C2A26A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

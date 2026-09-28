@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="배웅 이중 안심 시안">
+  <title>시안 C — 이중안심(二重安心) : 두 겹의 창살 안의 조명</title>
+  <!-- main 확정한 용어 「이중안심(二重安心)」 을 형으로 옮긴다.
+       배웅은 「고인」 과 「유족」 이 각각 안심해야 한다. 한 명을 위한 조형이
+       아니라 두 자리를 동시에 안 되게 한다.
+       사람의 얼굴을 그리지 않는다. 사람은 잊혀도, 안심은 남아야 하기 때문. -->
+
+  <defs>
+    <g id="c-cell">
+      <path d="M0 -7.5 L7.5 0 L0 7.5 L-7.5 0 Z" fill="none" stroke="#6E5429" stroke-width="0.9" stroke-opacity="0.30"/>
+      <circle cx="0" cy="0" r="1.2" fill="#6E5429" fill-opacity="0.22"/>
+    </g>
+    <pattern id="c-outer" width="18" height="18" patternUnits="userSpaceOnUse">
+      <use href="#c-cell" x="9" y="9"/>
+    </pattern>
+    <g id="c-cell2">
+      <path d="M0 -6 L6 0 L0 6 L-6 0 Z" fill="none" stroke="#8B2520" stroke-width="0.9" stroke-opacity="0.34"/>
+    </g>
+    <pattern id="c-inner" width="16" height="16" patternUnits="userSpaceOnUse">
+      <use href="#c-cell2" x="8" y="8"/>
+    </pattern>
+  </defs>
+
+  <rect width="240" height="240" fill="#F7F5F0"/>
+
+  <!-- 1. 겉창살 — 황동(금박) 그물. 「밖에서 보이는 안전」 -->
+  <rect x="24" y="24" width="192" height="192" fill="url(#c-outer)"/>
+  <rect x="24" y="24" width="192" height="192" fill="none" stroke="#6E5429" stroke-width="2.2" stroke-opacity="0.7"/>
+
+  <!-- 2. 속창살 — 인주 그물. 「안에서 지켜지는 안전」.
+       같은 살창 형상인데 색이 다르다. 「이중(二重)」 을 형으로 한 것이다. -->
+  <rect x="58" y="58" width="124" height="124" fill="url(#c-inner)"/>
+  <rect x="58" y="58" width="124" height="124" fill="none" stroke="#8B2520" stroke-width="2.2" stroke-opacity="0.75"/>
+
+  <!-- 3. 겹쳐진 네 귀퉁이 — 창호살격의 k-corner-bracket 을 두 겹으로.
+       창살이 둘이므로 귀접이도 둘이 된다. -->
+  <g fill="none" stroke="#6E5429" stroke-width="2.6" stroke-linecap="square">
+    <path d="M24 46 V24 h22"/><path d="M216 24 h-22 v22"/>
+    <path d="M24 194 v22 h22"/><path d="M216 216 h-22 v-22"/>
+  </g>
+  <g fill="none" stroke="#8B2520" stroke-width="2.2" stroke-linecap="square">
+    <path d="M58 76 V58 h18"/><path d="M182 58 h-18 v18"/>
+    <path d="M58 164 v18 h18"/><path d="M182 182 h-18 v-18"/>
+  </g>
+
+  <!-- 4. 한가운데 — 한 점의 금박.
+       成人 (어른)이 되려면 끝까지 조용히 있어도 되는 자리. -->
+  <circle cx="120" cy="120" r="7" fill="#C2A26A"/>
+
+  <!-- 5. 기둥 2 「한지여백」 — 이 사이는 비워 둔다. 설명하지 않는다. -->
+</svg>

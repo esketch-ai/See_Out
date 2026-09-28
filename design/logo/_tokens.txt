@@ -1,0 +1,11 @@
+# 로고 시안 토큰 — design-token-canonical-2026-009 / baeung-design-philosophy-charter (AREA-CHARTER-2026-008)
+celadon.DEFAULT  #243F35  브랜드 시그니처 · 한지면 10.49:1 AAA
+celadon.deep     #19382C  비취 짙은 톤
+brass.text       #6E5429  황동 본문 (한지면 6.50:1)
+brass.onDark     #C2A26A  금박선 (묵흑면 7.97:1)
+brass.surface    #F1E9DB  연금 면
+cinnabar.DEFAULT #8B2520  인주 (한지면 8.09:1 AAA) · 묵흑면 2.19:1 금지
+paper.DEFAULT    #F7F5F0  닥종이
+paper.surface    #FAF9F6
+ink.DEFAULT      #151719  수묵
+# 살창 실측 규격: 24px 격자 · 정방형 45° 회전 마름모 + 중심점 (index.html k-changho-texture)

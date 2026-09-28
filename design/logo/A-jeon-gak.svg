@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="배웅 전각낙관 시안">
+  <title>시안 A — 전각낙관(篆刻落款) : 「배웅」 을 한 쌍의 낙관으로</title>
+  <!-- 기둥 4 「전각낙관」: 신화와 공인의 근거는 인장이다.
+       기둥 1 이 명조체를 지목하므로 글자는 직접 그리지 않고 실제 서체로 찍는다.
+       인장에 못 읽히는 글자를 넣으면 인장이 아니라 완전한 그림자가 된다. -->
+
+  <defs>
+    <!-- 名조의 붓 결 + 나무날의 거친 가장자리 -->
+    <filter id="a-cut" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <rect width="240" height="240" fill="#F7F5F0"/>
+
+  <!-- 1. 낙관 테두리 — 창호살격의 귀접이(기둥 3)를 인장 테두리로 옮긴다.
+       귀접이는 「이것은 공인된 정례 서식이다」 라고 말한다. -->
+  <g filter="url(#a-cut)">
+    <rect x="40" y="40" width="160" height="160" rx="5" fill="none" stroke="#8B2520" stroke-width="8"/>
+  </g>
+
+  <!-- 2. 「배웅」 을 세로로 두 글자, 정중앙. 낙관의 통형(縱形). -->
+  <g font-family="Noto Serif KR, Nanum Myeongjo, serif" font-weight="700"
+     text-anchor="middle" fill="#151719" filter="url(#a-cut)">
+    <text x="120" y="135" font-size="86">배</text>
+    <text x="120" y="205" font-size="78" fill="#8B2520">웅</text>
+  </g>
+
+  <!-- 3. 지붕선 — 「웅」 위에 얹는 한 줄 금박.
+       왕실 제기의 기품이지 화려함이 아니다. 한 줄로 충분하다. -->
+  <rect x="76" y="52" width="88" height="2.5" fill="#C2A26A"/>
+</svg>

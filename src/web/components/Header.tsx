@@ -13,7 +13,7 @@ import {
   ChevronRight,
   Mic
 } from 'lucide-react';
-import { TraditionalSeal } from '../design-system/index.js';
+import { TraditionalSeal, BaeungLogo } from '../design-system/index.js';
 
 export type MainTab = 'home' | 'quote' | 'funeral-halls' | 'packages' | 'life-archive';
 
@@ -68,10 +68,8 @@ export const Header: React.FC<HeaderProps> = ({
           }}
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          {/* 브랜드 문장(Logo Mark) */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#19382C] border border-[#2D4F43] flex items-center justify-center font-reverence font-black text-xl text-[#F7F5F0] shadow-sm tracking-tight">
-            배웅
-          </div>
+          {/* 브랜드 문장(Logo Mark): 처마와 사립문 */}
+          <BaeungLogo variant="symbol" theme="dark" size={44} className="group-hover:scale-103 transition-transform" />
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-reverence font-black text-xl sm:text-2xl tracking-wider text-[#FAF9F6]">

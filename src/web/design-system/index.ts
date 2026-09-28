@@ -7,3 +7,5 @@ export * from './tokens.js';
 export * from './components/TraditionalSeal.js';
 export * from './components/HanjiCard.js';
 export * from './components/SeniorButton.js';
+export * from './components/BaeungLogo.js';
+export * from './components/BaeungLanternSeal.js';

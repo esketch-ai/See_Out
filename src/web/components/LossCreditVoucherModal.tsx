@@ -10,9 +10,9 @@ import {
   Award,
   Layers,
   ShieldCheck,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react';
-import { TraditionalSeal } from '../design-system/index.js';
+import { TraditionalSeal, BaeungLogo, BaeungLanternSeal } from '../design-system/index.js';
 import { ModalShell, ModalToolbar } from './ModalShell.js';
 
 interface LossCreditVoucherModalProps {
@@ -90,7 +90,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
             {/* 바우처 상단 헤더 */}
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/15 pb-4">
               <div className="flex items-center space-x-2.5">
-                <TraditionalSeal sealKey="mourningCondolence" size="sm" />
+                <BaeungLogo variant="symbol" theme="gold" size={38} />
                 <div>
                   <span className="text-[13px] uppercase tracking-widest text-[#C2A26A] font-bold block">
                     Bae-ung Loss Protection Guarantee
@@ -180,15 +180,16 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                 • 실제 임종 발생 시 배웅 1급 장례지도사에게 기존 상조 해약 증빙(해약 통지서, 문자, 또는 입금 내역)을 제시해 주시면 최종 정산서에서 위 3대 혜택 금액(총 50만 원)이 즉시 차감 반영됩니다.
               </p>
               <p className="text-[13px] text-[#A8B2A9]">
-                • 본 바우처는 배웅 듀얼 스탠바이 사전 등록 회원 전용 혜택이며, 타인 양도가 가능합니다.
+                • 본 바우처는 배웅 이중안심 사전 등록 회원 전용 혜택이며, 타인 양도가 가능합니다.
               </p>
             </div>
 
             {/* 하단 직인 */}
             <div className="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-[13px] text-[#A8B2A9]">
               <span>발행처: 배웅(Bae-ung) 상설의전총괄본부</span>
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center space-x-2">
                 <span className="text-[#C2A26A] font-bold">배웅 의전위원장 공인</span>
+                <BaeungLanternSeal size={32} theme="gold" />
                 <TraditionalSeal sealKey="truth" size="sm" />
               </div>
             </div>

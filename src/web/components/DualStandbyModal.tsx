@@ -16,7 +16,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { DualStandbyRegistration } from '../../quote-diagnostics/types.js';
-import { TraditionalSeal } from '../design-system/index.js';
+import { TraditionalSeal, BaeungLogo, BaeungLanternSeal } from '../design-system/index.js';
 import { ModalShell, ModalToolbar } from './ModalShell.js';
 
 interface DualStandbyModalProps {
@@ -108,7 +108,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             {/* 증서 상단 낙관 및 문서 번호 */}
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
               <div className="flex items-center space-x-3">
-                <TraditionalSeal sealKey="peace" size="sm" />
+                <BaeungLogo variant="symbol" theme="light" size={40} />
                 <div>
                   <span className="text-[13px] uppercase tracking-widest text-[#6E5429] font-bold block">
                     Bae-ung Dual-Standby Certified Protocol
@@ -259,7 +259,8 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                   공정거래위원회 선불식 할부계약 소비자보호 가이드라인 준수 등록 문서
                 </p>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2.5">
+                <BaeungLanternSeal size={38} theme="gold" />
                 <TraditionalSeal sealKey="truth" size="sm" />
                 <TraditionalSeal sealKey="mourningCondolence" size="sm" />
               </div>

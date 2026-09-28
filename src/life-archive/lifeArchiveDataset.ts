@@ -338,7 +338,7 @@ export const DEFAULT_FUNERAL_SETTING: FuneralSetting = {
   packageName: '배웅 정직 실속 3일장',
   packagePrice: 2_500_000,
   deceasedName: '故 김철수 님',
-  deceasedClan: '김해(金海)',
+  deceasedClan: '김해 김씨',
   birthDate: '1938년 4월 12일',
   deathDate: '2026년 3월 25일',
   age: 88,

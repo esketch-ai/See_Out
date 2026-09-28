@@ -40,7 +40,7 @@ interface VisualProductDetail {
 const VISUAL_PRODUCTS: VisualProductDetail[] = [
   {
     id: 'shroud',
-    name: '대마 100% 특등 수의(壽衣) & 공인 원산지 보증서',
+    name: '대마 100% 특등 수의 & 공인 원산지 보증서',
     category: '고인 용품',
     image: '/images/funeral-shroud.jpg',
     tagline: '거품과 속임 없는 천연 삼베 100% 정품 수의',

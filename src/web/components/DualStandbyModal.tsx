@@ -130,7 +130,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             {/* 증서 타이틀 */}
             <div className="relative z-10 text-center space-y-2 py-2">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black text-[#151719] tracking-tight">
-                배웅 이중안심(二重安心) 사전 등록증
+                배웅 이중안심 사전등록증
               </h1>
               <p className="text-[13px] sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
                 본 증서는 기존 선불식 상조에 가입 중인 유족이 부당한 위약금 손실을 입지 않고,

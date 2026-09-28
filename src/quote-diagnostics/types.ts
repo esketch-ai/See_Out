@@ -23,7 +23,7 @@ export interface CertificateExtractionSchema {
   subscriberName?: string;           // 가입자 / 신청인 성함 (예: "김정우")
   subscriberPhone?: string;          // 가입자 연락처 (예: "010-3849-2910")
   beneficiaryName?: string;          // 피공제자 (고인) 성함 (예: "김철수")
-  relationship?: string;             // 고인과의 관계 (예: "부친(父)")
+  relationship?: string;             // 고인과의 관계 (예: "부친", "모친")
   subscriberAddress?: string;        // 가입자 소재지
   refundBank?: string;               // 환급 수령 은행
   refundAccount?: string;            // 환급 수령 계좌

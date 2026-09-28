@@ -222,8 +222,8 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
 
             {/* 고인 함자 및 생몰년 */}
             <div className="text-center space-y-2">
-              <span className="text-[13px] text-[#8A929D] tracking-widest uppercase block">
-                永眠 · 至誠奉送
+              <span className="text-[13px] text-[#8A929D] tracking-widest block font-serif">
+                영원한 안식 · 지극한 정성으로 모십니다
               </span>
               <h1 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight">
                 {setting.deceasedName}

@@ -47,10 +47,10 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
         {/* 추모 서두 문구 */}
         <div className="text-center space-y-2 py-2">
           <div className="inline-block text-[#C2A26A] font-serif text-sm tracking-widest">
-            謹 弔 · 삼가 고인의 명복을 빕니다
+            삼가 고인의 명복을 빕니다
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black tracking-tight text-[#FAF9F6]">
-            가장 경건하고 정중한 예(禮)로 모시겠습니다
+            가장 경건하고 정성스러운 마음으로 모시겠습니다
           </h1>
           <p className="text-[#8A929D] text-sm sm:text-base leading-relaxed pt-1 font-serif">
             경황없는 깊은 슬픔의 순간, 가족의 마음으로 처음부터 끝까지 곁을 지키겠습니다.

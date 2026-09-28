@@ -138,7 +138,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-[13px] font-serif text-[#C2A26A] font-bold">
-                  心理 · 法律 專業諮問
+                  마음치유 및 상속·법률 전문 상담
                 </span>
                 <span className="bg-[#2D4F43] text-[#FAF9F6] text-[13px] px-2 py-0.5 rounded font-mono font-bold">
                   중개수수료 0원 공공 안심 연결

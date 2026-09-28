@@ -36,7 +36,7 @@ export class DualStandbyEngine {
       registrantName: '김정우',
       registrantPhone: '010-3849-2910',
       beneficiaryName: '故 김철수 님',
-      relationship: '부친(父)',
+      relationship: '부친',
       existingCompany: 'B상조 (보람상조)',
       existingProduct: '보람 프리미엄 450',
       paidTotalAmount: 1_260_000,

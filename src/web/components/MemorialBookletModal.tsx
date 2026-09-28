@@ -73,13 +73,11 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
             {/* 전통 귀갑문 패턴 은은한 배경 */}
             <div className="pointer-events-none absolute inset-0 k-pattern-unmun opacity-15" />
 
-            {/* 상단 전각 낙관 */}
+            {/* 상단 헌정 표제 */}
             <div className="relative z-10 flex items-center space-x-3 mt-4">
-              <span className="k-seal-jade px-2.5 py-1 text-[13px]">禮</span>
               <span className="text-[13px] text-[#6E5429] tracking-[0.25em] uppercase font-bold">
                 Bae-ung Dignified Life Archive
               </span>
-              <span className="k-seal-gold px-2.5 py-1 text-[13px]">永</span>
             </div>
 
             {/* 중앙 타이틀 및 고인 사진 */}
@@ -93,7 +91,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
               </div>
 
               <div className="space-y-2">
-                <span className="text-[13px] text-[#5A5E66] tracking-widest block">永 生 之 錄</span>
+                <span className="text-[13px] text-[#6E5429] font-bold tracking-widest block">아름다운 삶의 기록</span>
                 <h1 className="text-3xl sm:text-4xl font-reverence font-black text-[#151719] tracking-tight">
                   {story.deceasedName} 생애 평전
                 </h1>
@@ -122,7 +120,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
           <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border border-[#DCD6C9] rounded-[24px] p-8 sm:p-12 space-y-6 shadow-xs relative">
             <div className="border-b border-[#DCD6C9] pb-4 flex items-center justify-between">
               <div>
-                <span className="text-[13px] text-[#6E5429] font-bold">獻呈辭 · 머리말</span>
+                <span className="text-[13px] text-[#6E5429] font-bold">가족 헌정사 · 머리말</span>
                 <h2 className="text-2xl font-reverence font-bold text-[#151719] mt-0.5">
                   사랑하는 가족들이 올리는 헌정사
                 </h2>
@@ -142,7 +140,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
             <div className="space-y-3 pt-3">
               <h3 className="text-base font-bold text-[#151719] flex items-center space-x-1.5">
                 <Award className="w-4 h-4 text-[#6E5429]" />
-                <span>김철수 선생 평전 총론 (總論)</span>
+                <span>김철수 선생 평전 총론</span>
               </h3>
               <p className="text-[13px] sm:text-sm text-[#5A5E66] leading-relaxed">
                 {story.overallSummary}
@@ -228,7 +226,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
           {/* ───────────────────────────────────────────────────────────── */}
           <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border border-[#DCD6C9] rounded-[24px] p-8 sm:p-12 space-y-6 shadow-xs relative">
             <div className="border-b border-[#DCD6C9] pb-4">
-              <span className="text-[13px] text-[#6E5429] font-bold">遺言 · 생전 육성 전사</span>
+              <span className="text-[13px] text-[#6E5429] font-bold">남기신 말씀 · 생전 육성 기록</span>
               <h2 className="text-2xl font-reverence font-bold text-[#151719] mt-0.5">
                 고인이 남기신 마지막 육성 편지 전문
               </h2>
@@ -246,7 +244,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
             <div className="k-traditional-divider my-6" />
 
             <div className="text-center space-y-2 py-4">
-              <span className="k-seal-red px-3 py-1.5 text-sm">永眠</span>
+              <span className="k-seal-red px-3 py-1.5 text-[13px] font-bold">영면</span>
               <p className="font-reverence font-bold text-lg text-[#151719]">
                 삼가 고인의 명복을 빌며, 평안한 영면을 기원합니다.
               </p>

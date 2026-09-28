@@ -143,18 +143,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           className="w-full h-80 sm:h-96 md:h-[440px] object-cover object-center filter brightness-[0.88] contrast-100"
         />
 
-        {/* 삼국·조선 전통 길상 구름문(雲紋) 은은한 오버레이 */}
+        {/* 삼국·조선 전통 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-15" />
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10]/95 via-[#0D0E10]/60 to-transparent flex flex-col justify-end p-6 sm:p-10 relative z-10">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/90 text-[#FAF9F6] border border-[#2D4F43] text-[13px] md:text-sm font-serif">
               <TraditionalSeal sealKey="mourningCondolence" size="sm" />
-              <span>至誠奉送 · 24시간 전국 전담 의전 지도사 대기</span>
+              <span>지극한 정성 · 24시간 전국 전담 의전 지도사 대기</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-reverence font-black text-[#FAF9F6] leading-tight tracking-tight drop-shadow-md">
               고인의 마지막 가시는 길,<br />
-              지극한 예(禮)와 정직함으로 모십니다
+              지극한 정성과 정직함으로 모십니다
             </h1>
             <p className="text-sm md:text-base text-[#DCE8E2] font-serif leading-relaxed drop-shadow-xs">
               임종을 맞이하셨다면 당황하지 마십시오. 2시간 이내에 국가공인 1급 장례지도사가 유족의 곁으로 달려가 처음부터 끝까지 정성을 다하겠습니다.
@@ -180,9 +180,9 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
-      {/* 2. [조성우 수석 디자이너 감수] 전통 미학 단아한 여백과 사색(四色) 철학 배너 */}
+      {/* 2. [조성우 수석 디자이너 감수] 전통 미학 단아한 여백과 4대 의전 철학 배너 */}
       <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-7 md:p-9 relative shadow-xs overflow-hidden">
-        {/* 한옥 살창 격자문(格子紋) 은은한 워터마크 */}
+        {/* 한옥 살창 격자문 은은한 워터마크 */}
         <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
         <div className="max-w-3xl mx-auto text-center space-y-4 relative z-10">
           <div className="flex items-center justify-center space-x-2 text-[#6E5429] font-serif text-[13px] md:text-sm font-semibold tracking-wider">
@@ -196,26 +196,26 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-[13px] font-serif border-t border-[#DCD6C9]">
             <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">眞 · 원가 공개</div>
+              <div className="font-bold text-[#151719] text-sm">01 투명한 원가 공개</div>
               <div className="text-[#5A5E66] text-[13px] mt-0.5">거짓 없는 실비 대조</div>
             </div>
             <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">安 · 안식 안내</div>
+              <div className="font-bold text-[#151719] text-sm">02 편안한 안식 안내</div>
               <div className="text-[#5A5E66] text-[13px] mt-0.5">전국 1,080곳 빈소 시설</div>
             </div>
             <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">誠 · 정찰 예우</div>
+              <div className="font-bold text-[#151719] text-sm">03 정직한 정찰 예우</div>
               <div className="text-[#5A5E66] text-[13px] mt-0.5">선금 없는 후불 정산제</div>
             </div>
             <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">永 · 생애 보존</div>
+              <div className="font-bold text-[#151719] text-sm">04 소중한 생애 보존</div>
               <div className="text-[#5A5E66] text-[13px] mt-0.5">디지털 사전 기억 봉안</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. 4대 핵심 의전 도록(圖錄) 카드 */}
+      {/* 3. 4대 핵심 의전 도록 카드 */}
       <div className="space-y-4">
         <div className="flex justify-between items-end border-b border-[#DCD6C9] pb-3">
           <div>
@@ -245,8 +245,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">01 眞</span>
-                <span>원가 영수증 1:1 비교</span>
+                <span className="text-[#C2A26A] font-bold">01</span>
+                <span>원가 진단 · 1:1 영수증 대조</span>
               </div>
             </div>
 
@@ -281,8 +281,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#2D4F43] flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">02 安</span>
-                <span>전국 1,080곳 전수 데이터</span>
+                <span className="text-[#C2A26A] font-bold">02</span>
+                <span>전국 1,080곳 장례식장 시설 데이터</span>
               </div>
             </div>
 
@@ -317,8 +317,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">03 誠</span>
-                <span>선금 0원 · 100% 후불 정산</span>
+                <span className="text-[#C2A26A] font-bold">03</span>
+                <span>정찰 패키지 · 100% 후불 정산</span>
               </div>
             </div>
 
@@ -353,8 +353,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">04 永</span>
-                <span>사전 기억 봉안소</span>
+                <span className="text-[#C2A26A] font-bold">04</span>
+                <span>생애기록관 · 사전 기억 보존</span>
               </div>
             </div>
 
@@ -362,7 +362,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <div>
                 <span className="text-[13px] font-serif font-bold text-[#19382C]">사후 승계 게이트키퍼 가동</span>
                 <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-1 group-hover:text-[#19382C] transition-colors">
-                  생애기록관 (Pre-mortem 일상 봉안)
+                  생애기록관 (소중한 삶의 일상 봉안)
                 </h3>
                 <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
                   스마트폰 연락처 사전 동기화, 원터치 부고 발송, 생전 사진 갤러리 및 고인의 삶을 엮은 생애 평전 스토리북을 제공합니다.
@@ -378,7 +378,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
-      {/* 3.5. [옵션 2 특화] 배웅 이중안심(二重安心) 사전등록 (기존 상조 그대로 0원 대비) 퀵 런처 배너 */}
+      {/* 3.5. [옵션 2 특화] 배웅 이중안심 사전등록 (기존 상조 그대로 0원 대비) 퀵 런처 배너 */}
       <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 sm:p-8 space-y-6 shadow-sm relative overflow-hidden">
         {/* 한옥 살창 격자문 은은한 워터마크 */}
         <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
@@ -391,7 +391,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             </div>
             <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
               기존 상조 해약 걱정 없이,<br className="hidden sm:inline" />
-              <span className="text-[#19382C]">배웅 『이중 안심 사전등록 (二重安心)』</span>으로 하나 더 준비하세요
+              <span className="text-[#19382C]">배웅 『이중안심 사전등록』</span>으로 하나 더 준비하세요
             </h3>
             <p className="text-[13px] sm:text-sm text-[#42464E] font-serif leading-relaxed">
               이미 가입하신 상조는 해약하지 마시고 그대로 두십시오. 위급한 순간 1초 만에 더 유리한 의전을 선택할 수 있도록 <b>비상 우선 출동권</b>과 <b>50만 원 상당의 해약 손실 보전 지원권</b>을 지금 즉시 0원에 하나 더 마련해 드립니다.
@@ -431,12 +431,12 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
-      {/* 4. [신규 이정환 박사·조성우 수석 감수] 전통 3일장 상장례(喪葬禮) 3폭 병풍(屛風) 정례 절차도 */}
+      {/* 4. [신규 이정환 박사·조성우 수석 감수] 전통 3일장 표준 정례 절차도 */}
       <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-6 md:p-9 space-y-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
           <div>
             <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-serif font-bold mb-1">
-              <span>禮 · 전통 상장례(喪葬禮) 3일장 표준 예법</span>
+              <span>전통 3일장 표준 예법과 정례 절차</span>
             </div>
             <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
               고인을 모시는 3일간의 숭고한 여정
@@ -463,7 +463,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
               </div>
               <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                初終 · 安息 (초종과 안식)
+                첫째 날: 임종과 편안한 안식
               </h4>
               <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
                 임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
@@ -503,7 +503,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
               </div>
               <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                殮襲 · 入棺 (궁중염습과 입관)
+                둘째 날: 정갈한 입관과 염습
               </h4>
               <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
                 고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
@@ -519,7 +519,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-[#6E5429] font-bold">•</span>
-                  <span>생화(生花) 꽃구름 침상 입관식 및 향낭 봉안</span>
+                  <span>생화 꽃구름 침상 입관식 및 향낭 봉안</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-[#6E5429] font-bold">•</span>
@@ -543,7 +543,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span className="text-[13px] font-mono text-[#5A5E66]">Day 3</span>
               </div>
               <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                發靷 · 奉安 (발인과 영구안식)
+                셋째 날: 정중한 발인과 영면
               </h4>
               <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
                 고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.

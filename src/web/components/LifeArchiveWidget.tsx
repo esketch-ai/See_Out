@@ -168,7 +168,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
             배웅 스마트 생애기록관 & 디지털 평전
           </h2>
           <p className="text-[#8A929D] text-[13px] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
-            건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전(評傳)으로 헌정됩니다.
+            건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전으로 헌정됩니다.
           </p>
 
           {/* 상단 퀵 액션: A4 책자 인쇄 & 빈소 키오스크 송출 */}
@@ -573,7 +573,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
               {/* 스마트폰 부고장 프레임 */}
               <div className="bg-[#FFFFFF] border-2 border-[#141618]/10 rounded-xl p-5 space-y-4 shadow-sm max-w-lg mx-auto">
                 <div className="text-center pb-3 border-b border-[#DCD6C9]">
-                  <div className="text-[13px] font-bold text-[#8B2520] tracking-widest">부 고 (訃告)</div>
+                  <div className="text-[13px] font-bold text-[#8B2520] tracking-widest">부고 안내</div>
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
                     {activeObituary.title}
                   </h4>

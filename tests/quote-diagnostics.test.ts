@@ -139,7 +139,7 @@ describe('DualStandbyService (듀얼 스탠바이 및 공정위 내용증명 서
       registrantName: '김정우 (장남)',
       registrantPhone: '010-3849-2910',
       beneficiaryName: '故 김철수 님',
-      relationship: '부친(父)',
+      relationship: '부친',
       existingCompany: '보람상조',
       existingProduct: '보람 프리미엄 450',
       paidTotalAmount: 1_260_000,

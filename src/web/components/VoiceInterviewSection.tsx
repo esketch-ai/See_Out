@@ -180,7 +180,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
         <div className="bg-[#FFFFFF] border-2 border-[#C2A26A]/40 rounded-xl p-5 md:p-6 space-y-3 relative overflow-hidden shadow-xs">
           <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2.5">
             <div className="flex items-center space-x-2">
-              <span className="k-seal-gold px-2 py-0.5 text-[13px]">問</span>
+              <span className="k-seal-gold px-2 py-0.5 text-[13px] font-bold">질문</span>
               <span className="text-[13px] font-bold text-[#6E5429]">
                 AI 인터뷰어 질문 (제{currentQ.targetChapterNumber}장 {currentQ.category})
               </span>

@@ -40,12 +40,12 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navItems: { id: MainTab; label: string; hanja: string; seal: string; desc: string; icon: React.FC<{ className?: string }> }[] = [
-    { id: 'home', label: '종합 의전', hanja: '綜合儀典', seal: '禮', desc: '홈 요약 및 4대 핵심 서비스 둘러보기', icon: LayoutDashboard },
-    { id: 'quote', label: '원가 진단', hanja: '原價診斷', seal: '眞', desc: '3초 증서 사진 판독 & 1:1 맞춤 영수증 비교', icon: FileText },
-    { id: 'funeral-halls', label: '장례식장', hanja: '葬禮式場', seal: '安', desc: '전국 1,080곳 빈소 시설 & 30% 감면 혜택', icon: Building2 },
-    { id: 'packages', label: '정찰 패키지', hanja: '定札儀禮', seal: '誠', desc: '무빈소·2일가족장·실속·품격 4대 투명 정찰제', icon: PackageCheck },
-    { id: 'life-archive', label: '생애기록관', hanja: '生涯記錄', seal: '永', desc: '모바일 부고장 & 생애 평전 (살아온 이야기)', icon: BookOpen }
+  const navItems: { id: MainTab; label: string; desc: string; icon: React.FC<{ className?: string }> }[] = [
+    { id: 'home', label: '종합 의전', desc: '홈 요약 및 4대 핵심 서비스 둘러보기', icon: LayoutDashboard },
+    { id: 'quote', label: '원가 진단', desc: '3초 증서 사진 판독 & 1:1 맞춤 영수증 비교', icon: FileText },
+    { id: 'funeral-halls', label: '장례식장', desc: '전국 1,080곳 빈소 시설 & 30% 감면 혜택', icon: Building2 },
+    { id: 'packages', label: '정찰 패키지', desc: '무빈소·2일가족장·실속·품격 4대 투명 정찰제', icon: PackageCheck },
+    { id: 'life-archive', label: '생애기록관', desc: '모바일 부고장 & 생애 평전 (살아온 이야기)', icon: BookOpen }
   ];
 
   const handleSelectNav = (tabId: MainTab) => {
@@ -80,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* 전통 주사 낙관 인장 */}
               <TraditionalSeal sealKey="courtesy" size="sm" />
               <span className="text-[13px] px-2 py-0.5 rounded font-serif font-medium bg-[#1F2226] text-[#8A929D] border border-[#3D382E] hidden sm:inline">
-                至誠奉送 · 정직원가 의전
+                지극한 정성 · 정직원가 의전
               </span>
             </div>
             <p className="hidden sm:block text-[13px] text-[#8A929D] font-serif mt-0.5 tracking-tight">
@@ -153,14 +153,8 @@ export const Header: React.FC<HeaderProps> = ({
                       : 'border-transparent text-[#8A929D] hover:text-[#FAF9F6] hover:bg-[#141618]/50'
                   }`}
                 >
-                  <span className={`text-[13px] px-1.5 py-0.2 rounded font-serif ${
-                    isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#1F2226] text-[#8A929D]'
-                  }`}>
-                    {item.seal}
-                  </span>
                   <Icon className={`w-4 h-4 ${isActive ? 'text-[#C2A26A]' : 'text-[#8A929D]'}`} />
                   <span className="tracking-tight">{item.label}</span>
-                  <span className="text-[13px] text-[#8A929D] font-normal hidden lg:inline">({item.hanja})</span>
                 </button>
               );
             })}
@@ -219,14 +213,14 @@ export const Header: React.FC<HeaderProps> = ({
                   <div className="flex items-center space-x-3">
                     <div
                       className={`w-9 h-9 rounded-md flex items-center justify-center shrink-0 ${
-                        isActive ? 'bg-[#9E7D47] text-[#0E1012] font-black' : 'bg-[#1F2226] text-[#C2A26A]'
+                        isActive ? 'bg-[#9E7D47] text-[#0E1012]' : 'bg-[#1F2226] text-[#C2A26A]'
                       }`}
                     >
-                      <span className="text-[13px] font-serif">{item.seal}</span>
+                      <Icon className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="font-serif font-bold text-sm text-[#FAF9F6]">
-                        {item.label} <span className="text-[13px] text-[#8A929D] font-normal font-sans">({item.hanja})</span>
+                        {item.label}
                       </div>
                       <div className="text-[13px] text-[#8A929D] font-serif mt-0.5">{item.desc}</div>
                     </div>

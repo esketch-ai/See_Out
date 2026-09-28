@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { lazyModal, warmAll } from '../design-system/LazyModal.js';
+import React, { Suspense, useState, useMemo, useEffect } from 'react';
 import {
   FuneralHallService,
   FuneralHallEntity,
@@ -32,11 +33,6 @@ import {
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 import { FuneralHallMap } from './FuneralHallMap.js';
-import { FuneralHallQuoteModal } from './FuneralHallQuoteModal.js';
-import { PartnerPerformanceReportModal } from './PartnerPerformanceReportModal.js';
-import { OptOutModal } from './OptOutModal.js';
-import { AffiliatePartnersModal } from './AffiliatePartnersModal.js';
-import { B2BPartnerAdmissionModal } from './B2BPartnerAdmissionModal.js';
 import { OptOutService } from '../../compliance/index.js';
 
 export interface FuneralHallSearchWidgetProps {
@@ -50,6 +46,11 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   onSelectHallForFuneral,
   onNavigateToLifeArchive
 }) => {
+  // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
+  useEffect(() => {
+    warmAll(PRELOAD_MODALS);
+  }, []);
+
   const [keyword, setKeyword] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -140,7 +141,23 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
     ];
   }, [selectedHall]);
 
+
+// 장례식장 탭의 보조 화면 5종. 검색 결과를 고르거나 제휴 메뉴를 눌러야 처음 열린다.
+// 정적 import 로 두면 첫 화면이 735KB 를 전부 내려받는다.
+const quoteModal = lazyModal(() => import('./FuneralHallQuoteModal.js'));
+const reportModal = lazyModal(() => import('./PartnerPerformanceReportModal.js'));
+const optOutModal = lazyModal(() => import('./OptOutModal.js'));
+const affiliateModal = lazyModal(() => import('./AffiliatePartnersModal.js'));
+const b2bModal = lazyModal(() => import('./B2BPartnerAdmissionModal.js'));
+const FuneralHallQuoteModal = quoteModal.Comp;
+const PartnerPerformanceReportModal = reportModal.Comp;
+const OptOutModal = optOutModal.Comp;
+const AffiliatePartnersModal = affiliateModal.Comp;
+const B2BPartnerAdmissionModal = b2bModal.Comp;
+const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.preload, affiliateModal.preload, b2bModal.preload];
+
   return (
+    <Suspense fallback={null}>
     <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#DCD6C9] p-5 md:p-8 space-y-6">
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
       <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#3D382E] bg-[#141618]">
@@ -790,5 +807,6 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
         />
       )}
     </div>
+    </Suspense>
   );
 };

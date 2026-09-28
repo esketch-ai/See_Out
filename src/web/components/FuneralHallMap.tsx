@@ -226,9 +226,9 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
             </div>
             <div className="text-[13px] text-[#5A5E66] truncate">{selectedHall.address}</div>
             {selectedHall.nearestSubway && (
-              <div className="text-[13px] text-[#19382C] flex items-center space-x-1">
-                <Train className="w-3 h-3 shrink-0" />
-                <span className="truncate">{selectedHall.nearestSubway}</span>
+              <div className="text-[13px] text-[#19382C] flex items-start space-x-1">
+                <Train className="w-3 h-3 shrink-0 mt-0.5" />
+                <span className="min-w-0 break-words">{selectedHall.nearestSubway}</span>
               </div>
             )}
           </div>

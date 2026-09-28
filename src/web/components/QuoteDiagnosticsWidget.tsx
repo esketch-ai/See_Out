@@ -341,14 +341,17 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
         {/* 증서 원문 직접 수정 / 붙여넣기 토글 */}
         <div className="pt-1">
           <button
+            type="button"
             onClick={() => setShowDirectTextInput(!showDirectTextInput)}
+            aria-expanded={showDirectTextInput}
+            aria-controls="cert-raw-text-panel"
             className="text-[13px] text-[#5A5E66] hover:text-[#19382C] font-serif underline flex items-center space-x-1 cursor-pointer"
           >
             <span>{showDirectTextInput ? '▲ 증서 텍스트 직접 입력창 닫기' : '▼ 증서 텍스트 직접 입력 / 수정하기'}</span>
           </button>
 
           {showDirectTextInput && (
-            <div className="mt-2.5 p-4 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-2.5">
+            <div id="cert-raw-text-panel" className="mt-2.5 p-4 rounded-lg bg-[#FFFFFF] border border-[#DCD6C9] space-y-2.5">
               <label className="text-[13px] font-bold text-[#151719] block font-serif">
                 상조 가입 증서 내용 (사진 자동인식 내용 또는 직접 입력)
               </label>

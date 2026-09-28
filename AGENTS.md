@@ -101,6 +101,24 @@ const y = useMemo(...);            //   「닫힘 → 열림」 전이에서 훅
 `useModalA11y(onClose)` 로 상수를 주면 `isOpen` 이 false 가 되어도 cleanup 이
 안 돌아 body 잠금이 남는다. `useModalA11y(onClose, isOpen)` 로 넘긴다.
 
+### 탭 분기 안에 훅을 넣지 않는다
+
+`if (currentTab === 'quote') { ... }` 안쪽에 `useEffect` 를 두면 탭을 바꿀 때
+훅 개수가 달라져 같은 #310 으로 죽는다. **조건부 `return` 보다 위, 함수 맨 앞에 둔다.**
+
+> 실제로 이 작업에서저지 않았다. `warmAll` 을 `if (currentTab === ...)` 블록 안에
+> 넣었다가 원가 진단 탭이 통째로 백화면이 되었다. 정적 검사기는
+> `if (!isOpen) return null` 만 본다 — 탭 분기는 못 잡는다.
+
+### `React.lazy` 는 `lazyModal` 헬퍼로만
+
+`src/web/design-system/LazyModal.tsx` 를 쓴다. 순수 `lazy()` 는 지연이 남아
+유족이 「멈췄다」고 판단해 두 번 누른다. 헬퍼는 `preload` 와 `warmAll` 로
+포인터 진입·포커스·한가한 시점에 미리 받는다.
+
+`Suspense` 는 탭 컴포넌트의 최상위 `return` 을 한 번만 감싼다. 팝업마다 감싸면
+닫는 태그를 놓치기 쉽다.
+
 ---
 
 ## 4. 감사 도구를 믿기 전에, 감사를 검증한다
@@ -132,6 +150,34 @@ git checkout src/web/components/LegalPolicyModal.tsx
   `evaluate(fn, { list, rootSel })` 로 객체 하나로 넘긴다.
 - **한글 정규식은 렌더 타깃에 따라 깨진다.** 탭·버튼 탐색은
   `document.querySelectorAll('button')[i]` 인덱스로 한다.
+
+---
+
+## 4-1. 텍스트를 잘라 말하지 않는다
+
+```tsx
+// 금지 — 노안 유족이 못 읽는다
+<span className="truncate">{pkg.vehicleSummary}</span>
+
+// 정찰이라는 약속을 지켜야 하는 자리
+<span className="min-w-0 break-words">{pkg.vehicleSummary}</span>
+```
+
+`truncate` 는 「무엇이 포함되는가」 를 읽게 하라는 정찰의 목적을 무너뜨린다.
+아이콘과 나란한 flex 행이면 부모도 `items-start` 로 바꿔야 줄이 맞는다.
+
+> 실제 사례 — 장례식장 주소와 정찰 패키지 10개 항목이 잘려 있었다.
+
+---
+
+## 4-2. 펼침/접기에는 aria-expanded
+
+`모달 아님 (탭 내 인라인 흐름)` 으로 판정되는 disclosure 버튼은
+`aria-expanded` 와 `aria-controls` 를 함께 단다. 스크린리더 사용자는
+「명세 펼치기」 라는 문구만으로 지금 열려 있는지 알 수 없다.
+
+닫기 버튼도 같은 단어를 쓰지만 **모달 안**에 있다. 감사 도구는 `[role=dialog]`
+내부를 제외하고 판정해 둘을 구분한다.
 
 ---
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { lazyModal, warmAll } from '../design-system/LazyModal.js';
+import React, { Suspense, useEffect, useState } from 'react';
 import {
   BookOpen,
   Award,
@@ -43,10 +44,7 @@ import {
   createObituaryFromSetting,
   FuneralSetting
 } from '../../life-archive/index.js';
-import { MemorialBookletModal } from './MemorialBookletModal.js';
-import { AltarKioskModal } from './AltarKioskModal.js';
 import { VoiceInterviewSection } from './VoiceInterviewSection.js';
-import { ProfessionalCareModal } from './ProfessionalCareModal.js';
 import { CareVertical } from '../../professional-care/index.js';
 
 interface LifeArchiveWidgetProps {
@@ -60,6 +58,11 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   onUpdateFuneralSetting,
   onNavigateTab
 }) => {
+  // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
+  useEffect(() => {
+    warmAll(PRELOAD_MODALS);
+  }, []);
+
   // 메인 상단 탭: 'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'
   const [activeTab, setActiveTab] = useState<'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'>('biography');
 
@@ -103,7 +106,18 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
     ? SAMPLE_CONTACTS
     : SAMPLE_CONTACTS.filter((c) => c.group === selectedGroup);
 
+
+// 생애기록관 탭의 양장본·빈소 헌정·상담. 해당 항목을 고를 때만 필요하다.
+const bookletModal = lazyModal(() => import('./MemorialBookletModal.js'));
+const kioskModal = lazyModal(() => import('./AltarKioskModal.js'));
+const careModal2 = lazyModal(() => import('./ProfessionalCareModal.js'));
+const MemorialBookletModal = bookletModal.Comp;
+const AltarKioskModal = kioskModal.Comp;
+const ProfessionalCareModal = careModal2.Comp;
+const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.preload];
+
   return (
+    <Suspense fallback={null}>
     <div className="bg-[#FFFFFF] rounded-xl shadow-xs border border-[#DCD6C9] p-5 md:p-8 space-y-7">
       {/* 1. 상단 실제 훈장 및 가족 사진 비주얼 헤더 배너 */}
       <div className="relative rounded-lg overflow-hidden h-48 sm:h-56 border border-[#3D382E] bg-[#141618]">
@@ -988,5 +1002,6 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
         onClose={() => setIsCareModalOpen(false)}
       />
     </div>
+    </Suspense>
   );
 };

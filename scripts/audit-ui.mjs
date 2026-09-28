@@ -202,7 +202,10 @@ const INSPECT = ({ list, rootSel }) => {
     return '#' + [0, 1, 2].map((i) => (+m[i]).toString(16).padStart(2, '0')).join('').toUpperCase();
   };
 
-  const r = { tiny: 0, tl: [], con: [], off: [] };
+  // 잘림: 스크롤폭이 더 큰데 넘침이 숨겨져 있는 요소.
+  // 「정찰 패키지」 표는 무엇이 포함되는지 읽게 하는 것이 목적인데,
+  // truncate 로 노안 유족이 못 읽으면 정찰이라는 장점이 사라진다.
+  const r = { tiny: 0, tl: [], con: [], off: [], clip: 0, cl2: [] };
   root.querySelectorAll('*').forEach((el) => {
     const direct = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
     if (!direct) return;
@@ -225,8 +228,37 @@ const INSPECT = ({ list, rootSel }) => {
 
     const h = hexOf(cs.color);
     if (h && !CANON_SET.has(h) && r.off.length < 3) r.off.push(h);
+
+    if (el.children.length === 0 && cs.overflow !== 'visible' && el.scrollWidth > el.clientWidth + 2) {
+      r.clip++;
+      if (r.cl2.length < 3) r.cl2.push(t.slice(0, 20) + ' ' + el.scrollWidth + '>' + el.clientWidth);
+    }
   });
   return r;
+};
+
+/**
+ * 펼침/접기 disclosure 버튼은 aria-expanded 로 상태를 알려야 한다.
+ *
+ * ■ 왜 이 검사가 있는가
+ *   스크린리더 사용자는 「명세 펼치기」 라는 문구만으로는 지금 열려 있는지
+ *   알 수 없다. aria-expanded 가 없으면 상태 변화가 전혀 전달되지 않는다.
+ *   정적 문자열로는 토글 대상을 알 수 없어 화면을 열어 확인해야 한다.
+ */
+const CHECK_DISCLOSURE = () => {
+  // 「펼침/접힘」 쌍과 화살표 글리프. 닫기 버튼(「창 닫기」)과 구분하려면
+  // 닫기 버튼이 전부 [role=dialog] 안에 있다는 사실을 쓴다.
+  const HINT = /(펼치|접기|펼침|접힘|닫기|\u25b8|\u25be|\u25b2|\u25bc|\u25b6|\u25c0|\u203a|\u2039)/;
+  const out = [];
+  for (const b of document.querySelectorAll('button')) {
+    // 모달 안의 버튼은 닫기 동작이므로 disclosure 가 아니다.
+    if (b.closest('[role="dialog"]')) continue;
+    const label = (b.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!HINT.test(label)) continue;
+    if (b.offsetWidth === 0 && b.offsetHeight === 0) continue;
+    if (!b.hasAttribute('aria-expanded')) out.push(label.slice(0, 30));
+  }
+  return out;
 };
 
 /**
@@ -268,7 +300,7 @@ for (const [name, tab, seq] of POPUPS) {
   p.on('pageerror', () => errs.push(1));
   p.on('console', (m) => { if (m.type() === 'error') errs.push(1); });
 
-  const r = { name, kind: '', open: false, focus: '-', tabTrap: '-', esc: '-', rel: '-', tiny: 0, con: 0, off: 0, errs: 0, note: '' };
+  const r = { name, kind: '', open: false, focus: '-', tabTrap: '-', esc: '-', rel: '-', tiny: 0, con: 0, off: 0, clip: 0, acc: [], errs: 0, note: '' };
 
   try {
     await p.goto(BASE_URL, { waitUntil: 'networkidle' });
@@ -303,8 +335,9 @@ for (const [name, tab, seq] of POPUPS) {
     for (let i = 0; i < 22; i++) await p.keyboard.press('Tab');
     r.tabTrap = await p.evaluate(() => (document.querySelector('[role="dialog"]').contains(document.activeElement) ? 'OK' : 'NO'));
     const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: '[role="dialog"]' });
-    r.tiny = ins.tiny; r.con = ins.con.length; r.off = ins.off.length;
-    r.tl = ins.tl; r.cl = ins.con; r.ol = ins.off;
+    r.acc = await p.evaluate(CHECK_DISCLOSURE);
+    r.tiny = ins.tiny; r.con = ins.con.length; r.off = ins.off.length; r.clip = ins.clip;
+    r.tl = ins.tl; r.cl = ins.con; r.ol = ins.off; r.c2 = ins.cl2;
     await p.keyboard.press('Escape');
     await settle(p, 700);
     r.esc = (await p.locator('[role="dialog"]').count()) === 0 ? 'OK' : 'NO';
@@ -328,14 +361,15 @@ for (const [name, tab] of TABS) {
   await openTab(p, tab);
   await settle(p, 1200);
   const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: null });
-  pageRows.push({ name, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, errs: errs.length, tl: ins.tl, cl: ins.con, ol: ins.off });
+  const acc = await p.evaluate(CHECK_DISCLOSURE);
+  pageRows.push({ name, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, acc, errs: errs.length, tl: ins.tl, cl: ins.con, ol: ins.off, cl2: ins.cl2 });
   await p.close();
 }
 
 await browser.close();
 
 const BAD = (r) =>
-  !r.open || r.errs > 0 || r.off > 0 || r.tiny > 0 || r.con > 0 ||
+  !r.open || r.errs > 0 || r.off > 0 || r.tiny > 0 || r.con > 0 || r.clip > 0 || r.acc.length > 0 ||
   (r.kind === '모달' && (r.focus !== 'OK' || r.tabTrap !== 'OK' || r.esc !== 'OK' || r.rel !== 'OK'));
 
 console.log('══ 배웅 UI 전수 감사 ══');
@@ -359,21 +393,25 @@ for (const r of rows) {
   if (r.tl?.length) console.log('        13px 미만: ' + r.tl.join(' / '));
   if (r.cl?.length) console.log('        대비 미달: ' + r.cl.join(' / '));
   if (r.ol?.length) console.log('        팔레트 밖: ' + r.ol.join(' '));
+  if (r.c2?.length) console.log('        텍스트 잘림: ' + r.c2.join(' / '));
+  if (r.acc?.length) console.log('        aria-expanded 없음: ' + r.acc.join(' / '));
   if (BAD(r)) fail.push('팝업 ' + r.name);
 }
 
 console.log('\n── 페이지 ──');
-console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖  에러');
-console.log('   ' + '─'.repeat(52));
+console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  aria-exp 에러');
+console.log('   ' + '─'.repeat(60));
 for (const r of pageRows) {
-  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.errs === 0;
+  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.acc.length === 0 && r.errs === 0;
   console.log(
     '   ' + (ok ? '✅' : '❌') + ' ' + r.name.padEnd(18) +
-    String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.errs).padStart(6)
+    String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.clip).padStart(6) + String(r.acc.length).padStart(9) + String(r.errs).padStart(6)
   );
   if (r.tl?.length) console.log('        13px 미만: ' + r.tl.join(' / '));
   if (r.cl?.length) console.log('        대비 미달: ' + r.cl.join(' / '));
   if (r.ol?.length) console.log('        팔레트 밖: ' + r.ol.join(' '));
+  if (r.cl2?.length) console.log('        텍스트 잘림: ' + r.cl2.join(' / '));
+  if (r.acc?.length) console.log('        aria-expanded 없음: ' + r.acc.join(' / '));
   if (!ok) fail.push('페이지 ' + r.name);
 }
 

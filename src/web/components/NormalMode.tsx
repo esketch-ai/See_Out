@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall, CheckCircle2, HeartHandshake, Scale } from 'lucide-react';
 import { MainTab } from './Header.js';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
@@ -6,10 +6,7 @@ import { FuneralHallSearchWidget } from './FuneralHallSearchWidget.js';
 import { LifeArchiveWidget } from './LifeArchiveWidget.js';
 import { PackagePricingWidget } from './PackagePricingWidget.js';
 import { TraditionalSeal } from '../design-system/index.js';
-import { DualStandbyModal } from './DualStandbyModal.js';
-import { CancellationClaimModal } from './CancellationClaimModal.js';
-import { LossCreditVoucherModal } from './LossCreditVoucherModal.js';
-import { ProfessionalCareModal } from './ProfessionalCareModal.js';
+import { lazyModal, warmAll } from '../design-system/LazyModal.js';
 import { CareVertical } from '../../professional-care/index.js';
 import { SAMPLE_DUAL_STANDBY, DualStandbyService } from '../../quote-diagnostics/dualStandbyService.js';
 import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkData.js';
@@ -17,6 +14,25 @@ import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalcula
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 import { VirtualCallService } from '../../tracking/index.js';
+
+// ── 팝업 4종은 코드 분할한다 ─────────────────────────────────────────
+// 첫 화면(종합 의전)에 필요 없는 보조 화면이라 유족이 누른 뒤에 처음 필요하다.
+// 정적 import 로 두면 749KB 를 전부 첫 화면에 싣게 된다.
+const dualStandby = lazyModal(() => import('./DualStandbyModal.js'));
+const claimModal = lazyModal(() => import('./CancellationClaimModal.js'));
+const voucherModal = lazyModal(() => import('./LossCreditVoucherModal.js'));
+const careModal = lazyModal(() => import('./ProfessionalCareModal.js'));
+const DualStandbyModal = dualStandby.Comp;
+const CancellationClaimModal = claimModal.Comp;
+const LossCreditVoucherModal = voucherModal.Comp;
+const ProfessionalCareModal = careModal.Comp;
+
+const PRELOAD_MODALS = [
+  dualStandby.preload,
+  claimModal.preload,
+  voucherModal.preload,
+  careModal.preload,
+];
 
 interface NormalModeProps {
   currentTab: MainTab;
@@ -29,6 +45,11 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   onSelectTab,
   onEnterEmergency
 }) => {
+  // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
+  useEffect(() => {
+    warmAll(PRELOAD_MODALS);
+  }, []);
+
   // 3대 모듈(전국 장례식장, 정찰 패키지, 생애기록관) 간 실시간 동기화 상태
   const [funeralSetting, setFuneralSetting] = useState<FuneralSetting>(DEFAULT_FUNERAL_SETTING);
 
@@ -43,7 +64,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
 
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
-    return (
+  return (
       <div className="space-y-6 pb-20">
         <QuoteDiagnosticsWidget />
       </div>
@@ -634,6 +655,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
       </div>
 
+      {/* 코드가 조각으로 나뉘어 늦게 올 수 있다. 그동안 빈 화면을 보여주지 않는다. */}
+      <Suspense fallback={null}>
       {/* [옵션 2 모달 1] 듀얼 스탠바이 사전 안심 등록증 모달 */}
       {isDualStandbyModalOpen && (
         <DualStandbyModal
@@ -686,6 +709,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         initialVertical={careModalVertical}
         onClose={() => setIsCareModalOpen(false)}
       />
+      </Suspense>
     </div>
   );
 };

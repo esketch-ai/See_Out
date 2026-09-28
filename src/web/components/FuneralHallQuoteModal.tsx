@@ -240,9 +240,9 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                     <span className="text-[#5A5E66]">대표 번호:</span>
                     <span className="font-bold text-[#19382C]">{hall.phone}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#5A5E66]">시설 주소:</span>
-                    <span className="text-right truncate max-w-[200px]">{hall.address}</span>
+                  <div className="flex justify-between gap-3">
+                    <span className="text-[#5A5E66] shrink-0">시설 주소:</span>
+                    <span className="text-right min-w-0 break-words">{hall.address}</span>
                   </div>
                   {hall.nearestCrematorium && (
                     <div className="flex justify-between text-[#8B2520]">

@@ -423,20 +423,20 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-[#DCD6C9] space-y-1.5 text-[13px] font-serif">
-                  <div className="flex items-center space-x-1.5 text-[#42464E]">
+                  <div className="flex items-start space-x-1.5 text-[#42464E]">
                     <Users className="w-3.5 h-3.5 text-[#6E5429] shrink-0" />
-                    <span className="truncate">{pkg.targetGuests}</span>
+                    <span className="min-w-0 break-words">{pkg.targetGuests}</span>
                   </div>
                   {pkg.staffSummary && (
-                    <div className="flex items-center space-x-1.5 text-[#5A5E66]">
+                    <div className="flex items-start space-x-1.5 text-[#5A5E66]">
                       <Clock className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                      <span className="truncate">{pkg.staffSummary}</span>
+                      <span className="min-w-0 break-words">{pkg.staffSummary}</span>
                     </div>
                   )}
                   {pkg.vehicleSummary && (
-                    <div className="flex items-center space-x-1.5 text-[#5A5E66]">
+                    <div className="flex items-start space-x-1.5 text-[#5A5E66]">
                       <Car className="w-3.5 h-3.5 text-[#6E5429] shrink-0" />
-                      <span className="truncate">{pkg.vehicleSummary}</span>
+                      <span className="min-w-0 break-words">{pkg.vehicleSummary}</span>
                     </div>
                   )}
                 </div>
@@ -585,7 +585,10 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
       {/* 6. 선택된 패키지 원가 상세 명세 및 5대 영역 스펙 아코디언 */}
       <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FAF9F6]">
         <button
+          type="button"
           onClick={() => setOpenDetail(!openDetail)}
+          aria-expanded={openDetail}
+          aria-controls="pkg-cost-detail-panel"
           className="w-full bg-[#FAF9F6] p-4 md:px-5 flex items-center justify-between font-serif font-bold text-[#151719] text-sm md:text-base hover:bg-[#FAF9F6] transition-colors cursor-pointer border-b border-[#DCD6C9]"
         >
           <div className="flex items-center space-x-2">
@@ -601,7 +604,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
         </button>
 
         {openDetail && (
-          <div className="p-5 md:p-6 bg-[#FFFFFF] space-y-4 font-serif">
+          <div id="pkg-cost-detail-panel" className="p-5 md:p-6 bg-[#FFFFFF] space-y-4 font-serif">
             {/* 5대 영역 상세 스펙 테이블 */}
             <div className="border border-[#DCD6C9] rounded-lg overflow-hidden text-[13px]">
               <table className="w-full text-left divide-y divide-[#DCD6C9]">

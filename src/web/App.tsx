@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { lazyModal, warmAll } from './design-system/LazyModal.js';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
 import { EmergencyMode } from './components/EmergencyMode.js';
-import { LegalPolicyModal } from './components/LegalPolicyModal.js';
 import { LegalDocumentType } from '../legal/types.js';
 import { PhoneCall } from 'lucide-react';
+
+// 약관은 유족이 하단 링크를 눌러야 처음 읽히는 보조 화면이다.
+// 첫 화면 735KB 에 실을 이유가 없어 조각으로 뺀다.
+const legalModal = lazyModal(() => import('./components/LegalPolicyModal.js'));
+const LegalPolicyModal = legalModal.Comp;
+const PRELOAD_MODALS = [legalModal.preload];
+
+
 
 export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
@@ -26,6 +34,13 @@ export const App: React.FC = () => {
       document.documentElement.classList.remove('senior-large-font');
     }
   }, [isLargeFont]);
+
+  // 모달 조각을 한가할 때 미리 받는다.
+  // 조각이 늦으면 유족은 「멈췄다」고 판단해 두 번 누른다. 이중안심 대상이므로
+  // 클릭 지연을 감수하지 않는다 — 네트워크가 한가할 때 끝내둔다.
+  useEffect(() => {
+    warmAll(PRELOAD_MODALS);
+  }, []);
 
   return (
     <div
@@ -105,11 +120,13 @@ export const App: React.FC = () => {
       )}
 
       {/* 30년+ 전문변호인단 법률 감수 약관 및 컴플라이언스 모달 */}
-      <LegalPolicyModal
-        isOpen={isLegalModalOpen}
-        initialDocType={selectedLegalDoc}
-        onClose={() => setIsLegalModalOpen(false)}
-      />
+      <Suspense fallback={null}>
+        <LegalPolicyModal
+          isOpen={isLegalModalOpen}
+          initialDocType={selectedLegalDoc}
+          onClose={() => setIsLegalModalOpen(false)}
+        />
+      </Suspense>
 
       {/* 5090 시니어 안심 모바일 플로팅 핫라인 바 (화면 하단 상시 고정) */}
       {!isEmergencyMode && (

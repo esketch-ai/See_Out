@@ -4,15 +4,16 @@ import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
 import { EmergencyMode } from './components/EmergencyMode.js';
 import { LegalDocumentType } from '../legal/types.js';
-import { PhoneCall } from 'lucide-react';
+import { PhoneCall, Mic, Building2 } from 'lucide-react';
 
-// 약관은 유족이 하단 링크를 눌러야 처음 읽히는 보조 화면이다.
-// 첫 화면 735KB 에 실을 이유가 없어 조각으로 뺀다.
+// 약관 및 고도화 모달 지연 로딩
 const legalModal = lazyModal(() => import('./components/LegalPolicyModal.js'));
+const voiceModal = lazyModal(() => import('./components/SeniorVoiceAssistantModal.js'));
+const partnerModal = lazyModal(() => import('./components/PartnerPortalModal.js'));
 const LegalPolicyModal = legalModal.Comp;
-const PRELOAD_MODALS = [legalModal.preload];
-
-
+const SeniorVoiceAssistantModal = voiceModal.Comp;
+const PartnerPortalModal = partnerModal.Comp;
+const PRELOAD_MODALS = [legalModal.preload, voiceModal.preload, partnerModal.preload];
 
 export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
@@ -20,6 +21,8 @@ export const App: React.FC = () => {
   const [isLargeFont, setIsLargeFont] = useState<boolean>(false);
   const [isLegalModalOpen, setIsLegalModalOpen] = useState<boolean>(false);
   const [selectedLegalDoc, setSelectedLegalDoc] = useState<LegalDocumentType>('PRIVACY_POLICY');
+  const [isVoiceAssistantOpen, setIsVoiceAssistantOpen] = useState<boolean>(false);
+  const [isPartnerPortalOpen, setIsPartnerPortalOpen] = useState<boolean>(false);
 
   const handleOpenLegal = (type: LegalDocumentType) => {
     setSelectedLegalDoc(type);
@@ -56,6 +59,8 @@ export const App: React.FC = () => {
         onToggleMode={(emergency) => setIsEmergencyMode(emergency)}
         isLargeFont={isLargeFont}
         onToggleLargeFont={() => setIsLargeFont(!isLargeFont)}
+        onOpenVoiceAssistant={() => setIsVoiceAssistantOpen(true)}
+        onOpenPartnerPortal={() => setIsPartnerPortalOpen(true)}
       />
 
       {/* 상황별 모드 전환 및 탭 라우팅 렌더링 */}
@@ -106,6 +111,13 @@ export const App: React.FC = () => {
               >
                 디지털 유산 사후 승계 규약
               </button>
+              <span className="text-[#C2A26A]">|</span>
+              <button
+                onClick={() => setIsPartnerPortalOpen(true)}
+                className="hover:text-[#19382C] underline decoration-[#6E5429] underline-offset-4 cursor-pointer"
+              >
+                장례식장 B2B 파트너 전용 포털 (SaaS)
+              </button>
             </div>
 
             <p className="font-bold text-[#151719] text-sm md:text-base">
@@ -127,6 +139,57 @@ export const App: React.FC = () => {
           onClose={() => setIsLegalModalOpen(false)}
         />
       </Suspense>
+
+      {/* 어르신 무타자 음성 대화형 어시스턴트 모달 */}
+      {isVoiceAssistantOpen && (
+        <Suspense fallback={null}>
+          <SeniorVoiceAssistantModal
+            onClose={() => setIsVoiceAssistantOpen(false)}
+            onNavigateToEmergency={() => {
+              setIsVoiceAssistantOpen(false);
+              setIsEmergencyMode(true);
+            }}
+            onSelectHall={(hallName) => {
+              setIsVoiceAssistantOpen(false);
+              setCurrentTab('funeral-halls');
+            }}
+            onOpenPackagePricing={() => {
+              setIsVoiceAssistantOpen(false);
+              setCurrentTab('packages');
+            }}
+            onOpenQuoteDiagnostics={() => {
+              setIsVoiceAssistantOpen(false);
+              setCurrentTab('quote');
+            }}
+          />
+        </Suspense>
+      )}
+
+      {/* B2B 장례식장 파트너 비즈니스 포털 모달 */}
+      {isPartnerPortalOpen && (
+        <Suspense fallback={null}>
+          <PartnerPortalModal
+            onClose={() => setIsPartnerPortalOpen(false)}
+          />
+        </Suspense>
+      )}
+
+      {/* 5090 시니어 무타자 음성 어시스턴트 플로팅 버튼 */}
+      {!isEmergencyMode && (
+        <div className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40">
+          <button
+            type="button"
+            onClick={() => setIsVoiceAssistantOpen(true)}
+            className="px-4 py-3 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-full font-serif font-bold text-[14px] flex items-center space-x-2 shadow-2xl border-2 border-[#C2A26A] transition-transform hover:scale-105 cursor-pointer ring-4 ring-[#19382C]/20"
+            aria-label="어르신 무타자 음성 안내 열기"
+          >
+            <div className="w-6 h-6 rounded-full bg-[#0D0E10] flex items-center justify-center text-[#C2A26A]">
+              <Mic className="w-3.5 h-3.5" />
+            </div>
+            <span>무타자 말로 찾기</span>
+          </button>
+        </div>
+      )}
 
       {/* 5090 시니어 안심 모바일 플로팅 핫라인 바 (화면 하단 상시 고정) */}
       {!isEmergencyMode && (

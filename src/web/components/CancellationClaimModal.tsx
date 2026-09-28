@@ -10,9 +10,15 @@ import {
   Building2,
   Calendar,
   CreditCard,
-  CheckCircle2
+  CheckCircle2,
+  Mail,
+  Send,
+  Truck,
+  RefreshCw,
+  ShieldCheck
 } from 'lucide-react';
 import { CancellationClaimData } from '../../quote-diagnostics/types.js';
+import { EgreenPostService, EgreenDispatchRecord } from '../../legal/index.js';
 import { TraditionalSeal } from '../design-system/index.js';
 import { ModalShell, ModalToolbar } from './ModalShell.js';
 
@@ -33,6 +39,34 @@ export const CancellationClaimModal: React.FC<CancellationClaimModalProps> = ({
   const [refundHolder, setRefundHolder] = useState(claimData.refundAccountHolder);
 
   const [copiedText, setCopiedText] = useState(false);
+  const [dispatchRecord, setDispatchRecord] = useState<EgreenDispatchRecord | null>(null);
+  const [isSending, setIsSending] = useState(false);
+
+  const handleEgreenSend = () => {
+    setIsSending(true);
+    setTimeout(() => {
+      const record = EgreenPostService.submitProofOfContent({
+        ...claimData,
+        claimantName,
+        claimantPhone,
+        claimantAddress,
+        refundAccountBank: refundBank,
+        refundAccountNumber: refundAccount,
+        refundAccountHolder: refundHolder
+      });
+      setDispatchRecord(record);
+      setIsSending(false);
+    }, 600);
+  };
+
+  const handleAdvanceStatus = () => {
+    if (dispatchRecord) {
+      const updated = EgreenPostService.advanceStatus(dispatchRecord.dispatchId);
+      if (updated) {
+        setDispatchRecord({ ...updated });
+      }
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -125,10 +159,132 @@ ${claimData.claimDate || '발송 당일'}
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>A4 인쇄 / PDF 저장</span>
           </button>
+          <button
+            type="button"
+            onClick={handleEgreenSend}
+            disabled={isSending}
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+          >
+            <Mail className="w-4 h-4 text-[#C2A26A]" />
+            <span>{isSending ? '우체국 전송 중...' : '우체국 e-그린 등기 발송'}</span>
+          </button>
         </ModalToolbar>
 
         {/* 본문 컨테이너 */}
         <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF9F6]">
+          {/* ───────────────────────────────────────────────────────────── */}
+          {/* 우체국 e-그린우편 실물 발송 현황 안내 및 접수증 카드 */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          {dispatchRecord ? (
+            <div className="bg-[#FFFFFF] border-2 border-[#19382C] rounded-[20px] p-6 shadow-md space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#DCD6C9] pb-3 gap-2">
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-9 h-9 rounded-full bg-[#19382C] text-[#C2A26A] flex items-center justify-center border border-[#2D4F43]">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="font-reverence font-bold text-base text-[#151719] flex items-center space-x-2">
+                      <span>우정사업본부 e-그린우편 공인 전자내용증명 접수증</span>
+                      <span className="text-[13px] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded border border-[#2D4F43]">
+                        법적 효력 등기
+                      </span>
+                    </h2>
+                    <p className="text-[13px] text-[#5A5E66]">
+                      접수번호: <span className="font-mono font-bold text-[#19382C]">{dispatchRecord.dispatchId}</span> (우편법 제15조 준수)
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAdvanceStatus}
+                  className="px-3 py-1.5 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] rounded-md text-[13px] font-bold text-[#151719] flex items-center space-x-1.5 self-start sm:self-auto cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-[#19382C]" />
+                  <span>배송 상태 갱신 (시뮬레이션)</span>
+                </button>
+              </div>
+
+              {/* 4단계 배송 스테퍼 */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[13px]">
+                <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'ACCEPTED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
+                  <p className="font-bold">1단계. 전산 접수</p>
+                  <p className="text-[13px] opacity-85 mt-0.5">우체국 시스템 등록</p>
+                </div>
+                <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'PRINTED_ENCLOSED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
+                  <p className="font-bold">2단계. 인쇄·봉입</p>
+                  <p className="text-[13px] opacity-85 mt-0.5">전산용지 봉투 봉입</p>
+                </div>
+                <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'POSTAL_DISPATCHED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
+                  <p className="font-bold">3단계. 등기 출발</p>
+                  <p className="text-[13px] opacity-85 mt-0.5">특급 집배국 전달</p>
+                </div>
+                <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'DELIVERED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
+                  <p className="font-bold">4단계. 본사 배달완료</p>
+                  <p className="text-[13px] opacity-85 mt-0.5">수취인 날인 도달</p>
+                </div>
+              </div>
+
+              {/* 실시간 상태 안내 및 바코드 */}
+              <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#DCD6C9] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="space-y-1 text-[13px] w-full sm:w-auto">
+                  <p className="font-bold text-[#151719] flex items-center space-x-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
+                    <span>현재 진행: {dispatchRecord.statusText}</span>
+                  </p>
+                  <p className="text-[#5A5E66]">
+                    수신: <strong>{dispatchRecord.recipientName}</strong> ({dispatchRecord.recipientAddress})
+                  </p>
+                  <p className="text-[#5A5E66]">
+                    배달 예정: <span className="font-bold text-[#19382C]">{dispatchRecord.estimatedDeliveryDate}</span>
+                  </p>
+                </div>
+
+                {/* 13자리 바코드 그래픽 */}
+                <div className="bg-white p-3 rounded-lg border border-[#DCD6C9] text-center shrink-0">
+                  <div className="flex items-center justify-center space-x-1 h-8">
+                    {[1, 3, 2, 4, 1, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3, 2, 1, 3].map((w, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-[#151719] h-full"
+                        style={{ width: `${w * 1.8}px` }}
+                      />
+                    ))}
+                  </div>
+                  <span className="font-mono text-[13px] font-bold text-[#151719] tracking-wider block mt-1">
+                    {dispatchRecord.postalBarcode}
+                  </span>
+                  <span className="text-[13px] text-[#6E5429] font-bold block mt-0.5">
+                    {dispatchRecord.officialPostOfficeSeal}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-[20px] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-full bg-[#19382C]/10 text-[#19382C] flex items-center justify-center shrink-0 border border-[#19382C]/20">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div className="text-[13px]">
+                  <p className="font-bold text-[#151719]">
+                    우체국에 직접 방문하거나 종이로 출력할 필요가 없습니다
+                  </p>
+                  <p className="text-[#5A5E66]">
+                    우정사업본부 e-그린우편을 통해 상조사 본사로 공인 전자 내용증명 등기우편을 즉시 발송할 수 있습니다.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleEgreenSend}
+                disabled={isSending}
+                className="px-4 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg font-bold text-[13px] flex items-center space-x-1.5 shrink-0 transition-colors shadow-xs cursor-pointer border border-[#2D4F43]"
+              >
+                <Send className="w-4 h-4 text-[#C2A26A]" />
+                <span>{isSending ? '우체국 전송 처리 중...' : '우체국 e-그린 등기 발송 신청'}</span>
+              </button>
+            </div>
+          )}
           {/* ───────────────────────────────────────────────────────────── */}
           {/* A4 인쇄 규격 내용증명 공문서 포맷 */}
           {/* ───────────────────────────────────────────────────────────── */}

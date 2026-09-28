@@ -42,7 +42,9 @@ import {
   SAMPLE_LIFE_PHOTOS,
   DEFAULT_FUNERAL_SETTING,
   createObituaryFromSetting,
-  FuneralSetting
+  FuneralSetting,
+  BiographyGenerator,
+  LifeStoryDocument
 } from '../../life-archive/index.js';
 import { VoiceInterviewSection } from './VoiceInterviewSection.js';
 import { CareVertical } from '../../professional-care/index.js';
@@ -89,9 +91,32 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   // 연락처 그룹 필터
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
 
-  const story = SAMPLE_LIFE_STORY;
+  // 평전 정본 데이터 상태 (AI 자동 편찬 반영)
+  const [story, setStory] = useState<LifeStoryDocument>(SAMPLE_LIFE_STORY);
+  const [isAiGenerated, setIsAiGenerated] = useState<boolean>(false);
+
   const currentChapter = story.chapters.find((c) => c.chapterNumber === activeChapter) || story.chapters[0];
   const activeObituary = createObituaryFromSetting(funeralSetting, SAMPLE_PRE_MORTEM_OBITUARY);
+
+  const handleCompileAiBiography = () => {
+    const compiled = BiographyGenerator.generateDocument({
+      deceasedName: funeralSetting.deceasedName || '故 김철수 님',
+      birthYear: funeralSetting.birthDate ? parseInt(funeralSetting.birthDate) || 1938 : 1938,
+      hometown: '경남 충무(현 통영)',
+      careerFocus: '조선·해양 중공업 엔지니어',
+      familyMembers: funeralSetting.chiefMourners,
+      motto: funeralSetting.motto,
+      interviewAnswers: [
+        { questionId: 'q1', spokenAnswer: '어머니가 밤마다 쪄주던 군고구마와 통영 앞바다의 푸른 파도가 눈에 선합니다.' },
+        { questionId: 'q2', spokenAnswer: '울산 조선소 현장에서 영하의 칼바람을 맞아가며 대한민국 첫 유조선을 띄우던 날의 감격을 잊을 수 없습니다.' },
+        { questionId: 'q3', spokenAnswer: '단아한 아내를 만나 가정을 꾸리고, 아이들이 태어나 작은 손으로 내 손가락을 꼭 쥐었을 때 참 행복했습니다.' },
+        { questionId: 'q4', spokenAnswer: '정직하게 땀 흘리면 거짓이 없다. 형제끼리 늘 우애하고 서로 아끼며 살아라.' }
+      ]
+    });
+    setStory(compiled);
+    setIsAiGenerated(true);
+    setActiveChapter(1);
+  };
 
   const handleSimulateBroadcast = () => {
     setIsBroadcasting(true);
@@ -257,6 +282,13 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <span className="text-[13px] text-[#5A5E66]">세례명: 베드로</span>
                 </div>
 
+                {isAiGenerated && (
+                  <div className="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#19382C] text-[#DCE8E2] text-[13px] font-serif border border-[#2D4F43]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>AI 구술 인터뷰 기반 5대 챕터 문학적 평전 편찬 완료</span>
+                  </div>
+                )}
+
                 <h3 className="font-reverence font-bold text-xl md:text-2xl text-[#151719] mt-2">
                   {story.memorialTitle}
                 </h3>
@@ -283,6 +315,14 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
 
               <div className="flex flex-wrap gap-2 pt-1 text-[13px]">
                 <button
+                  type="button"
+                  onClick={handleCompileAiBiography}
+                  className="px-3.5 py-2 bg-[#19382C] text-white rounded-md font-bold hover:bg-[#2D4F43] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs border border-[#2D4F43]"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+                  <span>{isAiGenerated ? 'AI 구술 평전 재편찬 완료' : 'AI 구술 생애 평전 자동 편찬 (5대 챕터)'}</span>
+                </button>
+                <button
                   onClick={() => setIsBookletModalOpen(true)}
                   className="px-3.5 py-2 bg-[#19382C] text-white rounded-md font-bold hover:bg-[#2D4F43] transition-colors cursor-pointer flex items-center space-x-1.5 shadow-xs"
                 >
@@ -307,13 +347,13 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
             </div>
           </div>
 
-          {/* 중단: 4대 챕터 연대기 인터랙티브 리더 */}
+          {/* 중단: 5대 챕터 연대기 인터랙티브 리더 */}
           <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
               <div className="flex items-center space-x-2">
                 <BookOpen className="w-4 h-4 text-[#6E5429]" />
                 <h4 className="font-serif font-bold text-sm md:text-base text-[#151719]">
-                  연대기별 생애 스토리 (전체 4장)
+                  연대기별 생애 스토리 (전체 {story.chapters.length}장)
                 </h4>
               </div>
               <span className="text-[13px] text-[#5A5E66] font-serif">
@@ -322,7 +362,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
             </div>
 
             {/* 챕터 셀렉터 탭 */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[13px] font-serif">
+            <div className={`grid grid-cols-2 sm:grid-cols-3 ${story.chapters.length >= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-2 text-[13px] font-serif`}>
               {story.chapters.map((ch) => (
                 <button
                   key={ch.chapterNumber}

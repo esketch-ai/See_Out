@@ -10,7 +10,8 @@ import {
   PhoneCall,
   Menu,
   X,
-  ChevronRight
+  ChevronRight,
+  Mic
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
 
@@ -23,6 +24,8 @@ interface HeaderProps {
   onToggleMode: (emergency: boolean) => void;
   isLargeFont: boolean;
   onToggleLargeFont: () => void;
+  onOpenVoiceAssistant?: () => void;
+  onOpenPartnerPortal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -31,7 +34,9 @@ export const Header: React.FC<HeaderProps> = ({
   isEmergencyMode,
   onToggleMode,
   isLargeFont,
-  onToggleLargeFont
+  onToggleLargeFont,
+  onOpenVoiceAssistant,
+  onOpenPartnerPortal
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -231,6 +236,26 @@ export const Header: React.FC<HeaderProps> = ({
               );
             })}
           </div>
+
+          {/* 모바일 드로어 B2B 파트너 포털 */}
+          {onOpenPartnerPortal && (
+            <div className="pt-2 border-t border-[#3D382E]">
+              <button
+                type="button"
+                onClick={() => {
+                  onOpenPartnerPortal();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full text-left p-3 rounded-lg bg-[#19382C]/30 border border-[#2D4F43] text-[#FAF9F6] font-serif font-bold text-[13px] flex items-center justify-between cursor-pointer hover:bg-[#19382C]/50"
+              >
+                <div className="flex items-center space-x-2">
+                  <Building2 className="w-4 h-4 text-[#C2A26A]" />
+                  <span>장례식장 B2B 파트너 전용 포털 (SaaS)</span>
+                </div>
+                <ChevronRight className="w-4 h-4 text-[#C2A26A]" />
+              </button>
+            </div>
+          )}
 
           {/* 모바일 드로어 하단 핫라인 */}
           <div className="pt-2 border-t border-[#3D382E]">

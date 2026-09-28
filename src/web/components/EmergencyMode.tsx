@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Phone, MapPin, Building2, CheckCircle2, Clock, ShieldCheck, ArrowRight, Heart, Car, Navigation, Award } from 'lucide-react';
+import { Phone, MapPin, Building2, CheckCircle2, Clock, ShieldCheck, ArrowRight, Heart, Car, Navigation, Award, FileCheck2 } from 'lucide-react';
 import { EmergencyDispatchEngine, DispatchMatchResult } from '../../emergency/index.js';
+import { LiveDispatchTrackerModal } from './LiveDispatchTrackerModal.js';
+import { DigitalTallySheetModal } from './DigitalTallySheetModal.js';
 
 export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExitEmergency }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -8,6 +10,8 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
   const [locationDetail, setLocationDetail] = useState('');
   const [funeralHallChoice, setFuneralHallChoice] = useState<'recommended' | 'designated' | ''>('');
   const [hallName, setHallName] = useState('');
+  const [isTrackerOpen, setIsTrackerOpen] = useState(false);
+  const [isTallyOpen, setIsTallyOpen] = useState(false);
 
   // 고인 위치 및 희망 식장에 따른 지역별 지능형 전담 지도사 및 동적 ETA 매칭
   const dispatchResult: DispatchMatchResult = useMemo(() => {
@@ -341,6 +345,26 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
             </div>
 
             <div className="space-y-2.5 pt-1">
+              {/* 실시간 GPS 관제 & 추가금 제로 검수표 버튼 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setIsTrackerOpen(true)}
+                  className="py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-xl font-serif font-bold text-[13px] flex items-center justify-center space-x-2 transition-colors cursor-pointer border border-[#2D4F43]"
+                >
+                  <Navigation className="w-4 h-4 text-[#C2A26A]" />
+                  <span>실시간 GPS 운구 관제 (ETA 확인)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsTallyOpen(true)}
+                  className="py-3 px-4 bg-[#1F2226] hover:bg-[#141618] text-[#FAF9F6] rounded-xl font-serif font-bold text-[13px] flex items-center justify-center space-x-2 transition-colors cursor-pointer border border-[#3D382E]"
+                >
+                  <FileCheck2 className="w-4 h-4 text-[#C2A26A]" />
+                  <span>현장 추가금 제로 지출 검수표</span>
+                </button>
+              </div>
+
               <a
                 href={`tel:${dispatchResult.assignedDirector.virtualPhone}`}
                 className="w-full btn-senior-reverence bg-[#9E7D47] hover:bg-[#9E7D47] text-[#0D0E10] font-black flex items-center justify-center space-x-2 text-lg shadow-sm"
@@ -359,6 +383,23 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
           </div>
         )}
       </main>
+
+      {/* 실시간 GPS 운구 관제 모달 */}
+      {isTrackerOpen && (
+        <LiveDispatchTrackerModal
+          dispatchResult={dispatchResult}
+          onClose={() => setIsTrackerOpen(false)}
+        />
+      )}
+
+      {/* 현장 추가금 제로 디지털 지출 검수표 모달 */}
+      {isTallyOpen && (
+        <DigitalTallySheetModal
+          hallName={dispatchResult.recommendedFuneralHall?.name || hallName || '서울아산병원 장례식장'}
+          directorName={`${dispatchResult.assignedDirector.name} 수석 장례지도사 (${dispatchResult.assignedDirector.licenseNo})`}
+          onClose={() => setIsTallyOpen(false)}
+        />
+      )}
     </div>
   );
 };

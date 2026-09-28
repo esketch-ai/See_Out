@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="배웅 종합 의전 한지면">
+  <!-- 기저(基): 되풀이되는 원 하나 = 선금 0원 · 추가금 0원 · 촌지 0
+       Rand 「로고는 글자가 아니라 상징」 — 이 원은 어느 글자도 아니다. -->
+  <circle cx="60" cy="60" r="40" fill="none" stroke="#8B2520" stroke-width="14"/>
+<g stroke="#C2A26A" stroke-width="12" stroke-linecap="round"><path d="M34 16 v-13"/><path d="M60 13 v-16"/><path d="M86 16 v-13"/></g></svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="배웅 시안 G 안">
+  <title>G — 안(安) : 열린 문살</title>
+  <!-- 5대 낙관 중 「安」 을 통째로 글자로 두지 않고,
+       「문이 열려 있는 형」 으로 옮긴다. 유족을 맞아들이는 조형. -->
+  <defs>
+    <clipPath id="g-lattice"><rect x="52" y="52" width="96" height="96" rx="4"/></clipPath>
+    <g id="g-cell"><path d="M0 -6 L6 0 L0 6 L-6 0 Z" fill="none" stroke="#6E5429" stroke-width="1" stroke-opacity="0.34"/></g>
+    <pattern id="g-pat" width="16" height="16" patternUnits="userSpaceOnUse"><use href="#g-cell" x="8" y="8"/></pattern>
+  </defs>
+  <!-- 열림: 오른쪽 3분1 을 비운다 -->
+  <g clip-path="url(#g-lattice)"><rect x="0" y="0" width="200" height="200" fill="url(#g-pat)"/></g>
+  <path d="M52 52 h60 v96 h-60" fill="none" stroke="#243F35" stroke-width="13" stroke-linejoin="miter" stroke-linecap="square"/>
+  <!-- 열린 틈을 가로지르는 한 획: 「곁한다」 는 말보다 동작 -->
+  <path d="M112 100 h36" fill="none" stroke="#8B2520" stroke-width="13" stroke-linecap="round"/>
+</svg>

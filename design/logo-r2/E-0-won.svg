@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="배웅 시안 E 영">
+  <title>E — 영(0) : 원은 받지 않는다는 약속</title>
+  <!-- 선금 0원 · 부당 추가금 0원 · 촌지 전면 금지.
+       이 서비스가 유족에게 가장 먼저 말하는 말이 「0」 이고,
+       「웅」 의 첫 자음인 ㅇ 도 같은 소리다. -->
+  <circle cx="100" cy="100" r="62" fill="none" stroke="#8B2520" stroke-width="26" stroke-linecap="round"/>
+  <!-- 붓의 결: 원의 끝을 끊지 않는다. 닫힌 원은 계산기, 끊긴 원은 서획 -->
+  <path d="M152 68 a62 62 0 0 1 10 32" fill="none" stroke="#C2A26A" stroke-width="26" stroke-linecap="round"/>
+</svg>

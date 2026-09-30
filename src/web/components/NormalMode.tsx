@@ -68,6 +68,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   //   달라져 React #310 으로 죽는다. 실제로 그런 일이 있었다.
   // ★ 기본값 true — 접어 두면 감사 도구가 이 영역을 통째로 못 본다.
   const [isLegacyCeremonyOpen, setIsLegacyCeremonyOpen] = useState(true);
+  const [activeCeremonyTab, setActiveCeremonyTab] = useState<'3DAY' | 'NO_ALTAR'>('3DAY');
 
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
@@ -155,38 +156,56 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         onEnterEmergency={onEnterEmergency}
       />
 
-      {/* ─── 4번 개선: 전통 3일장 & 무빈소 2일장 1줄 미니 스텝 바 & 상세 도록 펼침 유도 ─── */}
+      {/* ─── 4번 개선: 전통 3일장 & 무빈소 2일장 맞춤형 스텝 바 & 다이어트 상세 도록 ─── */}
       <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 font-serif">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div className="flex items-center space-x-2">
             <span className="text-[13px] font-bold px-2 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] border border-[#19382C]/20">
-              핵심 장례 일정 요약
+              맞춤 일정 안내
             </span>
             <span className="text-sm font-bold text-[#151719]">
-              가족 상황에 맞춘 2대 의전 여정
+              가족 상황에 맞는 장례 방식을 선택하세요
             </span>
           </div>
           <span className="text-[13px] text-[#5A5E66]">
-            클릭하시면 상세 의전 도록과 4대 서비스가 펼쳐집니다
+            선택하신 방식의 상세 일정과 필수 준비사항이 아래에 펼쳐집니다
           </span>
         </div>
 
-        {/* 1줄 미니 스텝 바 (전통 3일장 & 무빈소 2일장) - 클릭 시 도록 토글 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        {/* 1줄 미니 스텝 바 (전통 3일장 vs 무빈소 2일장 2-탭 전환) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* 전통 3일장 1줄 미니 스텝 */}
           <button
             type="button"
-            aria-expanded={isLegacyCeremonyOpen}
+            aria-expanded={isLegacyCeremonyOpen && activeCeremonyTab === '3DAY'}
             aria-controls="legacy-ceremony-detail"
-            onClick={() => setIsLegacyCeremonyOpen((v) => !v)}
-            className="p-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] hover:border-[#19382C] rounded-xl text-left transition-all group cursor-pointer flex items-center justify-between gap-2"
+            onClick={() => {
+              if (activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen) {
+                setIsLegacyCeremonyOpen(false);
+              } else {
+                setActiveCeremonyTab('3DAY');
+                setIsLegacyCeremonyOpen(true);
+              }
+            }}
+            className={`p-3.5 rounded-xl text-left transition-all group cursor-pointer flex items-center justify-between gap-2 border ${
+              activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen
+                ? 'border-2 border-[#19382C] bg-[#FFFFFF] shadow-sm ring-1 ring-[#19382C]/20'
+                : 'border-[#DCD6C9] bg-[#FAF9F6] hover:bg-[#F1EDE3]'
+            }`}
           >
             <div className="min-w-0">
               <div className="flex items-center space-x-1.5 mb-1">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded">
+                <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
+                  activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen
+                    ? 'bg-[#19382C] text-[#FAF9F6]'
+                    : 'bg-[#DCE8E2] text-[#19382C]'
+                }`}>
                   전통 3일장
                 </span>
-                <span className="text-[13px] font-bold text-[#151719]">빈소 조문형</span>
+                <span className="text-sm font-bold text-[#151719]">빈소 조문형</span>
+                {activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen && (
+                  <span className="text-[13px] text-[#19382C] font-bold">● 선택됨</span>
+                )}
               </div>
               <div className="text-[13px] text-[#42464E] flex items-center gap-1.5 flex-wrap">
                 <span>1일차 초종·안식</span>
@@ -197,24 +216,42 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               </div>
             </div>
             <span className="text-[13px] font-bold text-[#19382C] shrink-0 group-hover:translate-x-0.5 transition-transform">
-              {isLegacyCeremonyOpen ? '접기 ▲' : '상세 ▼'}
+              {activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen ? '접기 ▲' : '상세보기 ▼'}
             </span>
           </button>
 
           {/* 무빈소 2일장 1줄 미니 스텝 */}
           <button
             type="button"
-            aria-expanded={isLegacyCeremonyOpen}
+            aria-expanded={isLegacyCeremonyOpen && activeCeremonyTab === 'NO_ALTAR'}
             aria-controls="legacy-ceremony-detail"
-            onClick={() => setIsLegacyCeremonyOpen((v) => !v)}
-            className="p-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] hover:border-[#19382C] rounded-xl text-left transition-all group cursor-pointer flex items-center justify-between gap-2"
+            onClick={() => {
+              if (activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen) {
+                setIsLegacyCeremonyOpen(false);
+              } else {
+                setActiveCeremonyTab('NO_ALTAR');
+                setIsLegacyCeremonyOpen(true);
+              }
+            }}
+            className={`p-3.5 rounded-xl text-left transition-all group cursor-pointer flex items-center justify-between gap-2 border ${
+              activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen
+                ? 'border-2 border-[#19382C] bg-[#FFFFFF] shadow-sm ring-1 ring-[#19382C]/20'
+                : 'border-[#DCD6C9] bg-[#FAF9F6] hover:bg-[#F1EDE3]'
+            }`}
           >
             <div className="min-w-0">
               <div className="flex items-center space-x-1.5 mb-1">
-                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-1.5 py-0.5 rounded">
+                <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
+                  activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen
+                    ? 'bg-[#19382C] text-[#FAF9F6]'
+                    : 'bg-[#F1E9DB] text-[#6E5429]'
+                }`}>
                   무빈소 2일장
                 </span>
-                <span className="text-[13px] font-bold text-[#151719]">가족 직례형</span>
+                <span className="text-sm font-bold text-[#151719]">가족 직례형</span>
+                {activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen && (
+                  <span className="text-[#19382C] font-bold text-[13px]">● 선택됨</span>
+                )}
               </div>
               <div className="text-[13px] text-[#42464E] flex items-center gap-1.5 flex-wrap">
                 <span>1일차 안식·추모입관</span>
@@ -223,12 +260,12 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               </div>
             </div>
             <span className="text-[13px] font-bold text-[#6E5429] shrink-0 group-hover:translate-x-0.5 transition-transform">
-              {isLegacyCeremonyOpen ? '접기 ▲' : '상세 ▼'}
+              {activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen ? '접기 ▲' : '상세보기 ▼'}
             </span>
           </button>
         </div>
 
-        {/* 통합 펼침/접기 바 */}
+        {/* 통합 접기/펼치기 토글 바 */}
         <button
           type="button"
           aria-expanded={isLegacyCeremonyOpen}
@@ -238,144 +275,307 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         >
           <span>
             {isLegacyCeremonyOpen
-              ? '전체 의전 도록 및 상세 절차 닫기 ▲'
-              : '전체 의전 도록 보기 — 전통 3일장 및 무빈소 2일장 상세 절차와 서비스 4종 ▼'}
+              ? `${activeCeremonyTab === '3DAY' ? '전통 3일장' : '무빈소 2일장'} 상세 일정 접기 ▲`
+              : `${activeCeremonyTab === '3DAY' ? '전통 3일장' : '무빈소 2일장'} 상세 일정 및 주요 서비스 보기 ▼`}
           </span>
         </button>
       </div>
 
-      <div id="legacy-ceremony-detail" hidden={!isLegacyCeremonyOpen} className="space-y-12">
-      {/* 1. 고품격 시각 비주얼 히어로 배너 (경건한 추모와 24시 긴급 지원) */}
-      <div className="relative rounded-xl overflow-hidden shadow-lg border border-[#3D382E] bg-[#141618]">
-        {/* 창호 햇살과 청자 백국화·백합의 따뜻하고 경건한 추모 배경 */}
-        <img
-          src="/images/hero-memorial.jpg"
-          alt="배웅 단아한 헌화와 평온한 영면 추모 배경"
-          className="w-full h-80 sm:h-96 md:h-[440px] object-cover object-center filter brightness-[0.88] contrast-100"
-        />
-
-        {/* 삼국·조선 전통 길상 구름문 은은한 오버레이 */}
-        <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-15" />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10]/95 via-[#0D0E10]/60 to-transparent flex flex-col justify-end p-6 sm:p-10 relative z-10">
-          <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/90 text-[#FAF9F6] border border-[#2D4F43] text-[13px] md:text-sm font-serif">
-              <TraditionalSeal sealKey="mourningCondolence" size="sm" />
-              <span>지극한 정성 · 24시간 전국 전담 의전 지도사 대기</span>
+      <div id="legacy-ceremony-detail" hidden={!isLegacyCeremonyOpen} className="space-y-8 font-serif">
+        {/* ── 1. 선택된 장례 방식 맞춤 상세 일정 패널 (전통 3일장 vs 무빈소 2일장) ── */}
+        {activeCeremonyTab === '3DAY' ? (
+          <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-6 md:p-8 space-y-6 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
+              <div>
+                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-1">
+                  <span>전통 3일장 표준 예법과 72시간 정례 일정</span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
+                  고인을 모시는 3일간의 숭고한 여정 (빈소 조문형)
+                </h3>
+                <p className="text-[13px] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                  임종 즉시 고인 이송부터 조문객 맞이, 궁중 습염, 발인, 영구 안치까지 국가공인 1급 장례지도사가 곁을 지킵니다.
+                </p>
+              </div>
+              <span className="text-[13px] text-[#19382C] font-bold px-2.5 py-1 rounded bg-[#DCE8E2] shrink-0 self-start sm:self-auto">
+                보건복지부 국가장사표준 준수
+              </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-reverence font-black text-[#FAF9F6] leading-tight tracking-tight drop-shadow-md">
-              고인의 마지막 가시는 길,<br />
-              지극한 정성과 정직함으로 모십니다
-            </h1>
-            <p className="text-sm md:text-base text-[#DCE8E2] font-serif leading-relaxed drop-shadow-xs">
-              임종을 맞이하셨다면 당황하지 마십시오. 2시간 이내에 국가공인 1급 장례지도사가 유족의 곁으로 달려가 처음부터 끝까지 정성을 다하겠습니다.
-            </p>
+
+            {/* 3폭 병풍 그리드 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* 1일차 */}
+              <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
+                <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                      첫째 날
+                    </span>
+                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
+                  </div>
+                  <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
+                    첫째 날: 임종과 편안한 안식
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                    임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>고인 전용 앰뷸런스 전국 즉시 출동 및 이송</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>원하시는 장례식장 안치실 안치 및 빈소 제단 설치</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>모바일 정중 부고장 무료 제작 및 친지 발송</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>화장시설(승화원) 예약 원스톱 대행 지원</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                  ✓ 전문 장례지도사 2시간 이내 현장 배치
+                </div>
+              </div>
+
+              {/* 2일차 */}
+              <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6] relative">
+                <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                      둘째 날 · 핵심 의례
+                    </span>
+                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
+                  </div>
+                  <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
+                    둘째 날: 정갈한 입관과 염습
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                    고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>국가공인 1급 지도사 2인 전통 궁중 습염 집전</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>최고급 명품 수의 정갈한 착의 및 한지 장정</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>생화 꽃구름 침상 입관식 및 향낭 봉안</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>종교별 추모식(기독교·천주교·불교·유교 제례)</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
+                  ✓ 꽃장식/수의 강매 및 촌지 요구 100% 금지
+                </div>
+              </div>
+
+              {/* 3일차 */}
+              <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
+                <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                      셋째 날
+                    </span>
+                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 3</span>
+                  </div>
+                  <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
+                    셋째 날: 정중한 발인과 영면
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                    고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>정중한 발인제 및 추모 영결식 거행</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>고인전용 최신형 리무진 및 가족 버스 운구</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>승화원 화장 접수 및 수골(유골함 봉안) 의식</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>봉안당, 수목장, 잔디장 안치 전 과정 동행</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                  ✓ 추가 장거리 운임 바가지 일절 없음
+                </div>
+              </div>
+            </div>
+
           </div>
+        ) : (
+          <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-6 md:p-8 space-y-6 shadow-xs font-serif">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
+              <div>
+                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-1">
+                  <span>무빈소 · 2일 가족장 48시간 직례 일정</span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
+                  무빈소(2일장): 직계가족 중심의 조용하고 경건한 배웅 (가족 직례형)
+                </h3>
+                <p className="text-[13px] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                  빈소를 차리지 않고 안치실 안식 후 입관 및 화장·봉안으로 이어지는 120만 원 정찰의 합리적이고 경건한 가족장입니다.
+                </p>
+              </div>
+              <span className="text-[13px] text-[#6E5429] font-bold px-2.5 py-1 rounded bg-[#F1E9DB] shrink-0 self-start sm:self-auto">
+                120만 원 100% 정찰 보증
+              </span>
+            </div>
 
-          <div className="pt-6 flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={onEnterEmergency}
-              className="btn-senior-reverence bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] px-8 flex items-center justify-center space-x-3 shadow-md transition-all cursor-pointer border border-[#2D4F43]"
-            >
-              <span className="font-reverence font-bold text-lg md:text-xl">24시 긴급 의전 지원 접수</span>
-              <ArrowRight className="w-5 h-5 text-[#C2A26A]" />
-            </button>
-            <a
-              href="tel:1588-0000"
-              className="btn-senior-reverence bg-[#0D0E10]/80 hover:bg-[#1F2226] text-[#FAF9F6] px-7 flex items-center justify-center space-x-2 font-serif text-base border border-[#9E7D47]/60"
-            >
-              <PhoneCall className="w-4 h-4 text-[#C2A26A]" />
-              <span>상황실 직통 1588-0000</span>
-            </a>
-          </div>
-        </div>
-      </div>
+            {/* 무빈소 2폭 병풍 그리드 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* 1일차 */}
+              <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
+                <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                      첫째 날 · 안식과 입관
+                    </span>
+                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
+                  </div>
+                  <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
+                    첫째 날: 안식과 가족 전용 추모 입관
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                    고인을 정중히 운구하여 안치실에 모신 후, 직계가족만 참여하는 경건한 생화 꽃구름 입관식을 거행합니다.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>고인 전용 앰뷸런스 전국 즉시 출동 및 장례식장 안치실 안식</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>국가공인 1급 지도사 2인 전통 궁중 습염 및 정갈한 명품 수의 착의</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>생화 꽃구름 침상 입관식 및 직계가족 단독 추모 예식 집전</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#19382C] font-bold">•</span>
+                      <span>화장시설(승화원) 예약 원스톱 대행 및 가족 전용 휴게 공간 배정</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                  ✓ 불필요한 빈소 임대료 및 제단꽃 강매 0원
+                </div>
+              </div>
 
-      {/* 2. [조성우 수석 디자이너 감수] 전통 미학 단아한 여백과 4대 의전 철학 배너 */}
-      <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-7 md:p-9 relative shadow-xs overflow-hidden">
-        {/* 한옥 살창 격자문 은은한 워터마크 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
-        <div className="max-w-3xl mx-auto text-center space-y-4 relative z-10">
-          <div className="flex items-center justify-center space-x-2 text-[#6E5429] font-serif text-[13px] md:text-sm font-semibold tracking-wider">
-            <span className="w-6 h-[1px] bg-[#C2A26A]" />
-            <span>생애 마지막 가시는 길, 가장 정갈하고 맑은 배웅</span>
-            <span className="w-6 h-[1px] bg-[#C2A26A]" />
-          </div>
-          <p className="text-xl md:text-2xl font-reverence font-bold text-[#151719] leading-relaxed tracking-tight">
-            “한 인간의 숭고한 삶을 기리는 자리는 번쩍이는 상술이 아닌,<br className="hidden sm:inline" />
-            단아한 한지와 은은한 백자의 품격으로 채워져야 합니다.”
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-[13px] font-serif border-t border-[#DCD6C9]">
-            <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">01 정직한 실비 공개</div>
-              <div className="text-[#5A5E66] text-[13px] mt-0.5">숨은 추가금 없는 예우</div>
+              {/* 2일차 */}
+              <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6] relative">
+                <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                      둘째 날 · 발인과 승화
+                    </span>
+                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
+                  </div>
+                  <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
+                    둘째 날: 정중한 발인과 승화원 봉안
+                  </h4>
+                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                    고인의 마지막 가시는 길을 리무진으로 모시고 승화원에서 화장 및 안치를 마칩니다.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>정중한 발인 영결 의식 및 고인 전용 최신형 리무진 운구</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>승화원(화장장) 동행 및 화장 접수·수골(유골함 봉안) 의식 전담 지원</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>최고급 유골함 봉안 및 봉안당/수목장/자연장 안치 동행</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#6E5429] font-bold">•</span>
+                      <span>의전 종료 후 1원 단위까지 투명한 실비 영수증 정산</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
+                  ✓ 숨은 추가금 없는 100% 후불 정산 보증
+                </div>
+              </div>
             </div>
-            <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">02 편안한 안식 안내</div>
-              <div className="text-[#5A5E66] text-[13px] mt-0.5">전국 1,080곳 빈소 시설</div>
-            </div>
-            <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">03 정직한 정찰 예우</div>
-              <div className="text-[#5A5E66] text-[13px] mt-0.5">선금 없는 후불 정산제</div>
-            </div>
-            <div className="p-2 text-center">
-              <div className="font-bold text-[#151719] text-sm">04 소중한 생애 보존</div>
-              <div className="text-[#5A5E66] text-[13px] mt-0.5">디지털 사전 기억 봉안</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* 3. 4대 핵심 의전 도록 카드 */}
-      <div className="space-y-4">
-        <div className="flex justify-between items-end border-b border-[#DCD6C9] pb-3">
+          </div>
+        )}
+
+      {/* 3. 4대 핵심 의전 정례 서비스 — 3일장 / 무빈소 연동형 슬림 카드 */}
+      <div className="space-y-4 font-serif">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div>
-            <span className="text-[13px] font-serif font-bold text-[#6E5429]">
-              배웅 4대 핵심 의전 정례 서비스
-            </span>
-            <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] mt-1 tracking-tight">
-              주요 서비스 둘러보기
-            </h2>
+            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-0.5">
+              <span>{activeCeremonyTab === '3DAY' ? '전통 3일장(빈소형) 연계' : '무빈소 2일장(직례형) 연계'}</span>
+              <span>•</span>
+              <span>4대 핵심 정례 서비스</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] tracking-tight">
+              {activeCeremonyTab === '3DAY' ? '전통 3일장 맞춤 핵심 서비스' : '무빈소 2일장 맞춤 핵심 서비스'}
+            </h3>
           </div>
-          <span className="text-[13px] text-[#5A5E66] font-serif hidden sm:block">
+          <span className="text-[13px] text-[#5A5E66] hidden sm:block">
             카드를 누르시면 상세 안내 화면으로 이동합니다
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
           {/* 1. 상조 증서 안심 진단 카드 */}
           <button
             type="button"
             onClick={() => onSelectTab('quote')}
-            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
+            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden p-5 sm:p-6 flex flex-col justify-between w-full text-left rounded-xl border border-[#DCD6C9] bg-[#FFFFFF] hover:border-[#19382C] hover:shadow-xs transition-all"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
-              <img
-                src="/images/escort-ceremony.jpg"
-                alt="정중한 의전 지도사 예우"
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-              />
-              <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">01</span>
-                <span>실비 진단 · 1:1 영수증 대조</span>
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                  01 · {activeCeremonyTab === '3DAY' ? '3일장 실비 대조' : '무빈소 환급 대조'}
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">공정위 법정산식 준수</span>
               </div>
+              <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
+                기존 상조 증서 정밀 안심 진단
+              </h4>
+              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+                {activeCeremonyTab === '3DAY'
+                  ? '보유 중이신 상조 상품의 해약환급금과 배웅 3일장 실비를 1:1 대조하여 숨은 추가금 없는 최적 견적을 산출합니다.'
+                  : '고가 상조 상품 해약 후 무빈소 120만 원 직례 진행 시 돌려받는 실 환급금을 1:1 맞춤 영수증으로 정밀 연산해 드립니다.'}
+              </p>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[13px] font-serif font-bold text-[#6E5429]">공정위 법정 환급 산식 준수</span>
-                <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-1 group-hover:text-[#19382C] transition-colors">
-                  기존 상조 증서 정밀 안심 진단
-                </h3>
-                <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  보유 중이신 상조 상품을 해약할 때 받게 되는 환급금과 숨은 추가금을 정밀 연산하여 1:1 맞춤 영수증으로 비교해 드립니다.
-                </p>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-serif font-bold text-sm">
-                <span>영수증 대조표 확인하기</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+              <span>{activeCeremonyTab === '3DAY' ? '3일장 영수증 대조표 확인하기' : '무빈소 환급 대조표 확인하기'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
 
@@ -383,35 +583,28 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <button
             type="button"
             onClick={() => onSelectTab('funeral-halls')}
-            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
+            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden p-5 sm:p-6 flex flex-col justify-between w-full text-left rounded-xl border border-[#DCD6C9] bg-[#FFFFFF] hover:border-[#19382C] hover:shadow-xs transition-all"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
-              <img
-                src="/images/memorial-altar.jpg"
-                alt="정갈한 장례식장 제단 꽃장식"
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-              />
-              <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#2D4F43] flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">02</span>
-                <span>전국 1,080곳 장례식장 시설 데이터</span>
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                  02 · {activeCeremonyTab === '3DAY' ? '빈소 임대료 최대 30% 감면' : '빈소 비용 0원 · 전용 안치실'}
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">전국 1,080곳 데이터</span>
               </div>
+              <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
+                전국 장례식장 시설 · 감면 검색
+              </h4>
+              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+                {activeCeremonyTab === '3DAY'
+                  ? '거주지 인근 장례식장의 분향실·접객실 규모를 파악하고, 배웅 사전 등록을 통한 빈소 임대료 감면 혜택을 확인하세요.'
+                  : '빈소를 차리지 않고 고인을 정갈하게 모실 수 있는 인근 안치실 규모와 승화원(화장장) 원스톱 예약 절차를 안내합니다.'}
+              </p>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[13px] font-serif font-bold text-[#19382C]">빈소 임대료 최대 30% 감면</span>
-                <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-1 group-hover:text-[#19382C] transition-colors">
-                  전국 장례식장 시설 · 감면 검색
-                </h3>
-                <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  거주지 인근 장례식장의 분향실과 안치실 규모를 파악하고, 배웅 사전 등록을 통한 빈소 임대료 감면 혜택을 확인하세요.
-                </p>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-serif font-bold text-sm">
-                <span>장례식장 시설 검색하기</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+              <span>{activeCeremonyTab === '3DAY' ? '장례식장 빈소 감면 검색하기' : '안치실 시설 및 화장장 검색하기'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
 
@@ -419,35 +612,28 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <button
             type="button"
             onClick={() => onSelectTab('packages')}
-            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
+            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden p-5 sm:p-6 flex flex-col justify-between w-full text-left rounded-xl border border-[#DCD6C9] bg-[#FFFFFF] hover:border-[#19382C] hover:shadow-xs transition-all"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
-              <img
-                src="/images/floral-coffin.jpg"
-                alt="정직한 예우 의전 용품 및 생화 꽃관"
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-              />
-              <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">03</span>
-                <span>정찰 패키지 · 100% 후불 정산</span>
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                  03 · {activeCeremonyTab === '3DAY' ? '실속 250만 · 품격 350만' : '무빈소 120만 원 100% 정찰'}
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">부당 추가금 0원 보증</span>
               </div>
+              <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
+                정직한 예우 정찰제 의전 패키지
+              </h4>
+              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+                {activeCeremonyTab === '3DAY'
+                  ? '전통 3일장에 필수적인 최고급 수의·오동나무관·고인 리무진·접객 도우미 품목 단가를 100% 투명 공개하며 촌지를 금지합니다.'
+                  : '빈소 없이 직계가족만으로 조용하고 품격 있게 모시는 120만 원 단일 정찰 직례 패키지의 모든 포함 품목을 확인하세요.'}
+              </p>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[13px] font-serif font-bold text-[#6E5429]">부당 추가금 0원 보증제</span>
-                <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-1 group-hover:text-[#19382C] transition-colors">
-                  정직한 예우 정찰제 의전 패키지
-                </h3>
-                <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  무빈소(120만), 2일가족장(180만), 실속형(250만), 품격형(350만) 등 수의·관·차량 품목 단가를 100% 투명하게 공개하며 촌지를 금지합니다.
-                </p>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-serif font-bold text-sm">
-                <span>정찰제 패키지 명세 보기</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+              <span>{activeCeremonyTab === '3DAY' ? '3일장 정찰 패키지 명세 보기' : '무빈소 120만 정찰 명세 보기'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
 
@@ -455,414 +641,147 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <button
             type="button"
             onClick={() => onSelectTab('life-archive')}
-            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden flex flex-col justify-between w-full text-left"
+            className="k-card-heritage k-changho-texture group cursor-pointer overflow-hidden p-5 sm:p-6 flex flex-col justify-between w-full text-left rounded-xl border border-[#DCD6C9] bg-[#FFFFFF] hover:border-[#19382C] hover:shadow-xs transition-all"
           >
-            <div className="relative h-48 sm:h-52 overflow-hidden bg-[#F1EDE3]">
-              <img
-                src="/images/life-archive.jpg"
-                alt="소중한 삶의 기억과 훈장, 옛 사진"
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-              />
-              <div className="absolute top-3 left-3 bg-[#0D0E10]/80 text-[#FAF9F6] px-2.5 py-1 rounded text-[13px] font-serif font-bold border border-[#9E7D47]/40 flex items-center space-x-1.5">
-                <span className="text-[#C2A26A] font-bold">04</span>
-                <span>생애기록관 · 사전 기억 보존</span>
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                  04 · {activeCeremonyTab === '3DAY' ? '모바일 부고 · 빈소 디지털 헌정' : '가족 부고 · 생애 평전 스토리북'}
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">사전 기억 보존</span>
               </div>
+              <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
+                생애기록관 (소중한 삶의 일상 봉안)
+              </h4>
+              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+                {activeCeremonyTab === '3DAY'
+                  ? '친지와 조문객을 위한 원터치 정중 부고장 무료 발송과 장례식장 빈소 키오스크 디지털 헌정 화면을 연동 지원합니다.'
+                  : '직계가족 중심의 조용한 부고 알림과 고인의 삶을 따뜻하게 엮은 생애 평전 스토리북으로 마지막 기억을 보존합니다.'}
+              </p>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[13px] font-serif font-bold text-[#19382C]">사후 승계 게이트키퍼 가동</span>
-                <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-1 group-hover:text-[#19382C] transition-colors">
-                  생애기록관 (소중한 삶의 일상 봉안)
-                </h3>
-                <p className="text-sm text-[#42464E] mt-2 leading-relaxed font-serif">
-                  스마트폰 연락처 사전 동기화, 원터치 부고 발송, 생전 사진 갤러리 및 고인의 삶을 엮은 생애 평전 스토리북을 제공합니다.
-                </p>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-serif font-bold text-sm">
-                <span>생애기록관 보존 플랜 보기</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+              <span>{activeCeremonyTab === '3DAY' ? '부고장 및 생애기록관 보기' : '가족 부고 및 생애기록관 보기'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
         </div>
       </div>
 
-      {/* 3.5. [옵션 2 특화] 배웅 이중안심 사전등록 (기존 상조 그대로 0원 대비) 퀵 런처 배너 */}
-      <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-6 sm:p-8 space-y-6 shadow-sm relative overflow-hidden">
-        {/* 한옥 살창 격자문 은은한 워터마크 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
+      {/* 4. [배웅 안심 연계 케어] 이중안심 사전등록 · 전문 심리상담 · 상속 전문 변호사 */}
+      <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-2xl p-6 sm:p-7 space-y-5 shadow-xs relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-20" />
         
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-serif font-bold border border-[#19382C]/20">
-              <ShieldCheck className="w-4 h-4 text-[#19382C]" />
-              <span>기존 상조 유지 고객 전용 · 사전 비용 0원 안심 대비</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
-              기존 상조 해약 걱정 없이,<br className="hidden sm:inline" />
-              <span className="text-[#19382C]">배웅 『이중안심 사전등록』</span>으로 하나 더 준비하세요
-            </h3>
-            <p className="text-[13px] sm:text-sm text-[#42464E] font-serif leading-relaxed">
-              이미 가입하신 상조는 해약하지 마시고 그대로 두십시오. 위급한 순간 1초 만에 더 유리한 의전을 선택할 수 있도록 <b>비상 우선 출동권</b>과 <b>50만 원 상당의 해약 손실 보전 지원권</b>을 지금 즉시 0원에 하나 더 마련해 드립니다.
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 text-[13px] font-serif text-[#151719]">
-              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="min-w-0 break-words">사전 약정금 0원</span>
-              </div>
-              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="min-w-0 break-words">24시 전담 지도사 배정</span>
-              </div>
-              <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="min-w-0 break-words">50만 원 손실보전 지원권</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-            <button
-              onClick={() => setIsDualStandbyModalOpen(true)}
-              className="py-3.5 px-6 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-reverence font-bold text-sm sm:text-base flex items-center justify-center space-x-2 shadow-md transition-all cursor-pointer border border-[#2D4F43]"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
-              <span>🛡️ 이중안심 사전등록증 발급 (0원)</span>
-            </button>
-            <button
-              onClick={() => onSelectTab('quote')}
-              className="py-3.5 px-6 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#19382C] border border-[#19382C]/30 active:scale-[0.99] rounded-xl font-serif font-bold text-sm sm:text-base flex items-center justify-center space-x-2 transition-all cursor-pointer"
-            >
-              <span>📊 내 상조 증서 1:1 실비 안심 진단</span>
-              <ArrowRight className="w-4 h-4 text-[#19382C]" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 4. [신규 이정환 박사·조성우 수석 감수] 전통 3일장 표준 정례 절차도 */}
-      <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-6 md:p-9 space-y-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div>
-            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-serif font-bold mb-1">
-              <span>전통 3일장 표준 예법과 정례 절차</span>
+            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-serif font-bold mb-0.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
+              <span>배웅 안심 연계 케어 · 사전 비용 0원 & 알선 수수료 0원</span>
             </div>
-            <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
-              고인을 모시는 3일간의 숭고한 여정
+            <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] tracking-tight">
+              가족의 마음과 권익을 지키는 3대 안심 특화 서비스
             </h3>
-            <p className="text-[13px] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed font-serif">
-              임종의 순간부터 영원한 안식까지, 국가공인 1급 장례지도사가 유족의 곁을 24시간 정성껏 지킵니다.
-            </p>
           </div>
           <span className="text-[13px] text-[#5A5E66] font-serif">
-            보건복지부 국가장사표준 및 전통의례 준수
+            변호사법 제34조 준수 및 보건복지부 공인 연계
           </span>
         </div>
 
-        {/* 3폭 병풍 그리드 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* 1일차 */}
-          <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
-            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
-            <div className="relative z-10">
+        {/* 3대 안심 서비스 3열 콤팩트 카드 그리드 */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          {/* 카드 1: 이중안심 사전등록 */}
+          <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
-                  첫째 날
+                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                  기존 상조 그대로 유지
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">0원 안심 대비</span>
               </div>
-              <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                첫째 날: 임종과 편안한 안식
+              <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
+                이중안심 사전등록증
               </h4>
-              <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
-                임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
+              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+                기존 상조는 해약하지 마시고 그대로 두십시오. 비상 즉시 출동권과 50만 원 손실 보전 지원권을 0원에 미리 확보해 드립니다.
               </p>
-              <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>고인 전용 앰뷸런스 전국 즉시 출동 및 이송</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>원하시는 장례식장 안치실 안치 및 빈소 제단 설치</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>모바일 정중 부고장 무료 제작 및 친지 발송</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>화장시설(승화원) 예약 원스톱 대행 지원</span>
-                </li>
-              </ul>
             </div>
-            <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
-              ✓ 전문 장례지도사 2시간 이내 현장 배치
-            </div>
-          </div>
-
-          {/* 2일차 */}
-          <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6] relative">
-            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
-                  둘째 날 · 핵심 의례
-                </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
-              </div>
-              <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                둘째 날: 정갈한 입관과 염습
-              </h4>
-              <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
-                고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
-              </p>
-              <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#6E5429] font-bold">•</span>
-                  <span>국가공인 1급 지도사 2인 전통 궁중 습염 집전</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#6E5429] font-bold">•</span>
-                  <span>최고급 명품 수의 정갈한 착의 및 한지 장정</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#6E5429] font-bold">•</span>
-                  <span>생화 꽃구름 침상 입관식 및 향낭 봉안</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#6E5429] font-bold">•</span>
-                  <span>종교별 추모식(기독교·천주교·불교·유교 제례)</span>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
-              ✓ 꽃장식/수의 강매 및 촌지 요구 100% 금지
-            </div>
-          </div>
-
-          {/* 3일차 */}
-          <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
-            <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
-                  셋째 날
-                </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">Day 3</span>
-              </div>
-              <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                셋째 날: 정중한 발인과 영면
-              </h4>
-              <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
-                고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
-              </p>
-              <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>정중한 발인제 및 추모 영결식 거행</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>고인전용 최신형 리무진 및 가족 버스 운구</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>승화원 화장 접수 및 수골(유골함 봉안) 의식</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-[#19382C] font-bold">•</span>
-                  <span>봉안당, 수목장, 잔디장 안치 전 과정 동행</span>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
-              ✓ 추가 장거리 운임 바가지 일절 없음
-            </div>
-          </div>
-        </div>
-
-        {/* ─── 4번 개선: 무빈소(2일 가족장) 절차 패널 ─── */}
-        <div className="mt-8 pt-6 border-t border-[#DCD6C9] space-y-5">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-serif font-bold mb-1">
-                <span>무빈소 · 2일 가족장 절차</span>
-              </div>
-              <h3 className="font-reverence font-bold text-xl sm:text-2xl text-[#151719] tracking-tight">
-                무빈소(2일장) 절차: 직계가족 중심의 조용하고 경건한 배웅
-              </h3>
-            </div>
-            <span className="text-[13px] text-[#5A5E66] font-serif">
-              빈소 없이 안치실 안식 후 입관 및 화장·봉안으로 이어지는 단아한 가족장
-            </span>
-          </div>
-
-          {/* 무빈소 2폭 병풍 그리드 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* 1일차 */}
-            <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 relative">
-              <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
-              <div className="relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
-                    첫째 날 · 안식과 입관
-                  </span>
-                  <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
-                </div>
-                <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                  첫째 날: 안식과 가족 전용 추모 입관
-                </h4>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
-                  고인을 정중히 운구하여 안치실에 모신 후, 직계가족만 참여하는 경건한 생화 꽃구름 입관식을 거행합니다.
-                </p>
-                <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#19382C] font-bold">•</span>
-                    <span>고인 전용 앰뷸런스 전국 즉시 출동 및 장례식장 안치실 안식</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#19382C] font-bold">•</span>
-                    <span>국가공인 1급 지도사 2인 전통 궁중 습염 및 정갈한 명품 수의 착의</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#19382C] font-bold">•</span>
-                    <span>생화 꽃구름 침상 입관식 및 직계가족 단독 추모 예식 집전</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#19382C] font-bold">•</span>
-                    <span>화장시설(승화원) 예약 원스톱 대행 및 가족 전용 휴게 공간 배정</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
-                ✓ 불필요한 빈소 임대료 및 제단꽃 강매 0원
-              </div>
-            </div>
-
-            {/* 2일차 */}
-            <div className="k-screen-panel k-corner-bracket p-6 flex flex-col justify-between space-y-4 border-2 border-[#9E7D47]/40 bg-[#FAF9F6] relative">
-              <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
-              <div className="relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
-                    둘째 날 · 발인과 승화
-                  </span>
-                  <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
-                </div>
-                <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
-                  둘째 날: 정중한 발인과 승화원 봉안
-                </h4>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
-                  고인의 마지막 가시는 길을 리무진으로 모시고 승화원에서 화장 및 안치를 마칩니다.
-                </p>
-                <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#6E5429] font-bold">•</span>
-                    <span>정중한 발인 영결 의식 및 고인 전용 최신형 리무진 운구</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#6E5429] font-bold">•</span>
-                    <span>승화원(화장장) 동행 및 화장 접수·수골(유골함 봉안) 의식 전담 지원</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#6E5429] font-bold">•</span>
-                    <span>최고급 유골함 봉안 및 봉안당/수목장/자연장 안치 동행</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-[#6E5429] font-bold">•</span>
-                    <span>의전 종료 후 1원 단위까지 투명한 실비 영수증 정산</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
-                ✓ 숨은 추가금 없는 100% 후불 정산 보증
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 4.5. [신규 부가 서비스] 생전 마음돌봄·유족 사별 애도 심리상담 & 상속·유산·채무방어 전문 변호사 상담 */}
-      <div className="bg-[#FAF9F6] border-2 border-[#19382C]/30 rounded-xl p-6 md:p-8 space-y-6 shadow-sm relative overflow-hidden">
-        {/* 살창 격자문 은은한 워터마크 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-serif font-bold border border-[#19382C]/20">
-              <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
-              <span>전문가 연계 부가 서비스 · 변호사법 제34조 준수 (알선 수수료 0원)</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] tracking-tight">
-              마음의 치유부터 상속의 안심까지,<br className="hidden sm:inline" />
-              <span className="text-[#19382C]">공인 전문가 직통 상담</span>으로 지켜드립니다
-            </h3>
-            <p className="text-[13px] sm:text-sm text-[#42464E] font-serif leading-relaxed">
-              임종 전 불안과 사별 후 유족의 비탄을 치유하는 <b>국가공인 1급 심리상담</b>과
-              빚 대물림 방지(3개월 골든타임 한정승인) 및 유산 분할을 위한 <b>대한변협 등록 상속 전문 변호사</b>를
-              플랫폼 중개 수수료 없이 100% 무료 직통 디렉터리로 연결합니다.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-[13px] font-serif text-[#151719]">
-              <div className="flex items-center space-x-2 bg-[#FFFFFF] p-2.5 rounded-lg border border-[#DCD6C9]">
-                <HeartHandshake className="w-4 h-4 text-[#19382C] shrink-0" />
-                <div>
-                  <span className="font-bold block">생전 마음돌봄 & 유족 사별 애도상담</span>
-                  <span className="text-[13px] text-[#5A5E66]">보건복지부 1급 정신건강임상심리사 정찰제</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 bg-[#FFFFFF] p-2.5 rounded-lg border border-[#DCD6C9]">
-                <Scale className="w-4 h-4 text-[#6E5429] shrink-0" />
-                <div>
-                  <span className="font-bold block">상속포기 3개월 골든타임 & 유산 분할</span>
-                  <span className="text-[13px] text-[#5A5E66]">대한변협 등록 상속전문변호사 0원 직통</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
             <button
+              type="button"
+              onClick={() => setIsDualStandbyModalOpen(true)}
+              className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C2A26A]" />
+              <span>이중안심 등록증 발급 (0원)</span>
+            </button>
+          </div>
+
+          {/* 카드 2: 전문 심리상담 */}
+          <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                  국가공인 1급 애도치유
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">사전·사별 상담</span>
+              </div>
+              <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
+                전문 심리상담 (마음돌봄)
+              </h4>
+              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+                임종을 앞둔 불안과 사별 후 유족의 비탄을 따뜻하게 보듬는 보건복지부 1급 정신건강임상심리사 1:1 안심 상담입니다.
+              </p>
+            </div>
+            <button
+              type="button"
               onClick={() => {
                 setCareModalVertical('PSYCHOLOGY_CARE');
                 setIsCareModalOpen(true);
               }}
-              className="py-3 px-5 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 shadow-xs transition-all cursor-pointer border border-[#2D4F43]"
+              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#19382C] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
             >
-              <HeartHandshake className="w-4 h-4 text-[#C2A26A]" />
-              <span>🌿 전문 심리상담 (애도치유) 안내</span>
+              <HeartHandshake className="w-3.5 h-3.5 text-[#19382C]" />
+              <span>전문 심리상담 안내</span>
             </button>
+          </div>
+
+          {/* 카드 3: 상속 전문 변호사 */}
+          <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
+                  대한변협 등록 전문
+                </span>
+                <span className="text-[13px] font-mono text-[#5A5E66]">수수료 0원 직통</span>
+              </div>
+              <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
+                상속 변호사 & 골든타임
+              </h4>
+              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+                빚 대물림 방지(3개월 골든타임 한정승인)와 상속 재산 분할을 위한 대한변협 등록 상속전문변호사 직통 연결입니다.
+              </p>
+            </div>
             <button
+              type="button"
               onClick={() => {
                 setCareModalVertical('LEGAL_INHERITANCE');
                 setIsCareModalOpen(true);
               }}
-              className="py-3 px-5 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#19382C] border border-[#19382C]/30 active:scale-[0.99] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer"
+              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#6E5429] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
             >
-              <Scale className="w-4 h-4 text-[#6E5429]" />
-              <span>⚖️ 상속 변호사 & 골든타임 계산기</span>
+              <Scale className="w-3.5 h-3.5 text-[#6E5429]" />
+              <span>상속 변호사 직통 상담</span>
             </button>
           </div>
         </div>
-      </div>
 
-      {/* 5. 하단 배웅 4대 의전 안심 헌장 */}
-      <div className="bg-[#19382C] text-[#FAF9F6] rounded-xl p-8 md:p-12 text-center space-y-4 border border-[#2D4F43] shadow-sm relative overflow-hidden">
-        {/* 전통 비단 금문 패턴 은은한 오버레이 */}
-        <div className="pointer-events-none absolute inset-0 k-pattern-geummun opacity-30" />
-        <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#19382C] text-[#C2A26A] text-[13px] md:text-sm font-serif border border-[#2D4F43]">
-            <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
-            <span>배웅 4대 의전 안심 헌장</span>
+        {/* 하단 1줄 단아한 안심 헌장 띠 */}
+        <div className="relative z-10 pt-3 border-t border-[#DCD6C9] flex flex-col sm:flex-row items-center justify-between gap-2 text-[13px] text-[#5A5E66] font-serif">
+          <div className="flex items-center space-x-2">
+            <ShieldCheck className="w-4 h-4 text-[#19382C] shrink-0" />
+            <span className="font-bold text-[#151719]">배웅 4대 의전 안심 헌장:</span>
+            <span>선금 0원 · 부당 추가금 0원 · 촌지 전면 금지 · 정직한 100% 후불 정산</span>
           </div>
-          <h3 className="text-2xl md:text-3xl font-reverence font-bold text-[#FAF9F6] tracking-tight leading-snug">
-            선금 0원 · 부당 추가금 0원 · 촌지 전면 금지 · 정직한 후불제
-          </h3>
-          <p className="text-[#DCE8E2] text-sm md:text-base max-w-2xl mx-auto leading-relaxed pt-1 font-serif">
-            고인의 고귀한 생애를 기리는 숭고한 자리에 부당한 상술이 발붙이지 못하도록,
-            모든 의전과 시설비는 1원 단위까지 맑고 정직하게 공개합니다.
-          </p>
+          <span className="text-[#19382C] font-bold shrink-0">보건복지부 국가장사표준 100% 준수</span>
         </div>
       </div>
       </div>

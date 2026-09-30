@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>배웅 (Bae-ung) — 삼가 고인의 명복을 빌며, 정직한 예우로 모십니다</title>
     
-    <!-- 구글 Noto Serif KR (경건한 명조체) & Pretendard -->
+    <!-- 시니어 가독성 표준: 구글 Noto Sans KR, Noto Serif KR (경건 명조), Pretendard GOV (시니어 공공 유니버설 폰트) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css" />
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,8 +18,9 @@
         theme: {
           extend: {
             fontFamily: {
-              serif: ['"Noto Serif KR"', 'serif'],
-              sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+              serif: ['"Pretendard GOV Variable"', '"Pretendard Variable"', 'Pretendard', '"Noto Sans KR"', '-apple-system', 'sans-serif'],
+              sans: ['"Pretendard GOV Variable"', '"Pretendard Variable"', 'Pretendard', '"Noto Sans KR"', '-apple-system', 'sans-serif'],
+              reverence: ['"Noto Serif KR"', 'Georgia', 'serif'],
             },
             colors: {
               hanji: {
@@ -93,31 +95,51 @@
     </script>
     <style>
       body {
-        font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        font-family: "Pretendard GOV Variable", "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        font-weight: 500; /* ★ 노안 유족(50·90세)을 위한 기본 본문 굵기: 도톰한 Medium(500) 기본 보장 */
         background-color: #F7F5F0;
         color: #151719;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        letter-spacing: -0.015em;
+        line-height: 1.7;
         word-break: keep-all;
+      }
+      /* 본문 폰트 웨이트가 400(Regular)으로 떨어져 가늘어지는 것을 원천 방어 */
+      p, li, dd, dt, blockquote {
+        font-weight: 500;
+        letter-spacing: -0.012em;
+      }
+      b, strong, .font-bold {
+        font-weight: 700 !important;
       }
       .font-reverence {
         font-family: "Noto Serif KR", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
       }
       .btn-senior-reverence {
-        min-height: 60px;
+        min-height: 64px;
         font-size: 1.15rem;
         font-weight: 700;
         border-radius: 8px;
         letter-spacing: -0.01em;
       }
-      /* 노안 어르신 전용 큰 글씨 모드 */
+      /* 노안 어르신 전용 큰 글씨 모드 (AREA-DESIGN-2026-009 §4-3 전역 125% 정본) */
       html.senior-large-font {
-        font-size: 122% !important;
+        font-size: 125% !important;
       }
       html.senior-large-font body {
-        line-height: 1.8;
+        font-weight: 600;
+        line-height: 1.85;
+      }
+      html.senior-large-font p, html.senior-large-font span, html.senior-large-font li {
+        font-weight: 600;
       }
       html.senior-large-font .font-reverence {
-        letter-spacing: -0.015em;
+        font-weight: 800;
+        letter-spacing: -0.02em;
       }
 
       /* ═══════════ 전통 한국 문화 격식 조형 스타일 (Heritage Elegance) ═══════════ */

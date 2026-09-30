@@ -28,7 +28,7 @@
  */
 
 import { chromium } from 'playwright';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { spawn } from 'node:child_process';
 import { setTimeout as sleep } from 'node:timers/promises';
@@ -75,37 +75,39 @@ const CANON = [
 ];
 
 /** 헤더 탭은 버튼 인덱스로 찾는다 — 한글 정규식은 렌더 타깃에 따라 깨진다. */
-const TAB = { home: null, quote: 4, hall: 5, package: 6, life: 7 };
+// ★ 탭·버튼은 인덱스가 아니라 「화면 글자」 로 찾는다.
+//   인덱스는 홈 상단에 컴포넌트를 하나 넣으면 전부 어긋나서 엉뚱한 버튼을
+//   누르게 된다. 실제로 KmacaWarmHome 연동 때 그 일이 났다.
+const TAB = { home: null, quote: '원가 진단', hall: '장례식장', package: '정찰 패키지', life: '생애기록관' };
 
-/** [표시명, 탭키, 트리거 버튼 인덱스 배열(순차 클릭)] */
+/** [표시명, 탭키, 트리거 버튼 텍스트 배열(순차 클릭, 일부만 포함 문자)] */
 const POPUPS = [
-  ['이중안심 등록증', TAB.home, [18]],
-  ['전문 심리상담', TAB.home, [20]],
-  ['상속 변호사', TAB.home, [21]],
-  ['약관·이용약관', TAB.home, [22]],
-  ['약관·개인정보', TAB.home, [23]],
-  ['약관·위치기반', TAB.home, [24]],
-  ['약관·e하늘', TAB.home, [25]],
-  ['약관·디지털유산', TAB.home, [26]],
-  ['이중안심(원가)', TAB.quote, [30]],
-  ['내용증명 청구서', TAB.quote, [31]],
-  ['손실보전 바우처', TAB.quote, [32]],
-  ['옵트아웃', TAB.hall, [40]],
-  ['B2B 제휴 입점', TAB.hall, [41]],
-  ['공식 견적서', TAB.hall, [59]],
-  ['제휴 안치·유품', TAB.hall, [61]],
-  ['명세표 아코디언', TAB.package, [29]],
-  ['A4 양장본', TAB.life, [13]],
-  ['빈소 헌정 화면', TAB.life, [14]],
-  ['생애 평전', TAB.life, [15]],
-  ['생애 회고', TAB.life, [16]],
-  ['모바일 부고장', TAB.life, [17]],
-  ['엔딩노트', TAB.life, [18]],
-  ['게이트키퍼', TAB.life, [19]],
-  ['실물 양장본', TAB.life, [20]],
-  ['파트너 실적 보고', TAB.hall, [46, 56]],
+  ['이중안심 등록증', TAB.home, ['이중안심']],
+  ['전문 심리상담', TAB.home, ['전문 심리상담']],
+  ['상속 변호사', TAB.home, ['상속 변호사']],
+  ['약관·이용약관', TAB.home, ['서비스 이용약관']],
+  ['약관·개인정보', TAB.home, ['개인정보 처리방침']],
+  ['약관·위치기반', TAB.home, ['위치기반서비스 약관']],
+  ['약관·e하늘', TAB.home, ['e하늘']],
+  ['약관·디지털유산', TAB.home, ['디지털 유산']],
+  ['이중안심(원가)', TAB.quote, ['이중안심 등록증']],
+  ['내용증명 청구서', TAB.quote, ['내용증명']],
+  ['손실보전 바우처', TAB.quote, ['바우처']],
+  ['옵트아웃', TAB.hall, ['비노출 요청']],
+  ['B2B 제휴 입점', TAB.hall, ['제휴 입점']],
+  ['공식 견적서', TAB.hall, ['공식 정찰 견적서']],
+  ['제휴 안치·유품', TAB.hall, ['상세 보기']],
+  ['명세표 아코디언', TAB.package, ['상세 원가 명세표']],
+  ['A4 양장본', TAB.life, ['A4 양장본']],
+  ['빈소 헌정 화면', TAB.life, ['빈소 디지털 헌정']],
+  ['생애 평전', TAB.life, ['생애 평전']],
+  ['생애 회고', TAB.life, ['생애 회고']],
+  ['모바일 부고장', TAB.life, ['모바일 부고장']],
+  ['엔딩노트', TAB.life, ['사전 장례 의향서']],
+  ['게이트키퍼', TAB.life, ['사후 유산관리']],
+  ['실물 양장본', TAB.life, ['실물 양장본']],
+  ['파트너 실적 보고', TAB.hall, ['서울아산병원']],
 ];
-
 /** [표시명, 탭키] — 페이지 전역 판정 */
 const TABS = [
   ['종합 의전', TAB.home],
@@ -117,20 +119,32 @@ const TABS = [
 
 const settle = (p, ms = 900) => p.waitForTimeout(ms);
 
-async function clickIdx(p, i) {
-  return p.evaluate((idx) => {
-    const e = document.querySelectorAll('button')[idx];
-    if (!e) return false;
+async function clickIdx(p, needle) {
+  // ★ 정규식이 아니라 includes() 로 찾는다. 한글 정규식은 렌더 타깃에 따라
+  //   깨지는 일이 실제로 있었고, 그때 오탐이 조용히 통과했다.
+  return p.evaluate((want) => {
+    const t = String(want).replace(/\s+/g, '');
+    const e = [...document.querySelectorAll('button, a, [role=button]')].find((x) => {
+      const s = (x.textContent || '').replace(/\s+/g, '');
+      return s.includes(t) && (x.offsetWidth > 0 || x.offsetHeight > 0);
+    });
+    if (!e) return { ok: false };
+    const hit = (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 30);
     e.scrollIntoView({ block: 'center' });
     e.click();
-    return true;
-  }, i);
+    return { ok: true, hit };
+  }, needle).then((r) => {
+    if (process.env.AUDIT_DEBUG) {
+      console.log(`   [dbg] ${JSON.stringify(needle)} → ${r.ok ? 'HIT ' + r.hit : 'MISS'}`);
+    }
+    return r.ok;
+  });
 }
 
-async function openTab(p, idx) {
-  if (idx == null) return true;
-  await clickIdx(p, idx);
-  await settle(p, 1200);
+async function openTab(p, needle) {
+  if (needle == null) return true;
+  await clickIdx(p, needle);
+  await settle(p, 1400);
   return true;
 }
 
@@ -139,6 +153,75 @@ async function openTab(p, idx) {
  * root 를 생략하면 문서 전체를 본다.
  */
 const INSPECT = ({ list, rootSel }) => {
+
+/**
+ * ★ 사진 위에 얹힌 텍스트를 잡는다.
+ *
+ * 그라디언트 오버레이를 「가장 불투명한 스톱 하나」 로 대표내는 방식으로는
+ * 이 결함을 못 본다. 대표값이 크면 「항상 덮여 있다」 고 오독되기 때문이다.
+ * 실제로 히어로 본문 오른쪽이 투명 구간(= 사진 그대로)에 얹힌 채 통과했다.
+ *
+ * 판정: 텍스트 상자가 「스크림이 50% 미만으로 내려간 구간」 까지 침범하는가.
+ * 50% 은 임의의 상수가 아니라 「사진 디테일이 글자 윤곽을 방해하기 시작하는 지점」 이다.
+ * 그 아래면 유족이 고쳐 읽어야 하고, 50% 위면 사진을 유지한 채 읽힌다.
+ */
+const overUnscreenedImage = (el, t) => {
+  const SCRIM_MIN = 0.5;
+  const tr = el.getBoundingClientRect();
+  if (tr.width <= 0) return false;
+
+  // 1) el 를 덮는 절대배치 <img> 와, 그 img 를 품은 위치조상 컨테이너
+  let node = el.parentElement;
+  let stage = null;
+  let img = null;
+  while (node && !stage) {
+    for (const k of node.children) {
+      if (k.tagName !== 'IMG' || k.closest('[role="dialog"]') !== null) continue;
+      if (getComputedStyle(k).position !== 'absolute') continue;
+      const r = k.getBoundingClientRect();
+      if (r.width > 0 && tr.left < r.right - 2 && tr.right > r.left + 2) { stage = node; img = k; }
+    }
+    if (!stage) node = node.parentElement;
+  }
+  if (!stage) return false;
+
+  // 2) 스크림은 텍스트의 「형제」 다 — 조상만 보면 영영 못 찾는다.
+  //    (실제 히어로 구조: img → 스크림 div → 텍스트 div 가 나란히 있다)
+  //    그리기 순서상 img 뒤에 있는 그라디언트 중 마지막 것이 최상단이다.
+  let scrim = null;
+  for (const k of stage.children) {
+    if (k === img || k.contains(el) || k === el) continue;
+    const bi = getComputedStyle(k).backgroundImage;
+    if (bi && bi !== 'none' && /gradient/.test(bi)) scrim = k;
+  }
+  if (!scrim) return true; // 스크림 자체가 없다
+
+  const bi = getComputedStyle(scrim).backgroundImage;
+  const horiz = /to right|90deg/.test(bi) ? true : !/to bottom|180deg/.test(bi);
+  const stops = [...bi.matchAll(/rgba?\(([^)]+)\)/g)].map((m) => {
+    const p = m[1].split(/[,\s/]+/).filter(Boolean);
+    return p.length >= 4 ? parseFloat(p[3]) : 1;
+  });
+  if (!stops.length) return true;
+  if (Math.min(...stops) >= SCRIM_MIN) return false; // 어디든 덮인다
+
+  // 3) 페이드 방향으로 「거의 투명한 구간」 이 어디부터인지 역산
+  const n = stops.length;
+  const THRESH = SCRIM_MIN;
+  let bad = 1; // 스톱을 균등 배치로 가정
+  for (let i = 0; i < n - 1; i++) {
+    const a0 = stops[i];
+    const a1 = stops[i + 1];
+    if (a0 >= THRESH && a1 < THRESH) {
+      bad = (i + (a0 - THRESH) / (a0 - a1)) / (n - 1);
+      break;
+    }
+  }
+  const sr = scrim.getBoundingClientRect();
+  return horiz
+    ? tr.right > sr.left + sr.width * bad + 2
+    : tr.bottom > sr.top + sr.height * bad + 2;
+};
   // Playwright 의 evaluate 는 인자를 하나만 넘긴다. 배열로 넘기면 색 목록이
   // 통째로 첫 인자에 들어가 Set 이 비어 「팔레트밖」 이 전부 오탐이 된다.
   const CANON_SET = new Set(list);
@@ -205,7 +288,7 @@ const INSPECT = ({ list, rootSel }) => {
   // 잘림: 스크롤폭이 더 큰데 넘침이 숨겨져 있는 요소.
   // 「정찰 패키지」 표는 무엇이 포함되는지 읽게 하는 것이 목적인데,
   // truncate 로 노안 유족이 못 읽으면 정찰이라는 장점이 사라진다.
-  const r = { tiny: 0, tl: [], con: [], off: [], clip: 0, cl2: [] };
+  const r = { tiny: 0, tl: [], con: [], off: [], clip: 0, cl2: [], imgRisk: 0, il: [] };
   root.querySelectorAll('*').forEach((el) => {
     const direct = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
     if (!direct) return;
@@ -233,9 +316,15 @@ const INSPECT = ({ list, rootSel }) => {
       r.clip++;
       if (r.cl2.length < 3) r.cl2.push(t.slice(0, 20) + ' ' + el.scrollWidth + '>' + el.clientWidth);
     }
+
+    if (overUnscreenedImage(el, t)) {
+      r.imgRisk++;
+      if (r.il.length < 3) r.il.push(t.slice(0, 18) + ' — 사진 위, 스크림 없는 구간');
+    }
   });
   return r;
 };
+
 
 /**
  * 펼침/접기 disclosure 버튼은 aria-expanded 로 상태를 알려야 한다.
@@ -268,6 +357,27 @@ const CHECK_DISCLOSURE = () => {
  */
 async function startPreview() {
   if (BASE) return null;
+
+  // ■ 방어 1 — 포트를 이미 다른 서버가 물고 있으면 아무도 모르게 그 서버를 검사한다.
+  //   spawn 은 포트가 이미 점유돼 있으면 조용히 죽는데, 아래 fetch 는 그 서버에 닿아
+  //   「떴다」 고 판단한다. 실제로 옛 빌드가 통째로 통과한 사고가 이거였다.
+  try {
+    const pre = await fetch(ORIGIN + '/', { redirect: 'follow' });
+    if (pre.status < 500) {
+      throw new Error(
+        `${PORT} 포트에 이미 서버가 떠 있다 (${new URL(pre.url).origin}). ` +
+          `그 서버가 dist 를 따로 들고 있을 수 있어 검사가 엉뚱한 빌드를 본다. ` +
+          `먼저 그 서버를 내린 뒤 다시 돌려라.`,
+      );
+    }
+  } catch (e) {
+    if (String(e?.message || '').includes('이미 서버')) throw e;
+    /* 포트가 비었음 — 정상 */
+  }
+
+  // ■ 방어 2 — dist 가 소스보다 낡으면 옛 빌드를 검사한다. 역시 조용히 통과한다.
+  assertDistFresh();
+
   const proc = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
     cwd: ROOT,
     stdio: 'ignore',
@@ -283,6 +393,32 @@ async function startPreview() {
   }
   proc.kill('SIGTERM');
   throw new Error(`preview 서버가 ${PORT} 포트에서 뜨지 않았다`);
+}
+
+/** dist/index.html 이 src 보다 오래됐으면 손댈 수 없다 — 옛 빌드를 검사하는 셈이다. */
+function assertDistFresh() {
+  const idx = join(ROOT, 'dist', 'index.html');
+  if (!existsSync(idx)) {
+    throw new Error('dist/index.html 이 없다 — npm run build:web 를 먼저 돌려라');
+  }
+  const distT = statSync(idx).mtimeMs;
+  let newest = 0;
+  const walk = (d) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      if (e.name === 'node_modules' || e.name.startsWith('.')) continue;
+      const f = join(d, e.name);
+      if (e.isDirectory()) walk(f);
+      else newest = Math.max(newest, statSync(f).mtimeMs);
+    }
+  };
+  walk(join(ROOT, 'src'));
+  if (newest > distT) {
+    const lag = Math.round((newest - distT) / 1000);
+    throw new Error(
+      `dist 가 src 보다 ${lag}초 낡다 — 지금 검사하면 옛 빌드를 본다. ` +
+        `npm run build:web 를 먼저 돌려라.`,
+    );
+  }
 }
 
 const fail = [];
@@ -348,7 +484,7 @@ for (const [name, tab, seq] of POPUPS) {
     r.tabTrap = await p.evaluate(() => (document.querySelector('[role="dialog"]').contains(document.activeElement) ? 'OK' : 'NO'));
     const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: '[role="dialog"]' });
     r.acc = await p.evaluate(CHECK_DISCLOSURE);
-    r.tiny = ins.tiny; r.con = ins.con.length; r.off = ins.off.length; r.clip = ins.clip;
+    r.tiny = ins.tiny; r.con = ins.con.length; r.off = ins.off.length; r.clip = ins.clip; r.img = ins.imgRisk;
     r.tl = ins.tl; r.cl = ins.con; r.ol = ins.off; r.c2 = ins.cl2;
     await p.keyboard.press('Escape');
     await settle(p, 700);
@@ -363,8 +499,16 @@ for (const [name, tab, seq] of POPUPS) {
 }
 
 // ── 페이지 전수 ──────────────────────────────────────────────────────
+// ★ 데스크톱(1440) 만 보면 폰에서만 나는 결함이 영영 안 보인다.
+//   이 서비스는 폰 우선이다 — 유족 대다수가 390px 에서 읽는다.
+//   실제로 히어로 본문이 사진 위에 얹히는 문제가 1440 검사에서는 통과했다.
+const WIDTHS = [
+  { w: 1440, h: 1000, tag: '' },
+  { w: 390, h: 844, tag: ' 폰' },
+];
 for (const [name, tab] of TABS) {
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, permissions: ['clipboard-read', 'clipboard-write'] });
+ for (const vp of WIDTHS) {
+  const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h }, permissions: ['clipboard-read', 'clipboard-write'] });
   const p = await ctx.newPage();
   const errs = [];
   p.on('pageerror', (e) => { if (!/clipboard/i.test(e.message)) errs.push(1); });
@@ -375,14 +519,16 @@ for (const [name, tab] of TABS) {
   await settle(p, 1200);
   const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: null });
   const acc = await p.evaluate(CHECK_DISCLOSURE);
-  pageRows.push({ name, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, acc, errs: errs.length, tl: ins.tl, cl: ins.con, ol: ins.off, cl2: ins.cl2 });
+  pageRows.push({ name: name + vp.tag, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, img: ins.imgRisk, il: ins.il, c2: ins.cl2, acc, errs: errs.length });
   await p.close();
+  await ctx.close();
+ }
 }
 
 await browser.close();
 
 const BAD = (r) =>
-  !r.open || r.errs > 0 || r.off > 0 || r.tiny > 0 || r.con > 0 || r.clip > 0 || r.acc.length > 0 ||
+  !r.open || r.errs > 0 || r.off > 0 || r.tiny > 0 || r.con > 0 || r.clip > 0 || r.img > 0 || r.acc.length > 0 ||
   (r.kind === '모달' && (r.focus !== 'OK' || r.tabTrap !== 'OK' || r.esc !== 'OK' || r.rel !== 'OK'));
 
 console.log('══ 배웅 UI 전수 감사 ══');
@@ -412,18 +558,20 @@ for (const r of rows) {
 }
 
 console.log('\n── 페이지 ──');
-console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  aria-exp 에러');
+console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  사진 aria-exp 에러');
 console.log('   ' + '─'.repeat(60));
 for (const r of pageRows) {
-  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.acc.length === 0 && r.errs === 0;
+  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.img === 0 && r.acc.length === 0 && r.errs === 0;
   console.log(
     '   ' + (ok ? '✅' : '❌') + ' ' + r.name.padEnd(18) +
-    String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.clip).padStart(6) + String(r.acc.length).padStart(9) + String(r.errs).padStart(6)
+    String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.clip).padStart(6) +
+    String(r.img).padStart(7) + String(r.acc.length).padStart(9) + String(r.errs).padStart(6)
   );
   if (r.tl?.length) console.log('        13px 미만: ' + r.tl.join(' / '));
   if (r.cl?.length) console.log('        대비 미달: ' + r.cl.join(' / '));
   if (r.ol?.length) console.log('        팔레트 밖: ' + r.ol.join(' '));
-  if (r.cl2?.length) console.log('        텍스트 잘림: ' + r.cl2.join(' / '));
+  if (r.c2?.length) console.log('        텍스트 잘림: ' + r.c2.join(' / '));
+  if (r.il?.length) console.log('        사진 위 무스크림: ' + r.il.join(' / '));
   if (r.acc?.length) console.log('        aria-expanded 없음: ' + r.acc.join(' / '));
   if (!ok) fail.push('페이지 ' + r.name);
 }

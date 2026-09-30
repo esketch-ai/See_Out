@@ -27,6 +27,7 @@ export interface NonAffiliationDisclaimer {
   statement: string;
   publicDataSource: string;
   publicDataDate: string;
+  licenseType?: string;
   optOutNotice: string;
   inquiryContact: string;
 }

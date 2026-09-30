@@ -4,7 +4,8 @@ import {
   RegionalStat,
   RegionCode,
   FuneralHallQuoteReference,
-  FuneralTypePreference
+  FuneralTypePreference,
+  PilotRegionSummary
 } from './types.js';
 import {
   FUNERAL_HALLS_DATASET,
@@ -116,6 +117,15 @@ export class FuneralHallService {
 
     if (filter.hasSmallFamilyRoom) {
       result = result.filter((h) => h.hasSmallFamilyRoom !== false);
+    }
+
+    // 8. [사업계획서 1단계] 시범 권역(수도권 동남부) 필터
+    if (filter.onlyPilotRegion) {
+      result = result.filter((h) => h.isPilotRegion === true);
+    }
+
+    if (filter.pilotDistrict) {
+      result = result.filter((h) => h.pilotDistrict === filter.pilotDistrict);
     }
 
     return result;
@@ -243,6 +253,56 @@ export class FuneralHallService {
       partnerHallsCount: partners,
       averageRoomCount: total > 0 ? Math.round((totalRooms / total) * 10) / 10 : 0,
       totalCapacitySum: totalCapacity
+    };
+  }
+
+  /**
+   * 사업계획서 1단계 시범 권역(수도권 동남부: 강남4구·성남·인접) 대상 장례식장 전수 조회
+   */
+  public static getPilotRegionHalls(): FuneralHallEntity[] {
+    return this.halls.filter((h) => h.isPilotRegion === true);
+  }
+
+  /**
+   * 사업계획서 1단계 시범 권역 요약 분석 통계 산출
+   */
+  public static getPilotRegionSummary(): PilotRegionSummary {
+    const pilotHalls = this.getPilotRegionHalls();
+    const total = pilotHalls.length;
+    const hospital = pilotHalls.filter(
+      (h) => h.category === 'TERTIARY_HOSPITAL' || h.category === 'CARE_HOSPITAL'
+    ).length;
+    const specialized = pilotHalls.filter(
+      (h) => h.category === 'SPECIALIZED_INDEPENDENT'
+    ).length;
+    const municipal = pilotHalls.filter(
+      (h) => h.category === 'PUBLIC_MUNICIPAL'
+    ).length;
+    const directCremation = pilotHalls.filter(
+      (h) => h.allowsDirectCremation !== false
+    ).length;
+    const totalRent = pilotHalls.reduce((sum, h) => sum + h.dailyRentEstimate, 0);
+    const rents = pilotHalls.map((h) => h.dailyRentEstimate);
+    const minRent = rents.length > 0 ? Math.min(...rents) : 0;
+    const maxRent = rents.length > 0 ? Math.max(...rents) : 0;
+    const totalMinutes = pilotHalls.reduce(
+      (sum, h) => sum + (h.crematoriumTravelMinutes || 0),
+      0
+    );
+
+    return {
+      regionName: '수도권 동남부 1차 시범 권역 (강남4구·성남)',
+      totalHalls: total,
+      hospitalAffiliatedCount: hospital,
+      independentSpecializedCount: specialized,
+      publicMunicipalCount: municipal,
+      directCremationAvailableCount: directCremation,
+      directCremationRate: total > 0 ? Math.round((directCremation / total) * 100) : 0,
+      averageDailyRent: total > 0 ? Math.round(totalRent / total) : 0,
+      minDailyRent: minRent,
+      maxDailyRent: maxRent,
+      averageCrematoriumMinutes: total > 0 ? Math.round(totalMinutes / total) : 0,
+      targetLoiCount: Math.ceil(total * 0.20) // 시범 참여의향서 20% 유치 목표치 (8곳)
     };
   }
 }

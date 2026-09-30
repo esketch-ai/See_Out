@@ -11,6 +11,7 @@ import { CareVertical } from '../../professional-care/index.js';
 import { SAMPLE_DUAL_STANDBY, DualStandbyService } from '../../quote-diagnostics/dualStandbyService.js';
 import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkData.js';
 import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
+import { KmacaWarmHome } from './KmacaWarmHome.js';
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 import { VirtualCallService } from '../../tracking/index.js';
@@ -61,6 +62,12 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   // 생전·유족 심리상담 & 상속 전문 변호사 부가 서비스 모달 상태
   const [isCareModalOpen, setIsCareModalOpen] = useState(false);
   const [careModalVertical, setCareModalVertical] = useState<CareVertical>('PSYCHOLOGY_CARE');
+
+  // KmacaWarmHome 아래에 보존되는 기존 의전 도록의 펼침 상태.
+  // ★ 탭 분기 위에 둬야 한다. 탭 분기 안에서 훅을 부르면 탭을 바꿀 때 훅 개수가
+  //   달라져 React #310 으로 죽는다. 실제로 그런 일이 있었다.
+  // ★ 기본값 true — 접어 두면 감사 도구가 이 영역을 통째로 못 본다.
+  const [isLegacyCeremonyOpen, setIsLegacyCeremonyOpen] = useState(true);
 
   // 특정 탭 선택 시 해당 컴포넌트 전용 상세 뷰 렌더링
   if (currentTab === 'quote') {
@@ -134,6 +141,38 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   // 'home' (종합 의전 안내) 탭인 경우: 풍부한 시각 사진과 함께 전체 조망
   return (
     <div className="space-y-12 pb-24">
+      {/* ── 시안 A: 밝고 따뜻한 KMACA형 홈 (docs/ORCA_TASK.md) ── */}
+      <KmacaWarmHome
+        onOpenQuoteDiagnostics={() => onSelectTab('quote')}
+        onOpenFuneralHallSearch={() => onSelectTab('funeral-halls')}
+        onOpenFixedPackages={() => onSelectTab('packages')}
+        onOpenDualStandby={() => setIsDualStandbyModalOpen(true)}
+        onOpenVoucher={() => setIsVoucherModalOpen(true)}
+        onOpenCare={(vertical) => {
+          setCareModalVertical(vertical);
+          setIsCareModalOpen(true);
+        }}
+        onEnterEmergency={onEnterEmergency}
+      />
+
+      {/* 기존 종합 의전 도록 — 4대 서비스 카드와 3일장 절차 패널은 정적 계약이라
+          지우지 않는다. 다만 새 홈과 히어로가 겹치므로 접어 둔다. */}
+      <button
+        type="button"
+        aria-expanded={isLegacyCeremonyOpen}
+        aria-controls="legacy-ceremony-detail"
+        onClick={() => setIsLegacyCeremonyOpen((v) => !v)}
+        className="w-full flex items-center justify-between gap-3 rounded-xl px-5 py-4 border border-[#3D382E] bg-[#141618] text-[#FAF9F6] text-[15px] font-serif hover:bg-[#1F2226] transition-colors"
+      >
+        <span>
+          {isLegacyCeremonyOpen
+            ? '전체 의전 도록 접기'
+            : '전체 의전 도록 보기 — 서비스 4종 · 3일장 절차'}
+        </span>
+        <span aria-hidden="true">{isLegacyCeremonyOpen ? '▲' : '▼'}</span>
+      </button>
+
+      <div id="legacy-ceremony-detail" hidden={!isLegacyCeremonyOpen} className="space-y-12">
       {/* 1. 고품격 시각 비주얼 히어로 배너 (경건한 추모와 24시 긴급 지원) */}
       <div className="relative rounded-xl overflow-hidden shadow-lg border border-[#3D382E] bg-[#141618]">
         {/* 창호 햇살과 청자 백국화·백합의 따뜻하고 경건한 추모 배경 */}
@@ -399,15 +438,15 @@ export const NormalMode: React.FC<NormalModeProps> = ({
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 text-[13px] font-serif text-[#151719]">
               <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="truncate">사전 약정금 0원</span>
+                <span className="min-w-0 break-words">사전 약정금 0원</span>
               </div>
               <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="truncate">24시 전담 지도사 배정</span>
+                <span className="min-w-0 break-words">24시 전담 지도사 배정</span>
               </div>
               <div className="flex items-center space-x-1.5 bg-[#FFFFFF] p-2 rounded border border-[#DCD6C9]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0" />
-                <span className="truncate">50만 원 손실보전 지원권</span>
+                <span className="min-w-0 break-words">50만 원 손실보전 지원권</span>
               </div>
             </div>
           </div>
@@ -654,6 +693,8 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           </p>
         </div>
       </div>
+      </div>
+      {/* ↑ 기존 의전 도록 끝 — 위 disclosure 가 접으면 이 구간이 사라진다 */}
 
       {/* 코드가 조각으로 나뉘어 늦게 올 수 있다. 그동안 빈 화면을 보여주지 않는다. */}
       <Suspense fallback={null}>

@@ -8,6 +8,7 @@ describe('사업계획서 1단계 3.1절 및 4.3절: 옵트아웃 및 공공데�
     expect(disclaimer.statement).toContain('e하늘 장사정보시스템');
     expect(disclaimer.statement).toContain('사전 제휴 관계를 의미하지 않습니다');
     expect(disclaimer.publicDataDate).toContain('2023년 06월');
+    expect(disclaimer.licenseType).toContain('공공누리 제1유형');
     expect(disclaimer.optOutNotice).toContain('옵트아웃 창구');
   });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   Printer,
@@ -22,6 +22,10 @@ import {
   FuneralTypePreference
 } from '../../funeral-halls/types.js';
 import { FuneralHallService } from '../../funeral-halls/funeralHallService.js';
+import {
+  FunnelMeasurementEngine,
+  VirtualCallBridgeService
+} from '../../tracking/index.js';
 import { TraditionalSeal } from '../design-system/index.js';
 import { useModalA11y } from './ModalShell.js';
 
@@ -57,6 +61,23 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
     applicantName: applicantName.trim() || undefined,
     applicantPhone: applicantPhone.trim() || undefined
   });
+
+  // 사업계획서 7장: 견적 참조번호 발급 이벤트 4단계 퍼널 자동 추적
+  useEffect(() => {
+    FunnelMeasurementEngine.trackEvent(hall.id, 'STAGE_4_CONVERSION_APPROX', {
+      referenceCode: quote.referenceCode
+    });
+  }, [hall.id, quote.referenceCode]);
+
+  const handleCallHall = () => {
+    VirtualCallBridgeService.logCallEvent({
+      hallId: hall.id,
+      hallName: hall.name,
+      destinationNumber: hall.phone,
+      durationSeconds: 45 // 시뮬레이션 실질 상담
+    });
+    FunnelMeasurementEngine.trackEvent(hall.id, 'STAGE_2_CONTACT_ATTEMPT');
+  };
 
   const handlePrint = () => {
     window.print();
@@ -406,6 +427,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
               <a
                 href={`tel:${hall.phone}`}
+                onClick={handleCallHall}
                 className="py-3.5 px-5 bg-[#141618] hover:bg-[#1F2226] text-[#FAF9F6] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 transition-all border border-white/10"
               >
                 <Phone className="w-4 h-4 text-[#C2A26A]" />

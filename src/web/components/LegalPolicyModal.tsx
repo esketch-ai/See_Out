@@ -234,11 +234,11 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
             </div>
           </div>
 
-          {/* 5대 법률 준수 매트릭스 요약 표 */}
+          {/* 7대 법률 준수 매트릭스 요약 표 */}
           <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-2 text-[13px]">
             <h5 className="font-bold text-[#151719] flex items-center space-x-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
-              <span>대한민국 5대 관계 법령 적격 준수 감사 결과표</span>
+              <span>대한민국 7대 관계 법령 적격 준수 감사 결과표</span>
             </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 pt-1 text-[13px]">
               {complianceMatrix.map((item, idx) => (

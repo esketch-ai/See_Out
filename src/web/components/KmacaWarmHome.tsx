@@ -52,8 +52,12 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           className="absolute inset-0 w-full h-full object-cover object-right"
         />
 
-        {/* 좌측 텍스트 가독성을 위한 부드러운 한지 그라디언트 오버레이 (18.34:1 고대비 확보) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FAF9F6] via-[#FAF9F6]/90 to-transparent w-full sm:w-3/5" />
+        {/* 좌측 텍스트 가독성을 위한 한지 오버레이.
+            ★ 스크림 알파는 「본문 구간에서 최소 50%」 를 지킨다. 그 아래로 내려가면
+              사진 디테일이 글자 윤곽을 방해해 유족이 고쳐 읽게 된다.
+              데스크톱도 예외가 아니다 — 투명 구간이 본문 줄 끝까지 닿아 있었다.
+            ★ 모바일은 세로로 덮고, sm 이상에서만 가로 페이드를 쓴다. */}
+        <div className="absolute inset-0 w-full bg-gradient-to-b from-[#FAF9F6] via-[#FAF9F6]/95 to-[#FAF9F6]/80 sm:w-3/5 sm:bg-gradient-to-r sm:from-[#FAF9F6] sm:via-[#FAF9F6]/90 sm:to-[#FAF9F6]/55" />
 
         {/* 배너 카피 & 즉각적인 CTA 버튼 */}
         <div className="relative z-10 p-6 sm:p-10 md:p-12 max-w-lg space-y-4">
@@ -85,8 +89,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               href="tel:1588-0000"
               className="px-5 py-3.5 bg-[#FFFFFF] hover:bg-[#F1EDE3] text-[#19382C] border border-[#DCD6C9] rounded-xl font-bold text-sm sm:text-base flex items-center justify-center space-x-2 transition-colors cursor-pointer"
             >
-              <PhoneCall className="w-4 h-4 text-[#9E7D47]" />
-              <span>상황실 직통 1588-0000</span>
+              <PhoneCall className="w-4 h-4 text-[#9E7D47] shrink-0" />
+              {/* 전화번호가 「1588-」 / 「0000」 로 어중간하게 끊기면 유족이
+                  다시 읽어야 한다. 라벨과 번호를 나눠 각자 한 줄에 묶는다. */}
+              <span className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2 leading-tight">
+                <span className="text-[13px] font-normal whitespace-nowrap">상황실 직통</span>
+                <span className="whitespace-nowrap">1588-0000</span>
+              </span>
             </a>
           </div>
         </div>

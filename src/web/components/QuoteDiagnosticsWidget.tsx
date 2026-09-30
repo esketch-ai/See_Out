@@ -305,13 +305,13 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 text-[#151719]">
               <div className="bg-[#FFFFFF] p-3 rounded-md border border-[#DCD6C9]">
                 <div className="text-[13px] text-[#5A5E66] font-serif">인식된 상조사</div>
-                <div className="text-sm font-reverence font-bold text-[#151719] mt-0.5 truncate">
+                <div className="text-sm font-reverence font-bold text-[#151719] mt-0.5 min-w-0 break-words">
                   {lastScanResult.certificate.competitorName}
                 </div>
               </div>
               <div className="bg-[#FFFFFF] p-3 rounded-md border border-[#DCD6C9]">
                 <div className="text-[13px] text-[#5A5E66] font-serif">인식된 상품명</div>
-                <div className="text-sm font-reverence font-bold text-[#151719] mt-0.5 truncate">
+                <div className="text-sm font-reverence font-bold text-[#151719] mt-0.5 min-w-0 break-words">
                   {lastScanResult.certificate.productName}
                 </div>
               </div>
@@ -743,7 +743,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 style={{ width: '100%' }}
                 className="bg-[#8B2520] h-full rounded-lg flex items-center justify-between px-3 md:px-4 text-[13px] font-medium text-white transition-all duration-500 shadow-xs"
               >
-                <span className="truncate">기존 상조 지출 총액 (남은 할부 + 현장 바가지 추가금)</span>
+                <span className="min-w-0 break-words">기존 상조 지출 총액 (남은 할부 + 현장 바가지 추가금)</span>
                 <span className="shrink-0 font-bold ml-2">100%</span>
               </div>
             </div>
@@ -782,7 +782,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 className="bg-[#19382C] h-full flex items-center justify-center px-2 text-[13px] font-bold text-[#FAF9F6] transition-all duration-500 shrink-0"
                 title="배웅 이용 시 실제 지출액"
               >
-                <span className="truncate">
+                <span className="min-w-0 break-words">
                   실제 지출 {(comparisonPerspective === 'future_cash'
                     ? report.summary.baeungTotalActualCost
                     : report.statutoryRefund.lossAmount + report.selectedBaeungPackage.price - report.transitionCredit
@@ -804,7 +804,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 className="bg-[#FAF9F6] border-l-2 border-[#19382C] h-full flex items-center justify-center px-2 text-[13px] font-bold text-[#6E5429] transition-all duration-500"
                 title="배웅 전환으로 아끼는 돈"
               >
-                <span className="truncate flex items-center space-x-1">
+                <span className="min-w-0 break-words flex items-start space-x-1">
                   <span>🎉</span>
                   <span>{report.summary.netSavingsAmount.toLocaleString()}원 절약 (통장에 SAVE)</span>
                 </span>

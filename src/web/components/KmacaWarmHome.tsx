@@ -46,10 +46,10 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
     <div className="space-y-10 pb-16 font-serif text-[#151719]">
       {/* ─── 1. 메인 비주얼 배너 (햇살 가족 사진 + 감성 카피 & 즉시 출동) ─── */}
       <div className="relative rounded-2xl overflow-hidden shadow-sm border border-[#DCD6C9] min-h-[380px] sm:min-h-[440px] flex items-center bg-[#FAF9F6]">
-        {/* 따뜻한 3대 가족 햇살 사진 */}
+        {/* 정갈한 위로와 따뜻한 동행 — 고품격 K-헤리티지 배웅 비주얼 */}
         <img 
-          src="/images/hero_warm_family_banner.jpg" 
-          alt="함께라서 든든한 따뜻한 배웅" 
+          src="/images/hero_reverent_comfort.jpg" 
+          alt="슬픔을 보듬는 정중한 예우와 따뜻한 배웅" 
           className="absolute inset-0 w-full h-full object-cover object-right"
         />
 

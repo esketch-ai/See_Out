@@ -18,6 +18,7 @@ import {
   X
 } from 'lucide-react';
 import { TraditionalSeal } from '../design-system/index.js';
+import { ModalShell } from './ModalShell.js';
 
 interface KmacaWarmHomeProps {
   onOpenQuoteDiagnostics: () => void;
@@ -101,10 +102,49 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
         </div>
       </div>
 
+      {/* ─── [임종 직후 긴급 분기] 경황없는 현장 유족을 위한 최우선 안심 가이드 ─── */}
+      <div className="bg-[#FAF0EF] border-2 border-[#8B2520]/40 rounded-xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-start space-x-3.5">
+          <div className="w-10 h-10 rounded-full bg-[#8B2520] text-[#FAF9F6] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+            <PhoneCall className="w-5 h-5 animate-pulse" />
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2">
+              <span className="text-[13px] font-bold px-2 py-0.5 rounded bg-[#8B2520] text-[#FAF9F6]">
+                긴급 상황
+              </span>
+              <h2 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
+                방금 임종을 맞이하셨습니까?
+              </h2>
+            </div>
+            <p className="text-[13px] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
+              경황없는 슬픔의 순간, 당황하지 마십시오. 24시간 언제든 연락 주시면 국가공인 1급 장례지도사가 2시간 이내에 현장으로 즉시 출동하여 고인의 이송부터 빈소 안치까지 온 마음으로 곁을 지킵니다.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 pt-2 md:pt-0">
+          <button
+            type="button"
+            onClick={onEnterEmergency}
+            className="px-5 py-3 bg-[#8B2520] hover:bg-[#731C18] active:scale-[0.99] text-[#FAF9F6] font-bold text-sm sm:text-base rounded-lg flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer"
+          >
+            <span>24시 긴급 출동 요청</span>
+            <ArrowRight className="w-4 h-4 text-[#FAF9F6]" />
+          </button>
+          <a
+            href="tel:1588-0000"
+            className="px-4 py-3 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#8B2520] border border-[#8B2520]/40 font-bold text-sm sm:text-base rounded-lg flex items-center justify-center space-x-2 transition-colors cursor-pointer"
+          >
+            <PhoneCall className="w-4 h-4 text-[#8B2520] shrink-0" />
+            <span className="whitespace-nowrap">상황실 직통 1588-0000</span>
+          </a>
+        </div>
+      </div>
+
       {/* ─── 2. 한국상조공제조합(KMACA)형 5대 플로팅 퀵 아이콘 바 ─── */}
       <div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-          {/* 1. 상조 원가 진단 */}
+          {/* 1. 상조 증서 안심 진단 */}
           <button 
             type="button"
             onClick={onOpenQuoteDiagnostics}
@@ -114,10 +154,10 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <Calculator className="w-6 h-6 text-[#19382C] group-hover:text-[#FAF9F6] transition-colors" />
             </div>
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
-              상조 원가 진단
+              상조 증서 안심 진단
             </span>
             <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
-              가입 상품 1:1 대조
+              가입 상품 1:1 정직한 비교
             </span>
           </button>
 
@@ -292,7 +332,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <ul className="space-y-3">
                 <li className="flex items-start justify-between text-[13px] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
-                    [공지] 2026년 공정위 표준약관 및 원가 공개 가이드 준수 안내
+                    [공지] 2026년 공정위 표준약관 및 투명 실비 공시 가이드 준수 안내
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.28</span>
                 </li>
@@ -484,27 +524,23 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           </div>
           <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-center">
             <CheckCircle2 className="w-4 h-4 text-[#19382C] mx-auto mb-1.5" />
-            <div className="font-bold text-sm text-[#151719] break-words">100% 단가 공개</div>
-            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">공공데이터 원가 대조</div>
+            <div className="font-bold text-sm text-[#151719] break-words">100% 품목 공개</div>
+            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">공공데이터 실비 대조</div>
           </div>
         </div>
       </div>
 
-      {/* ─── 5. 비디오 다큐멘터리 모달 ─── */}
+      {/* ─── 5. 비디오 다큐멘터리 모달 (접근성 공용 셸 적용) ─── */}
       {isVideoModalOpen && (
-        <div 
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="video-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0D0E10]/70"
-          onClick={() => setIsVideoModalOpen(false)}
+        <ModalShell
+          onClose={() => setIsVideoModalOpen(false)}
+          titleId="video-story-modal-title"
+          maxWidth="max-w-2xl"
+          surface="white"
         >
-          <div 
-            className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl max-w-2xl w-full p-6 shadow-xl space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="p-6 space-y-4 font-serif">
             <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-3">
-              <h3 id="video-modal-title" className="font-reverence font-bold text-lg text-[#151719]">
+              <h3 id="video-story-modal-title" className="font-reverence font-bold text-lg text-[#151719]">
                 다큐멘터리: 배웅이 지켜온 약속
               </h3>
               <button 
@@ -546,7 +582,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </ModalShell>
       )}
     </div>
   );

@@ -73,6 +73,27 @@ export interface FuneralHallEntity {
   hasSmallFamilyRoom?: boolean;     // 10~35평형 소규모 가족장 전용 빈소 보유 여부
   pricingBaseDate?: string;         // 가격 공시 기준일 (예: "2023.06 보건복지부 e하늘 공시")
   isPriceVerified?: boolean;        // 현장 최신 가격 검증 여부
+  // [사업계획서 1단계 시범 지역 지정]
+  isPilotRegion?: boolean;          // 1단계 시범 권역(수도권 동남부: 강남4구·성남) 소속 여부
+  pilotDistrict?: string;           // 시범 권역 내 자치구/시 (강남구/서초구/송파구/강동구/성남시)
+}
+
+/**
+ * 사업계획서 1단계 시범 권역(수도권 동남부) 요약 통계 모델
+ */
+export interface PilotRegionSummary {
+  regionName: string;                  // 시범 권역 명칭 (예: "수도권 동남부 1차 시범 권역 (강남4구·성남)")
+  totalHalls: number;                  // 권역 내 대상 장례식장 총 수 (38개소)
+  hospitalAffiliatedCount: number;     // 대학·종합병원 및 요양병원 부설 수
+  independentSpecializedCount: number; // 전문 독립 장례식장 수
+  publicMunicipalCount: number;        // 공설 및 지방의료원 수
+  directCremationAvailableCount: number;// 무빈소 직송 가능 시설 수
+  directCremationRate: number;         // 무빈소 가능 비율 (%)
+  averageDailyRent: number;            // 1일 빈소 평균 임대료 (원)
+  minDailyRent: number;                // 최저 빈소 임대료 (원)
+  maxDailyRent: number;                // 최고 빈소 임대료 (원)
+  averageCrematoriumMinutes: number;   // 서울추모공원/영생원 평균 이동 시간 (분)
+  targetLoiCount: number;              // 시범 참여의향서(LOI) 20% 유치 목표 수
 }
 
 /**
@@ -123,6 +144,8 @@ export interface FuneralHallSearchFilter {
   region?: RegionCode;               // 광역시도
   category?: FuneralHallCategory;    // 운영 주체
   onlyPartner?: boolean;             // 배웅 제휴 할인 식장만 조회
+  onlyPilotRegion?: boolean;         // 1단계 시범 권역(강남4구·성남) 식장만 조회
+  pilotDistrict?: string;            // 시범 권역 특정 자치구 필터
   minRooms?: number;                 // 최소 빈소 수
   minCapacity?: number;              // 최소 안치실 수용량
   funeralType?: FuneralTypePreference; // 무빈소 / 소규모 가족장 / 일반 3일장 필터

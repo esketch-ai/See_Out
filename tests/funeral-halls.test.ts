@@ -163,4 +163,60 @@ describe('Andrej Karpathy 3원칙 검증: 전국 장례식장 데이터 무결�
       expect(quote.finalFacilityCost).toBe(quote.facilitySubtotal - quote.baeungDiscountAmount);
     });
   });
+
+  describe('사업계획서 1단계 시범 권역(수도권 동남부: 강남4구·성남) 38개소 실데이터 정합성 검증', () => {
+    it('시범 권역 장례식장이 정확히 38개소 등록되어 있어야 한다', () => {
+      const pilotHalls = FuneralHallService.getPilotRegionHalls();
+      expect(pilotHalls).toHaveLength(38);
+    });
+
+    it('시범 권역 내 모든 식장은 유효한 행정구역, 도로명 주소, 전화번호 및 e하늘 공시 기준일을 포함해야 한다', () => {
+      const pilotHalls = FuneralHallService.getPilotRegionHalls();
+      const validDistricts = ['강남구', '서초구', '송파구', '강동구', '성남시', '인접수도권'];
+
+      pilotHalls.forEach((h) => {
+        expect(h.isPilotRegion).toBe(true);
+        expect(validDistricts).toContain(h.pilotDistrict);
+        expect(h.address).toMatch(/^(서울|경기)/);
+        expect(h.phone).toMatch(/^(02|031)-\d{3,4}-\d{4}$/);
+        expect(h.roomCount).toBeGreaterThan(0);
+        expect(h.capacityCount).toBeGreaterThan(0);
+        expect(h.pricingBaseDate).toBeDefined();
+        expect(h.crematoriumTravelMinutes).toBeGreaterThan(0);
+      });
+    });
+
+    it('시범 권역 요약 분석(getPilotRegionSummary) 지표가 사업계획서 1단계 목표 기준을 충족해야 한다', () => {
+      const summary = FuneralHallService.getPilotRegionSummary();
+
+      expect(summary.totalHalls).toBe(38);
+      // 참여의향서(LOI) 20% 유치 목표 = 8개소 (38 * 0.20 = 7.6 -> 올림 8)
+      expect(summary.targetLoiCount).toBe(8);
+      // 무빈소 가능 비율 90% 이상 (사업계획서 전국 92% 가설 검증)
+      expect(summary.directCremationRate).toBeGreaterThanOrEqual(90);
+      // 상급종합/요양병원 부설, 독립 전문, 공설 식장이 모두 분포하여 대조군 실험이 가능해야 함
+      expect(summary.hospitalAffiliatedCount).toBeGreaterThan(0);
+      expect(summary.independentSpecializedCount).toBeGreaterThan(0);
+      expect(summary.publicMunicipalCount).toBeGreaterThan(0);
+      // 서울추모공원/성남영생원 평균 이동 시간 30분 이내
+      expect(summary.averageCrematoriumMinutes).toBeLessThanOrEqual(30);
+    });
+
+    it('시범 권역 전용 검색 필터(onlyPilotRegion, pilotDistrict)가 정확하게 작동해야 한다', () => {
+      const onlyPilot = FuneralHallService.searchHalls({ onlyPilotRegion: true });
+      expect(onlyPilot).toHaveLength(38);
+
+      const gangnamHalls = FuneralHallService.searchHalls({ onlyPilotRegion: true, pilotDistrict: '강남구' });
+      expect(gangnamHalls).toHaveLength(4);
+      gangnamHalls.forEach((h) => {
+        expect(h.pilotDistrict).toBe('강남구');
+      });
+
+      const seongnamHalls = FuneralHallService.searchHalls({ onlyPilotRegion: true, pilotDistrict: '성남시' });
+      expect(seongnamHalls).toHaveLength(13);
+      seongnamHalls.forEach((h) => {
+        expect(h.pilotDistrict).toBe('성남시');
+      });
+    });
+  });
 });

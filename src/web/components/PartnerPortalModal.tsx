@@ -13,7 +13,8 @@ import {
   ArrowRight,
   Receipt,
   FileText,
-  UserCheck
+  UserCheck,
+  Film
 } from 'lucide-react';
 import { ModalShell, ModalToolbar } from './ModalShell.js';
 import { FuneralHallService } from '../../funeral-halls/funeralHallService.js';
@@ -21,6 +22,9 @@ import { FuneralHallEntity } from '../../funeral-halls/types.js';
 import { FunnelMeasurementEngine } from '../../tracking/funnelMeasurementEngine.js';
 import { PartnerPerformanceReport } from '../../tracking/types.js';
 import { B2BPartnerAdmissionModal } from './B2BPartnerAdmissionModal.js';
+import { PilotProposalLoiModal } from './PilotProposalLoiModal.js';
+import { ControlledExperimentModal } from './ControlledExperimentModal.js';
+import { ShortformShowcaseModal } from './ShortformShowcaseModal.js';
 
 interface PartnerPortalModalProps {
   initialHallId?: string;
@@ -66,6 +70,9 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
     status: 'ACTIVE_HONORED'
   });
   const [isAdmissionOpen, setIsAdmissionOpen] = useState(false);
+  const [isPilotLoiOpen, setIsPilotLoiOpen] = useState(false);
+  const [isExperimentModalOpen, setIsExperimentModalOpen] = useState(false);
+  const [isShortformModalOpen, setIsShortformModalOpen] = useState(false);
 
   const selectedHall = useMemo(() => {
     return allHalls.find((h) => h.id === selectedHallId) || allHalls[0];
@@ -147,14 +154,40 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
         title={<span className="text-lg font-reverence font-bold text-[#FAF9F6]">B2B 장례식장 파트너 비즈니스 포털</span>}
         subtitle="리베이트 0원 약정 & 월 30만 원 정액제 실시간 퍼널 성과 및 견적 검증 시스템"
       >
-        <button
-          type="button"
-          onClick={handlePrint}
-          className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
-        >
-          <Printer className="w-4 h-4 text-[#C2A26A]" />
-          <span>성과표 인쇄 / PDF</span>
-        </button>
+        <div className="flex items-center space-x-2 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setIsExperimentModalOpen(true)}
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+          >
+            <TrendingUp className="w-4 h-4 text-[#C2A26A]" />
+            <span>대조군 실험 & 자율 신고</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsShortformModalOpen(true)}
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+          >
+            <Film className="w-4 h-4 text-[#C2A26A]" />
+            <span>숏폼 쇼케이스</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsPilotLoiOpen(true)}
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+          >
+            <FileText className="w-4 h-4 text-[#C2A26A]" />
+            <span>시범 제안서 & LOI</span>
+          </button>
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
+          >
+            <Printer className="w-4 h-4 text-[#C2A26A]" />
+            <span>성과표 인쇄 / PDF</span>
+          </button>
+        </div>
       </ModalToolbar>
 
       <div className="p-4 sm:p-8 space-y-6 bg-[#FAF9F6] overflow-y-auto max-h-[85vh]">
@@ -500,6 +533,28 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
         <B2BPartnerAdmissionModal
           initialHall={selectedHall}
           onClose={() => setIsAdmissionOpen(false)}
+        />
+      )}
+
+      {isPilotLoiOpen && (
+        <PilotProposalLoiModal
+          initialHall={selectedHall}
+          onClose={() => setIsPilotLoiOpen(false)}
+        />
+      )}
+
+      {isExperimentModalOpen && (
+        <ControlledExperimentModal
+          isOpen={isExperimentModalOpen}
+          onClose={() => setIsExperimentModalOpen(false)}
+        />
+      )}
+
+      {isShortformModalOpen && (
+        <ShortformShowcaseModal
+          isOpen={isShortformModalOpen}
+          onClose={() => setIsShortformModalOpen(false)}
+          initialHallId={selectedHall.id}
         />
       )}
     </ModalShell>

@@ -118,6 +118,18 @@ export class LegalService {
         enactedStandard: '민법 제1060조 (유언의 요식성)',
         complianceMechanism: '디지털 엔딩노트의 도덕적 소망 성격 및 법적 유언 분할과의 구별 명문화',
         status: 'VERIFIED_COMPLIANT'
+      },
+      {
+        lawName: '공공데이터법 및 저작권법',
+        enactedStandard: '공공데이터법 제19조 및 공공누리 제1유형',
+        complianceMechanism: 'e하늘 공시일 명시, 출처표시 준수, 비인가 크롤링 배제 및 공식 데이터셋 연동',
+        status: 'VERIFIED_COMPLIANT'
+      },
+      {
+        lawName: '전기통신사업법 및 통비법 시행령',
+        enactedStandard: '통비법 시행령 제41조의2 (통신사실확인자료 6개월 보관)',
+        complianceMechanism: '통화사실확인자료 6개월 후 영구 파기, 음성 미녹음, 데이터-과금 분리',
+        status: 'VERIFIED_COMPLIANT'
       }
     ];
   }

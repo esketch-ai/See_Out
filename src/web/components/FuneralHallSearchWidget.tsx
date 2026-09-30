@@ -56,6 +56,8 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedFuneralType, setSelectedFuneralType] = useState<FuneralTypePreference>('all');
   const [onlyPartner, setOnlyPartner] = useState(false);
+  const [onlyPilotRegion, setOnlyPilotRegion] = useState(false);
+  const [selectedPilotDistrict, setSelectedPilotDistrict] = useState<string>('all');
   const [selectedHall, setSelectedHall] = useState<FuneralHallEntity | null>(null);
   const [stayDays, setStayDays] = useState<2 | 3>(2);
   const [copiedAddress, setCopiedAddress] = useState(false);
@@ -65,19 +67,23 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [isOptOutModalOpen, setIsOptOutModalOpen] = useState(false);
   const [isAffiliateModalOpen, setIsAffiliateModalOpen] = useState(false);
   const [isB2BModalOpen, setIsB2BModalOpen] = useState(false);
+  const [isPilotLoiModalOpen, setIsPilotLoiModalOpen] = useState(false);
+  const [isExperimentModalOpen, setIsExperimentModalOpen] = useState(false);
   const [mobileViewTab, setMobileViewTab] = useState<'list' | 'map' | 'detail'>('list');
 
-  // 검색 결과 (장례 형태 필터 및 옵트아웃 게재 중단 식장 제외)
+  // 검색 결과 (장례 형태 필터, 시범 권역 필터 및 옵트아웃 게재 중단 식장 제외)
   const halls = useMemo(() => {
     const raw = FuneralHallService.searchHalls({
       keyword: keyword.trim() || undefined,
       region: selectedRegion === 'all' ? undefined : (selectedRegion as RegionCode),
       category: selectedCategory === 'all' ? undefined : (selectedCategory as FuneralHallCategory),
       onlyPartner: onlyPartner ? true : undefined,
+      onlyPilotRegion: onlyPilotRegion ? true : undefined,
+      pilotDistrict: selectedPilotDistrict === 'all' ? undefined : selectedPilotDistrict,
       funeralType: selectedFuneralType === 'all' ? undefined : selectedFuneralType
     });
     return raw.filter((h) => !OptOutService.isHallHidden(h.id));
-  }, [keyword, selectedRegion, selectedCategory, onlyPartner, selectedFuneralType, isOptOutModalOpen]);
+  }, [keyword, selectedRegion, selectedCategory, onlyPartner, onlyPilotRegion, selectedPilotDistrict, selectedFuneralType, isOptOutModalOpen]);
 
   // 최초 로드 시 또는 검색 결과 변경 시 첫 번째 식장 자동 선택
   useEffect(() => {
@@ -149,12 +155,16 @@ const reportModal = lazyModal(() => import('./PartnerPerformanceReportModal.js')
 const optOutModal = lazyModal(() => import('./OptOutModal.js'));
 const affiliateModal = lazyModal(() => import('./AffiliatePartnersModal.js'));
 const b2bModal = lazyModal(() => import('./B2BPartnerAdmissionModal.js'));
+const pilotLoiModal = lazyModal(() => import('./PilotProposalLoiModal.js'));
+const experimentModal = lazyModal(() => import('./ControlledExperimentModal.js'));
 const FuneralHallQuoteModal = quoteModal.Comp;
 const PartnerPerformanceReportModal = reportModal.Comp;
 const OptOutModal = optOutModal.Comp;
 const AffiliatePartnersModal = affiliateModal.Comp;
 const B2BPartnerAdmissionModal = b2bModal.Comp;
-const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.preload, affiliateModal.preload, b2bModal.preload];
+const PilotProposalLoiModal = pilotLoiModal.Comp;
+const ControlledExperimentModal = experimentModal.Comp;
+const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.preload, affiliateModal.preload, b2bModal.preload, pilotLoiModal.preload, experimentModal.preload];
 
   return (
     <Suspense fallback={null}>
@@ -182,17 +192,45 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
         </div>
       </div>
 
-      {/* 2. 전국 17개 시도별 퀵 통계 칩 바 */}
-      <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#DCD6C9]">
-        <div className="text-[13px] font-serif font-bold text-[#5A5E66] mb-2 flex items-center justify-between">
-          <span>전국 17개 광역시·도 장사 인프라 분포 (총 1,080개소)</span>
-          <span className="text-[13px] text-[#6E5429] hidden sm:inline">※ 시도를 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
+      {/* 2. 전국 17개 시도별 퀵 통계 칩 바 및 1단계 시범 권역 바로가기 */}
+      <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#DCD6C9] space-y-3">
+        <div className="text-[13px] font-serif font-bold text-[#5A5E66] flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <span>지역별 장사 인프라 분포</span>
+            <span className="text-[#6E5429] font-semibold">(1단계 시범 권역 38곳 실데이터 집중 가동 중)</span>
+          </div>
+          <span className="text-[13px] text-[#6E5429] hidden sm:inline">※ 시도 또는 시범 권역을 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
         </div>
+
         <div className="flex gap-1.5 overflow-x-auto pb-1 text-[13px]">
+          {/* 1단계 시범 권역 하이라이트 칩 */}
           <button
-            onClick={() => setSelectedRegion('all')}
+            onClick={() => {
+              const next = !onlyPilotRegion;
+              setOnlyPilotRegion(next);
+              if (next) {
+                setSelectedRegion('all');
+                setSelectedPilotDistrict('all');
+              }
+            }}
+            className={`px-3.5 py-1.5 rounded-md font-serif shrink-0 transition-all cursor-pointer flex items-center space-x-1.5 ${
+              onlyPilotRegion
+                ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] shadow-xs font-bold'
+                : 'bg-[#FFFFFF] text-[#151719] hover:bg-[#FAF9F6] border-2 border-[#19382C]/50 font-bold'
+            }`}
+          >
+            <MapPin className="w-3.5 h-3.5 text-[#9E7D47]" />
+            <span>📍 1단계 시범 권역 (강남4구·성남 38곳)</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setSelectedRegion('all');
+              setOnlyPilotRegion(false);
+              setSelectedPilotDistrict('all');
+            }}
             className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
-              selectedRegion === 'all'
+              selectedRegion === 'all' && !onlyPilotRegion
                 ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] shadow-xs font-bold'
                 : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
             }`}
@@ -202,9 +240,13 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
           {stats.map((s) => (
             <button
               key={s.region}
-              onClick={() => setSelectedRegion(s.region)}
+              onClick={() => {
+                setSelectedRegion(s.region);
+                setOnlyPilotRegion(false);
+                setSelectedPilotDistrict('all');
+              }}
               className={`px-3 py-1.5 rounded-md font-serif font-medium shrink-0 transition-all cursor-pointer ${
-                selectedRegion === s.region
+                selectedRegion === s.region && !onlyPilotRegion
                   ? 'bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] shadow-xs font-bold'
                   : 'bg-[#FFFFFF] text-[#42464E] hover:bg-[#FAF9F6] border border-[#DCD6C9]'
               }`}
@@ -213,6 +255,84 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
             </button>
           ))}
         </div>
+
+        {/* 1단계 시범 권역 활성화 시 세부 자치구 칩 및 실데이터 분석 지표 바 */}
+        {onlyPilotRegion && (
+          <div className="pt-2 border-t border-[#DCD6C9] space-y-2">
+            <div className="flex flex-wrap items-center gap-1.5 text-[13px] font-serif">
+              <span className="text-[#5A5E66] font-bold mr-1">시범 자치구:</span>
+              {[
+                { key: 'all', label: '시범 권역 전체 (38곳)' },
+                { key: '강남구', label: '강남구 (4곳)' },
+                { key: '서초구', label: '서초구 (4곳)' },
+                { key: '송파구', label: '송파구 (5곳)' },
+                { key: '강동구', label: '강동구 (6곳)' },
+                { key: '성남시', label: '성남시 (13곳)' },
+                { key: '인접수도권', label: '인접 연계 (6곳)' }
+              ].map((d) => (
+                <button
+                  key={d.key}
+                  onClick={() => setSelectedPilotDistrict(d.key)}
+                  className={`px-2.5 py-1 rounded text-[13px] transition-all cursor-pointer ${
+                    selectedPilotDistrict === d.key
+                      ? 'bg-[#19382C] text-[#FAF9F6] font-bold shadow-xs'
+                      : 'bg-[#FFFFFF] text-[#5A5E66] border border-[#DCD6C9] hover:bg-[#FAF9F6]'
+                  }`}
+                >
+                  {d.label}
+                </button>
+              ))}
+            </div>
+
+            {/* 시범 권역 핵심 분석 요약 인포박스 */}
+            <div className="bg-[#FFFFFF] p-3.5 rounded border border-[#DCD6C9] space-y-3 font-serif">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[13px]">
+                <div className="border-r border-[#DCD6C9] pr-2">
+                  <span className="text-[#5A5E66] block">참여의향(LOI) 목표</span>
+                  <span className="font-bold text-[#19382C] text-sm">8곳 이상 (20%)</span>
+                </div>
+                <div className="sm:border-r border-[#DCD6C9] pr-2">
+                  <span className="text-[#5A5E66] block">무빈소 직송 가능률</span>
+                  <span className="font-bold text-[#19382C] text-sm">100% (38개소 전원)</span>
+                </div>
+                <div className="border-r border-[#DCD6C9] pr-2">
+                  <span className="text-[#5A5E66] block">화장장 평균 이동</span>
+                  <span className="font-bold text-[#19382C] text-sm">평균 16분 (원지동·영생원)</span>
+                </div>
+                <div>
+                  <span className="text-[#5A5E66] block">빈소 1일 실비 범위</span>
+                  <span className="font-bold text-[#19382C] text-sm">38만 ~ 190만 원</span>
+                </div>
+              </div>
+
+              {/* B2B 장례식장 전용 1-Page 제안서 & LOI 신청 버튼 */}
+              <div className="pt-2.5 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-[13px] text-[#6E5429]">
+                  ※ 장례식장 대표·사무장님: 월 30만원 정액 광고 협약 및 3개월 시범 참여의향서(LOI)를 확인하세요
+                </span>
+                <div className="flex items-center space-x-2 shrink-0 flex-wrap gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsExperimentModalOpen(true)}
+                    className="px-3.5 py-1.5 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded-md font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                  >
+                    <TrendingUp className="w-3.5 h-3.5 text-[#9E7D47]" />
+                    <span>대조군 실험 성과 분석</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsPilotLoiModalOpen(true)}
+                    className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-[#C2A26A]" />
+                    <span>1-Page 제안서 & LOI</span>
+                    <ChevronRight className="w-3 h-3 text-[#C2A26A]" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 3. 검색 및 필터 컨트롤러 */}
@@ -374,9 +494,16 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                     <div className="flex justify-between items-start gap-2">
                       <div>
-                        <span className="text-[13px] font-serif font-medium text-[#5A5E66] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#DCD6C9]">
-                          {getCategoryLabel(hall.category)}
-                        </span>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-[13px] font-serif font-medium text-[#5A5E66] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#DCD6C9]">
+                            {getCategoryLabel(hall.category)}
+                          </span>
+                          {hall.pilotDistrict && (
+                            <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded border border-[#DCE8E2]">
+                              시범 {hall.pilotDistrict}
+                            </span>
+                          )}
+                        </div>
                         <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
                           {hall.name}
                         </h4>
@@ -393,15 +520,15 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                       )}
                     </div>
 
-                    <div className="text-[13px] text-[#5A5E66] mt-2 flex items-center space-x-1 font-serif">
-                      <MapPin className="w-3.5 h-3.5 shrink-0 text-[#6E5429]" />
-                      <span className="truncate">{hall.address}</span>
+                    <div className="text-[13px] text-[#5A5E66] mt-2 flex items-start space-x-1.5 font-serif">
+                      <MapPin className="w-3.5 h-3.5 shrink-0 text-[#6E5429] mt-0.5" />
+                      <span className="min-w-0 break-words">{hall.address}</span>
                     </div>
 
                     {hall.nearestSubway && (
-                      <div className="text-[13px] text-[#5A5E66] mt-1 flex items-center space-x-1 font-serif">
-                        <Train className="w-3 h-3 shrink-0 text-[#19382C]" />
-                        <span className="truncate">{hall.nearestSubway}</span>
+                      <div className="text-[13px] text-[#5A5E66] mt-1 flex items-start space-x-1.5 font-serif">
+                        <Train className="w-3 h-3 shrink-0 text-[#19382C] mt-0.5" />
+                        <span className="min-w-0 break-words">{hall.nearestSubway}</span>
                       </div>
                     )}
 
@@ -804,6 +931,22 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
         <B2BPartnerAdmissionModal
           initialHall={selectedHall || undefined}
           onClose={() => setIsB2BModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 10.1절] 시범 권역 B2B 사업제안서 & LOI 신청 모달 */}
+      {isPilotLoiModalOpen && (
+        <PilotProposalLoiModal
+          initialHall={selectedHall || undefined}
+          onClose={() => setIsPilotLoiModalOpen(false)}
+        />
+      )}
+
+      {/* [사업계획서 7.3절] 시범 권역 대조군 실험 성과 분석 & 자율 신고 모달 */}
+      {isExperimentModalOpen && (
+        <ControlledExperimentModal
+          isOpen={isExperimentModalOpen}
+          onClose={() => setIsExperimentModalOpen(false)}
         />
       )}
     </div>

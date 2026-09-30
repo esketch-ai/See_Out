@@ -1,12 +1,24 @@
 # 배웅 (Bae-ung / SeeOut) 플랫폼
 
-> **선불식 상조의 거품과 관행을 혁신하는 투명 원가 기반 라이프엔딩 종합 플랫폼**
+> **"투명함이 가장 큰 위로가 되도록"**  
+> 선불식 상조의 거품과 불법 리베이트 관행을 혁신하는 대한민국 최초의 공공데이터 기반 장례·추모 통합 플랫폼
 
-배웅(Bae-ung)은 선불식 상조회사의 부조리한 유통 마진과 현장 추가금 관행을 근절하고, **투명한 원가 공개와 실비 기반 후불제 서비스**, 그리고 **생애기록관(사전 아카이빙) & 1초 긴급 출동 핫라인(사후 대응)**을 제공하는 차세대 라이프엔딩 플랫폼입니다.
+[![English Version](https://img.shields.io/badge/Language-English%20README-19382C.svg)](./README.en.md)
+[![Verification](https://img.shields.io/badge/Verification-100%25%20Passed-19382C.svg)](#검증-체계)
+[![Senior A11y](https://img.shields.io/badge/Senior%20A11y-13px%20Floor-C2A26A.svg)](#노안-유족-접근성-n-7)
 
 ---
 
-## 🏛️ 주요 핵심 기능 및 시스템 구조
+![배웅 플랫폼 개요](./docs/images/baeung_platform_overview.jpg)
+
+---
+
+## 📖 문서 가이드 바로가기
+- 🇰🇷 **공식 소개서 (구글 슬라이드 5P 가이드)**: [`docs/배웅_플랫폼_소개서_5P_가이드북.md`](./docs/배웅_플랫폼_소개서_5P_가이드북.md)
+- 🇺🇸 **English Guidebook (5-Slide Deck)**: [`docs/baeung_platform_guide_5p_en.md`](./docs/baeung_platform_guide_5p_en.md)
+- 📊 **1단계 시범 사업 완료 보고서**: [`docs/배웅_1단계_사업계획서_요약.md`](./docs/배웅_1단계_사업계획서_요약.md)
+
+---
 
 1. **듀얼 모드 UI/UX 아키텍처 (Dual-Mode)**
    - **평시 모드 (Pre-mortem)**: 생애기록관 타임라인(디지털 유언, 자서전, 추억 아카이빙), 상조 견적 진단기

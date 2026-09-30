@@ -161,7 +161,7 @@ export const BAEUNG_DESIGN_TOKENS = {
   typography: {
     fontFamilies: {
       reverenceSerif: '"Noto Serif KR", Georgia, serif',
-      modernSans: '"Pretendard Variable", Pretendard, -apple-system, sans-serif'
+      modernSans: '"Pretendard GOV Variable", "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, sans-serif'
     },
     fontSizePx: {
       micro: 13,             // 법적 고지·일자 형태 한정 (N-7)

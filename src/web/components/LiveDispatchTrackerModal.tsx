@@ -67,7 +67,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
         <button
           type="button"
           onClick={handleAdvanceSimulation}
-          className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md text-[13px] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+          className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md text-[0.8125rem] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
         >
           <RefreshCw className="w-3.5 h-3.5 text-[#C2A26A]" />
           <span>이동 시뮬레이션</span>
@@ -79,10 +79,10 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
         <div className="bg-white p-5 rounded-2xl border-2 border-[#19382C] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center space-x-2">
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 {dispatchResult.assignedDirector.baseCenterName} ➔ 현장
               </span>
-              <span className="text-[13px] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded font-mono">
+              <span className="text-[0.8125rem] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded font-mono">
                 {dispatchResult.dispatchId}
               </span>
             </div>
@@ -91,13 +91,13 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
                 ? `약 ${currentStage.etaMinutes}분 후 현장 도착 예정`
                 : '현장 도착 완료 (의전 개시)'}
             </h3>
-            <p className="text-[13px] text-[#5A5E66]">
+            <p className="text-[0.8125rem] text-[#5A5E66]">
               현재 남은 거리: <strong className="text-[#19382C]">{calculatedDistance}km</strong> (실시간 위성 교통 정보 반영)
             </p>
           </div>
 
           <div className="text-right shrink-0">
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#19382C]/10 text-[#19382C] font-bold text-[13px] border border-[#19382C]/20">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#19382C]/10 text-[#19382C] font-bold text-[0.8125rem] border border-[#19382C]/20">
               <Car className="w-4 h-4" />
               <span>{currentStage.label}</span>
             </div>
@@ -106,7 +106,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
 
         {/* 인터랙티브 GPS 이동 궤적 지도 시각화 박스 */}
         <div className="bg-[#141618] rounded-2xl p-6 border border-[#2D4F43] text-white space-y-6 shadow-md">
-          <div className="flex items-center justify-between text-[13px] text-[#A8B2A9]">
+          <div className="flex items-center justify-between text-[0.8125rem] text-[#A8B2A9]">
             <div className="flex items-center space-x-1.5">
               <MapPin className="w-4 h-4 text-[#C2A26A]" />
               <span>출발지: {dispatchResult.assignedDirector.baseCenterName}</span>
@@ -134,14 +134,14 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
               <div className="w-9 h-9 rounded-full bg-[#19382C] border-2 border-[#C2A26A] flex items-center justify-center shadow-lg animate-bounce">
                 <Car className="w-5 h-5 text-[#FAF9F6]" />
               </div>
-              <span className="text-[13px] font-bold text-[#C2A26A] mt-1 bg-[#0D0E10] px-2 py-0.5 rounded border border-[#3D382E] whitespace-nowrap">
+              <span className="text-[0.8125rem] font-bold text-[#C2A26A] mt-1 bg-[#0D0E10] px-2 py-0.5 rounded border border-[#3D382E] whitespace-nowrap">
                 {currentStage.percent}% 주행
               </span>
             </div>
           </div>
 
           {/* 현재 구간 상세 설명 */}
-          <div className="p-3.5 bg-[#0D0E10] rounded-xl border border-[#3D382E] flex items-center justify-between text-[13px]">
+          <div className="p-3.5 bg-[#0D0E10] rounded-xl border border-[#3D382E] flex items-center justify-between text-[0.8125rem]">
             <div className="flex items-center space-x-2">
               <Clock className="w-4 h-4 text-[#C2A26A]" />
               <span className="text-[#FAF9F6]">{currentStage.desc}</span>
@@ -153,7 +153,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
         </div>
 
         {/* 배정 지도사 및 특수 운구차량 스펙 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[0.8125rem]">
           {/* 지도사 정보 */}
           <div className="bg-white p-4 rounded-xl border border-[#DCD6C9] space-y-2">
             <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
@@ -161,7 +161,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
                 <Award className="w-4 h-4 text-[#C2A26A]" />
                 <span>현장 출동 전담 지도사</span>
               </span>
-              <span className="text-[13px] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded">
+              <span className="text-[0.8125rem] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded">
                 국가공인 1급
               </span>
             </div>
@@ -187,7 +187,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
                 <Car className="w-4 h-4 text-[#19382C]" />
                 <span>배차 특수 운구 리무진</span>
               </span>
-              <span className="text-[13px] text-[#6E5429] font-bold">
+              <span className="text-[0.8125rem] text-[#6E5429] font-bold">
                 방역 소독 필
               </span>
             </div>
@@ -197,7 +197,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
             <p className="text-[#5A5E66]">
               차량 제원: 고인 전용 유압식 리프트 탑재 및 유족 동승 6인승
             </p>
-            <div className="p-2 bg-[#FAF9F6] rounded-lg border border-[#DCD6C9] text-[13px] text-[#19382C] font-bold flex items-center space-x-1.5">
+            <div className="p-2 bg-[#FAF9F6] rounded-lg border border-[#DCD6C9] text-[0.8125rem] text-[#19382C] font-bold flex items-center space-x-1.5">
               <ShieldCheck className="w-4 h-4 text-[#19382C]" />
               <span>전국 무료 운구 보증 (관내·시외할증 0원)</span>
             </div>
@@ -205,7 +205,7 @@ export const LiveDispatchTrackerModal: React.FC<LiveDispatchTrackerModalProps> =
         </div>
 
         {/* 안심 보증 문구 */}
-        <div className="p-3 bg-white rounded-xl border border-[#DCD6C9] text-[13px] text-[#5A5E66] text-center">
+        <div className="p-3 bg-white rounded-xl border border-[#DCD6C9] text-[0.8125rem] text-[#5A5E66] text-center">
           배웅 긴급 의전 차량은 24시간 안전 운행 규정을 준수하며 고인을 극진히 모시기 위해 최단 경로로 이동합니다.
         </div>
       </div>

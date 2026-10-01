@@ -334,6 +334,86 @@ const overUnscreenedImage = (el, t) => {
  *   알 수 없다. aria-expanded 가 없으면 상태 변화가 전혀 전달되지 않는다.
  *   정적 문자열로는 토글 대상을 알 수 없어 화면을 열어 확인해야 한다.
  */
+/**
+ * 「글씨 확대」 가 실제로 글씨를 키우는가.
+ *
+ * ■ 왜 이 검사가 있는가
+ *   이 사이트의 노안용 보조기능이 절반도 안 먹었다. 본문 45개 중 21개(47%)만
+ *   커졌고, 나머지는 text-[13px] 고정 px 였다. 「노안용」 버튼이 노안에게
+ *   아무 효과가 없는 상태였다. px 는 루트 font-size 를 못 받기 때문이다.
+ *
+ * ★ 측정을 세 번 잘못했다. 전부 조용히 통과했다.
+ *   ① 동기 블록 안에서 루트 font-size 를 바꾸면 rem 이 재해석되지 않는다.
+ *   ② 텍스트를 Map 키로 쓰면 중복 문구가 엉뚱한 요소끼리 비교된다.
+ *   ③ evaluate 경계로 DOM 을 넘기면 참조가 끊긴다.
+ *   「페이지 안에서 + 리플로우 사이에 + 순서로」 하면 통과한다.
+ */
+const CHECK_LARGE_FONT = async () => {
+  const vis = (el) => {
+    const cs = getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 0 && r.height > 0;
+  };
+  const grab = () =>
+    [...document.querySelectorAll('p,span,li,h1,h2,h3,h4,h5,h6,label,td,th,button,a')]
+      .filter((el) => vis(el) && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 3))
+      .map((el) => ({ t: (el.textContent || '').trim().slice(0, 16), px: parseFloat(getComputedStyle(el).fontSize) }));
+  const raf = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+  document.documentElement.classList.remove('senior-large-font');
+  await raf();
+  const before = grab();
+  document.documentElement.classList.add('senior-large-font');
+  await raf();
+  const after = grab();
+  document.documentElement.classList.remove('senior-large-font');
+
+  let scaled = 0;
+  const stuck = [];
+  const n = Math.min(before.length, after.length);
+  for (let i = 0; i < n; i++) {
+    if (after[i].px > before[i].px + 0.5) scaled++;
+    else if (before[i].px !== after[i].px) stuck.push(`${before[i].t} ${before[i].px}→${after[i].px}`);
+  }
+  const total = before.length || 1;
+  return { pct: Math.round((scaled / total) * 100), stuck: stuck.slice(0, 3) };
+};
+
+/**
+ * 최소 탭 영역 (손 떨림)
+ *
+ * ■ 왜 이 검사가 있는가
+ *   WCAG 2.2 AA 는 24px 다. 그건 「엄격한 WCAG 채점」 이고 이 서비스의 유족에게는
+ *   모자라다. 실제로 푸터 약관 5종이 30px, 헤더 탭이 34px 로 측정됐다.
+ *   약관은 이용자 동의의 근거 문서라 오타르면 안 된다.
+ *
+ * ★ 기준은 persona 다. 같은 34px 도 30대에게는 불편일 뿐이고
+ *   90세에게는 「누르지 못한 다리」 다. 그래서 두 임계값을 함께 본다.
+ *
+ * ■ 인라인 링크는 예외다
+ *   WCAG 2.5.8 도 문장 속 링크는 예외로 둔다. 산문 안의 약관 인용을 키우면
+ *   문단이 무너지므로, 「혼자 서 있는 조작 요소」 만 잰다.
+ */
+const CHECK_TAP = () => {
+  const small = [];
+  for (const el of document.querySelectorAll('button, [role=button], a[href]')) {
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    // 산문 안에 흐르는 인라인 링크는 제외 — 크기를 키우면 문단이 무너진다
+    if (el.tagName === 'A' && cs.display.startsWith('inline') && cs.padding === '0px') continue;
+    const r = el.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) continue;
+    const name = (el.getAttribute('aria-label') || el.textContent || el.getAttribute('title') || '')
+      .replace(/\s+/g, ' ').trim();
+    if (!name) continue;
+    if (r.height < 48) small.push({ t: name.slice(0, 22), h: Math.round(r.height) });
+  }
+  const uniq = [];
+  const seen = new Set();
+  for (const s of small) { const k = s.h + '|' + s.t; if (seen.has(k)) continue; seen.add(k); uniq.push(s); }
+  return { under48: uniq, worst: uniq.length ? Math.min(...uniq.map((s) => s.h)) : 99 };
+};
+
 const CHECK_DISCLOSURE = () => {
   // 「펼침/접힘」 쌍과 화살표 글리프. 닫기 버튼(「창 닫기」)과 구분하려면
   // 닫기 버튼이 전부 [role=dialog] 안에 있다는 사실을 쓴다.
@@ -519,7 +599,9 @@ for (const [name, tab] of TABS) {
   await settle(p, 1200);
   const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: null });
   const acc = await p.evaluate(CHECK_DISCLOSURE);
-  pageRows.push({ name: name + vp.tag, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, img: ins.imgRisk, il: ins.il, c2: ins.cl2, acc, errs: errs.length });
+  const lf = await p.evaluate(CHECK_LARGE_FONT);
+  const tap = await p.evaluate(CHECK_TAP);
+  pageRows.push({ lf, tap, name: name + vp.tag, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, img: ins.imgRisk, il: ins.il, c2: ins.cl2, acc, errs: errs.length });
   await p.close();
   await ctx.close();
  }
@@ -558,20 +640,22 @@ for (const r of rows) {
 }
 
 console.log('\n── 페이지 ──');
-console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  사진 aria-exp 에러');
+console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  사진 글확대 탭영역 aria-exp 에러');
 console.log('   ' + '─'.repeat(60));
 for (const r of pageRows) {
-  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.img === 0 && r.acc.length === 0 && r.errs === 0;
+  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.img === 0 && r.acc.length === 0 && r.errs === 0 && r.lf && r.lf.pct >= 90 && r.tap && r.tap.under48.length === 0;
   console.log(
     '   ' + (ok ? '✅' : '❌') + ' ' + r.name.padEnd(18) +
     String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.clip).padStart(6) +
-    String(r.img).padStart(7) + String(r.acc.length).padStart(9) + String(r.errs).padStart(6)
+    String(r.img).padStart(7) + String(r.lf ? r.lf.pct + '%' : '-').padStart(8) + String(r.acc.length).padStart(9) + String(r.errs).padStart(6)
   );
   if (r.tl?.length) console.log('        13px 미만: ' + r.tl.join(' / '));
   if (r.cl?.length) console.log('        대비 미달: ' + r.cl.join(' / '));
   if (r.ol?.length) console.log('        팔레트 밖: ' + r.ol.join(' '));
   if (r.c2?.length) console.log('        텍스트 잘림: ' + r.c2.join(' / '));
   if (r.il?.length) console.log('        사진 위 무스크림: ' + r.il.join(' / '));
+  if (r.lf && r.lf.pct < 90) console.log(`        글씨 확대 반응 ${r.lf.pct}% — px 고정값이 남아 있다: ${(r.lf.stuck || []).join(' / ')}`);
+  if (r.tap && r.tap.under48.length) console.log('        탭 영역 48px 미만: ' + r.tap.under48.slice(0, 5).map((x) => `${x.t} ${x.h}px`).join(' / '));
   if (r.acc?.length) console.log('        aria-expanded 없음: ' + r.acc.join(' / '));
   if (!ok) fail.push('페이지 ' + r.name);
 }

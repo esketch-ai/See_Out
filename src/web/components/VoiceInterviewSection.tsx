@@ -102,10 +102,10 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-[13px] uppercase tracking-widest text-[#C2A26A] font-bold">
+                <span className="text-[0.8125rem] uppercase tracking-widest text-[#C2A26A] font-bold">
                   Voice-to-Biography Engine
                 </span>
-                <span className="text-[13px] bg-[#9E7D47]/20 text-[#C2A26A] px-2 py-0.5 rounded border border-[#9E7D47]/40">
+                <span className="text-[0.8125rem] bg-[#9E7D47]/20 text-[#C2A26A] px-2 py-0.5 rounded border border-[#9E7D47]/40">
                   AI 구술 인터뷰 특허 기술
                 </span>
               </div>
@@ -116,20 +116,20 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-[13px] text-[#5A5E66]">
+            <span className="text-[0.8125rem] text-[#5A5E66]">
               완성된 챕터: <strong className="text-[#C2A26A]">{savedChapters.length}</strong> / 4장
             </span>
           </div>
         </div>
 
-        <p className="relative z-10 text-[13px] md:text-sm text-[#5A5E66] leading-relaxed max-w-3xl">
+        <p className="relative z-10 text-[0.8125rem] md:text-sm text-[#5A5E66] leading-relaxed max-w-3xl">
           글 작성이 부담스러운 시니어 어르신도 마이크에 편안하게 말씀만 하시면 됩니다.
           AI 구술 인터뷰어가 4대 핵심 질문을 음성으로 여쭙고, 고인의 따뜻한 육성을 고풍스러운 문체의 <strong>영구 보존판 생애 평전</strong>으로 자동 승화해 드립니다.
         </p>
 
         {/* 토스트 알림 */}
         {toastMessage && (
-          <div className="relative z-20 bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] px-4 py-2.5 rounded-lg text-[13px] flex items-center space-x-2 shadow-lg animate-fade-in">
+          <div className="relative z-20 bg-[#19382C] text-[#FAF9F6] border border-[#2D4F43] px-4 py-2.5 rounded-lg text-[0.8125rem] flex items-center space-x-2 shadow-lg animate-fade-in">
             <CheckCircle2 className="w-4 h-4 text-[#C2A26A] shrink-0" />
             <span>{toastMessage}</span>
           </div>
@@ -153,18 +153,18 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
                   : 'bg-[#FFFFFF] text-[#42464E] border-[#DCD6C9] hover:bg-[#FAF9F6]'
               }`}
             >
-              <div className="flex items-center justify-between text-[13px] mb-1 font-bold">
+              <div className="flex items-center justify-between text-[0.8125rem] mb-1 font-bold">
                 <span className={isSelected ? 'text-[#C2A26A]' : 'text-[#6E5429]'}>
                   제{q.targetChapterNumber}장 • {q.category}
                 </span>
                 {isSaved && (
-                  <span className="text-[13px] text-[#243F35] font-normal flex items-center space-x-0.5">
+                  <span className="text-[0.8125rem] text-[#243F35] font-normal flex items-center space-x-0.5">
                     <BookmarkCheck className="w-3 h-3" />
                     <span>저장완료</span>
                   </span>
                 )}
               </div>
-              <div className="font-bold text-[13px] truncate">
+              <div className="font-bold text-[0.8125rem] truncate">
                 {q.title}
               </div>
             </button>
@@ -180,14 +180,14 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
         <div className="bg-[#FFFFFF] border-2 border-[#C2A26A]/40 rounded-xl p-5 md:p-6 space-y-3 relative overflow-hidden shadow-xs">
           <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2.5">
             <div className="flex items-center space-x-2">
-              <span className="k-seal-gold px-2 py-0.5 text-[13px] font-bold">질문</span>
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="k-seal-gold px-2 py-0.5 text-[0.8125rem] font-bold">질문</span>
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 AI 인터뷰어 질문 (제{currentQ.targetChapterNumber}장 {currentQ.category})
               </span>
             </div>
             <button
               onClick={() => setIsPlayingQuestionAudio(!isPlayingQuestionAudio)}
-              className="text-[13px] text-[#19382C] font-bold flex items-center space-x-1.5 px-3 py-1 bg-[#FAF9F6] border border-[#DCD6C9] rounded-md hover:bg-[#FAF9F6] transition-colors cursor-pointer"
+              className="text-[0.8125rem] text-[#19382C] font-bold flex items-center space-x-1.5 px-3 py-1 bg-[#FAF9F6] border border-[#DCD6C9] rounded-md hover:bg-[#FAF9F6] transition-colors cursor-pointer"
             >
               <Volume2 className={`w-3.5 h-3.5 text-[#6E5429] ${isPlayingQuestionAudio ? 'animate-pulse' : ''}`} />
               <span>{isPlayingQuestionAudio ? '음성 재생 중...' : '질문 음성으로 듣기'}</span>
@@ -221,13 +221,13 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             <div className="text-sm font-bold text-[#151719] flex items-center justify-center space-x-2">
               <span>{isRecording ? '어르신 음성을 경청하고 있습니다...' : '마이크를 누르고 편안히 말씀해 주세요'}</span>
               {isRecording && (
-                <span className="text-[13px] font-mono text-[#D4665A] font-bold">
+                <span className="text-[0.8125rem] font-mono text-[#D4665A] font-bold">
                   {String(Math.floor(recordingSeconds / 60)).padStart(2, '0')}:
                   {String(recordingSeconds % 60).padStart(2, '0')}
                 </span>
               )}
             </div>
-            <p className="text-[13px] text-[#5A5E66]">
+            <p className="text-[0.8125rem] text-[#5A5E66]">
               {isRecording
                 ? '말씀이 끝나시면 버튼을 다시 눌러 녹음을 완료해 주세요.'
                 : '스마트폰 마이크에 대고 어린 시절 기억, 직장에서의 보람, 가족 이야기를 들려주시면 됩니다.'}
@@ -254,18 +254,18 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
         {/* 3-C. 어르신 육성 말씀 전사 (STT) & 편집 창 */}
         <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-5 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[13px] font-bold text-[#151719] flex items-center space-x-1.5">
+            <span className="text-[0.8125rem] font-bold text-[#151719] flex items-center space-x-1.5">
               <FileText className="w-3.5 h-3.5 text-[#6E5429]" />
               <span>어르신 구술 전사 원문 (STT)</span>
             </span>
-            <span className="text-[13px] text-[#5A5E66]">직접 수정하거나 추가 작성하실 수 있습니다</span>
+            <span className="text-[0.8125rem] text-[#5A5E66]">직접 수정하거나 추가 작성하실 수 있습니다</span>
           </div>
 
           <textarea
             value={userSpokenText}
             onChange={(e) => setUserSpokenText(e.target.value)}
             rows={3}
-            className="w-full p-3.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[13px] md:text-sm text-[#42464E] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
+            className="w-full p-3.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[0.8125rem] md:text-sm text-[#42464E] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
             placeholder="마이크로 구술하시거나 이곳에 직접 기억을 적어주셔도 됩니다."
           />
         </div>
@@ -278,17 +278,17 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             <div className="flex items-center space-x-2">
               <TraditionalSeal sealKey="sincerity" size="sm" />
               <div>
-                <span className="text-[13px] text-[#C2A26A] font-bold block">
+                <span className="text-[0.8125rem] text-[#C2A26A] font-bold block">
                   AI 생애 평전 문장화 결과 (제{currentQ.targetChapterNumber}장 본문)
                 </span>
-                <span className="text-[13px] text-[#5A5E66]">
+                <span className="text-[0.8125rem] text-[#5A5E66]">
                   구술 원문을 바탕으로 품격 높은 한국 문학 산문체로 정돈된 완성본입니다
                 </span>
               </div>
             </div>
 
             {isSynthesizing && (
-              <span className="text-[13px] text-[#C2A26A] flex items-center space-x-1 animate-pulse">
+              <span className="text-[0.8125rem] text-[#C2A26A] flex items-center space-x-1 animate-pulse">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>AI가 평전 문장을 집필 중입니다...</span>
               </span>
@@ -296,7 +296,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
           </div>
 
           {/* 산문 텍스트 영역 */}
-          <div className="relative z-10 bg-[#0A1511] p-5 rounded-lg border border-[#2D4F43] text-[13px] sm:text-sm text-[#FAF9F6] leading-loose italic">
+          <div className="relative z-10 bg-[#0A1511] p-5 rounded-lg border border-[#2D4F43] text-[0.8125rem] sm:text-sm text-[#FAF9F6] leading-loose italic">
             <p className="indent-4">
               {synthesizedProse}
             </p>
@@ -304,7 +304,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
 
           {/* 하단 액션 버튼들 */}
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-            <div className="text-[13px] text-[#8A929D] flex items-center space-x-1.5">
+            <div className="text-[0.8125rem] text-[#8A929D] flex items-center space-x-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#C2A26A]" />
               <span>영구 보존판 A4 양장본 평전 및 디지털 뷰어에 실시간 연동됩니다</span>
             </div>
@@ -312,7 +312,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             <div className="flex items-center space-x-2.5">
               <button
                 onClick={handleSaveToChapter}
-                className="px-4 py-2 bg-[#9E7D47] hover:bg-[#9E7D47] text-[#151719] rounded-md font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                className="px-4 py-2 bg-[#9E7D47] hover:bg-[#9E7D47] text-[#151719] rounded-md font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer"
               >
                 <BookmarkCheck className="w-4 h-4" />
                 <span>제{currentQ.targetChapterNumber}장 평전에 영구 저장</span>
@@ -321,7 +321,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
               {onOpenBooklet && (
                 <button
                   onClick={onOpenBooklet}
-                  className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-bold text-[13px] flex items-center space-x-1.5 border border-white/20 transition-all cursor-pointer"
+                  className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-bold text-[0.8125rem] flex items-center space-x-1.5 border border-white/20 transition-all cursor-pointer"
                 >
                   <BookOpen className="w-4 h-4 text-[#C2A26A]" />
                   <span>A4 평전 책자 보기</span>

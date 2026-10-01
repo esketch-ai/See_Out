@@ -70,7 +70,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6]">
                 장례식장 정보 수정 및 비노출(게재 중단) 요청 접수 창구
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 장례식장 원장님 및 관리자 전용 · 24시간 이내 신속 처리
               </p>
             </div>
@@ -95,7 +95,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
               <h4 className="font-reverence font-bold text-2xl text-[#141618]">
                 접수가 안전하게 완료되었습니다
               </h4>
-              <p className="text-[13px] text-[#5A5E66] font-serif max-w-md mx-auto leading-relaxed">
+              <p className="text-[0.8125rem] text-[#5A5E66] font-serif max-w-md mx-auto leading-relaxed">
                 장례식장 권리자 확인을 거쳐 영업일 기준 24시간 이내에 요청하신 사항이 반영됩니다.<br />
                 접수 고유 번호를 보관해 주시기 바랍니다.
               </p>
@@ -115,21 +115,21 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
             /* 신청서 입력 폼 */
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* 비제휴 고지 안내 박스 */}
-              <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[13px] text-[#19382C] leading-relaxed">
+              <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[0.8125rem] text-[#19382C] leading-relaxed">
                 <b>{disclaimer.title}</b><br />
                 {disclaimer.statement}
               </div>
 
               {/* 대상 시설 */}
-              <div className="p-3 bg-[#FFFFFF] rounded-lg border border-[#DCD6C9] flex items-center justify-between text-[13px]">
+              <div className="p-3 bg-[#FFFFFF] rounded-lg border border-[#DCD6C9] flex items-center justify-between text-[0.8125rem]">
                 <span className="text-[#5A5E66]">대상 장례식장:</span>
                 <span className="font-bold text-[#151719] text-sm">{hall.name} ({hall.address})</span>
               </div>
 
               {/* 요청 유형 선택 */}
               <div className="space-y-1.5">
-                <label className="text-[13px] font-bold text-[#141618] block">요청 유형 선택:</label>
-                <div className="grid grid-cols-2 gap-3 text-[13px]">
+                <label className="text-[0.8125rem] font-bold text-[#141618] block">요청 유형 선택:</label>
+                <div className="grid grid-cols-2 gap-3 text-[0.8125rem]">
                   <button
                     type="button"
                     onClick={() => setRequestType('CORRECTION')}
@@ -140,7 +140,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
                     }`}
                   >
                     ✏️ 정보 정정 요청<br />
-                    <span className="text-[13px] font-normal text-[#5A5E66]">임대료·전화번호·시설명 변경</span>
+                    <span className="text-[0.8125rem] font-normal text-[#5A5E66]">임대료·전화번호·시설명 변경</span>
                   </button>
                   <button
                     type="button"
@@ -152,13 +152,13 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
                     }`}
                   >
                     🗑️ 게재 중단(삭제) 요청<br />
-                    <span className="text-[13px] font-normal text-[#5A5E66]">플랫폼 내 검색 노출 제외</span>
+                    <span className="text-[0.8125rem] font-normal text-[#5A5E66]">플랫폼 내 검색 노출 제외</span>
                   </button>
                 </div>
               </div>
 
               {/* 신청인 인적 정보 */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[0.8125rem]">
                 <div>
                   <label className="text-[#5A5E66] block mb-1">신청인 권한/직책:</label>
                   <select
@@ -208,7 +208,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
 
               {/* 상세 요청 내용 */}
               <div className="space-y-1">
-                <label className="text-[13px] font-bold text-[#141618] block">
+                <label className="text-[0.8125rem] font-bold text-[#141618] block">
                   상세 요청 내용 (정정 항목 또는 게재 중단 사유):
                 </label>
                 <textarea
@@ -217,11 +217,11 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
                   placeholder="예: 특실 80평형 1일 임대료가 1,800,000원으로 변경되었으니 정정을 요청합니다. 또는 해당 식장의 게재 중단을 요청합니다."
-                  className="w-full p-3 bg-[#FFFFFF] border border-[#DCD6C9] rounded-md text-[13px] text-[#151719] leading-relaxed resize-none focus:outline-none focus:border-[#19382C]"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#DCD6C9] rounded-md text-[0.8125rem] text-[#151719] leading-relaxed resize-none focus:outline-none focus:border-[#19382C]"
                 />
               </div>
 
-              <div className="text-[13px] text-[#5A5E66] flex items-center space-x-1.5">
+              <div className="text-[0.8125rem] text-[#5A5E66] flex items-center space-x-1.5">
                 <HelpCircle className="w-3.5 h-3.5 text-[#9E7D47] shrink-0" />
                 <span>허위 신청 방지를 위해 접수 후 담당자가 유선으로 재직 여부를 확인할 수 있습니다.</span>
               </div>
@@ -231,13 +231,13 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2.5 rounded-lg border border-[#DCD6C9] text-[#5A5E66] text-[13px] hover:bg-[#FFFFFF] transition-colors cursor-pointer"
+                  className="px-4 py-2.5 rounded-lg border border-[#DCD6C9] text-[#5A5E66] text-[0.8125rem] hover:bg-[#FFFFFF] transition-colors cursor-pointer"
                 >
                   취소
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[13px] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+                  className="px-6 py-2.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[0.8125rem] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
                 >
                   <Send className="w-3.5 h-3.5 text-[#C2A26A]" />
                   <span>옵트아웃 신청서 접수</span>

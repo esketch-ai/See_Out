@@ -168,21 +168,21 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
     switch (cat) {
       case 'COLUMBARIUM':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[13px] font-serif font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[0.8125rem] font-serif font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
             <Building2 className="w-3.5 h-3.5 text-[#9E7D47]" />
             <span>실내 봉안당</span>
           </span>
         );
       case 'WOODLAND_BURIAL':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[13px] font-serif font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[0.8125rem] font-serif font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
             <Trees className="w-3.5 h-3.5 text-[#19382C]" />
             <span>수목장림 자연장지</span>
           </span>
         );
       case 'ESTATE_CLEARING':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[13px] font-serif font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[0.8125rem] font-serif font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
             <Sparkles className="w-3.5 h-3.5 text-[#6E5429]" />
             <span>유품정리·특수케어</span>
           </span>
@@ -209,7 +209,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
               <h3 className="font-reverence font-bold text-base sm:text-lg text-[#FAF9F6]">
                 배웅 인증 3대 장사 제휴처 (봉안당 · 수목장 · 유품정리)
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 지자체 정식 인허가 필증 검증 완료 · 리베이트 0원 투명 정찰제
               </p>
             </div>
@@ -225,7 +225,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
         </div>
 
         {/* 2. 상단 3대 탭 (제휴사 목록 vs 시범 권역 매칭 vs 입점 심사 시뮬레이터) */}
-        <div className="flex border-b border-[#DCD6C9] bg-[#FFFFFF] px-6 text-[13px] sm:text-sm font-medium overflow-x-auto">
+        <div className="flex border-b border-[#DCD6C9] bg-[#FFFFFF] px-6 text-[0.8125rem] sm:text-sm font-medium overflow-x-auto">
           <button
             onClick={() => setActiveTab('LIST')}
             className={`py-3 px-4 border-b-2 font-bold transition-all whitespace-nowrap cursor-pointer ${
@@ -265,14 +265,14 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
           {activeTab === 'LIST' && (
             <>
               {/* 공정위 리베이트 방지 & 법령 고지 배너 */}
-              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[13px] space-y-2">
+              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[0.8125rem] space-y-2">
                 <div className="flex items-start space-x-2 text-[#6E5429]">
                   <Scale className="w-4 h-4 shrink-0 mt-0.5 text-[#9E7D47]" />
                   <div>
                     <span className="font-bold text-[#6E5429]">
                       공정거래위원회 리베이트 제재(2026.03) 방지 & 100% 정찰제 원칙
                     </span>
-                    <p className="text-[13px] text-[#6E5429] mt-0.5 leading-relaxed">
+                    <p className="text-[0.8125rem] text-[#6E5429] mt-0.5 leading-relaxed">
                       배웅은 제휴 봉안당·수목장·유품정리 업체로부터 알선 수수료(소개비)를 1원도 수취하지 않습니다.
                       오직 정액제 광고 계약(월 25만~30만원)으로 운영되며, 플랫폼 중간 마진이 없어 유족에게 가장 투명한 가격이 보장됩니다.
                     </p>
@@ -281,7 +281,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
               </div>
 
               {/* 카테고리 필터 버튼 그룹 */}
-              <div className="flex flex-wrap gap-2 text-[13px]">
+              <div className="flex flex-wrap gap-2 text-[0.8125rem]">
                 {[
                   { key: 'ALL', label: `전체 보기 (${allPartners.length})` },
                   { key: 'COLUMBARIUM', label: '🏛️ 실내외 봉안당 (3)' },
@@ -314,27 +314,27 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                       <div>
                         <div className="flex items-center space-x-2">
                           {getCategoryBadge(partner.category)}
-                          <span className="text-[13px] text-[#5A5E66] font-medium">{partner.region} {partner.district}</span>
+                          <span className="text-[0.8125rem] text-[#5A5E66] font-medium">{partner.region} {partner.district}</span>
                         </div>
                         <h4 className="font-reverence font-bold text-lg text-[#151719] mt-1">
                           {partner.name}
                         </h4>
-                        <p className="text-[13px] text-[#5A5E66] mt-0.5">{partner.address}</p>
+                        <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">{partner.address}</p>
                       </div>
 
                       <div className="flex flex-col items-start sm:items-end">
-                        <span className="inline-flex items-center space-x-1 text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                        <span className="inline-flex items-center space-x-1 text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C]" />
                           <span>인허가 검증 완료</span>
                         </span>
-                        <span className="text-[13px] text-[#5A5E66] mt-1 font-mono">
+                        <span className="text-[0.8125rem] text-[#5A5E66] mt-1 font-mono">
                           {partner.licenseNumber}
                         </span>
                       </div>
                     </div>
 
                     {/* 법적 근거 및 권역 이동 정보 */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[13px]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[0.8125rem]">
                       <div className="bg-[#FAF9F6] p-2.5 rounded-lg border border-[#DCD6C9] text-[#5A5E66] flex items-center space-x-2">
                         <FileCheck className="w-4 h-4 text-[#9E7D47] shrink-0" />
                         <span className="min-w-0 break-words">{partner.statutoryClause} · 심사일 {partner.verifiedDate}</span>
@@ -349,9 +349,9 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
 
                     {/* 투명 정찰 가격표 */}
                     <div>
-                      <div className="text-[13px] font-bold text-[#151719] mb-2 flex items-center justify-between">
+                      <div className="text-[0.8125rem] font-bold text-[#151719] mb-2 flex items-center justify-between">
                         <span>공식 정찰 가격표 (원가 투명 공개)</span>
-                        <span className="text-[13px] text-[#6E5429] font-normal">※ 부당 추가 비용 청구 불가</span>
+                        <span className="text-[0.8125rem] text-[#6E5429] font-normal">※ 부당 추가 비용 청구 불가</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                         {partner.pricingInfo.map((item, idx) => (
@@ -360,13 +360,13 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                             className="p-3 bg-[#FAF9F6] rounded-lg border border-[#DCD6C9] flex flex-col justify-between"
                           >
                             <div>
-                              <div className="font-bold text-[13px] text-[#151719]">{item.name}</div>
-                              <div className="text-[13px] text-[#5A5E66] mt-0.5 leading-snug">
+                              <div className="font-bold text-[0.8125rem] text-[#151719]">{item.name}</div>
+                              <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5 leading-snug">
                                 {item.description}
                               </div>
                             </div>
                             <div className="mt-2 pt-2 border-t border-[#DCD6C9] flex justify-between items-baseline">
-                              <span className="text-[13px] text-[#5A5E66]">{item.unit}</span>
+                              <span className="text-[0.8125rem] text-[#5A5E66]">{item.unit}</span>
                               <span className="font-reverence font-bold text-sm text-[#19382C]">
                                 {item.price.toLocaleString()}원
                               </span>
@@ -381,7 +381,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                       {partner.features.map((feat, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-0.5 rounded text-[13px] bg-[#F7F5F0] text-[#5A5E66] border border-[#DCD6C9]"
+                          className="px-2 py-0.5 rounded text-[0.8125rem] bg-[#F7F5F0] text-[#5A5E66] border border-[#DCD6C9]"
                         >
                           ✓ {feat}
                         </span>
@@ -390,12 +390,12 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
 
                     {/* 직통 연락처 액션 버튼 */}
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-[#DCD6C9]">
-                      <div className="text-[13px] text-[#5A5E66]">
+                      <div className="text-[0.8125rem] text-[#5A5E66]">
                         안내: 배웅 직통 통화 시 플랫폼 알선 수수료 0원 및 정찰 혜택이 적용됩니다.
                       </div>
                       <a
                         href={`tel:${partner.phone}`}
-                        className="w-full sm:w-auto px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-lg text-[13px] font-bold flex items-center justify-center space-x-1.5 transition-colors shadow-xs"
+                        className="w-full sm:w-auto px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-lg text-[0.8125rem] font-bold flex items-center justify-center space-x-1.5 transition-colors shadow-xs"
                       >
                         <Phone className="w-3.5 h-3.5 text-[#C2A26A]" />
                         <span>직통 상담 연결 ({partner.phone})</span>
@@ -418,7 +418,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     시범 타깃 권역(강남4구·성남) 30분 최단거리 안심 매칭
                   </h4>
                 </div>
-                <p className="text-[13px] text-[#5A5E66]">
+                <p className="text-[0.8125rem] text-[#5A5E66]">
                   장례식장 발인 후 영결식장에서 30~40분 내 도달 가능한 최적의 봉안시설, 수목장림 및 사후 유품정리 3대 제휴 세트입니다.
                 </p>
 
@@ -428,7 +428,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     <button
                       key={district}
                       onClick={() => setSelectedDistrict(district)}
-                      className={`px-3.5 py-1.5 rounded-lg border text-[13px] font-medium transition-all cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-lg border text-[0.8125rem] font-medium transition-all cursor-pointer ${
                         selectedDistrict === district
                           ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43] font-bold shadow-xs'
                           : 'bg-[#FAF9F6] text-[#42464E] border-[#DCD6C9] hover:bg-[#F1EDE3]'
@@ -447,21 +447,21 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                   <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-xs">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[13px] font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
+                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[0.8125rem] font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
                           <Building2 className="w-3.5 h-3.5 text-[#9E7D47]" />
                           <span>실내 봉안당</span>
                         </span>
-                        <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
+                        <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
                           {districtMatch.matchedColumbarium.estimate.travelTimeMinutes}분 ({districtMatch.matchedColumbarium.estimate.distanceKm}km)
                         </span>
                       </div>
                       <h5 className="font-reverence font-bold text-base text-[#151719] mt-2">
                         {districtMatch.matchedColumbarium.partner.name}
                       </h5>
-                      <p className="text-[13px] text-[#5A5E66] mt-0.5">
+                      <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                         {districtMatch.matchedColumbarium.partner.address}
                       </p>
-                      <div className="mt-3 space-y-1.5 text-[13px]">
+                      <div className="mt-3 space-y-1.5 text-[0.8125rem]">
                         <div className="font-bold text-[#151719]">추천 안치 품목 선택:</div>
                         {districtMatch.matchedColumbarium.partner.pricingInfo.map((p, idx) => (
                           <label
@@ -492,7 +492,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                         ))}
                       </div>
                     </div>
-                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[13px]">
+                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[0.8125rem]">
                       <span className="text-[#5A5E66] font-mono">{districtMatch.matchedColumbarium.partner.licenseNumber}</span>
                       <a
                         href={`tel:${districtMatch.matchedColumbarium.partner.phone}`}
@@ -509,21 +509,21 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                   <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-xs">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[13px] font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
+                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[0.8125rem] font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
                           <Trees className="w-3.5 h-3.5 text-[#19382C]" />
                           <span>수목장림 자연장지</span>
                         </span>
-                        <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
+                        <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
                           {districtMatch.matchedWoodlandBurial.estimate.travelTimeMinutes}분 ({districtMatch.matchedWoodlandBurial.estimate.distanceKm}km)
                         </span>
                       </div>
                       <h5 className="font-reverence font-bold text-base text-[#151719] mt-2">
                         {districtMatch.matchedWoodlandBurial.partner.name}
                       </h5>
-                      <p className="text-[13px] text-[#5A5E66] mt-0.5">
+                      <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                         {districtMatch.matchedWoodlandBurial.partner.address}
                       </p>
-                      <div className="mt-3 space-y-1.5 text-[13px]">
+                      <div className="mt-3 space-y-1.5 text-[0.8125rem]">
                         <div className="font-bold text-[#151719]">추천 수목 품목 선택:</div>
                         {districtMatch.matchedWoodlandBurial.partner.pricingInfo.map((p, idx) => (
                           <label
@@ -554,7 +554,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                         ))}
                       </div>
                     </div>
-                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[13px]">
+                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[0.8125rem]">
                       <span className="text-[#5A5E66] font-mono">{districtMatch.matchedWoodlandBurial.partner.licenseNumber}</span>
                       <a
                         href={`tel:${districtMatch.matchedWoodlandBurial.partner.phone}`}
@@ -571,21 +571,21 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                   <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-xs">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[13px] font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
+                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[0.8125rem] font-bold bg-[#FAF9F6] text-[#6E5429] border border-[#DCD6C9]">
                           <Sparkles className="w-3.5 h-3.5 text-[#6E5429]" />
                           <span>유품정리·특수케어</span>
                         </span>
-                        <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
+                        <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
                           {districtMatch.matchedEstateClearing.estimate.travelTimeMinutes}분 내 출동 ({districtMatch.matchedEstateClearing.estimate.distanceKm}km)
                         </span>
                       </div>
                       <h5 className="font-reverence font-bold text-base text-[#151719] mt-2">
                         {districtMatch.matchedEstateClearing.partner.name}
                       </h5>
-                      <p className="text-[13px] text-[#5A5E66] mt-0.5">
+                      <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                         {districtMatch.matchedEstateClearing.partner.address}
                       </p>
-                      <div className="mt-3 space-y-1.5 text-[13px]">
+                      <div className="mt-3 space-y-1.5 text-[0.8125rem]">
                         <div className="font-bold text-[#151719]">사후 유품 케어 범위 선택:</div>
                         {districtMatch.matchedEstateClearing.partner.pricingInfo.map((p, idx) => (
                           <label
@@ -616,7 +616,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                         ))}
                       </div>
                     </div>
-                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[13px]">
+                    <div className="pt-2 border-t border-[#DCD6C9] flex items-center justify-between text-[0.8125rem]">
                       <span className="text-[#5A5E66] font-mono">{districtMatch.matchedEstateClearing.partner.licenseNumber}</span>
                       <a
                         href={`tel:${districtMatch.matchedEstateClearing.partner.phone}`}
@@ -638,14 +638,14 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                       선택 부가 서비스 정찰 합산 견적 ({selectedDistrict} 기준)
                     </span>
                   </div>
-                  <div className="text-[13px] text-[#6E5429] bg-[#FAF9F6] px-3 py-1 rounded border border-[#DCD6C9]">
+                  <div className="text-[0.8125rem] text-[#6E5429] bg-[#FAF9F6] px-3 py-1 rounded border border-[#DCD6C9]">
                     알선 수수료(소개비 20~30%) 0원 · 전액 유족 비용 절감
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   {packageEstimate.itemsDetail.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center text-[13px] text-[#42464E]">
+                    <div key={idx} className="flex justify-between items-center text-[0.8125rem] text-[#42464E]">
                       <span>• [{item.partnerName}] {item.itemName} ({item.unit})</span>
                       <span className="font-mono font-bold text-[#151719]">{item.price.toLocaleString()}원</span>
                     </div>
@@ -653,11 +653,11 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                 </div>
 
                 <div className="pt-3 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div className="text-[13px] text-[#5A5E66]">
+                  <div className="text-[0.8125rem] text-[#5A5E66]">
                     ※ 배웅 인증 파트너는 현장에서 추가 비용 청구가 법적으로 차단됩니다.
                   </div>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-[13px] text-[#5A5E66]">합산 정찰 원가:</span>
+                    <span className="text-[0.8125rem] text-[#5A5E66]">합산 정찰 원가:</span>
                     <span className="font-reverence font-bold text-2xl text-[#19382C]">
                       {packageEstimate.totalCost.toLocaleString()}원
                     </span>
@@ -670,12 +670,12 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
           {/* ─── 3. 4대 입점 심사 시뮬레이터 탭 ─── */}
           {activeTab === 'SIMULATOR' && (
             <div className="space-y-5">
-              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[13px] space-y-2">
+              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[0.8125rem] space-y-2">
                 <h4 className="font-bold text-sm text-[#6E5429] flex items-center space-x-1.5">
                   <Scale className="w-4 h-4 text-[#9E7D47]" />
                   <span>배웅 1단계 사업계획서 4.4절 기준 부가 제휴사 입점 심사 기준</span>
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[13px] text-[#6E5429] mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[0.8125rem] text-[#6E5429] mt-2">
                   <div className="p-2.5 bg-white rounded border border-[#DCD6C9]">
                     <div className="font-bold text-[#19382C]">1. 법정 인허가 필수</div>
                     <div className="mt-1">
@@ -699,11 +699,11 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
 
               {/* 퀵 테스트 프리셋 샘플 버튼 바 */}
               <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-4 space-y-2">
-                <div className="text-[13px] font-bold text-[#151719] flex items-center space-x-1.5">
+                <div className="text-[0.8125rem] font-bold text-[#151719] flex items-center space-x-1.5">
                   <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                   <span>원클릭 심사 케이스 검증 (사전 검증 샘플 로더)</span>
                 </div>
-                <div className="flex flex-wrap gap-2 pt-1 text-[13px]">
+                <div className="flex flex-wrap gap-2 pt-1 text-[0.8125rem]">
                   <button
                     type="button"
                     onClick={() => loadPresetSample('COLUMBARIUM')}
@@ -750,13 +750,13 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       업종 카테고리
                     </label>
                     <select
                       value={simCategory}
                       onChange={(e) => setSimCategory(e.target.value as AffiliateCategory)}
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[0.8125rem] text-[#151719]"
                     >
                       <option value="COLUMBARIUM">봉안시설 (사설 봉안당 - 장사법 제15조)</option>
                       <option value="WOODLAND_BURIAL">수목장림 (사설 자연장지 - 장사법 제16조)</option>
@@ -765,7 +765,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       업체명 (상호)
                     </label>
                     <input
@@ -773,13 +773,13 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                       value={simName}
                       onChange={(e) => setSimName(e.target.value)}
                       placeholder="예: 하늘숲 공원 봉안당"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                  <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                     지자체 인허가 필증 번호 (예: 제2024-경기광주-사설봉안-03호, 제2021-서울마포-폐기물수집운반-51호)
                   </label>
                   <input
@@ -787,12 +787,12 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     value={simLicense}
                     onChange={(e) => setSimLicense(e.target.value)}
                     placeholder="지자체 정식 인허가 번호를 입력하세요"
-                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[13px] text-[#151719]"
+                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[0.8125rem] text-[#151719]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                  <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                     신청 광고 문구 (과장 광고 필터링 검사용)
                   </label>
                   <input
@@ -800,7 +800,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     value={simAdText}
                     onChange={(e) => setSimAdText(e.target.value)}
                     placeholder="예: '최저가 보장 로열층 마감임박' 등 입력 시 자동 반려됩니다"
-                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[13px] text-[#151719]"
+                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md p-2.5 text-[0.8125rem] text-[#151719]"
                   />
                 </div>
 
@@ -812,14 +812,14 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     onChange={(e) => setSimHasPricing(e.target.checked)}
                     className="rounded border-[#DCD6C9] text-[#19382C] focus:ring-[#19382C]"
                   />
-                  <label htmlFor="hasPricing" className="text-[13px] text-[#42464E] font-medium cursor-pointer">
+                  <label htmlFor="hasPricing" className="text-[0.8125rem] text-[#42464E] font-medium cursor-pointer">
                     품목별 투명 정찰 가격표 서류를 사전 제출하였습니다.
                   </label>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] transition-colors cursor-pointer"
+                  className="w-full py-2.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] transition-colors cursor-pointer"
                 >
                   심사 기준 검증 실행하기
                 </button>
@@ -828,7 +828,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
               {/* 시뮬레이션 결과창 */}
               {simResult && (
                 <div
-                  className={`p-4 rounded-xl border text-[13px] space-y-2 ${
+                  className={`p-4 rounded-xl border text-[0.8125rem] space-y-2 ${
                     simResult.passed
                       ? 'bg-[#DCE8E2] border-[#DCE8E2] text-[#19382C]'
                       : 'bg-[#FAF0EF] border-[#FAF0EF] text-[#8B2520]'
@@ -847,14 +847,14 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     </span>
                   </div>
 
-                  <div className="space-y-1 text-[13px] pt-1 border-t border-black/10">
+                  <div className="space-y-1 text-[0.8125rem] pt-1 border-t border-black/10">
                     <div>
                       • 법정 인허가 서류 유효성:{' '}
                       <span className="font-bold">
                         {simResult.checks.licenseValid ? '✓ 적합 (정상 필증 확인)' : '✗ 부적합'}
                       </span>
                       {simResult.parsedDetails?.licenseYear && (
-                        <span className="ml-2 text-[13px] font-normal">
+                        <span className="ml-2 text-[0.8125rem] font-normal">
                           (인가연도: {simResult.parsedDetails.licenseYear}년, 관할: {simResult.parsedDetails.issuingDistrict})
                         </span>
                       )}
@@ -882,7 +882,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                   </div>
 
                   {simResult.disqualificationReason && (
-                    <div className="pt-2 text-[13px] font-bold text-[#8B2520]">
+                    <div className="pt-2 text-[0.8125rem] font-bold text-[#8B2520]">
                       반려 사유: {simResult.disqualificationReason}
                     </div>
                   )}
@@ -894,12 +894,12 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
 
         {/* 4. 모달 하단 고정 닫기 풋터 */}
         <div className="bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0">
-          <span className="text-[13px] text-[#5A5E66]">
+          <span className="text-[0.8125rem] text-[#5A5E66]">
             배웅 파트너십 문의: partner@baeung.kr · 1588-0000
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded-md text-[13px] font-bold transition-colors cursor-pointer"
+            className="px-4 py-2 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded-md text-[0.8125rem] font-bold transition-colors cursor-pointer"
           >
             창 닫기
           </button>

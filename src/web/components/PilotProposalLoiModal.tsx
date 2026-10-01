@@ -137,7 +137,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
         title={
           <div className="flex items-center space-x-2 flex-wrap">
             <span>배웅 1단계 시범 권역 B2B 상생 제안서 및 LOI</span>
-            <span className="text-[13px] bg-[#19382C] text-[#FAF9F6] px-2 py-0.5 rounded border border-[#2D4F43]">
+            <span className="text-[0.8125rem] bg-[#19382C] text-[#FAF9F6] px-2 py-0.5 rounded border border-[#2D4F43]">
               강남4구·성남 시범
             </span>
           </div>
@@ -152,7 +152,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
             <span>LOI 증서 인쇄</span>
@@ -161,7 +161,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
       </ModalToolbar>
 
       {/* 내부 3단 탭 내비게이션 */}
-      <div className="bg-[#FAF9F6] border-b border-[#DCD6C9] px-6 pt-3 flex gap-2 overflow-x-auto text-[13px] font-serif shrink-0">
+      <div className="bg-[#FAF9F6] border-b border-[#DCD6C9] px-6 pt-3 flex gap-2 overflow-x-auto text-[0.8125rem] font-serif shrink-0">
         <button
           type="button"
           onClick={() => setActiveTab('proposal')}
@@ -204,7 +204,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
           <div className="space-y-6 font-serif">
             {/* 상단 헤더 요약 */}
             <div className="bg-[#FFFFFF] p-6 rounded-xl border border-[#DCD6C9] shadow-xs space-y-4">
-              <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded bg-[#DCE8E2] text-[#19382C] text-[13px] font-bold border border-[#DCE8E2]">
+              <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded bg-[#DCE8E2] text-[#19382C] text-[0.8125rem] font-bold border border-[#DCE8E2]">
                 <Scale className="w-3.5 h-3.5 text-[#6E5429]" />
                 <span>2026.03 공정거래위원회 리베이트 제재 회피 정액 광고 모델</span>
               </div>
@@ -216,8 +216,8 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
               </p>
 
               <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
-                <span className="text-[13px] font-bold text-[#151719] block">시장 환경 및 사업 전환 배경:</span>
-                <ul className="text-[13px] text-[#5A5E66] space-y-1 list-disc list-inside">
+                <span className="text-[0.8125rem] font-bold text-[#151719] block">시장 환경 및 사업 전환 배경:</span>
+                <ul className="text-[0.8125rem] text-[#5A5E66] space-y-1 list-disc list-inside">
                   {proposalData.marketContext.map((c, idx) => (
                     <li key={idx} className="min-w-0 break-words">{c}</li>
                   ))}
@@ -231,11 +231,11 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <div key={idx} className="bg-[#FFFFFF] p-5 rounded-lg border border-[#DCD6C9] space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-[#19382C] text-base">{b.title}</span>
-                    <span className="text-[13px] font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded">
+                    <span className="text-[0.8125rem] font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded">
                       {b.highlight}
                     </span>
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] leading-relaxed min-w-0 break-words">
+                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed min-w-0 break-words">
                     {b.description}
                   </p>
                 </div>
@@ -248,7 +248,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <h4 className="font-reverence font-bold text-lg text-[#151719]">
                   시범 권역 2대 정액 광고 상품
                 </h4>
-                <span className="text-[13px] text-[#6E5429]">
+                <span className="text-[0.8125rem] text-[#6E5429]">
                   ※ 건당 알선료 0원 · 오직 월 정액제(VAT 별도)로만 과금됩니다
                 </span>
               </div>
@@ -266,7 +266,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                     <div className="flex justify-between items-start">
                       <div>
                         {p.isRecommended && (
-                          <span className="text-[13px] font-bold bg-[#19382C] text-[#FAF9F6] px-2 py-0.5 rounded mb-1 inline-block">
+                          <span className="text-[0.8125rem] font-bold bg-[#19382C] text-[#FAF9F6] px-2 py-0.5 rounded mb-1 inline-block">
                             시범 권역 권장
                           </span>
                         )}
@@ -279,7 +279,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                       </div>
                     </div>
 
-                    <ul className="text-[13px] text-[#5A5E66] space-y-1.5 pt-2 border-t border-[#DCD6C9]">
+                    <ul className="text-[0.8125rem] text-[#5A5E66] space-y-1.5 pt-2 border-t border-[#DCD6C9]">
                       {p.features.map((f, i) => (
                         <li key={i} className="flex items-start space-x-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C] shrink-0 mt-0.5" />
@@ -292,7 +292,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setIsShortformModalOpen(true)}
-                        className="w-full mt-2 py-1.5 px-3 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded text-[13px] font-bold flex items-center justify-center space-x-1.5 cursor-pointer transition-colors"
+                        className="w-full mt-2 py-1.5 px-3 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded text-[0.8125rem] font-bold flex items-center justify-center space-x-1.5 cursor-pointer transition-colors"
                       >
                         <Film className="w-3.5 h-3.5 text-[#9E7D47]" />
                         <span>숏폼 제작 포트폴리오 4대 테마 샘플 보기</span>
@@ -309,14 +309,14 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <span className="font-bold text-[#19382C] text-base block">
                   3개월 시범 참여 확약 (권역 38개소 중 8개소 한정)
                 </span>
-                <span className="text-[13px] text-[#5A5E66] block">
+                <span className="text-[0.8125rem] text-[#5A5E66] block">
                   최초 3개월 운영 후 연장 여부를 자유롭게 결정하실 수 있습니다. (중도 해지 위약금 0원)
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveTab('form')}
-                className="px-5 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[13px] flex items-center space-x-1.5 shrink-0 transition-all shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[0.8125rem] flex items-center space-x-1.5 shrink-0 transition-all shadow-xs cursor-pointer"
               >
                 <span>참여의향서(LOI) 작성하기</span>
                 <ArrowRight className="w-4 h-4 text-[#C2A26A]" />
@@ -332,19 +332,19 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
               // 제출 완료 증서 뷰
               <div className="bg-[#FFFFFF] p-8 rounded-xl border-2 border-[#19382C] shadow-md space-y-6">
                 <div className="text-center space-y-2 pb-6 border-b border-[#DCD6C9]">
-                  <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded bg-[#DCE8E2] text-[#19382C] text-[13px] font-bold">
+                  <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded bg-[#DCE8E2] text-[#19382C] text-[0.8125rem] font-bold">
                     <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                     <span>시범 권역 참여의향서(LOI) 접수 완료</span>
                   </div>
                   <h3 className="text-2xl font-reverence font-black text-[#151719] mt-2">
                     배웅(BAEUNG) B2B 시범 제휴 참여의향서
                   </h3>
-                  <p className="text-[13px] text-[#6E5429]">
+                  <p className="text-[0.8125rem] text-[#6E5429]">
                     문서번호: <span className="font-mono font-bold text-[#151719]">{submittedLoi.loiNumber}</span>
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px] bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[0.8125rem] bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9]">
                   <div>
                     <span className="text-[#5A5E66] block">장례식장 상호:</span>
                     <span className="font-bold text-[#151719] text-base">{submittedLoi.hallName}</span>
@@ -380,15 +380,15 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 </div>
 
                 <div className="bg-[#FFFFFF] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
-                  <div className="flex items-center justify-between text-[13px]">
+                  <div className="flex items-center justify-between text-[0.8125rem]">
                     <span className="text-[#5A5E66]">월 1건 유치 시 예상 매출:</span>
                     <span className="font-bold text-[#151719]">{submittedLoi.expectedMonthlyRevenue.toLocaleString()}원</span>
                   </div>
-                  <div className="flex items-center justify-between text-[13px]">
+                  <div className="flex items-center justify-between text-[0.8125rem]">
                     <span className="text-[#5A5E66]">예상 광고 대비 ROI:</span>
                     <span className="font-bold text-[#19382C] text-base">{submittedLoi.expectedRoiPercentage}%</span>
                   </div>
-                  <p className="text-[13px] text-[#6E5429] pt-2 border-t border-[#DCD6C9]">
+                  <p className="text-[0.8125rem] text-[#6E5429] pt-2 border-t border-[#DCD6C9]">
                     ※ {submittedLoi.legalNotice}
                   </p>
                 </div>
@@ -397,14 +397,14 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setSubmittedLoi(null)}
-                    className="px-4 py-2 border border-[#DCD6C9] bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#5A5E66] rounded-md text-[13px] font-bold cursor-pointer"
+                    className="px-4 py-2 border border-[#DCD6C9] bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#5A5E66] rounded-md text-[0.8125rem] font-bold cursor-pointer"
                   >
                     새로운 의향서 작성
                   </button>
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="px-5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md text-[13px] font-bold flex items-center space-x-1.5 cursor-pointer shadow-xs"
+                    className="px-5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md text-[0.8125rem] font-bold flex items-center space-x-1.5 cursor-pointer shadow-xs"
                   >
                     <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
                     <span>공식 의향서 출력 / PDF 저장</span>
@@ -418,13 +418,13 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   <h4 className="font-reverence font-bold text-lg text-[#151719]">
                     시범 권역 참여의향서(LOI) 작성
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-0.5">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                     시범 권역 38개소 중 식장을 선택하시면 기초 정보가 자동으로 완성됩니다.
                   </p>
                 </div>
 
                 {errorMsg && (
-                  <div className="p-3 bg-[#FAF0EF] text-[#8B2520] rounded border border-[#FAF0EF] text-[13px] flex items-center space-x-2">
+                  <div className="p-3 bg-[#FAF0EF] text-[#8B2520] rounded border border-[#FAF0EF] text-[0.8125rem] flex items-center space-x-2">
                     <AlertTriangle className="w-4 h-4 shrink-0 text-[#8B2520]" />
                     <span>{errorMsg}</span>
                   </div>
@@ -433,7 +433,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* 시범 권역 식장 선택 */}
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       시범 권역 대상 식장 선택
                     </label>
                     <select
@@ -450,7 +450,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       장례식장 공식 상호
                     </label>
                     <input
@@ -463,7 +463,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       대표자 또는 총괄 원장 성함
                     </label>
                     <input
@@ -477,7 +477,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       직통 연락처 (휴대전화 또는 사무실)
                     </label>
                     <input
@@ -491,7 +491,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       전자세금계산서 수신 이메일
                     </label>
                     <input
@@ -505,7 +505,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       사업자등록번호 (10자리)
                     </label>
                     <input
@@ -522,7 +522,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 {/* 상품 선택 및 유족 감면율 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-[#DCD6C9]">
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       참여 희망 광고 패키지
                     </label>
                     <select
@@ -541,7 +541,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setIsShortformModalOpen(true)}
-                        className="mt-2 py-1 px-2.5 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded text-[13px] font-bold flex items-center space-x-1 cursor-pointer transition-colors"
+                        className="mt-2 py-1 px-2.5 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded text-[0.8125rem] font-bold flex items-center space-x-1 cursor-pointer transition-colors"
                       >
                         <Film className="w-3.5 h-3.5 text-[#9E7D47]" />
                         <span>숏폼 제작 포트폴리오 4대 테마 미리보기</span>
@@ -550,7 +550,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                       배웅 유족 제공 빈소 임대료 감면율
                     </label>
                     <select
@@ -567,7 +567,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 </div>
 
                 {/* 필수 확약 체크박스 */}
-                <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-3 text-[13px]">
+                <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-3 text-[0.8125rem]">
                   <label className="flex items-start space-x-2 cursor-pointer">
                     <input
                       type="checkbox"
@@ -597,7 +597,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
 
                 {/* 전자 서명란 */}
                 <div className="pt-2 border-t border-[#DCD6C9]">
-                  <label className="block text-[13px] font-bold text-[#151719] mb-1">
+                  <label className="block text-[0.8125rem] font-bold text-[#151719] mb-1">
                     의향서 전자 서명 (대표자 성함 정자 기재)
                   </label>
                   <input
@@ -613,7 +613,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <div className="flex justify-end pt-4 border-t border-[#DCD6C9]">
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-6 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <span>참여의향서(LOI) 공식 제출 및 증서 발급</span>
                     <ChevronRight className="w-4 h-4 text-[#C2A26A]" />
@@ -631,7 +631,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
             <div className="bg-[#FFFFFF] p-6 rounded-xl border border-[#DCD6C9] shadow-xs space-y-4">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div>
-                  <span className="text-[13px] font-bold text-[#5A5E66] block">
+                  <span className="text-[0.8125rem] font-bold text-[#5A5E66] block">
                     사업계획서 10.1절 착수 전 검증 목표
                   </span>
                   <h4 className="font-reverence font-bold text-xl text-[#151719]">
@@ -642,7 +642,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   <span className="text-2xl font-black text-[#19382C]">
                     {statusSummary.currentLoiCount} / {statusSummary.targetLoiCount} 곳
                   </span>
-                  <span className="text-[13px] font-bold text-[#6E5429] block">
+                  <span className="text-[0.8125rem] font-bold text-[#6E5429] block">
                     달성률 {statusSummary.achievementRatePercentage}%
                   </span>
                 </div>
@@ -656,7 +656,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 />
               </div>
 
-              <div className="flex justify-between items-center text-[13px] text-[#5A5E66]">
+              <div className="flex justify-between items-center text-[0.8125rem] text-[#5A5E66]">
                 <span>현재 접수: {statusSummary.currentLoiCount}곳</span>
                 <span>목표 달성 기준: 8곳 (20%)</span>
               </div>
@@ -667,7 +667,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
               {/* 자치구별 접수 카운트 */}
               <div className="bg-[#FFFFFF] p-5 rounded-lg border border-[#DCD6C9] space-y-3">
                 <h5 className="font-bold text-[#151719] text-base">자치구별 접수 현황</h5>
-                <div className="space-y-2 text-[13px]">
+                <div className="space-y-2 text-[0.8125rem]">
                   {Object.entries(statusSummary.hallsByDistrict).map(([dist, count]) => (
                     <div key={dist} className="flex justify-between items-center py-1 border-b border-[#DCD6C9]">
                       <span className="text-[#5A5E66]">{dist}</span>
@@ -682,10 +682,10 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                 <h5 className="font-bold text-[#151719] text-base">공식 접수된 의향서 목록</h5>
                 <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                   {PilotLoiService.getAllLois().map((loi) => (
-                    <div key={loi.loiNumber} className="p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-[13px] space-y-1">
+                    <div key={loi.loiNumber} className="p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-[0.8125rem] space-y-1">
                       <div className="flex justify-between items-center">
                         <span className="font-bold text-[#151719]">{loi.hallName}</span>
-                        <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded">
+                        <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded">
                           {loi.status}
                         </span>
                       </div>

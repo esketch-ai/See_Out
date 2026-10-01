@@ -10,6 +10,8 @@
     "test": "vitest run",
     "audit:ui": "npm run build:web && node scripts/audit-ui.mjs",
     "audit:ui:run": "node scripts/audit-ui.mjs",
+    "qa:personas": "npm run build:web && node scripts/qa-personas.mjs",
+    "qa:personas:run": "node scripts/qa-personas.mjs",
     "verify": "npm run build && npm test && npm run audit:ui",
     "demo:diagnostics": "npx tsx src/demo.ts",
     "sync:ehaneul": "npx tsx scripts/sync-ehaneul.ts",

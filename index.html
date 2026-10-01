@@ -142,6 +142,56 @@
         letter-spacing: -0.02em;
       }
 
+      /* ═══════════ 최소 탭 영역 (손 떨림) ═══════════ */
+      /*  WCAG 2.2 AA 는 24px 다. 그건 「엄격한 WCAG 채점」 이고 이 서비스의
+       *  유족에게는 모자라다. 실제로 푸터 약관 5종이 30px 로 측정됐다.
+       *  약관은 이용자 동의의 근거 문서라 오타르면 안 된다.
+       *
+       *  ★ rem 으로 적는다 — px 면 「큰 글씨」 를 따라가지 못한다 (§2-1).
+       *    탭 영역은 글자가 아니라 「손이 가는 곳」 이라 함께 커져야 한다.
+       *  정본: tokens.ts › tapTargetPx (min 48 · elderly 56)
+       */
+      .k-tap {
+        min-height: 3rem;          /* 48px */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .k-tap-lg {
+        min-height: 3.5rem;        /* 56px */
+      }
+      /* ★ 독립 버튼은 전부 최소 탭 영역을 갖는다.
+         177곳의 클래스 문자열을 고치는 대신 선언 하나로 막는다 —
+         앞으로 새로 생기는 작은 칩도 자동으로 따라온다.
+         산문 속 인라인 링크에는 적용하지 않는다 (WCAG 2.5.8 도 인라인은 예외로 둔다).
+
+         ★ :where() 로 감싸 명시도를 0 으로 낮춘다.
+           예전에는 button:not(.k-tap-narrow) 였는데 그 specificity (0,1,1) 가
+           .k-tap-lg (0,1,0) 를 이겨서 「56px 준다」 고 써놨는데 48px 이 나왔다.
+           선언 하나 고쳤는데 아무 효과가 없는, 가장 짜증나는 종류의 버그다. */
+      :where(button, [role='button'], select, textarea,
+             input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
+             a[href^='tel:'], a.k-tap-block) {
+        min-height: 3rem;          /* 48px */
+      }
+      /* 정말 작아야 하는 곳은 스스로 명시한다 (명시도 0 규칙을 이긴다) */
+      .k-tap-narrow {
+        min-height: 0;
+      }
+      /* 가로도 함께 넓힌다 — 세로만 크면 옆 글자에 미끄러져 오타진다 */
+      .k-tap-pad {
+        padding-inline: 0.75rem;
+        margin-inline: -0.75rem;   /* 시각적 간격은 그대로 두기 위한 보정 */
+      }
+      /* 푸터 약관처럼 줄바꿈으로 늘어서는 링크 목록 */
+      .k-tap-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem 0.5rem;
+      }
+
       /* ═══════════ 전통 한국 문화 격식 조형 스타일 (Heritage Elegance) ═══════════ */
       /* 1. 전통 전각 낙관 (인장 도장) */
       .k-seal-red {

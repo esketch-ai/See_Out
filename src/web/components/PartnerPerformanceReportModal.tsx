@@ -53,11 +53,11 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
             <div>
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6] flex items-center space-x-2">
                 <span>장례식장 광고 파트너 4단계 성과 리포트</span>
-                <span className="text-[13px] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
+                <span className="text-[0.8125rem] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                   {report.reportId}
                 </span>
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 사업계획서 7장 효과 측정 체계 · 데이터-과금 분리 원칙 100% 준수
               </p>
             </div>
@@ -66,7 +66,7 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[0.8125rem] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
             >
               <Printer className="w-4 h-4 text-[#C2A26A]" />
               <span className="hidden sm:inline">A4 성과 리포트 인쇄</span>
@@ -88,32 +88,32 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
             {/* 1. 상단 공문서 헤더 */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-[#151719] pb-4 gap-4">
               <div>
-                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-bold mb-1 border border-[#19382C]/20">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[0.8125rem] font-bold mb-1 border border-[#19382C]/20">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>공정거래위원회 리베이트 금지 지침 준수 증명</span>
                 </div>
                 <h1 className="font-reverence font-black text-2xl md:text-3xl text-[#141618] tracking-tight">
                   {hall.name} 월간 광고 효과 분석 리포트
                 </h1>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                   보고 기간: <b>{report.reportingPeriod}</b> | 배웅 1단계 정액제 광고 성과 투명 공개
                 </p>
               </div>
 
               <div className="flex items-center space-x-3 shrink-0 self-start sm:self-center">
                 <div className="text-right font-serif">
-                  <div className="text-[13px] text-[#5A5E66]">과금 방식</div>
+                  <div className="text-[0.8125rem] text-[#5A5E66]">과금 방식</div>
                   <div className="text-lg md:text-xl font-reverence font-bold text-[#19382C]">
                     월 300,000원 (정액제)
                   </div>
-                  <div className="text-[13px] text-[#6E5429]">성과 알선 수수료 0원</div>
+                  <div className="text-[0.8125rem] text-[#6E5429]">성과 알선 수수료 0원</div>
                 </div>
                 <TraditionalSeal sealKey="truth" size="md" />
               </div>
             </div>
 
             {/* 2. 데이터-과금 분리 인증 배너 (사업계획서 7.4절) */}
-            <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[13px] leading-relaxed font-serif text-[#19382C]">
+            <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
               <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
               <div>
                 <b>[공식 인증] 데이터-과금 분리 원칙 (Data-Billing Separation Guarantee):</b><br />
@@ -126,60 +126,60 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-serif">
               {/* 0단계: 노출 */}
               <div className="bg-[#FFFFFF] p-4 rounded-xl border border-[#DCD6C9] space-y-1 shadow-xs">
-                <span className="text-[13px] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
+                <span className="text-[0.8125rem] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
                   0단계: 노출 (PV)
                 </span>
                 <div className="text-2xl md:text-3xl font-reverence font-bold text-[#141618] pt-1">
                   {report.impressions.toLocaleString()}
                 </div>
-                <div className="text-[13px] text-[#5A5E66]">검색 및 슬롯 노출 횟수</div>
+                <div className="text-[0.8125rem] text-[#5A5E66]">검색 및 슬롯 노출 횟수</div>
               </div>
 
               {/* 1단계: 관심 */}
               <div className="bg-[#FFFFFF] p-4 rounded-xl border border-[#DCD6C9] space-y-1 shadow-xs">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
                   1단계: 관심 (체류)
                 </span>
                 <div className="text-2xl md:text-3xl font-reverence font-bold text-[#19382C] pt-1">
                   {report.engagements.toLocaleString()}
                 </div>
-                <div className="text-[13px] text-[#5A5E66]">
+                <div className="text-[0.8125rem] text-[#5A5E66]">
                   전환율: <b>{report.rates.engagementRate}%</b>
                 </div>
               </div>
 
               {/* 2·3단계: 접촉 및 실질 상담 */}
               <div className="bg-[#FFFFFF] p-4 rounded-xl border border-[#DCD6C9] space-y-1 shadow-xs">
-                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
+                <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
                   2·3단계: 실질 상담 통화
                 </span>
                 <div className="text-2xl md:text-3xl font-reverence font-bold text-[#6E5429] pt-1">
                   {report.substantialCalls.toLocaleString()}건
                 </div>
-                <div className="text-[13px] text-[#5A5E66]">
+                <div className="text-[0.8125rem] text-[#5A5E66]">
                   30초 이상 가상번호 통화
                 </div>
               </div>
 
               {/* 4단계: 견적 전환 */}
               <div className="bg-[#FFFFFF] p-4 rounded-xl border-2 border-[#19382C] space-y-1 shadow-xs">
-                <span className="text-[13px] font-bold text-[#FAF9F6] bg-[#19382C] px-2 py-0.5 rounded">
+                <span className="text-[0.8125rem] font-bold text-[#FAF9F6] bg-[#19382C] px-2 py-0.5 rounded">
                   4단계: 견적 참조번호 발급
                 </span>
                 <div className="text-2xl md:text-3xl font-reverence font-black text-[#19382C] pt-1">
                   {report.quoteReferencesIssued.toLocaleString()}건
                 </div>
-                <div className="text-[13px] text-[#19382C] font-bold">
+                <div className="text-[0.8125rem] text-[#19382C] font-bold">
                   전환율: <b>{report.rates.quoteConversionRate}%</b>
                 </div>
               </div>
             </div>
 
             {/* 4. 세부 통계 분석 테이블 */}
-            <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[13px] font-serif shadow-xs">
+            <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[0.8125rem] font-serif shadow-xs">
               <div className="bg-[#141618] text-[#FAF9F6] p-3.5 px-4 font-bold flex items-center justify-between">
                 <span>단계별 효과 측정 상세 명세 및 측정 방법 (사업계획서 7.1절 표준)</span>
-                <span className="text-[13px] text-[#C2A26A]">데이터 신뢰도: 높음</span>
+                <span className="text-[0.8125rem] text-[#C2A26A]">데이터 신뢰도: 높음</span>
               </div>
               <table className="w-full text-left divide-y divide-[#DCD6C9]">
                 <thead className="bg-[#FAF9F6] text-[#5A5E66]">
@@ -228,21 +228,21 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
             </div>
 
             {/* 5. 정액 정산서 및 서약 */}
-            <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-[13px] font-serif">
+            <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-[0.8125rem] font-serif">
               <div>
                 <div className="font-bold text-[#151719] text-sm">월간 광고 정산 내역: 정액 300,000원 (부가세 별도)</div>
-                <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                   알선 수수료: <b>0원</b> | 문의 건수 증가에 따른 추가 비용: <b>0원</b>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setIsB2BModalOpen(true)}
-                  className="px-3 py-1 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[13px] font-bold transition-colors cursor-pointer"
+                  className="px-3 py-1 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[0.8125rem] font-bold transition-colors cursor-pointer"
                 >
                   제휴 협약 신청 / 변경
                 </button>
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-1 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-1 rounded border border-[#DCE8E2]">
                   ✓ 정액제 계약 유지 중
                 </span>
               </div>

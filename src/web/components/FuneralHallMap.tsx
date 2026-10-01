@@ -81,12 +81,12 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
       <div className="bg-[#FAF9F6] border-b border-[#DCD6C9] p-3 md:px-4 md:py-3 flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center space-x-2">
           {/* 제3자 지도 제공 표기 — 배웅 고유 표색으로 표기한다 (AREA-DESIGN-2026-009: 타 서비스 브랜드색 금지) */}
-          <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#DCD6C9] text-[13px] font-bold text-[#42464E] shadow-2xs">
+          <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#DCD6C9] text-[0.8125rem] font-bold text-[#42464E] shadow-2xs">
             <MapPin className="w-3 h-3 text-[#243F35] shrink-0" />
             <span>지도 제공: 구글</span>
           </div>
 
-          <div className="text-[13px] font-serif font-bold text-[#151719] truncate max-w-[180px] sm:max-w-xs">
+          <div className="text-[0.8125rem] font-serif font-bold text-[#151719] truncate max-w-[180px] sm:max-w-xs">
             {selectedHall ? (
               <span className="flex items-center space-x-1">
                 <MapPin className="w-3.5 h-3.5 text-[#8B2520] shrink-0 fill-[#8B2520]/20" />
@@ -99,9 +99,9 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
         </div>
 
         {/* 컨트롤 버튼 그룹: 줌 / 지도 모드 / 길찾기 */}
-        <div className="flex items-center space-x-1.5 text-[13px] font-serif">
+        <div className="flex items-center space-x-1.5 text-[0.8125rem] font-serif">
           {/* 일반 지도 / 위성 지도 토글 */}
-          <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-[13px]">
+          <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-[0.8125rem]">
             <button
               onClick={() => setMapType('m')}
               className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
@@ -150,7 +150,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
             href={googleMapsDirectionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-2.5 py-1 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded font-bold text-[13px] flex items-center space-x-1 shadow-2xs transition-all cursor-pointer"
+            className="k-tap-block px-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded font-bold text-[0.8125rem] flex items-center space-x-1 shadow-2xs transition-all cursor-pointer"
             title="Google 지도에서 실시간 대중교통 및 자동차 길찾기 열기"
           >
             <Navigation className="w-3 h-3 text-[#C2A26A]" />
@@ -163,7 +163,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
             href={googleMapsSearchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1 bg-[#FFFFFF] hover:bg-[#FAF9F6] border border-[#DCD6C9] rounded text-[#42464E] shadow-2xs transition-all cursor-pointer"
+            className="k-tap-block px-2 bg-[#FFFFFF] hover:bg-[#FAF9F6] border border-[#DCD6C9] rounded text-[#42464E] shadow-2xs transition-all cursor-pointer"
             title="Google 지도 새 탭에서 크게 보기"
           >
             <Maximize2 className="w-3.5 h-3.5" />
@@ -172,7 +172,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
       </div>
 
       {/* 2. 빠른 식장 탐색 칩 바 (목록 내 다른 식장으로 즉시 Google 지도 이동) */}
-      <div className="bg-[#FAF9F6] border-b border-[#DCD6C9] px-3 py-1.5 flex items-center gap-1.5 overflow-x-auto text-[13px] font-serif">
+      <div className="bg-[#FAF9F6] border-b border-[#DCD6C9] px-3 py-1.5 flex items-center gap-1.5 overflow-x-auto text-[0.8125rem] font-serif">
         <span className="shrink-0 text-[#5A5E66] font-medium flex items-center space-x-1">
           <Compass className="w-3 h-3 text-[#6E5429]" />
           <span>위치 바로보기:</span>
@@ -195,7 +195,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
           );
         })}
         {halls.length > 10 && (
-          <span className="text-[13px] text-[#5A5E66] shrink-0">
+          <span className="text-[0.8125rem] text-[#5A5E66] shrink-0">
             외 {halls.length - 10}곳 (좌측 목록 참조)
           </span>
         )}
@@ -215,18 +215,18 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
 
         {/* 선택 식장 플로팅 정보 배너 (Google 지도 좌측 상단 오버레이) */}
         {selectedHall && (
-          <div className="absolute top-2.5 left-2.5 max-w-[280px] sm:max-w-xs bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#DCD6C9] rounded-lg p-2.5 shadow-md text-[13px] font-serif space-y-1 pointer-events-auto">
+          <div className="absolute top-2.5 left-2.5 max-w-[280px] sm:max-w-xs bg-[#FFFFFF]/95 backdrop-blur-xs border border-[#DCD6C9] rounded-lg p-2.5 shadow-md text-[0.8125rem] font-serif space-y-1 pointer-events-auto">
             <div className="flex items-center justify-between gap-1">
               <span className="font-bold text-[#151719] truncate">{selectedHall.name}</span>
               {selectedHall.isBaeungPartner && (
-                <span className="shrink-0 text-[13px] font-bold bg-[#DCE8E2] text-[#19382C] px-1.5 py-0.2 rounded border border-[#DCE8E2]">
+                <span className="shrink-0 text-[0.8125rem] font-bold bg-[#DCE8E2] text-[#19382C] px-1.5 py-0.2 rounded border border-[#DCE8E2]">
                   {Math.round(selectedHall.discountRate * 100)}% 감면
                 </span>
               )}
             </div>
-            <div className="text-[13px] text-[#5A5E66] truncate">{selectedHall.address}</div>
+            <div className="text-[0.8125rem] text-[#5A5E66] truncate">{selectedHall.address}</div>
             {selectedHall.nearestSubway && (
-              <div className="text-[13px] text-[#19382C] flex items-start space-x-1">
+              <div className="text-[0.8125rem] text-[#19382C] flex items-start space-x-1">
                 <Train className="w-3 h-3 shrink-0 mt-0.5" />
                 <span className="min-w-0 break-words">{selectedHall.nearestSubway}</span>
               </div>
@@ -236,7 +236,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
       </div>
 
       {/* 4. 지도 하단 멀티 네비게이션 연동 풋바 */}
-      <div className="bg-[#FAF9F6] border-t border-[#DCD6C9] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[13px] font-serif">
+      <div className="bg-[#FAF9F6] border-t border-[#DCD6C9] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[0.8125rem] font-serif">
         <div className="flex items-center space-x-1.5 text-[#5A5E66]">
           <span>좌표: {targetLat.toFixed(4)}, {targetLng.toFixed(4)}</span>
           {selectedHall?.nearestCrematorium && (
@@ -259,7 +259,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
                 href={kakaoMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#151719] hover:underline flex items-center space-x-0.5 text-[#5A5E66]"
+                className="k-tap-block px-2 hover:text-[#151719] hover:underline items-center space-x-0.5 text-[#5A5E66]"
               >
                 <span>카카오맵</span>
                 <ExternalLink className="w-2.5 h-2.5" />
@@ -269,7 +269,7 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
                 href={naverMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#151719] hover:underline flex items-center space-x-0.5 text-[#5A5E66] font-medium"
+                className="k-tap-block px-2 hover:text-[#151719] hover:underline items-center space-x-0.5 text-[#5A5E66] font-medium"
               >
                 <span>네이버지도</span>
                 <ExternalLink className="w-2.5 h-2.5" />

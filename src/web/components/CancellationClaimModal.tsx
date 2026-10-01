@@ -134,7 +134,7 @@ ${claimData.claimDate || '발송 당일'}
           title={
             <>
               법정 해약환급금 지급 청구서 (내용증명 표준 서식){' '}
-              <span className="text-[13px] bg-[#8B2520]/60 text-[#E08578] px-2 py-0.5 rounded border border-[#731C18]/50 align-middle">
+              <span className="text-[0.8125rem] bg-[#8B2520]/60 text-[#E08578] px-2 py-0.5 rounded border border-[#731C18]/50 align-middle">
                 공정위 고시 제2020-1호 준수
               </span>
             </>
@@ -146,7 +146,7 @@ ${claimData.claimDate || '발송 당일'}
           <button
             type="button"
             onClick={handleCopy}
-            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
           >
             {copiedText ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4 text-[#C2A26A]" />}
             <span>{copiedText ? '복사 완료' : '전문 텍스트 복사'}</span>
@@ -154,7 +154,7 @@ ${claimData.claimDate || '발송 당일'}
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>A4 인쇄 / PDF 저장</span>
@@ -163,7 +163,7 @@ ${claimData.claimDate || '발송 당일'}
             type="button"
             onClick={handleEgreenSend}
             disabled={isSending}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Mail className="w-4 h-4 text-[#C2A26A]" />
             <span>{isSending ? '우체국 전송 중...' : '우체국 e-그린 등기 발송'}</span>
@@ -185,11 +185,11 @@ ${claimData.claimDate || '발송 당일'}
                   <div>
                     <h2 className="font-reverence font-bold text-base text-[#151719] flex items-center space-x-2">
                       <span>우정사업본부 e-그린우편 공인 전자내용증명 접수증</span>
-                      <span className="text-[13px] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded border border-[#2D4F43]">
+                      <span className="text-[0.8125rem] bg-[#19382C] text-[#DCE8E2] px-2 py-0.5 rounded border border-[#2D4F43]">
                         법적 효력 등기
                       </span>
                     </h2>
-                    <p className="text-[13px] text-[#5A5E66]">
+                    <p className="text-[0.8125rem] text-[#5A5E66]">
                       접수번호: <span className="font-mono font-bold text-[#19382C]">{dispatchRecord.dispatchId}</span> (우편법 제15조 준수)
                     </p>
                   </div>
@@ -197,7 +197,7 @@ ${claimData.claimDate || '발송 당일'}
                 <button
                   type="button"
                   onClick={handleAdvanceStatus}
-                  className="px-3 py-1.5 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] rounded-md text-[13px] font-bold text-[#151719] flex items-center space-x-1.5 self-start sm:self-auto cursor-pointer"
+                  className="px-3 py-1.5 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] rounded-md text-[0.8125rem] font-bold text-[#151719] flex items-center space-x-1.5 self-start sm:self-auto cursor-pointer"
                 >
                   <RefreshCw className="w-3.5 h-3.5 text-[#19382C]" />
                   <span>배송 상태 갱신 (시뮬레이션)</span>
@@ -205,28 +205,28 @@ ${claimData.claimDate || '발송 당일'}
               </div>
 
               {/* 4단계 배송 스테퍼 */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[13px]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[0.8125rem]">
                 <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'ACCEPTED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
                   <p className="font-bold">1단계. 전산 접수</p>
-                  <p className="text-[13px] opacity-85 mt-0.5">우체국 시스템 등록</p>
+                  <p className="text-[0.8125rem] opacity-85 mt-0.5">우체국 시스템 등록</p>
                 </div>
                 <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'PRINTED_ENCLOSED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
                   <p className="font-bold">2단계. 인쇄·봉입</p>
-                  <p className="text-[13px] opacity-85 mt-0.5">전산용지 봉투 봉입</p>
+                  <p className="text-[0.8125rem] opacity-85 mt-0.5">전산용지 봉투 봉입</p>
                 </div>
                 <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'POSTAL_DISPATCHED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
                   <p className="font-bold">3단계. 등기 출발</p>
-                  <p className="text-[13px] opacity-85 mt-0.5">특급 집배국 전달</p>
+                  <p className="text-[0.8125rem] opacity-85 mt-0.5">특급 집배국 전달</p>
                 </div>
                 <div className={`p-3 rounded-lg border ${dispatchRecord.status === 'DELIVERED' ? 'bg-[#19382C] text-white border-[#19382C]' : 'bg-[#FAF9F6] text-[#5A5E66] border-[#DCD6C9]'}`}>
                   <p className="font-bold">4단계. 본사 배달완료</p>
-                  <p className="text-[13px] opacity-85 mt-0.5">수취인 날인 도달</p>
+                  <p className="text-[0.8125rem] opacity-85 mt-0.5">수취인 날인 도달</p>
                 </div>
               </div>
 
               {/* 실시간 상태 안내 및 바코드 */}
               <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#DCD6C9] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="space-y-1 text-[13px] w-full sm:w-auto">
+                <div className="space-y-1 text-[0.8125rem] w-full sm:w-auto">
                   <p className="font-bold text-[#151719] flex items-center space-x-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                     <span>현재 진행: {dispatchRecord.statusText}</span>
@@ -250,10 +250,10 @@ ${claimData.claimDate || '발송 당일'}
                       />
                     ))}
                   </div>
-                  <span className="font-mono text-[13px] font-bold text-[#151719] tracking-wider block mt-1">
+                  <span className="font-mono text-[0.8125rem] font-bold text-[#151719] tracking-wider block mt-1">
                     {dispatchRecord.postalBarcode}
                   </span>
-                  <span className="text-[13px] text-[#6E5429] font-bold block mt-0.5">
+                  <span className="text-[0.8125rem] text-[#6E5429] font-bold block mt-0.5">
                     {dispatchRecord.officialPostOfficeSeal}
                   </span>
                 </div>
@@ -265,7 +265,7 @@ ${claimData.claimDate || '발송 당일'}
                 <div className="w-10 h-10 rounded-full bg-[#19382C]/10 text-[#19382C] flex items-center justify-center shrink-0 border border-[#19382C]/20">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div className="text-[13px]">
+                <div className="text-[0.8125rem]">
                   <p className="font-bold text-[#151719]">
                     우체국에 직접 방문하거나 종이로 출력할 필요가 없습니다
                   </p>
@@ -278,7 +278,7 @@ ${claimData.claimDate || '발송 당일'}
                 type="button"
                 onClick={handleEgreenSend}
                 disabled={isSending}
-                className="px-4 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg font-bold text-[13px] flex items-center space-x-1.5 shrink-0 transition-colors shadow-xs cursor-pointer border border-[#2D4F43]"
+                className="px-4 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg font-bold text-[0.8125rem] flex items-center space-x-1.5 shrink-0 transition-colors shadow-xs cursor-pointer border border-[#2D4F43]"
               >
                 <Send className="w-4 h-4 text-[#C2A26A]" />
                 <span>{isSending ? '우체국 전송 처리 중...' : '우체국 e-그린 등기 발송 신청'}</span>
@@ -292,20 +292,20 @@ ${claimData.claimDate || '발송 당일'}
             {/* 상단 공문서 헤더 */}
             <div className="border-b-2 border-[#151719] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-[13px] text-[#6E5429] font-bold tracking-widest block uppercase">
+                <span className="text-[0.8125rem] text-[#6E5429] font-bold tracking-widest block uppercase">
                   Official Legal Notice
                 </span>
                 <h1 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719] mt-0.5">
                   선불식 할부계약 해제 및 법정 해약환급금 지급 청구서 (내용증명)
                 </h1>
               </div>
-              <span className="text-[13px] font-mono text-[#5A5E66] shrink-0">
+              <span className="text-[0.8125rem] font-mono text-[#5A5E66] shrink-0">
                 문서 번호: {claimData.claimId}
               </span>
             </div>
 
             {/* 1. 수신인 & 발신인 그리드 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[0.8125rem]">
               {/* 수신인 */}
               <div className="bg-[#FAF9F6] p-4 rounded-lg border border-[#DCD6C9] space-y-2">
                 <span className="font-bold text-[#151719] block border-b border-[#DCD6C9] pb-1">
@@ -330,7 +330,7 @@ ${claimData.claimDate || '발송 당일'}
                       type="text"
                       value={claimantName}
                       onChange={(e) => setClaimantName(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] font-bold text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] font-bold text-[#151719] w-full"
                     />
                     <span className="print-only font-bold text-[#151719]">{claimantName}</span>
                   </div>
@@ -340,7 +340,7 @@ ${claimData.claimDate || '발송 당일'}
                       type="text"
                       value={claimantPhone}
                       onChange={(e) => setClaimantPhone(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantPhone}</span>
                   </div>
@@ -350,7 +350,7 @@ ${claimData.claimDate || '발송 당일'}
                       type="text"
                       value={claimantAddress}
                       onChange={(e) => setClaimantAddress(e.target.value)}
-                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719] w-full"
+                      className="no-print p-1 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] text-[#151719] w-full"
                     />
                     <span className="print-only text-[#151719]">{claimantAddress}</span>
                   </div>
@@ -359,7 +359,7 @@ ${claimData.claimDate || '발송 당일'}
             </div>
 
             {/* 2. 가입 계약 체결 내역 */}
-            <div className="space-y-2 text-[13px]">
+            <div className="space-y-2 text-[0.8125rem]">
               <span className="font-bold text-[#151719] block">3. 계약 체결 사항</span>
               <div className="border border-[#DCD6C9] rounded-lg overflow-hidden">
                 <table className="w-full text-left divide-y divide-[#DCD6C9]">
@@ -382,12 +382,12 @@ ${claimData.claimDate || '발송 당일'}
             </div>
 
             {/* 3. 법정 해약환급금 산출 내역 및 지급 요청 */}
-            <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-[13px]">
+            <div className="bg-[#FAF9F6] border-2 border-[#19382C] rounded-xl p-5 space-y-3 text-[0.8125rem]">
               <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-2">
                 <span className="font-reverence font-bold text-sm text-[#19382C]">
                   4. 법정 해약환급금 산출 명세 및 지급 계좌
                 </span>
-                <span className="text-[13px] font-bold text-[#6E5429]">
+                <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                   공정위 체증 환급률 적용
                 </span>
               </div>
@@ -399,7 +399,7 @@ ${claimData.claimDate || '발송 당일'}
                     금 {claimData.statutoryRefundAmount.toLocaleString()}원정
                   </span>
                 </div>
-                <div className="text-[13px] text-[#5A5E66] sm:text-right space-y-0.5">
+                <div className="text-[0.8125rem] text-[#5A5E66] sm:text-right space-y-0.5">
                   <p>실 납입금: {claimData.paidTotalAmount.toLocaleString()}원</p>
                   <p>법정 모집수수료 공제 후 실 수령 권리액</p>
                 </div>
@@ -414,21 +414,21 @@ ${claimData.claimDate || '발송 당일'}
                     value={refundBank}
                     onChange={(e) => setRefundBank(e.target.value)}
                     placeholder="은행명"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundAccount}
                     onChange={(e) => setRefundAccount(e.target.value)}
                     placeholder="계좌번호"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] text-[#151719]"
                   />
                   <input
                     type="text"
                     value={refundHolder}
                     onChange={(e) => setRefundHolder(e.target.value)}
                     placeholder="예금주"
-                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[13px] text-[#151719]"
+                    className="no-print p-2 bg-white border border-[#DCD6C9] rounded text-[0.8125rem] text-[#151719]"
                   />
                 </div>
                 <p className="print-only text-sm font-bold text-[#151719] pt-1">
@@ -438,7 +438,7 @@ ${claimData.claimDate || '발송 당일'}
             </div>
 
             {/* 4. 법적 근거 및 지연배상금 고지문 */}
-            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-[13px] text-[#42464E] leading-relaxed">
+            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-[0.8125rem] text-[#42464E] leading-relaxed">
               <span className="font-bold text-[#151719] block">
                 5. 법적 근거 및 지연배상금 가산 고지
               </span>
@@ -459,7 +459,7 @@ ${claimData.claimDate || '발송 당일'}
                 <span className="text-base font-reverence font-bold text-[#151719]">
                   발신인: {claimantName}
                 </span>
-                <span className="k-seal-red px-2 py-0.5 text-[13px]">印</span>
+                <span className="k-seal-red px-2 py-0.5 text-[0.8125rem]">印</span>
               </div>
             </div>
           </div>

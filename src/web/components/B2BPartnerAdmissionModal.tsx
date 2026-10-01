@@ -85,7 +85,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6]">
                 배웅 공식 장례식장 파트너십 (정액제 광고) 입점 신청 창구
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 사업계획서 3.1절 & 4.2절 준수 · 공정위 리베이트 제재 면책 보증
               </p>
             </div>
@@ -95,7 +95,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
             {submittedApp && (
               <button
                 onClick={handlePrint}
-                className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[13px] font-bold flex items-center space-x-1 border border-[#2D4F43] cursor-pointer"
+                className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[0.8125rem] font-bold flex items-center space-x-1 border border-[#2D4F43] cursor-pointer"
               >
                 <Printer className="w-3.5 h-3.5 text-[#C2A26A]" />
                 <span className="hidden sm:inline">협약 신청서 인쇄</span>
@@ -115,21 +115,21 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
           {!submittedApp ? (
             <>
               {/* 공정위 리베이트 철폐 및 3대 핵심 혜택 안내 배너 */}
-              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[13px] space-y-2">
+              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl p-4 text-[0.8125rem] space-y-2">
                 <div className="flex items-start space-x-2 text-[#6E5429]">
                   <Scale className="w-4 h-4 shrink-0 mt-0.5 text-[#9E7D47]" />
                   <div>
                     <span className="font-bold text-[#6E5429]">
                       2026년 3월 공정위 리베이트 제재 전면 시행 대응 클린 플랫폼
                     </span>
-                    <p className="text-[13px] text-[#6E5429] mt-0.5 leading-relaxed">
+                    <p className="text-[0.8125rem] text-[#6E5429] mt-0.5 leading-relaxed">
                       배웅은 장례식장으로부터 알선 성공보수(소개 수수료)를 절대 취하지 않습니다.
                       오직 <b>월 300,000원 100% 정액 광고료</b>로만 운영되므로 리베이트 쌍벌제로부터 완벽히 면책됩니다.
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#DCD6C9] text-[13px]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#DCD6C9] text-[0.8125rem]">
                   <div className="p-2 bg-white rounded border border-[#DCD6C9]">
                     <div className="font-bold text-[#19382C]">① 공실 빈소 1건 유치</div>
                     <div className="text-[#5A5E66] mt-0.5">월 빈소 매출 240만~300만원 창출</div>
@@ -152,7 +152,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                 </h4>
 
                 {errorMsg && (
-                  <div className="p-3 bg-[#FAF0EF] border border-[#FAF0EF] text-[#8B2520] rounded text-[13px] flex items-center space-x-2">
+                  <div className="p-3 bg-[#FAF0EF] border border-[#FAF0EF] text-[#8B2520] rounded text-[0.8125rem] flex items-center space-x-2">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>{errorMsg}</span>
                   </div>
@@ -160,45 +160,45 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">장례식장 상호명 *</label>
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">장례식장 상호명 *</label>
                     <input
                       type="text"
                       required
                       value={hallName}
                       onChange={(e) => setHallName(e.target.value)}
                       placeholder="예: 서울아산병원장례식장"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">관할 지역 (시·도) *</label>
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">관할 지역 (시·도) *</label>
                     <input
                       type="text"
                       required
                       value={region}
                       onChange={(e) => setRegion(e.target.value)}
                       placeholder="예: 서울특별시"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-bold text-[#42464E] mb-1">도로명 상세 주소 *</label>
+                  <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">도로명 상세 주소 *</label>
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="예: 서울 송파구 올림픽로43길 88"
-                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                    className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       사업자등록번호 (10자리) *
                     </label>
                     <input
@@ -207,12 +207,12 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       value={businessNumber}
                       onChange={(e) => setBusinessNumber(e.target.value)}
                       placeholder="예: 215-82-00100"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       장사법 제29조 영업신고증 번호 *
                     </label>
                     <input
@@ -221,14 +221,14 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       value={permitNumber}
                       onChange={(e) => setPermitNumber(e.target.value)}
                       placeholder="예: 제2010-서울송파-장례식장-01호"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       원장 / 대표자 성함 *
                     </label>
                     <input
@@ -237,12 +237,12 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       value={directorName}
                       onChange={(e) => setDirectorName(e.target.value)}
                       placeholder="예: 박원석"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       담당자 직통 연락처 *
                     </label>
                     <input
@@ -251,12 +251,12 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       value={contactPhone}
                       onChange={(e) => setContactPhone(e.target.value)}
                       placeholder="예: 010-1234-5678"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                    <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                       세금계산서 수신 이메일 *
                     </label>
                     <input
@@ -265,13 +265,13 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="예: admin@hall.kr"
-                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[13px] text-[#151719]"
+                      className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded p-2.5 text-[0.8125rem] text-[#151719]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-bold text-[#42464E] mb-1">
+                  <label className="block text-[0.8125rem] font-bold text-[#42464E] mb-1">
                     배웅 회원 유족 대상 제공 빈소 감면율 선택 *
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -280,7 +280,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                         type="button"
                         key={rate}
                         onClick={() => setOfferedDiscountRate(rate)}
-                        className={`py-2 rounded border text-[13px] font-bold cursor-pointer transition-all ${
+                        className={`py-2 rounded border text-[0.8125rem] font-bold cursor-pointer transition-all ${
                           offeredDiscountRate === rate
                             ? 'bg-[#19382C] text-white border-[#2D4F43]'
                             : 'bg-white text-[#42464E] border-[#DCD6C9] hover:bg-[#FAF9F6]'
@@ -290,13 +290,13 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                       </button>
                     ))}
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     ※ 감면 혜택을 제공하시는 식장은 배웅 지도 및 검색 상단에 우선 노출(★ 감면 제휴 뱃지)됩니다.
                   </p>
                 </div>
 
                 <div className="pt-2 border-t border-[#DCD6C9] space-y-2">
-                  <label className="flex items-center space-x-2 text-[13px] text-[#151719] cursor-pointer">
+                  <label className="flex items-center space-x-2 text-[0.8125rem] text-[#151719] cursor-pointer">
                     <input
                       type="checkbox"
                       checked={flatRateAgreed}
@@ -308,7 +308,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                     </span>
                   </label>
 
-                  <label className="flex items-center space-x-2 text-[13px] text-[#151719] cursor-pointer">
+                  <label className="flex items-center space-x-2 text-[0.8125rem] text-[#151719] cursor-pointer">
                     <input
                       type="checkbox"
                       checked={antiRebatePledge}
@@ -337,18 +337,18 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
               </div>
 
               <div>
-                <span className="text-[13px] font-serif font-bold text-[#6E5429]">
+                <span className="text-[0.8125rem] font-serif font-bold text-[#6E5429]">
                   신청 접수 번호: {submittedApp.applicationId}
                 </span>
                 <h3 className="font-reverence font-bold text-xl sm:text-2xl text-[#151719] mt-1">
                   [{submittedApp.hallName}] B2B 제휴 입점 신청 완료
                 </h3>
-                <p className="text-[13px] text-[#5A5E66] font-serif mt-1">
+                <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-1">
                   배웅 파트너십 운영팀에서 인허가 서류(신고증 {submittedApp.permitNumber})를 신속히 확인 후 담당자({submittedApp.contactPhone})께 연락드립니다.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-left text-[13px] font-serif space-y-2 max-w-md mx-auto">
+              <div className="p-4 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-left text-[0.8125rem] font-serif space-y-2 max-w-md mx-auto">
                 <div className="flex justify-between">
                   <span className="text-[#5A5E66]">월 광고비:</span>
                   <span className="font-bold text-[#19382C]">월 300,000원 (정액제)</span>
@@ -374,13 +374,13 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
               <div className="flex gap-2 justify-center pt-2">
                 <button
                   onClick={handlePrint}
-                  className="px-4 py-2 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded text-[13px] font-bold cursor-pointer"
+                  className="px-4 py-2 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded text-[0.8125rem] font-bold cursor-pointer"
                 >
                   신청 확인서 인쇄
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[13px] font-bold cursor-pointer"
+                  className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded text-[0.8125rem] font-bold cursor-pointer"
                 >
                   확인 (닫기)
                 </button>

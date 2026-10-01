@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
@@ -16,6 +16,11 @@ import { join } from 'node:path';
 
 const ROOT = process.cwd();
 const read = (p: string) => readFileSync(join(ROOT, p), 'utf8');
+const walk = (dir: string): string[] =>
+  readdirSync(dir).flatMap((e) => {
+    const f = join(dir, e);
+    return statSync(f).isDirectory() ? walk(f) : /\.tsx?$/.test(e) ? [f] : [];
+  });
 
 const SHELL = read('src/web/components/ModalShell.tsx');
 const KIOSK = read('src/web/components/AltarKioskModal.tsx');
@@ -168,12 +173,6 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
   const MIN_PX = 13;
 
   it('micro 하한 13px 미만 임의 폰트가 없어야 한다', () => {
-    const { readdirSync, statSync } = require('node:fs') as typeof import('node:fs');
-    const walk = (dir: string): string[] =>
-      readdirSync(dir).flatMap((e) => {
-        const f = join(dir, e);
-        return statSync(f).isDirectory() ? walk(f) : /\.tsx?$/.test(e) ? [f] : [];
-      });
     const offenders: string[] = [];
       for (const f of walk(join(ROOT, 'src'))) {
         const src = readFileSync(f, 'utf8');
@@ -189,6 +188,61 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
         }
       }
     expect(offenders, `통치 N-7 위반 (최소 ${MIN_PX}px):\n  ${offenders.join('\n  ')}`).toEqual([]);
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  //  ★ font-size 에 px 를 쓰면 「큰 글씨」 가 죽는다
+  //
+  //  px 는 루트 font-size 를 못 받는다. 그래서 두 곳이 무력해진다 —
+  //    html.senior-large-font (노안 「글씨 확대」 버튼)
+  //    운영체제 글자 크기 설정 (90세 유족이 실제로 그걸 켠다)
+  //  실제로 「글씨 확대」 가 본문 45개 중 21개(47%)만 키운 상태였다.
+  //  나머지 24개가 text-[13px] 였다. 「노안용」 버튼이 노안에게 무의미했다.
+  //
+  //  그래서 px 자체를 금지한다 — 값이 크든 작든.
+  // ─────────────────────────────────────────────────────────────
+  it('font-size 는 px 로 쓰지 않는다 — rem 이어야 「큰 글씨」 가 산다', () => {
+    const offenders: string[] = [];
+    for (const f of walk(join(ROOT, 'src'))) {
+      const src = readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/text-\[([\d.]+)px\]/g)) {
+        offenders.push(`${f.replace(ROOT + '/', '')}: text-[${m[1]}px] → rem 으로 바꾸라`);
+      }
+    }
+    expect(
+      offenders,
+      `font-size px 사용 ${offenders.length}건 — 이 텍스트는 「글씨 확대」 를 따라가지 않는다:\n  ${offenders.slice(0, 12).join('\n  ')}`,
+    ).toEqual([]);
+  });
+
+  it('rem 폰트도 13px 하한을 지켜야 한다', () => {
+    const MIN_REM = 13 / 16; // 루트 16px 기준
+    const offenders: string[] = [];
+    for (const f of walk(join(ROOT, 'src'))) {
+      const src = readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/text-\[([\d.]+)rem\]/g)) {
+        const v = Number(m[1]);
+        if (v < MIN_REM - 0.0001) {
+          offenders.push(`${f.replace(ROOT + '/', '')}: text-[${m[1]}rem] (=${Math.round(v * 16)}px)`);
+        }
+      }
+    }
+    expect(offenders, `rem 하한 ${MIN_REM} (13px) 위반:\n  ${offenders.join('\n  ')}`).toEqual([]);
+  });
+
+  it('「큰 글씨」 배율은 정본 tokens.ts 와 어긋나지 않아야 한다', () => {
+    // index.html 과 tokens.largeFontScale 가 갈리면 「노안용」 이 조용히 사라진다
+    const tokens = read('src/web/design-system/tokens.ts');
+    const m = tokens.match(/largeFontScale:\s*([\d.]+)/);
+    expect(m, 'tokens.ts 에 largeFontScale 가 있어야 한다').toBeTruthy();
+    const scale = Number(m![1]);
+    const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
+    const rule = html.match(/\.senior-large-font\s*\{[^}]*font-size:\s*(\d+)%/);
+    expect(rule, 'index.html 에 senior-large-font 규칙이 있어야 한다').toBeTruthy();
+    expect(
+      Number(rule![1]) / 100,
+      `index.html 의 senior-large-font 가 ${rule![1]}% 인데 정본은 ${scale * 100}% 다 — 어느 쪽이 낫든 둘이 같아야 한다`,
+    ).toBeCloseTo(scale, 3);
   });
 });
 

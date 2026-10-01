@@ -131,7 +131,7 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
         <button
           type="button"
           onClick={handlePrint}
-          className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+          className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
         >
           <Printer className="w-4 h-4 text-[#C2A26A]" />
           <span>검수표 인쇄 / PDF</span>
@@ -143,18 +143,18 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
         <div className="bg-white p-6 rounded-2xl border-2 border-[#19382C] shadow-xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#DCD6C9] pb-4 gap-2">
             <div>
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 Zero-Extra-Fee Certified Tally Sheet
               </span>
               <h3 className="font-reverence font-black text-xl text-[#151719] mt-0.5">
                 {packageName} 현장 실시간 정산 검수
               </h3>
-              <p className="text-[13px] text-[#5A5E66] mt-0.5">
+              <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                 장례식장: <strong>{hallName}</strong> · 담당 지도사: <strong>{directorName}</strong>
               </p>
             </div>
             <div className="text-right">
-              <span className="inline-flex items-center space-x-1 px-3 py-1 bg-[#19382C] text-[#DCE8E2] rounded-full text-[13px] font-bold border border-[#2D4F43]">
+              <span className="inline-flex items-center space-x-1 px-3 py-1 bg-[#19382C] text-[#DCE8E2] rounded-full text-[0.8125rem] font-bold border border-[#2D4F43]">
                 <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
                 <span>추가금 제로 안심 보증</span>
               </span>
@@ -162,13 +162,13 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
           </div>
 
           {/* 3대 금액 비교 그리드 */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[0.8125rem]">
             <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-1">
               <span className="text-[#5A5E66] block font-bold">1. 사전 약정 정찰 패키지가</span>
               <span className="text-2xl font-reverence font-black text-[#151719]">
                 {totalPromised.toLocaleString()}원
               </span>
-              <span className="text-[13px] text-[#5A5E66] block">계약 시 확정된 정찰가</span>
+              <span className="text-[0.8125rem] text-[#5A5E66] block">계약 시 확정된 정찰가</span>
             </div>
 
             <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-1">
@@ -176,7 +176,7 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
               <span className="text-2xl font-reverence font-black text-[#19382C]">
                 {totalActual.toLocaleString()}원
               </span>
-              <span className="text-[13px] text-[#19382C] font-bold block">전 항목 규격 일치 확인</span>
+              <span className="text-[0.8125rem] text-[#19382C] font-bold block">전 항목 규격 일치 확인</span>
             </div>
 
             <div className="p-4 bg-[#19382C] text-white rounded-xl border border-[#2D4F43] space-y-1">
@@ -184,18 +184,18 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
               <span className="text-2xl font-reverence font-black text-[#C2A26A]">
                 {extraFee === 0 ? '0원 (추가금 제로)' : `${extraFee.toLocaleString()}원`}
               </span>
-              <span className="text-[13px] text-[#FAF9F6] block">불법 업셀링 100% 방지</span>
+              <span className="text-[0.8125rem] text-[#FAF9F6] block">불법 업셀링 100% 방지</span>
             </div>
           </div>
         </div>
 
         {/* 세부 항목별 검수 테이블 */}
-        <div className="bg-white rounded-2xl border border-[#DCD6C9] overflow-hidden shadow-xs text-[13px]">
+        <div className="bg-white rounded-2xl border border-[#DCD6C9] overflow-hidden shadow-xs text-[0.8125rem]">
           <div className="p-4 bg-[#FAF9F6] border-b border-[#DCD6C9] flex items-center justify-between">
             <h4 className="font-reverence font-bold text-base text-[#151719]">
               장례 3일 전 항목 실시간 검수 명세서
             </h4>
-            <span className="text-[13px] text-[#5A5E66]">
+            <span className="text-[0.8125rem] text-[#5A5E66]">
               유족 승인 없는 임의 추가 항목 절대 불가
             </span>
           </div>
@@ -217,10 +217,10 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
                     <td className="p-3 font-bold text-[#151719] whitespace-nowrap">{item.category}</td>
                     <td className="p-3 space-y-0.5">
                       <p className="font-bold text-[#151719]">{item.name}</p>
-                      <p className="text-[13px] text-[#5A5E66]">{item.standardSpec}</p>
+                      <p className="text-[0.8125rem] text-[#5A5E66]">{item.standardSpec}</p>
                     </td>
                     <td className="p-3 text-center whitespace-nowrap">
-                      <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#19382C]/10 text-[#19382C] font-bold text-[13px] border border-[#19382C]/20">
+                      <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#19382C]/10 text-[#19382C] font-bold text-[0.8125rem] border border-[#19382C]/20">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>규격 검수필</span>
                       </span>
@@ -243,24 +243,24 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
               <UserCheck className="w-5 h-5 text-[#19382C]" />
               <span>상주(유족) & 전담 장례지도사 양방향 전자 승인 날인</span>
             </h4>
-            <span className="text-[13px] text-[#6E5429] font-bold">
+            <span className="text-[0.8125rem] text-[#6E5429] font-bold">
               법적 효력 검수 완료
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[0.8125rem]">
             {/* 상주 확인 날인 */}
             <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-[#151719]">1. 계약 상주(유족) 서명 확인</span>
-                <span className="text-[13px] text-[#19382C] font-bold">승인 완료</span>
+                <span className="text-[0.8125rem] text-[#19382C] font-bold">승인 완료</span>
               </div>
               <p className="text-[#5A5E66]">
                 "본인은 상기 지출 내역을 현장에서 실물 대조 확인하였으며, 약정 정찰가 외 부당한 추가금이 일체 없음을 확인합니다."
               </p>
               <div className="pt-2 flex items-center justify-between border-t border-[#DCD6C9]">
                 <span className="font-bold text-[#151719]">상주 김성수 (전자서명)</span>
-                <span className="k-seal-red px-2 py-0.5 text-[13px]">서명필</span>
+                <span className="k-seal-red px-2 py-0.5 text-[0.8125rem]">서명필</span>
               </div>
             </div>
 
@@ -268,21 +268,21 @@ export const DigitalTallySheetModal: React.FC<DigitalTallySheetModalProps> = ({
             <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-[#151719]">2. 국가공인 1급 지도사 서명 확인</span>
-                <span className="text-[13px] text-[#19382C] font-bold">보증 완료</span>
+                <span className="text-[0.8125rem] text-[#19382C] font-bold">보증 완료</span>
               </div>
               <p className="text-[#5A5E66]">
                 "본 지도사는 배웅의 정찰제 헌장을 준수하여 규격품만을 정직하게 제공하였으며, 촌지나 수수료를 수수하지 않았음을 서약합니다."
               </p>
               <div className="pt-2 flex items-center justify-between border-t border-[#DCD6C9]">
                 <span className="font-bold text-[#151719]">{directorName}</span>
-                <span className="k-seal-red px-2 py-0.5 text-[13px]">검수필</span>
+                <span className="k-seal-red px-2 py-0.5 text-[0.8125rem]">검수필</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* 배웅 추가금 제로 헌장 */}
-        <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] text-[13px] text-[#5A5E66] text-center space-y-1">
+        <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] text-[0.8125rem] text-[#5A5E66] text-center space-y-1">
           <p className="font-bold text-[#151719]">
             배웅의 약속: 만일 현장에서 유족의 사전 서면 동의 없이 부당 추가금이 청구되었을 경우 100% 전액 환불 보상합니다.
           </p>

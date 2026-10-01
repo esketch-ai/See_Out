@@ -48,7 +48,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
         </div>
         <button
           onClick={onExitEmergency}
-          className="text-[13px] bg-[#243F35] hover:bg-[#2D4F43] border border-[#2D4F43] text-[#FAF9F6] px-3 py-1.5 rounded-md font-serif font-medium transition-all cursor-pointer flex items-center space-x-1 shrink-0"
+          className="k-tap-lg text-[0.8125rem] bg-[#243F35] hover:bg-[#2D4F43] border border-[#2D4F43] text-[#FAF9F6] px-3 py-1.5 rounded-md font-serif font-medium transition-all cursor-pointer flex items-center space-x-1 shrink-0"
         >
           <span>평시 화면 복귀 ✕</span>
         </button>
@@ -57,7 +57,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
       <main className="max-w-2xl mx-auto px-4 py-8 space-y-6 relative z-10">
         {/* 추모 서두 및 경황없는 유족을 위한 즉각 안심 메시지 */}
         <div className="text-center space-y-2 py-2">
-          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#FAF0EF] text-[#8B2520] font-serif font-bold text-[13px] border border-[#8B2520]/20">
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#FAF0EF] text-[#8B2520] font-serif font-bold text-[0.8125rem] border border-[#8B2520]/20">
             <Heart className="w-3.5 h-3.5 fill-[#8B2520]" />
             <span>삼가 고인의 명복을 빕니다 · 유족 긴급 지원 체계</span>
           </div>
@@ -72,7 +72,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
 
         {/* [행동 1: 최우선] 원터치 24시 직통 핫라인 (전화 한 통으로 출동 접수 완료) */}
         <div className="bg-[#FFFFFF] border-2 border-[#8B2520] rounded-2xl p-5 sm:p-6 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 bg-[#8B2520] text-white text-[13px] font-bold px-3 py-1 rounded-bl-lg font-serif">
+          <div className="absolute top-0 right-0 bg-[#8B2520] text-white text-[0.8125rem] font-bold px-3 py-1 rounded-bl-lg font-serif">
             10초 내 직통 연결
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -81,20 +81,20 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <Phone className="w-7 h-7" />
               </div>
               <div className="min-w-0 break-words">
-                <div className="text-[13px] font-bold text-[#8B2520] font-serif flex items-center space-x-1">
+                <div className="text-[0.8125rem] font-bold text-[#8B2520] font-serif flex items-center space-x-1">
                   <span>경황이 없으실 땐 아무것도 적지 마시고 전화만 누르세요</span>
                 </div>
                 <div className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] mt-0.5 tracking-tight">
                   24시 긴급 상황실 <span className="text-[#8B2520]">1588-0000</span>
                 </div>
-                <p className="text-[13px] text-[#5A5E66] font-serif mt-1 leading-normal">
+                <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-1 leading-normal">
                   통화 즉시 관할 거점 전담 지도사 1:1 배정 · 선금 0원 무료 출동 보증
                 </p>
               </div>
             </div>
             <a
               href="tel:1588-0000"
-              className="w-full sm:w-auto px-6 py-3.5 bg-[#8B2520] hover:bg-[#731C18] text-white font-bold rounded-xl flex items-center justify-center space-x-2 text-base shadow-sm transition-all shrink-0 cursor-pointer active:scale-[0.98]"
+              className="k-tap-lg w-full sm:w-auto px-6 py-3.5 bg-[#8B2520] hover:bg-[#731C18] text-white font-bold rounded-xl flex items-center justify-center space-x-2 text-base shadow-sm transition-all shrink-0 cursor-pointer active:scale-[0.98]"
             >
               <Phone className="w-5 h-5 fill-current" />
               <span>지금 바로 전화 걸기</span>
@@ -112,7 +112,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 임종 직후 유족 필수 3대 행동 요령
               </h2>
             </div>
-            <span className="text-[13px] font-bold text-[#8B2520] bg-[#FAF0EF] px-2.5 py-0.5 rounded-full border border-[#8B2520]/20">
+            <span className="text-[0.8125rem] font-bold text-[#8B2520] bg-[#FAF0EF] px-2.5 py-0.5 rounded-full border border-[#8B2520]/20">
               현장 필수 체크
             </span>
           </div>
@@ -120,30 +120,30 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#DCD6C9] space-y-1.5">
               <div className="flex items-center space-x-2 text-[#8B2520] font-bold text-sm">
-                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[13px] border border-[#8B2520]/20 font-mono">1</span>
+                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">1</span>
                 <span>사망진단서 7~10부 발급</span>
               </div>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 화장장 예약, 사망신고, 금융·보험 처리에 원본이 필요합니다. 퇴원 시 한 번에 넉넉히 발급받으셔야 병원을 재방문하지 않습니다.
               </p>
             </div>
 
             <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#DCD6C9] space-y-1.5">
               <div className="flex items-center space-x-2 text-[#8B2520] font-bold text-sm">
-                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[13px] border border-[#8B2520]/20 font-mono">2</span>
+                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">2</span>
                 <span>고인 임의 이동 금지</span>
               </div>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 의사의 공식 사망 판정 및 진단서 발급 전 임의 이송 시 법적 문제가 될 수 있습니다. 배웅 전용 특수 운구차량이 안전히 모십니다.
               </p>
             </div>
 
             <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#DCD6C9] space-y-1.5">
               <div className="flex items-center space-x-2 text-[#8B2520] font-bold text-sm">
-                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[13px] border border-[#8B2520]/20 font-mono">3</span>
+                <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">3</span>
                 <span>기존 상조도 배웅으로 이관</span>
               </div>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 타 상조에 가입되어 있으셔도 선납금 손실 없이 배웅 실비 패키지로 즉시 전환 가능하며, 제휴 빈소 최대 30% 감면을 동일 적용받습니다.
               </p>
             </div>
@@ -157,7 +157,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
               <Clock className="w-5 h-5 text-[#19382C]" />
               <span>온라인 1분 즉시 출동 접수 (통화가 어려우실 때)</span>
             </h2>
-            <span className="text-[13px] text-[#5A5E66] font-serif">전국 2시간 도착</span>
+            <span className="text-[0.8125rem] text-[#5A5E66] font-serif">전국 2시간 도착</span>
           </div>
 
           {/* 3단계 진행 스테퍼 */}
@@ -170,7 +170,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
               <div key={s.num} className="flex-1 flex items-center">
                 <div className="flex flex-col items-center flex-1">
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] font-serif transition-colors ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-[0.8125rem] font-serif transition-colors ${
                       step >= s.num
                         ? 'bg-[#19382C] text-[#FAF9F6]'
                         : 'bg-[#F1EDE3] text-[#5A5E66]'
@@ -178,7 +178,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   >
                     {s.num}
                   </div>
-                  <span className={`text-[13px] mt-1 font-serif ${step >= s.num ? 'text-[#19382C] font-bold' : 'text-[#5A5E66]'}`}>
+                  <span className={`text-[0.8125rem] mt-1 font-serif ${step >= s.num ? 'text-[#19382C] font-bold' : 'text-[#5A5E66]'}`}>
                     {s.label}
                   </span>
                 </div>
@@ -223,7 +223,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                         <CheckCircle2 className="w-5 h-5 text-[#19382C]" />
                       )}
                     </div>
-                    <div className="text-[13px] text-[#5A5E66] mt-1.5 font-serif">{loc.desc}</div>
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-1.5 font-serif">{loc.desc}</div>
                   </button>
                 ))}
               </div>
@@ -239,7 +239,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   placeholder="예: 서울아산병원 본관 응급실 / 분당 구미동 자택"
                   className="w-full bg-[#FFFFFF] border-2 border-[#DCD6C9] rounded-xl px-4 py-3.5 text-[#151719] text-base placeholder-[#8F8878] focus:outline-none focus:border-[#19382C]"
                 />
-                <p className="text-[13px] text-[#5A5E66] font-serif">
+                <p className="text-[0.8125rem] text-[#5A5E66] font-serif">
                   * 정확한 주소를 모르셔도 괜찮습니다. 접수 즉시 배정 지도사가 전화로 정확한 위치를 확인해 드립니다.
                 </p>
               </div>
@@ -280,11 +280,11 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                     <span className="font-reverence font-bold text-lg text-[#151719]">
                       배웅 제휴 감면 장례식장 추천 (가장 추천)
                     </span>
-                    <span className="text-[13px] bg-[#19382C] text-[#FAF9F6] px-3 py-1 rounded-full font-serif font-bold">
+                    <span className="text-[0.8125rem] bg-[#19382C] text-[#FAF9F6] px-3 py-1 rounded-full font-serif font-bold">
                       임대료 최대 30% 감면
                     </span>
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
                     현재 고인이 계신 곳에서 가장 가깝고 예우가 정갈한 빈소 예약을 배웅 전담팀이 즉시 조율해 드립니다.
                   </p>
                 </button>
@@ -300,7 +300,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <span className="font-reverence font-bold text-lg text-[#151719]">
                     이미 희망하시는 특정 장례식장이 있습니다
                   </span>
-                  <p className="text-[13px] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
                     가족분들께서 원하시는 장례식장으로 안전하고 정중하게 운구하여 모십니다.
                   </p>
                 </button>
@@ -346,10 +346,10 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
 
               <div>
                 <div className="flex items-center justify-center space-x-2">
-                  <span className="text-[#8B2520] text-[13px] font-serif font-bold tracking-widest bg-[#FAF0EF] px-2.5 py-0.5 rounded-full border border-[#8B2520]/20">
+                  <span className="text-[#8B2520] text-[0.8125rem] font-serif font-bold tracking-widest bg-[#FAF0EF] px-2.5 py-0.5 rounded-full border border-[#8B2520]/20">
                     의전팀 긴급 급파 접수 완료
                   </span>
-                  <span className="text-[13px] bg-[#F1EDE3] text-[#5A5E66] px-2 py-0.5 rounded border border-[#DCD6C9] font-mono">
+                  <span className="text-[0.8125rem] bg-[#F1EDE3] text-[#5A5E66] px-2 py-0.5 rounded border border-[#DCD6C9] font-mono">
                     {dispatchResult.dispatchId}
                   </span>
                 </div>
@@ -366,7 +366,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#DCD6C9] gap-1">
                   <div>
                     <span className="text-[#5A5E66] text-sm">현장 도착 예정 시간</span>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                       {dispatchResult.assignedDirector.baseCenterName} ➔ 현장 ({dispatchResult.distanceKm}km)
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                       <Clock className="w-5 h-5 text-[#19382C]" />
                       <span>{dispatchResult.estimatedArrivalTimeFormatted}</span>
                     </span>
-                    <span className="text-[13px] text-[#19382C] font-sans font-medium flex items-center sm:justify-end space-x-1 mt-0.5">
+                    <span className="text-[0.8125rem] text-[#19382C] font-sans font-medium flex items-center sm:justify-end space-x-1 mt-0.5">
                       <Navigation className="w-3.5 h-3.5" />
                       <span>실시간 경로 관제 중 (교통 원활)</span>
                     </span>
@@ -386,7 +386,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#DCD6C9] gap-1">
                   <div>
                     <span className="text-[#5A5E66] text-sm">배정 지도사 ({dispatchResult.detectedRegion} 전담)</span>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                       경력 {dispatchResult.assignedDirector.experienceYears}년 · 누적 의전 {dispatchResult.assignedDirector.completedCases}건 (평점 ★{dispatchResult.assignedDirector.ratingAvg})
                     </div>
                   </div>
@@ -395,7 +395,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                       <Award className="w-4 h-4 text-[#6E5429]" />
                       <span>{dispatchResult.assignedDirector.name} 수석 장례지도사 ({dispatchResult.assignedDirector.licenseNo})</span>
                     </span>
-                    <span className="text-[13px] text-[#6E5429] font-mono sm:justify-end flex mt-0.5 font-bold">
+                    <span className="text-[0.8125rem] text-[#6E5429] font-mono sm:justify-end flex mt-0.5 font-bold">
                       안심 직통: {dispatchResult.assignedDirector.virtualPhone}
                     </span>
                   </div>
@@ -415,7 +415,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#DCD6C9] gap-1">
                     <div>
                       <span className="text-[#5A5E66] text-sm">연계 추천 장례식장</span>
-                      <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                      <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                         {dispatchResult.recommendedFuneralHall.address}
                       </div>
                     </div>
@@ -423,7 +423,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                       <span className="text-sm font-bold text-[#151719]">
                         {dispatchResult.recommendedFuneralHall.name}
                       </span>
-                      <span className="text-[13px] text-[#19382C] font-bold block mt-0.5">
+                      <span className="text-[0.8125rem] text-[#19382C] font-bold block mt-0.5">
                         배웅 사전등록 빈소 {dispatchResult.recommendedFuneralHall.discountRatePercentage}% 감면 확보
                       </span>
                     </div>
@@ -433,7 +433,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 {/* 5. 배웅 의전 서약 */}
                 <div className="flex items-center justify-between pt-0.5">
                   <span className="text-[#5A5E66] text-sm">배웅 3대 의전 서약</span>
-                  <span className="text-[13px] font-bold text-[#19382C] flex items-center space-x-1.5">
+                  <span className="text-[0.8125rem] font-bold text-[#19382C] flex items-center space-x-1.5">
                     <ShieldCheck className="w-4 h-4 text-[#19382C]" />
                     <span>선금 0원 · 부당 추가금 0원 · 촌지 전면 금지</span>
                   </span>
@@ -446,7 +446,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <button
                     type="button"
                     onClick={() => setIsTrackerOpen(true)}
-                    className="py-3.5 px-4 bg-[#19382C] hover:bg-[#243F35] text-white rounded-xl font-serif font-bold text-[13px] flex items-center justify-center space-x-2 transition-colors cursor-pointer shadow-sm"
+                    className="k-tap-lg py-3.5 px-4 bg-[#19382C] hover:bg-[#243F35] text-white rounded-xl font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-2 transition-colors cursor-pointer shadow-sm"
                   >
                     <Navigation className="w-4 h-4 text-[#DCE8E2]" />
                     <span>실시간 GPS 운구 관제 (ETA 확인)</span>
@@ -454,7 +454,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <button
                     type="button"
                     onClick={() => setIsTallyOpen(true)}
-                    className="py-3.5 px-4 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#151719] rounded-xl font-serif font-bold text-[13px] flex items-center justify-center space-x-2 transition-colors cursor-pointer border border-[#DCD6C9] shadow-2xs"
+                    className="k-tap-lg py-3.5 px-4 bg-[#FFFFFF] hover:bg-[#FAF9F6] text-[#151719] rounded-xl font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-2 transition-colors cursor-pointer border border-[#DCD6C9] shadow-2xs"
                   >
                     <FileCheck2 className="w-4 h-4 text-[#6E5429]" />
                     <span>현장 추가금 제로 지출 검수표</span>
@@ -471,7 +471,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
 
                 <button
                   onClick={onExitEmergency}
-                  className="w-full py-3 text-sm text-[#5A5E66] hover:text-[#151719] font-serif cursor-pointer underline underline-offset-4"
+                  className="k-tap-lg w-full py-3 text-sm text-[#5A5E66] hover:text-[#151719] font-serif cursor-pointer underline underline-offset-4"
                 >
                   평시 메인 화면으로 돌아가기
                 </button>

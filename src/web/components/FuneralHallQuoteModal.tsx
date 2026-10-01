@@ -113,11 +113,11 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
             <div>
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6] flex items-center space-x-2">
                 <span>배웅 전국 장례식장 정찰 견적서</span>
-                <span className="text-[13px] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
+                <span className="text-[0.8125rem] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                   {quote.referenceCode}
                 </span>
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 공정거래위원회 리베이트 제재 지침 준수 · 100% 정찰제 견적 참조번호 연동
               </p>
             </div>
@@ -126,7 +126,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={handleCopyMemo}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#FAF9F6]/10 hover:bg-[#FAF9F6]/20 text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/10"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#FAF9F6]/10 hover:bg-[#FAF9F6]/20 text-[#FAF9F6] text-[0.8125rem] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/10"
               title="상담 텍스트 복사"
             >
               {copiedMemo ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4" />}
@@ -134,7 +134,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
             </button>
             <button
               onClick={handlePrint}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[0.8125rem] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
               title="A4 인쇄"
             >
               <Printer className="w-4 h-4 text-[#C2A26A]" />
@@ -158,32 +158,32 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
             {/* 1. 상단 공문서 헤더 및 발급 인장 */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-[#151719] pb-4 gap-4">
               <div>
-                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-bold mb-1 border border-[#19382C]/20">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[0.8125rem] font-bold mb-1 border border-[#19382C]/20">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>공정거래위원회 리베이트 금지 고시 준수 확인서</span>
                 </div>
                 <h1 className="font-reverence font-black text-2xl md:text-3xl text-[#141618] tracking-tight">
                   장례식장 시설 정찰 견적 및 견적 참조서
                 </h1>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                   본 견적서는 배웅 플랫폼과 공휴 장사정보시스템에 공시된 가격을 기준으로 작성된 정직한 정찰 시설비 명세입니다.
                 </p>
               </div>
 
               <div className="flex items-center space-x-3 shrink-0 self-start sm:self-center">
                 <div className="text-right font-serif">
-                  <div className="text-[13px] text-[#5A5E66]">견적 식별 고유번호</div>
+                  <div className="text-[0.8125rem] text-[#5A5E66]">견적 식별 고유번호</div>
                   <div className="text-lg md:text-xl font-reverence font-bold text-[#19382C] tracking-wide">
                     {quote.referenceCode}
                   </div>
-                  <div className="text-[13px] text-[#6E5429]">유효기간: {quote.validUntil}</div>
+                  <div className="text-[0.8125rem] text-[#6E5429]">유효기간: {quote.validUntil}</div>
                 </div>
                 <TraditionalSeal sealKey="truth" size="md" />
               </div>
             </div>
 
             {/* 2. 장례식장 현장 상담 시 필수 고지 배너 */}
-            <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[13px] leading-relaxed font-serif text-[#19382C]">
+            <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
               <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
               <div>
                 <b>장례식장 방문 또는 전화 상담 시 안내 요령:</b><br />
@@ -194,7 +194,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
             {/* 3. 장례 형태 3대 선택 탭 (화면 전용, 인쇄 시 선택된 형태 고정) */}
             <div className="no-print space-y-2">
-              <div className="text-[13px] font-bold text-[#141618]">희망하시는 장례 형태를 선택하세요:</div>
+              <div className="text-[0.8125rem] font-bold text-[#141618]">희망하시는 장례 형태를 선택하세요:</div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 {[
                   {
@@ -230,17 +230,17 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-base">{item.icon}</span>
-                      <span className="text-[13px] font-bold text-[#19382C]">{item.costText}</span>
+                      <span className="text-[0.8125rem] font-bold text-[#19382C]">{item.costText}</span>
                     </div>
                     <div className="font-reverence font-bold text-sm text-[#141618]">{item.title}</div>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">{item.desc}</div>
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">{item.desc}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* 4. 대상 장례식장 및 유족 기본 인적 정보 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px] font-serif">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[0.8125rem] font-serif">
               {/* 장례식장 정보 */}
               <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-2">
                 <div className="font-bold text-[#141618] flex items-center justify-between border-b border-[#DCD6C9] pb-2">
@@ -248,7 +248,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                     <Building2 className="w-4 h-4 text-[#9E7D47]" />
                     <span>시설 기본 정보</span>
                   </span>
-                  <span className="text-[13px] text-[#19382C] font-normal">
+                  <span className="text-[0.8125rem] text-[#19382C] font-normal">
                     {hall.isBaeungPartner ? '★ 배웅 제휴 감면 시설' : '일반 공시 시설'}
                   </span>
                 </div>
@@ -281,7 +281,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                     <Clock className="w-4 h-4 text-[#19382C]" />
                     <span>신청 유족 정보</span>
                   </span>
-                  <span className="text-[13px] text-[#5A5E66]">직접 수정 가능</span>
+                  <span className="text-[0.8125rem] text-[#5A5E66]">직접 수정 가능</span>
                 </div>
                 <div className="space-y-2 pt-1">
                   <div className="flex items-center justify-between">
@@ -291,7 +291,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                       value={applicantName}
                       onChange={(e) => setApplicantName(e.target.value)}
                       placeholder="배웅 유가족"
-                      className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[13px] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
+                      className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[0.8125rem] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -301,10 +301,10 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                       value={applicantPhone}
                       onChange={(e) => setApplicantPhone(e.target.value)}
                       placeholder="010-0000-0000"
-                      className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[13px] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
+                      className="px-2 py-1 border border-[#DCD6C9] rounded text-right font-medium text-[0.8125rem] w-36 bg-[#FAF9F6] focus:outline-none focus:border-[#19382C]"
                     />
                   </div>
-                  <div className="flex justify-between text-[13px] text-[#5A5E66] pt-1">
+                  <div className="flex justify-between text-[0.8125rem] text-[#5A5E66] pt-1">
                     <span>발급 일시:</span>
                     <span>{quote.issuedAt}</span>
                   </div>
@@ -314,7 +314,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
             {/* 5. 공식 세부 시설 견적서 내역 테이블 */}
             <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] shadow-xs">
-              <div className="bg-[#141618] text-[#FAF9F6] p-3.5 px-4 flex items-center justify-between font-serif text-[13px]">
+              <div className="bg-[#141618] text-[#FAF9F6] p-3.5 px-4 flex items-center justify-between font-serif text-[0.8125rem]">
                 <span className="font-bold flex items-center space-x-1.5">
                   <Sparkles className="w-4 h-4 text-[#C2A26A]" />
                   <span>[{quote.funeralTypeName}] 시설비 항목별 투명 명세</span>
@@ -322,12 +322,12 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <span className="text-[#DCE8E2]">가격 공시 기준일: {hall.pricingBaseDate || '2023.06 e하늘 공시'}</span>
               </div>
 
-              <div className="p-4 md:p-5 space-y-3 font-serif text-[13px] md:text-sm">
+              <div className="p-4 md:p-5 space-y-3 font-serif text-[0.8125rem] md:text-sm">
                 {/* 항목 1: 빈소 임대료 */}
                 <div className="flex justify-between items-center py-1.5 border-b border-[#DCD6C9]">
                   <div>
                     <span className="font-medium text-[#151719]">분향실(빈소) 임대료</span>
-                    <span className="text-[13px] text-[#5A5E66] block">
+                    <span className="text-[0.8125rem] text-[#5A5E66] block">
                       {selectedType === 'direct_cremation'
                         ? '무빈소 진행으로 분향실 사용 안 함 (0일)'
                         : `1일 ${quote.roomDailyRent.toLocaleString()}원 × ${quote.stayDays}일간 사용`}
@@ -342,7 +342,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <div className="flex justify-between items-center py-1.5 border-b border-[#DCD6C9]">
                   <div>
                     <span className="font-medium text-[#151719]">고인 전용 안치실(냉장) 보관료</span>
-                    <span className="text-[13px] text-[#5A5E66] block">
+                    <span className="text-[0.8125rem] text-[#5A5E66] block">
                       1일 150,000원 × {selectedType === 'direct_cremation' ? 2 : quote.stayDays}일간 안전 안치
                     </span>
                   </div>
@@ -355,7 +355,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <div className="flex justify-between items-center py-1.5 border-b border-[#DCD6C9]">
                   <div>
                     <span className="font-medium text-[#151719]">전통 습염 및 궁중 입관실 사용료</span>
-                    <span className="text-[13px] text-[#5A5E66] block">입관식 1회 사용 기준 (위생 소독 포함)</span>
+                    <span className="text-[0.8125rem] text-[#5A5E66] block">입관식 1회 사용 기준 (위생 소독 포함)</span>
                   </div>
                   <span className="font-reverence font-bold text-[#151719]">
                     {quote.encoffinmentRoomFee.toLocaleString()}원
@@ -370,7 +370,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                         <Sparkles className="w-3.5 h-3.5 text-[#9E7D47]" />
                         <span>배웅 사전 등록 제휴 감면 혜택</span>
                       </span>
-                      <span className="text-[13px] text-[#8B2520] block">
+                      <span className="text-[0.8125rem] text-[#8B2520] block">
                         빈소 임대료 {Math.round(hall.discountRate * 100)}% 즉시 차감 감면
                       </span>
                     </div>
@@ -384,7 +384,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <div className="pt-3 flex justify-between items-center text-sm md:text-base font-bold">
                   <div>
                     <span className="text-[#141618]">장례식장 최종 예상 부담액</span>
-                    <span className="text-[13px] text-[#5A5E66] block font-normal">
+                    <span className="text-[0.8125rem] text-[#5A5E66] block font-normal">
                       식음료·매점비 및 의전 지도 비용 제외 (시설비 기준 확정 정찰가)
                     </span>
                   </div>
@@ -397,11 +397,11 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
             {/* 6. 공정위 준수 서약 및 법적 고지문 */}
             <div className="p-4 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl text-center space-y-1.5 font-serif">
-              <div className="text-[13px] font-bold text-[#19382C] flex items-center justify-center space-x-1.5">
+              <div className="text-[0.8125rem] font-bold text-[#19382C] flex items-center justify-center space-x-1.5">
                 <Scale className="w-4 h-4 text-[#9E7D47]" />
                 <span>공정거래위원회 리베이트 금지 및 표시광고법 100% 준수 보증</span>
               </div>
-              <p className="text-[13px] text-[#5A5E66] leading-relaxed max-w-2xl mx-auto">
+              <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed max-w-2xl mx-auto">
                 배웅은 「독점규제 및 공정거래에 관한 법률」 및 공정거래위원회의 상조·장례식장 리베이트 제재 지침을 준수하며,
                 장례식장으로부터 어떠한 소개료나 리베이트도 받지 않습니다. 본 견적서는 투명한 공개 정보를 바탕으로 유족의 권익을 보호하기 위해 발급됩니다.
               </p>
@@ -411,7 +411,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
             <div className="no-print pt-2 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleCopyMemo}
-                className="flex-1 py-3.5 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#19382C] border-2 border-[#19382C] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                className="flex-1 py-3.5 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#19382C] border-2 border-[#19382C] rounded-xl font-serif font-bold text-[0.8125rem] sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer"
               >
                 {copiedMemo ? <Check className="w-4 h-4 text-[#243F35]" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedMemo ? '복사 완료되었습니다' : '견적 번호 & 상담 메모 복사'}</span>
@@ -419,7 +419,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
               <button
                 onClick={handlePrint}
-                className="flex-1 py-3.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-reverence font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 shadow-md transition-all cursor-pointer border border-[#2D4F43]"
+                className="flex-1 py-3.5 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-xl font-reverence font-bold text-[0.8125rem] sm:text-sm flex items-center justify-center space-x-2 shadow-md transition-all cursor-pointer border border-[#2D4F43]"
               >
                 <Printer className="w-4 h-4 text-[#C2A26A]" />
                 <span>A4 공식 견적서 인쇄하기</span>
@@ -428,7 +428,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
               <a
                 href={`tel:${hall.phone}`}
                 onClick={handleCallHall}
-                className="py-3.5 px-5 bg-[#141618] hover:bg-[#1F2226] text-[#FAF9F6] rounded-xl font-serif font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 transition-all border border-white/10"
+                className="py-3.5 px-5 bg-[#141618] hover:bg-[#1F2226] text-[#FAF9F6] rounded-xl font-serif font-bold text-[0.8125rem] sm:text-sm flex items-center justify-center space-x-2 transition-all border border-white/10"
               >
                 <Phone className="w-4 h-4 text-[#C2A26A]" />
                 <span>장례식장 통화</span>

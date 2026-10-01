@@ -158,7 +158,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <button
             type="button"
             onClick={() => setIsExperimentModalOpen(true)}
-            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
           >
             <TrendingUp className="w-4 h-4 text-[#C2A26A]" />
             <span>대조군 실험 & 자율 신고</span>
@@ -166,7 +166,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <button
             type="button"
             onClick={() => setIsShortformModalOpen(true)}
-            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
           >
             <Film className="w-4 h-4 text-[#C2A26A]" />
             <span>숏폼 쇼케이스</span>
@@ -174,7 +174,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <button
             type="button"
             onClick={() => setIsPilotLoiOpen(true)}
-            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+            className="px-3.5 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
           >
             <FileText className="w-4 h-4 text-[#C2A26A]" />
             <span>시범 제안서 & LOI</span>
@@ -182,7 +182,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-colors cursor-pointer border border-white/20"
           >
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>성과표 인쇄 / PDF</span>
@@ -196,7 +196,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <div className="flex items-center space-x-3">
             <Building2 className="w-6 h-6 text-[#19382C] shrink-0" />
             <div>
-              <span className="text-[13px] font-bold text-[#5A5E66] block">
+              <span className="text-[0.8125rem] font-bold text-[#5A5E66] block">
                 제휴 장례식장 파트너 지점 선택
               </span>
               <select
@@ -218,7 +218,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('KPI')}
-              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[13px] transition-all cursor-pointer ${
+              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[0.8125rem] transition-all cursor-pointer ${
                 activeTab === 'KPI'
                   ? 'bg-[#19382C] text-white shadow-xs'
                   : 'text-[#5A5E66] hover:text-[#151719]'
@@ -229,7 +229,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('REF_VERIFIER')}
-              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[13px] transition-all cursor-pointer ${
+              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[0.8125rem] transition-all cursor-pointer ${
                 activeTab === 'REF_VERIFIER'
                   ? 'bg-[#19382C] text-white shadow-xs'
                   : 'text-[#5A5E66] hover:text-[#151719]'
@@ -240,7 +240,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('TAX_INVOICE')}
-              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[13px] transition-all cursor-pointer ${
+              className={`px-3 py-2 rounded-lg font-reverence font-bold text-[0.8125rem] transition-all cursor-pointer ${
                 activeTab === 'TAX_INVOICE'
                   ? 'bg-[#19382C] text-white shadow-xs'
                   : 'text-[#5A5E66] hover:text-[#151719]'
@@ -257,43 +257,43 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
             {/* 4단계 퍼널 카드 그리드 */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#DCD6C9] shadow-xs space-y-2">
-                <span className="text-[13px] font-bold text-[#5A5E66] block">1단계. 배웅 검색 노출</span>
+                <span className="text-[0.8125rem] font-bold text-[#5A5E66] block">1단계. 배웅 검색 노출</span>
                 <p className="text-2xl sm:text-3xl font-reverence font-black text-[#151719]">
                   {report.impressions.toLocaleString()}
                   <span className="text-sm font-normal text-[#5A5E66] ml-1">회</span>
                 </p>
-                <p className="text-[13px] text-[#5A5E66]">권역 임종 상담 노출</p>
+                <p className="text-[0.8125rem] text-[#5A5E66]">권역 임종 상담 노출</p>
               </div>
 
               <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#DCD6C9] shadow-xs space-y-2">
-                <span className="text-[13px] font-bold text-[#5A5E66] block">2단계. 식장 상세 열람</span>
+                <span className="text-[0.8125rem] font-bold text-[#5A5E66] block">2단계. 식장 상세 열람</span>
                 <p className="text-2xl sm:text-3xl font-reverence font-black text-[#151719]">
                   {report.engagements.toLocaleString()}
                   <span className="text-sm font-normal text-[#5A5E66] ml-1">회</span>
                 </p>
-                <p className="text-[13px] text-[#19382C] font-bold">
+                <p className="text-[0.8125rem] text-[#19382C] font-bold">
                   열람률 {report.rates.engagementRate.toFixed(1)}%
                 </p>
               </div>
 
               <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#DCD6C9] shadow-xs space-y-2">
-                <span className="text-[13px] font-bold text-[#5A5E66] block">3단계. 안심 050 콜 연결</span>
+                <span className="text-[0.8125rem] font-bold text-[#5A5E66] block">3단계. 안심 050 콜 연결</span>
                 <p className="text-2xl sm:text-3xl font-reverence font-black text-[#19382C]">
                   {report.substantialCalls.toLocaleString()}
                   <span className="text-sm font-normal text-[#5A5E66] ml-1">건</span>
                 </p>
-                <p className="text-[13px] text-[#6E5429] font-bold">
+                <p className="text-[0.8125rem] text-[#6E5429] font-bold">
                   통화 전환율 {report.rates.callConnectRate.toFixed(1)}%
                 </p>
               </div>
 
               <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-[#19382C] shadow-xs space-y-2">
-                <span className="text-[13px] font-bold text-[#19382C] block">4단계. REF 견적 제시 유족</span>
+                <span className="text-[0.8125rem] font-bold text-[#19382C] block">4단계. REF 견적 제시 유족</span>
                 <p className="text-2xl sm:text-3xl font-reverence font-black text-[#8B2520]">
                   {report.quoteReferencesIssued.toLocaleString()}
                   <span className="text-sm font-normal text-[#5A5E66] ml-1">건</span>
                 </p>
-                <p className="text-[13px] text-[#8B2520] font-bold">
+                <p className="text-[0.8125rem] text-[#8B2520] font-bold">
                   현장 방문 확정 (100%)
                 </p>
               </div>
@@ -307,11 +307,11 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   배웅 플랫폼의 '데이터-과금 분리 (알선 수수료 0원)' 공정 약정
                 </h4>
               </div>
-              <p className="text-[13px] sm:text-sm text-[#42464E] leading-relaxed">
+              <p className="text-[0.8125rem] sm:text-sm text-[#42464E] leading-relaxed">
                 배웅은 유족 송객 건수나 빈소 결제 금액에 비례하여 10~30%(건당 50~150만 원)의 불법 리베이트를 요구하지 않습니다.
                 장례식장 파트너에게는 <strong>월 30만 원 정액 서비스 이용료</strong>만을 청구하며, 절감된 수수료는 유족의 빈소 30% 감면 혜택으로 전액 환원됩니다.
               </p>
-              <div className="flex flex-wrap items-center gap-3 pt-2 text-[13px]">
+              <div className="flex flex-wrap items-center gap-3 pt-2 text-[0.8125rem]">
                 <span className="bg-[#FAF9F6] text-[#19382C] px-3 py-1.5 rounded-lg border border-[#DCD6C9] font-bold">
                   ✓ 유족 송객 리베이트: 0원 (법률 위반 근절)
                 </span>
@@ -335,7 +335,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   <FileCheck className="w-5 h-5 text-[#19382C]" />
                   <span>배웅 유족 견적 참조번호(REF) 현장 즉시 검증</span>
                 </h3>
-                <p className="text-[13px] text-[#5A5E66]">
+                <p className="text-[0.8125rem] text-[#5A5E66]">
                   현장 방문 유족이 제시한 'REF-2026-KR-XXXX' 참조번호를 입력하시면 배웅 정찰 패키지 및 30% 감면 내역을 즉시 조회합니다.
                 </p>
               </div>
@@ -347,14 +347,14 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                     value={refQuery}
                     onChange={(e) => setRefQuery(e.target.value)}
                     placeholder="예: REF-2026-KR-8812"
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl font-mono text-[14px] font-bold text-[#151719] focus:outline-none focus:ring-2 focus:ring-[#19382C]"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl font-mono text-[0.875rem] font-bold text-[#151719] focus:outline-none focus:ring-2 focus:ring-[#19382C]"
                   />
                   <Search className="w-5 h-5 text-[#5A5E66] absolute left-3 top-3" />
                 </div>
                 <button
                   type="button"
                   onClick={() => handleVerifyRef()}
-                  className="px-6 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-xl font-reverence font-bold text-[13px] shrink-0 transition-colors shadow-xs cursor-pointer border border-[#2D4F43]"
+                  className="px-6 py-2.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-xl font-reverence font-bold text-[0.8125rem] shrink-0 transition-colors shadow-xs cursor-pointer border border-[#2D4F43]"
                 >
                   참조번호 검증
                 </button>
@@ -362,7 +362,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
 
               {/* 빠른 테스트 칩 */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="text-[13px] text-[#5A5E66] font-bold">빠른 테스트 번호:</span>
+                <span className="text-[0.8125rem] text-[#5A5E66] font-bold">빠른 테스트 번호:</span>
                 {['REF-2026-KR-8812', 'REF-2026-KR-4192', 'REF-2026-KR-7731'].map((code) => (
                   <button
                     key={code}
@@ -371,7 +371,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                       setRefQuery(code);
                       handleVerifyRef(code);
                     }}
-                    className="px-2.5 py-1 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] rounded-md font-mono text-[13px] font-bold text-[#19382C] cursor-pointer"
+                    className="px-2.5 py-1 bg-[#FAF9F6] hover:bg-[#F1EDE3] border border-[#DCD6C9] rounded-md font-mono text-[0.8125rem] font-bold text-[#19382C] cursor-pointer"
                   >
                     {code}
                   </button>
@@ -384,19 +384,19 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
               <div className="bg-white p-6 sm:p-8 rounded-2xl border-2 border-[#19382C] shadow-sm space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#DCD6C9] pb-4 gap-2">
                   <div className="space-y-0.5">
-                    <span className="text-[13px] font-bold text-[#6E5429]">
+                    <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                       발행일: {verifiedResult.issuedDate} · 배웅 정찰 의전 시스템
                     </span>
                     <h4 className="font-reverence font-black text-xl text-[#19382C]">
                       {verifiedResult.code} (검증 완료 정상 유효)
                     </h4>
                   </div>
-                  <span className="text-[13px] font-bold bg-[#19382C] text-[#DCE8E2] px-3 py-1 rounded-full border border-[#2D4F43] self-start sm:self-auto">
+                  <span className="text-[0.8125rem] font-bold bg-[#19382C] text-[#DCE8E2] px-3 py-1 rounded-full border border-[#2D4F43] self-start sm:self-auto">
                     30% 감면 및 리베이트 0원 승인필
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[0.8125rem]">
                   <div className="p-3.5 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-1">
                     <span className="text-[#5A5E66] block font-bold">방문 유족 (계약 상주):</span>
                     <span className="text-base font-bold text-[#151719] block">{verifiedResult.deceasedFamilyName}</span>
@@ -409,7 +409,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   </div>
                 </div>
 
-                <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] flex items-center justify-between text-[13px]">
+                <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] flex items-center justify-between text-[0.8125rem]">
                   <div className="flex items-center space-x-2">
                     <UserCheck className="w-5 h-5 text-[#19382C]" />
                     <span className="font-bold text-[#151719]">
@@ -431,21 +431,21 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
             <div className="bg-white p-6 sm:p-10 rounded-2xl border border-[#DCD6C9] shadow-sm space-y-6">
               <div className="border-b-2 border-[#151719] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <span className="text-[13px] text-[#6E5429] font-bold tracking-widest block uppercase">
+                  <span className="text-[0.8125rem] text-[#6E5429] font-bold tracking-widest block uppercase">
                     Monthly Flat-Rate Tax Invoice
                   </span>
                   <h3 className="text-xl sm:text-2xl font-reverence font-bold text-[#151719]">
                     전자세금계산서 (공급받는자 보관용)
                   </h3>
                 </div>
-                <div className="text-right text-[13px] font-mono text-[#5A5E66]">
+                <div className="text-right text-[0.8125rem] font-mono text-[#5A5E66]">
                   <p>승인번호: 20260928-BAEUNG-0912-8812</p>
                   <p>발행일자: 2026년 09월 28일</p>
                 </div>
               </div>
 
               {/* 공급자 & 공급받는자 */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[0.8125rem]">
                 <div className="p-4 bg-[#FAF9F6] rounded-xl border border-[#DCD6C9] space-y-1.5">
                   <span className="font-bold text-[#19382C] block border-b border-[#DCD6C9] pb-1">
                     공급자 (배웅 플랫폼)
@@ -467,7 +467,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
               </div>
 
               {/* 정산 품목 테이블 */}
-              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden text-[13px]">
+              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden text-[0.8125rem]">
                 <table className="w-full text-left divide-y divide-[#DCD6C9]">
                   <thead className="bg-[#FAF9F6] font-bold text-[#151719]">
                     <tr>
@@ -494,7 +494,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
 
               {/* 영수 날인 */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-[#DCD6C9] gap-4">
-                <div className="text-[13px] text-[#5A5E66] space-y-1">
+                <div className="text-[0.8125rem] text-[#5A5E66] space-y-1">
                   <p>• 본 계산서는 부가가치세법 제32조에 의거하여 전자 발급되었습니다.</p>
                   <p>• 유족 알선 수수료 0원 공정 계약에 따라 건별 성공 보수가 일체 청구되지 않습니다.</p>
                 </div>
@@ -502,7 +502,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   <span className="text-base font-reverence font-bold text-[#151719]">
                     주식회사 배웅 대표이사 강민석
                   </span>
-                  <span className="k-seal-red px-2 py-0.5 text-[13px]">印</span>
+                  <span className="k-seal-red px-2 py-0.5 text-[0.8125rem]">印</span>
                 </div>
               </div>
             </div>
@@ -511,7 +511,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
 
         {/* 신규 식장 입점 안내 푸터 */}
         <div className="p-4 bg-white rounded-xl border border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="text-[13px]">
+          <div className="text-[0.8125rem]">
             <p className="font-bold text-[#151719]">
               아직 배웅에 등록되지 않은 장례식장이신가요?
             </p>
@@ -522,7 +522,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
           <button
             type="button"
             onClick={() => setIsAdmissionOpen(true)}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg font-reverence font-bold text-[13px] shrink-0 transition-colors cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg font-reverence font-bold text-[0.8125rem] shrink-0 transition-colors cursor-pointer border border-[#2D4F43]"
           >
             장례식장 입점 신청서 작성
           </button>

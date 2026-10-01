@@ -257,7 +257,7 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
         <button
           type="button"
           onClick={() => setTtsEnabled(!ttsEnabled)}
-          className={`px-3 py-1.5 rounded-md text-[13px] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border ${
+          className={`px-3 py-1.5 rounded-md text-[0.8125rem] font-bold flex items-center space-x-1.5 transition-colors cursor-pointer border ${
             ttsEnabled
               ? 'bg-[#19382C] text-[#DCE8E2] border-[#2D4F43]'
               : 'bg-white/10 text-[#FAF9F6] border-white/20'
@@ -286,12 +286,12 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
               {isListening ? (
                 <>
                   <MicOff className="w-9 h-9 text-[#FAF9F6]" />
-                  <span className="text-[13px] font-bold mt-1">듣는 중...</span>
+                  <span className="text-[0.8125rem] font-bold mt-1">듣는 중...</span>
                 </>
               ) : (
                 <>
                   <Mic className="w-9 h-9 text-[#C2A26A]" />
-                  <span className="text-[13px] font-bold mt-1">터치 후 말씀</span>
+                  <span className="text-[0.8125rem] font-bold mt-1">터치 후 말씀</span>
                 </>
               )}
             </button>
@@ -312,7 +312,7 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
 
           {/* 간편 질문 칩 (무타자 원터치 지원) */}
           <div className="pt-2">
-            <span className="text-[13px] font-bold text-[#5A5E66] block mb-2">
+            <span className="text-[0.8125rem] font-bold text-[#5A5E66] block mb-2">
               터치 한 번으로 바로 물어보기:
             </span>
             <div className="flex flex-wrap justify-center gap-2">
@@ -324,7 +324,7 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
                     setSpeechTranscript(chip.query);
                     handleProcessQuery(chip.query);
                   }}
-                  className="px-3.5 py-2 bg-[#FAF9F6] hover:bg-[#F1EDE3] text-[#151719] border border-[#DCD6C9] rounded-full text-[13px] font-bold transition-colors cursor-pointer"
+                  className="px-3.5 py-2 bg-[#FAF9F6] hover:bg-[#F1EDE3] text-[#151719] border border-[#DCD6C9] rounded-full text-[0.8125rem] font-bold transition-colors cursor-pointer"
                 >
                   🎤 {chip.label}
                 </button>
@@ -368,10 +368,10 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
                 >
                   {response.displayTitle}
                 </h3>
-                <p className="text-[15px] sm:text-base text-[#42464E] leading-relaxed">
+                <p className="text-[0.9375rem] sm:text-base text-[#42464E] leading-relaxed">
                   {response.spokenMessage}
                 </p>
-                <p className="text-[13px] text-[#5A5E66] pt-1">
+                <p className="text-[0.8125rem] text-[#5A5E66] pt-1">
                   {response.displayDescription}
                 </p>
               </div>
@@ -400,13 +400,13 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
         <div className="p-4 bg-white rounded-xl border border-[#DCD6C9] flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <PhoneCall className="w-5 h-5 text-[#19382C]" />
-            <span className="text-[13px] font-bold text-[#151719]">
+            <span className="text-[0.8125rem] font-bold text-[#151719]">
               말씀이 어려우시면 언제든 전화 주십시오: <strong>1588-0000</strong> (24시 무료)
             </span>
           </div>
           <a
             href="tel:1588-0000"
-            className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg text-[13px] font-bold shrink-0"
+            className="px-3 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-lg text-[0.8125rem] font-bold shrink-0"
           >
             직통 전화
           </a>

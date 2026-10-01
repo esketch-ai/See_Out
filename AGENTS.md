@@ -59,8 +59,8 @@ className="text-[#E08578]"      // rouge.onDarkStrong (묵흑면 긴급 7.17:1)
 className="text-xs"          // Tailwind text-xs = 12px, N-7 위반
 className="text-[11px]"
 
-// 최소
-className="text-[13px]"       // typography.micro — 법적 고지·라벨 한정
+// 최소 — 그리고 반드시 rem
+className="text-[0.8125rem]" // 13px — typography.micro, 법적 고지·라벨 한정
 ```
 
 > **왜 놓쳤나** — N-7 검사기가 `text-[Npx]` 만 세고 `text-xs` 를 통과시켰다.
@@ -68,6 +68,51 @@ className="text-[13px]"       // typography.micro — 법적 고지·라벨 한�
 > 지금은 검사기가 이름 스케일까지 본다.
 
 본문은 18px 가 표준(`body`)이다. 13px 를 산문에 쓰지 않는다.
+
+### 2-1. ★ font-size 에 px 를 쓰지 않는다
+
+```tsx
+// 금지 — 값이 작든 크든
+className="text-[13px]"      // 「큰 글씨」 를 따라가지 않는다
+```
+
+**px 는 루트 font-size 를 못 받는다.** 그래서 두 곳이 동시에 무력해진다.
+
+| 곳 | 누구인가 | 상태 |
+|---|---|---|
+| `html.senior-large-font` | 노안 「글씨 확대」 버튼 | 죽어 있었음 |
+| OS 글자 크기 설정 | 90세 유족이 실제로 켠다 | 죽어 있었음 |
+
+> **왜 놓쳤나** — 「글씨 확대」 버튼이 **본문 45개 중 21개(47%)만** 키웠다.
+> 나머지 24개가 `text-[13px]` 고정 px 였다. **「노안용」 버튼이 노안에게
+> 아무 효과가 없는 상태**였고, 정적 검사는 CSS 를 읽지 않으므로 못 봤다.
+>
+> persona QA(`scripts/qa-personas.mjs`)가 실제로 눌러 보고 발견했다.
+
+**규칙**: `text-[Nrem]` 만 쓴다. 루트 16px 기준 `1px = 0.0625rem`.
+정본은 `src/web/design-system/tokens.ts` 의 `typography.fontSizeRem`.
+
+**검사**: `tests/modal-accessibility.test.ts` (px 금지 · rem 하한 · 배율 일치)
++ `scripts/audit-ui.mjs` (글확대 열 — 실제 반응률 90% 이상)
+
+### 2-2. ★ 배율은 정본과 어긋나지 않아야 한다
+
+`index.html` 의 `senior-large-font { font-size: 125% }` 와
+`tokens.largeFontScale` 이 갈리면 「노안용」 이 조용히 사라진다.
+검사기가 두 값을 비교한다.
+
+### 2-3. ★ 효과는 「측정」 으로만 증명된다
+
+`font-size` 효과를 확인할 때는 아래 세 가지를 **모두** 지킨다.
+
+1. **리플로우를 사이에 둔다** — 동기 블록 안에서 루트 `font-size` 를 바꾸면
+   `getComputedStyle` 이 `rem` 을 재해석하지 않는다. `requestAnimationFrame`
+   을 두 번await 한다.
+2. **텍스트를 Map 키로 쓰지 않는다** — 같은 문구가 두 요소에 있으면 엉뚱한
+   것끼리 비교해 통과시킨다.
+3. **DOM 을 evaluate 경계로 넘기지 않는다** — 참조가 끊겨 비교가 무의미해진다.
+
+이 세 가지를 지키지 않으면 「조용히 통과한다.」 실제로 세 번 그렇게 당했다.
 
 ---
 
@@ -241,9 +286,12 @@ git checkout src/web/components/LegalPolicyModal.tsx
 | 대비 미달 (비취면 위 ink 토큰) | 7건 | `scripts/audit-ui.mjs` |
 | 그라디언트 위 대비 오독 | 도구 결함 | `scripts/audit-ui.mjs` |
 | **사진 위 본문 (스크림 50% 미만)** | 1건 | `scripts/audit-ui.mjs` |
+| **「글씨 확대」 절반 무효 (px 고정)** | 24건 | `tests/` + `audit-ui.mjs` (글확대) |
+| **persona 과제 실패** | 12명 × 9여정 | `scripts/qa-personas.mjs` |
 | **폰에서만 나는 `truncate` 잘림** | 7건 | `scripts/audit-ui.mjs` (390px) |
 | **잘린 화면을 조용히 통과시키는 감사** | 도구 결함 | `scripts/audit-ui.mjs` (dist·포트 가드) |
 | 버튼 인덱스 기반 트리거 → 엉뚱한 버튼 | 도구 결함 | `scripts/audit-ui.mjs` (화면 글자 탐색) |
+| **rem 효과를 못 재는 측정** | 도구 결함 | 리플로우·키·경계 세 가지 (§2-3) |
 
 **문자열로 보이면 놓친다. 화면을 열어 재야 나온다.**
 구조·색·폰트는 `npm run audit:ui` 가 단언한다.

@@ -110,11 +110,11 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
             <div>
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6] flex items-center space-x-2">
                 <span>배웅 숏폼(Short-form) 콘텐츠 제작·배포 쇼케이스</span>
-                <span className="text-[13px] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
+                <span className="text-[0.8125rem] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                   유튜브·인스타·틱톡 3사 배포
                 </span>
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 사업계획서 3.2절 프리미엄 제작 대행 · 7.2절 자체 트래킹 지표 활용
               </p>
             </div>
@@ -123,7 +123,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[0.8125rem] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
             >
               <Printer className="w-4 h-4 text-[#C2A26A]" />
               <span className="hidden sm:inline">제작 안내서 인쇄</span>
@@ -138,7 +138,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-[13px] font-medium">
+        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-[0.8125rem] font-medium">
           <button
             onClick={() => setActiveTab('portfolio')}
             className={`py-3 px-4 border-b-2 font-bold whitespace-nowrap cursor-pointer transition-all flex items-center space-x-1.5 ${
@@ -184,25 +184,25 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
               {/* 상단 통계 요약 칩 */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
                 <div className="bg-[#FFFFFF] p-3 rounded-xl border border-[#DCD6C9]">
-                  <span className="text-[13px] text-[#5A5E66] block">누적 제작 편수</span>
+                  <span className="text-[0.8125rem] text-[#5A5E66] block">누적 제작 편수</span>
                   <span className="font-reverence font-bold text-xl text-[#141618]">{overview.totalProducedCount}개 작품</span>
                 </div>
                 <div className="bg-[#FFFFFF] p-3 rounded-xl border border-[#DCD6C9]">
-                  <span className="text-[13px] text-[#5A5E66] block">편당 평균 조회수</span>
+                  <span className="text-[0.8125rem] text-[#5A5E66] block">편당 평균 조회수</span>
                   <span className="font-reverence font-bold text-xl text-[#19382C]">{overview.avgViewsPerVideo.toLocaleString()}회</span>
                 </div>
                 <div className="bg-[#FFFFFF] p-3 rounded-xl border border-[#DCD6C9]">
-                  <span className="text-[13px] text-[#5A5E66] block">평균 시청 참여율</span>
+                  <span className="text-[0.8125rem] text-[#5A5E66] block">평균 시청 참여율</span>
                   <span className="font-reverence font-bold text-xl text-[#6E5429]">{overview.avgEngagementRate}%</span>
                 </div>
                 <div className="bg-[#FFFFFF] p-3 rounded-xl border border-[#DCD6C9]">
-                  <span className="text-[13px] text-[#5A5E66] block">프로필 링크 클릭</span>
+                  <span className="text-[0.8125rem] text-[#5A5E66] block">프로필 링크 클릭</span>
                   <span className="font-reverence font-bold text-xl text-[#19382C]">{overview.totalProfileClicks.toLocaleString()}건</span>
                 </div>
               </div>
 
               {/* 테마 필터 칩 */}
-              <div className="flex gap-1.5 overflow-x-auto text-[13px]">
+              <div className="flex gap-1.5 overflow-x-auto text-[0.8125rem]">
                 {[
                   { key: 'ALL', label: '전체 보기' },
                   { key: 'FAMILY_FUNERAL_GUIDE', label: '가족장 절차 가이드' },
@@ -230,9 +230,9 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <div className="md:col-span-5 flex flex-col items-center">
                   <div className="w-64 sm:w-72 bg-[#141618] rounded-3xl p-3 border-4 border-[#3D382E] shadow-xl relative overflow-hidden flex flex-col justify-between aspect-[9/16]">
                     {/* 상단 노치 & 스피커 */}
-                    <div className="flex justify-between items-center px-3 pt-1 text-[13px] text-white/60">
+                    <div className="flex justify-between items-center px-3 pt-1 text-[0.8125rem] text-white/60">
                       <span>배웅 Shorts</span>
-                      <span className="text-[13px] font-mono text-[#C2A26A]">{activeVideo.durationSeconds}초</span>
+                      <span className="text-[0.8125rem] font-mono text-[#C2A26A]">{activeVideo.durationSeconds}초</span>
                     </div>
 
                     {/* 영상 재생 시뮬레이션 화면 */}
@@ -240,7 +240,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center border border-white/30 mb-3 shadow-md">
                         <Play className="w-7 h-7 text-white fill-white ml-1" />
                       </div>
-                      <span className="text-[13px] font-bold text-[#C2A26A] bg-black/40 px-2.5 py-1 rounded-full mb-1">
+                      <span className="text-[0.8125rem] font-bold text-[#C2A26A] bg-black/40 px-2.5 py-1 rounded-full mb-1">
                         {activeVideo.themeLabel}
                       </span>
                       <h4 className="font-reverence font-bold text-sm text-[#FAF9F6] leading-snug">
@@ -249,12 +249,12 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                     </div>
 
                     {/* 하단 오버레이 정보 */}
-                    <div className="p-3 bg-gradient-to-t from-black/90 to-transparent rounded-2xl text-white space-y-1.5 text-[13px]">
+                    <div className="p-3 bg-gradient-to-t from-black/90 to-transparent rounded-2xl text-white space-y-1.5 text-[0.8125rem]">
                       <div className="font-bold text-[#FAF9F6]">{activeVideo.hallName}</div>
-                      <p className="text-[13px] text-white/80 line-clamp-2">
+                      <p className="text-[0.8125rem] text-white/80 line-clamp-2">
                         {activeVideo.scriptSummary}
                       </p>
-                      <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[13px] text-[#A8B2A9]">
+                      <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[0.8125rem] text-[#A8B2A9]">
                         <span className="flex items-center space-x-1">
                           <Eye className="w-3.5 h-3.5 text-[#C2A26A]" />
                           <span>{activeVideo.metrics.views.toLocaleString()}</span>
@@ -277,42 +277,42 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                   <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                     <div className="flex justify-between items-start gap-2">
                       <div>
-                        <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                        <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                           {activeVideo.themeLabel}
                         </span>
                         <h3 className="font-reverence font-bold text-lg text-[#141618] mt-1.5">
                           {activeVideo.title}
                         </h3>
-                        <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                        <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                           배포처: <b>{activeVideo.hallName}</b> | 배포일: {activeVideo.publishedDate}
                         </div>
                       </div>
                       <TraditionalSeal sealKey="truth" size="sm" />
                     </div>
 
-                    <div className="border-t border-[#DCD6C9] pt-3 space-y-2 text-[13px]">
+                    <div className="border-t border-[#DCD6C9] pt-3 space-y-2 text-[0.8125rem]">
                       <div className="font-bold text-[#151719]">45초 핵심 시나리오 구성:</div>
                       <p className="text-[#42464E] bg-[#FAF9F6] p-3 rounded-lg border border-[#DCD6C9] leading-relaxed">
                         {activeVideo.scriptSummary}
                       </p>
                     </div>
 
-                    <div className="space-y-1.5 text-[13px]">
+                    <div className="space-y-1.5 text-[0.8125rem]">
                       <div className="font-bold text-[#151719]">SNS 게시용 캡션 템플릿:</div>
-                      <p className="text-[#5A5E66] bg-[#FAF9F6] p-2.5 rounded border border-[#DCD6C9] font-mono text-[13px]">
+                      <p className="text-[#5A5E66] bg-[#FAF9F6] p-2.5 rounded border border-[#DCD6C9] font-mono text-[0.8125rem]">
                         {activeVideo.captionTemplate}
                       </p>
                     </div>
 
                     {/* 표시광고법 준수 고지 */}
-                    <div className="p-2.5 bg-[#FAF9F6] border border-[#F1E9DB] rounded text-[13px] text-[#6E5429]">
+                    <div className="p-2.5 bg-[#FAF9F6] border border-[#F1E9DB] rounded text-[0.8125rem] text-[#6E5429]">
                       {activeVideo.complianceDisclaimer}
                     </div>
                   </div>
 
                   {/* 포트폴리오 리스트 썸네일 카드들 */}
                   <div className="space-y-2">
-                    <div className="font-bold text-[13px] text-[#141618]">포트폴리오 영상 선택:</div>
+                    <div className="font-bold text-[0.8125rem] text-[#141618]">포트폴리오 영상 선택:</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {portfolio.map((item) => (
                         <button
@@ -325,11 +325,11 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                           }`}
                         >
                           <div className="flex justify-between items-center mb-1">
-                            <span className="text-[13px] font-bold text-[#19382C]">{item.themeLabel}</span>
-                            <span className="text-[13px] text-[#5A5E66] font-mono">{item.durationSeconds}초</span>
+                            <span className="text-[0.8125rem] font-bold text-[#19382C]">{item.themeLabel}</span>
+                            <span className="text-[0.8125rem] text-[#5A5E66] font-mono">{item.durationSeconds}초</span>
                           </div>
                           <div className="font-bold text-sm text-[#141618] line-clamp-1">{item.title}</div>
-                          <div className="text-[13px] text-[#5A5E66] mt-1 flex justify-between">
+                          <div className="text-[0.8125rem] text-[#5A5E66] mt-1 flex justify-between">
                             <span>조회 {item.metrics.views.toLocaleString()}회</span>
                             <span className="text-[#6E5429]">참여 {item.metrics.engagementRate}%</span>
                           </div>
@@ -346,20 +346,20 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
           {activeTab === 'platforms' && (
             <div className="relative z-10 space-y-6">
               <div className="border-b-2 border-[#151719] pb-4">
-                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-bold mb-1 border border-[#19382C]/20">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[0.8125rem] font-bold mb-1 border border-[#19382C]/20">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>사업계획서 7.2절 지표 연계 표준</span>
                 </div>
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   플랫폼 자체 지표 활용 및 표시광고법 준수 체계
                 </h2>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                   유튜브·인스타그램·틱톡의 공식 지표를 활용하여 별도 트래킹 구축 부담 없이 홍보 효과를 투명하게 증명합니다.
                 </p>
               </div>
 
               {/* 표시광고법 성과 비보장 원칙 배너 */}
-              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[13px] leading-relaxed font-serif text-[#19382C]">
+              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
                 <ShieldCheck className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
                 <div>
                   <b>[표시광고법 대응 원칙] 성과 "보장" 표현 금지 및 사실적 데이터 공개:</b><br />
@@ -369,12 +369,12 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
               </div>
 
               {/* 3대 플랫폼 특성 및 지표 카드 */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-[13px] font-serif">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-[0.8125rem] font-serif">
                 {/* 유튜브 쇼츠 */}
                 <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-base text-[#141618]">YouTube Shorts</span>
-                    <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
+                    <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded">
                       검색 유입 1위
                     </span>
                   </div>
@@ -392,7 +392,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>지역 검색 및 시설 랜선투어 최적화</span>
                     </div>
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     유튜브 검색 알고리즘과 연계되어 ‘지역명+장례식장’ 탐색 유족에게 장기적으로 지속 노출됩니다.
                   </p>
                 </div>
@@ -401,7 +401,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-base text-[#141618]">Instagram Reels</span>
-                    <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded">
+                    <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded">
                       참여·공유 1위
                     </span>
                   </div>
@@ -419,7 +419,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>조문 예절 및 정갈한 분위기 브랜딩</span>
                     </div>
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     젊은 유족들이 부모님 장례를 준비할 때 카드뉴스처럼 저장하고 친지들에게 전달하는 채널입니다.
                   </p>
                 </div>
@@ -428,7 +428,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-base text-[#141618]">TikTok</span>
-                    <span className="text-[13px] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
+                    <span className="text-[0.8125rem] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
                       바이럴 확산
                     </span>
                   </div>
@@ -446,7 +446,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>상식 퀴즈 및 오해 바로잡기 콘텐츠</span>
                     </div>
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     ‘장례 비용의 진실’, ‘봉투 작성법’ 등 정보성 팁이 높은 알고리즘 추천을 유발합니다.
                   </p>
                 </div>
@@ -461,19 +461,19 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   숏폼 콘텐츠 제작 대행 및 지역 노출 결합 번들 신청
                 </h2>
-                <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                   사업계획서 3.2절: 월 500,000원 결합 번들 선택 시 지역 우선 노출과 맞춤 숏폼 제작 월 2편이 패키지로 제공됩니다.
                 </p>
               </div>
 
               {submitMessage && (
-                <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[13px] font-bold text-[#19382C] flex items-center space-x-2">
+                <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[0.8125rem] font-bold text-[#19382C] flex items-center space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                   <span>{submitMessage}</span>
                 </div>
               )}
 
-              <form onSubmit={handleApplySubmit} className="p-5 sm:p-6 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-4 text-[13px]">
+              <form onSubmit={handleApplySubmit} className="p-5 sm:p-6 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-4 text-[0.8125rem]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* 신청 장례식장 */}
                   <div className="space-y-1.5">
@@ -537,11 +537,11 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-[#141618]">{item.label}</span>
-                          <span className={`text-[13px] font-bold ${appliedThemes.includes(item.theme) ? 'text-[#19382C]' : 'text-[#5A5E66]'}`}>
+                          <span className={`text-[0.8125rem] font-bold ${appliedThemes.includes(item.theme) ? 'text-[#19382C]' : 'text-[#5A5E66]'}`}>
                             {appliedThemes.includes(item.theme) ? '✓ 선택됨' : '선택'}
                           </span>
                         </div>
-                        <span className="text-[13px] text-[#5A5E66] block mt-0.5">{item.desc}</span>
+                        <span className="text-[0.8125rem] text-[#5A5E66] block mt-0.5">{item.desc}</span>
                       </button>
                     ))}
                   </div>
@@ -561,7 +561,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       />
                       <div>
                         <span className="font-bold text-[#141618] block">배웅 전담 촬영팀 현장 방문</span>
-                        <span className="text-[13px] text-[#5A5E66]">전문 촬영 감독이 방문하여 1시간 내 촬영 완료</span>
+                        <span className="text-[0.8125rem] text-[#5A5E66]">전문 촬영 감독이 방문하여 1시간 내 촬영 완료</span>
                       </div>
                     </label>
 
@@ -575,7 +575,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       />
                       <div>
                         <span className="font-bold text-[#141618] block">보유 사진·영상 자료 제공</span>
-                        <span className="text-[13px] text-[#5A5E66]">기존 보유하신 시설 사진을 편집·자막 그래픽화</span>
+                        <span className="text-[0.8125rem] text-[#5A5E66]">기존 보유하신 시설 사진을 편집·자막 그래픽화</span>
                       </div>
                     </label>
                   </div>
@@ -585,7 +585,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <div className="p-3.5 bg-[#FAF9F6] border border-[#F1E9DB] rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-3">
                   <div>
                     <span className="font-bold text-[#19382C] block">결합 번들 요금: 월 500,000원 (정액제)</span>
-                    <span className="text-[13px] text-[#6E5429]">
+                    <span className="text-[0.8125rem] text-[#6E5429]">
                       시범 권역 지역 우선 노출(월 30만 원) + 숏폼 월 2편 제작 대행(20만 원 상당) 패키지
                     </span>
                   </div>
@@ -603,7 +603,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
         </div>
 
         {/* 하단 고정 툴바 */}
-        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[13px]">
+        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[0.8125rem]">
           <span className="text-[#5A5E66]">
             제작 문의: shortform@baeung.kr · 전담 프로덕션 핫라인 1588-0000
           </span>

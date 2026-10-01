@@ -179,14 +179,14 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E10] via-[#0D0E10]/50 to-transparent flex flex-col justify-end p-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-[13px] font-serif mb-2 border border-[#2D4F43] w-fit">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/90 text-[#FAF9F6] text-[0.8125rem] font-serif mb-2 border border-[#2D4F43] w-fit">
             <TraditionalSeal sealKey="peace" size="sm" />
             <span>전국 1,080개 등록 장례식장 전수 데이터 연계</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             전국 장례식장 시설 지도 및 빈소 감면 명세
           </h2>
-          <p className="text-[#8A929D] text-[13px] sm:text-sm font-serif mt-1">
+          <p className="text-[#8A929D] text-[0.8125rem] sm:text-sm font-serif mt-1">
             거주지 인근 장례식장의 분향실·안치실 규모와 화장장 거리를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
           </p>
         </div>
@@ -194,15 +194,15 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
       {/* 2. 전국 17개 시도별 퀵 통계 칩 바 및 1단계 시범 권역 바로가기 */}
       <div className="bg-[#FAF9F6] rounded-lg p-3.5 md:p-4 border border-[#DCD6C9] space-y-3">
-        <div className="text-[13px] font-serif font-bold text-[#5A5E66] flex flex-wrap items-center justify-between gap-2">
+        <div className="text-[0.8125rem] font-serif font-bold text-[#5A5E66] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <span>지역별 장사 인프라 분포</span>
             <span className="text-[#6E5429] font-semibold">(1단계 시범 권역 38곳 실데이터 집중 가동 중)</span>
           </div>
-          <span className="text-[13px] text-[#6E5429] hidden sm:inline">※ 시도 또는 시범 권역을 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
+          <span className="text-[0.8125rem] text-[#6E5429] hidden sm:inline">※ 시도 또는 시범 권역을 클릭하시면 해당 지역으로 즉시 지도와 목록이 필터링됩니다</span>
         </div>
 
-        <div className="flex gap-1.5 overflow-x-auto pb-1 text-[13px]">
+        <div className="flex gap-1.5 overflow-x-auto pb-1 text-[0.8125rem]">
           {/* 1단계 시범 권역 하이라이트 칩 */}
           <button
             onClick={() => {
@@ -259,7 +259,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
         {/* 1단계 시범 권역 활성화 시 세부 자치구 칩 및 실데이터 분석 지표 바 */}
         {onlyPilotRegion && (
           <div className="pt-2 border-t border-[#DCD6C9] space-y-2">
-            <div className="flex flex-wrap items-center gap-1.5 text-[13px] font-serif">
+            <div className="flex flex-wrap items-center gap-1.5 text-[0.8125rem] font-serif">
               <span className="text-[#5A5E66] font-bold mr-1">시범 자치구:</span>
               {[
                 { key: 'all', label: '시범 권역 전체 (38곳)' },
@@ -273,7 +273,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                 <button
                   key={d.key}
                   onClick={() => setSelectedPilotDistrict(d.key)}
-                  className={`px-2.5 py-1 rounded text-[13px] transition-all cursor-pointer ${
+                  className={`px-2.5 py-1 rounded text-[0.8125rem] transition-all cursor-pointer ${
                     selectedPilotDistrict === d.key
                       ? 'bg-[#19382C] text-[#FAF9F6] font-bold shadow-xs'
                       : 'bg-[#FFFFFF] text-[#5A5E66] border border-[#DCD6C9] hover:bg-[#FAF9F6]'
@@ -286,7 +286,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
             {/* 시범 권역 핵심 분석 요약 인포박스 */}
             <div className="bg-[#FFFFFF] p-3.5 rounded border border-[#DCD6C9] space-y-3 font-serif">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[13px]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[0.8125rem]">
                 <div className="border-r border-[#DCD6C9] pr-2">
                   <span className="text-[#5A5E66] block">참여의향(LOI) 목표</span>
                   <span className="font-bold text-[#19382C] text-sm">8곳 이상 (20%)</span>
@@ -307,14 +307,14 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
               {/* B2B 장례식장 전용 1-Page 제안서 & LOI 신청 버튼 */}
               <div className="pt-2.5 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span className="text-[13px] text-[#6E5429]">
+                <span className="text-[0.8125rem] text-[#6E5429]">
                   ※ 장례식장 대표·사무장님: 월 30만원 정액 광고 협약 및 3개월 시범 참여의향서(LOI)를 확인하세요
                 </span>
                 <div className="flex items-center space-x-2 shrink-0 flex-wrap gap-1">
                   <button
                     type="button"
                     onClick={() => setIsExperimentModalOpen(true)}
-                    className="px-3.5 py-1.5 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded-md font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                    className="px-3.5 py-1.5 bg-[#FAF9F6] hover:bg-[#F1E9DB] text-[#19382C] border border-[#DCD6C9] rounded-md font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <TrendingUp className="w-3.5 h-3.5 text-[#9E7D47]" />
                     <span>대조군 실험 성과 분석</span>
@@ -322,7 +322,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                   <button
                     type="button"
                     onClick={() => setIsPilotLoiModalOpen(true)}
-                    className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                    className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5 text-[#C2A26A]" />
                     <span>1-Page 제안서 & LOI</span>
@@ -354,7 +354,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md px-3.5 py-3 text-sm font-medium text-[#151719] focus:outline-none focus:border-[#9E7D47] font-serif"
+            className="k-tap-lg w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md px-3.5 py-3 text-sm font-medium text-[#151719] focus:outline-none focus:border-[#9E7D47] font-serif"
           >
             <option value="all">전체 운영 형태</option>
             <option value="TERTIARY_HOSPITAL">대학·상급병원 부설</option>
@@ -368,7 +368,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
         <div className="md:col-span-3 flex items-center">
           <button
             onClick={() => setOnlyPartner(!onlyPartner)}
-            className={`w-full py-3 px-3.5 rounded-md font-serif font-medium text-[13px] sm:text-sm flex items-center justify-center space-x-1.5 border transition-all cursor-pointer ${
+            className={`w-full py-3 px-3.5 rounded-md font-serif font-medium text-[0.8125rem] sm:text-sm flex items-center justify-center space-x-1.5 border transition-all cursor-pointer ${
               onlyPartner
                 ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
                 : 'bg-[#FAF9F6] text-[#42464E] border-[#DCD6C9] hover:bg-[#FFFFFF]'
@@ -382,14 +382,14 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
       {/* 2.5. [사업계획서 1단계 옵션 B] 무빈소·가족장 원클릭 큐레이션 필터 칩 */}
       <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-        <div className="flex items-center space-x-2 text-[13px] font-serif font-bold text-[#151719] shrink-0">
+        <div className="flex items-center space-x-2 text-[0.8125rem] font-serif font-bold text-[#151719] shrink-0">
           <span className="text-[#6E5429]">장례 형태 맞춤 큐레이션:</span>
-          <span className="text-[13px] text-[#5A5E66] font-normal hidden md:inline">
+          <span className="text-[0.8125rem] text-[#5A5E66] font-normal hidden md:inline">
             (전국 948곳 무빈소 가능 식장 전수 매칭)
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 text-[13px] font-serif">
+        <div className="flex flex-wrap gap-1.5 text-[0.8125rem] font-serif">
           {[
             { id: 'all' as FuneralTypePreference, label: '전체 장례 형태' },
             { id: 'direct_cremation' as FuneralTypePreference, label: '🕊️ 무빈소 직송·안치 가능' },
@@ -413,17 +413,17 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
       {/* 2.6. [사업계획서 1단계 옵션 3] 3대 부가 제휴사 (봉안당·수목장·유품정리) 연계 바 */}
       <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-        <div className="flex items-center space-x-2 text-[13px] font-serif font-bold text-[#151719] shrink-0">
+        <div className="flex items-center space-x-2 text-[0.8125rem] font-serif font-bold text-[#151719] shrink-0">
           <Award className="w-4 h-4 text-[#9E7D47]" />
           <span>배웅 인증 3대 부가 제휴 연계:</span>
-          <span className="text-[13px] text-[#6E5429] font-normal hidden md:inline">
+          <span className="text-[0.8125rem] text-[#6E5429] font-normal hidden md:inline">
             (장사법·폐기물관리법 인허가 검증 · 공정위 리베이트 제재 준수 알선 수수료 0원 정찰제)
           </span>
         </div>
 
         <button
           onClick={() => setIsAffiliateModalOpen(true)}
-          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
+          className="px-3.5 py-1.5 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] rounded-md font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer self-start sm:self-auto"
         >
           <span>🌿 봉안당 · 수목장림 · 유품정리 명세 보기</span>
           <ChevronRight className="w-3.5 h-3.5 text-[#C2A26A]" />
@@ -431,7 +431,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
       </div>
 
       {/* 모바일 전용 뷰 탭 스위처 */}
-      <div className="md:hidden flex bg-[#FAF9F6] p-1 rounded-lg border border-[#DCD6C9] text-[13px] font-serif">
+      <div className="md:hidden flex bg-[#FAF9F6] p-1 rounded-lg border border-[#DCD6C9] text-[0.8125rem] font-serif">
         <button
           onClick={() => setMobileViewTab('list')}
           className={`flex-1 py-2 rounded text-center font-medium transition-all ${
@@ -464,9 +464,9 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         {/* ─── [좌측 컬럼: 장례식장 목록] (md:col-span-5) ─── */}
         <div className={`md:col-span-5 space-y-3 ${mobileViewTab !== 'list' ? 'hidden md:block' : ''}`}>
-          <div className="flex items-center justify-between text-[13px] font-serif font-bold text-[#5A5E66] px-1">
+          <div className="flex items-center justify-between text-[0.8125rem] font-serif font-bold text-[#5A5E66] px-1">
             <span>조회된 장례식장 ({halls.length}개소)</span>
-            <span className="text-[13px] text-[#6E5429]">원하시는 식장을 선택하세요</span>
+            <span className="text-[0.8125rem] text-[#6E5429]">원하시는 식장을 선택하세요</span>
           </div>
 
           <div className="space-y-2.5 max-h-[750px] overflow-y-auto pr-1">
@@ -495,11 +495,11 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                     <div className="flex justify-between items-start gap-2">
                       <div>
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[13px] font-serif font-medium text-[#5A5E66] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#DCD6C9]">
+                          <span className="text-[0.8125rem] font-serif font-medium text-[#5A5E66] bg-[#FAF9F6] px-1.5 py-0.5 rounded border border-[#DCD6C9]">
                             {getCategoryLabel(hall.category)}
                           </span>
                           {hall.pilotDistrict && (
-                            <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded border border-[#DCE8E2]">
+                            <span className="text-[0.8125rem] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-1.5 py-0.5 rounded border border-[#DCE8E2]">
                               시범 {hall.pilotDistrict}
                             </span>
                           )}
@@ -509,30 +509,30 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                         </h4>
                       </div>
                       {hall.isBaeungPartner ? (
-                        <span className="shrink-0 text-[13px] font-serif font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded border border-[#DCE8E2] flex items-center space-x-1">
+                        <span className="shrink-0 text-[0.8125rem] font-serif font-bold bg-[#DCE8E2] text-[#19382C] px-2 py-0.5 rounded border border-[#DCE8E2] flex items-center space-x-1">
                           <Sparkles className="w-3 h-3 text-[#6E5429]" />
                           <span>{Math.round(hall.discountRate * 100)}% 감면</span>
                         </span>
                       ) : (
-                        <span className="shrink-0 text-[13px] font-serif text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
+                        <span className="shrink-0 text-[0.8125rem] font-serif text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
                           일반 등록
                         </span>
                       )}
                     </div>
 
-                    <div className="text-[13px] text-[#5A5E66] mt-2 flex items-start space-x-1.5 font-serif">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-2 flex items-start space-x-1.5 font-serif">
                       <MapPin className="w-3.5 h-3.5 shrink-0 text-[#6E5429] mt-0.5" />
                       <span className="min-w-0 break-words">{hall.address}</span>
                     </div>
 
                     {hall.nearestSubway && (
-                      <div className="text-[13px] text-[#5A5E66] mt-1 flex items-start space-x-1.5 font-serif">
+                      <div className="text-[0.8125rem] text-[#5A5E66] mt-1 flex items-start space-x-1.5 font-serif">
                         <Train className="w-3 h-3 shrink-0 text-[#19382C] mt-0.5" />
                         <span className="min-w-0 break-words">{hall.nearestSubway}</span>
                       </div>
                     )}
 
-                    <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#DCD6C9] text-[13px] font-serif">
+                    <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#DCD6C9] text-[0.8125rem] font-serif">
                       <div>
                         <span className="text-[#5A5E66]">빈소/안치: </span>
                         <span className="font-bold text-[#151719]">{hall.roomCount}실 / {hall.capacityCount}구</span>
@@ -551,19 +551,19 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
           </div>
 
           {/* 사업계획서 3.1절 및 4.3절 공공데이터 비제휴 고지 및 옵트아웃 / B2B 정액제 입점 안내 바 */}
-          <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[13px] text-[#5A5E66] font-serif space-y-2">
+          <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[0.8125rem] text-[#5A5E66] font-serif space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <span>※ 본 정보는 e하늘 공공데이터 기반이며 배웅과 비제휴 관계입니다.</span>
               {selectedHall && (
                 <button
                   onClick={() => setIsOptOutModalOpen(true)}
-                  className="text-[#8B2520] hover:underline font-bold shrink-0 cursor-pointer text-left"
+                  className="k-tap k-tap-pad text-[#8B2520] hover:underline font-bold cursor-pointer text-left"
                 >
                   [장례식장 정보 수정 · 비노출 요청 (옵트아웃)]
                 </button>
               )}
             </div>
-            <div className="pt-1.5 border-t border-[#DCD6C9] flex justify-between items-center text-[13px]">
+            <div className="pt-1.5 border-t border-[#DCD6C9] flex justify-between items-center text-[0.8125rem]">
               <span className="text-[#5A5E66]">장례식장 사업자 및 원장님 전용:</span>
               <button
                 onClick={() => setIsB2BModalOpen(true)}
@@ -602,11 +602,11 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                 <div className="relative z-10 flex justify-between items-start gap-3">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-[13px] font-serif font-bold text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
+                      <span className="text-[0.8125rem] font-serif font-bold text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                         {getCategoryLabel(selectedHall.category)}
                       </span>
                       {selectedHall.isBaeungPartner && (
-                        <span className="text-[13px] font-serif font-bold bg-[#9E7D47] text-[#0D0E10] px-2 py-0.5 rounded">
+                        <span className="text-[0.8125rem] font-serif font-bold bg-[#9E7D47] text-[#0D0E10] px-2 py-0.5 rounded">
                           ★ 빈소 {discountInfo.discountRatePercentage}% 감면 제휴 식장
                         </span>
                       )}
@@ -614,7 +614,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                     <h3 className="text-xl md:text-2xl font-reverence font-bold text-[#FAF9F6] mt-2">
                       {selectedHall.name}
                     </h3>
-                    <div className="flex items-center space-x-2 text-[13px] text-[#8A929D] font-serif mt-1">
+                    <div className="flex items-center space-x-2 text-[0.8125rem] text-[#8A929D] font-serif mt-1">
                       <MapPin className="w-3.5 h-3.5 text-[#C2A26A] shrink-0" />
                       <span className="truncate">{selectedHall.address}</span>
                       <button
@@ -642,11 +642,11 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                 {/* 2-A. [실시간 견적기] 2일장 vs 3일장 감면 계산기 */}
                 <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg p-4 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-2.5">
-                    <span className="font-serif font-bold text-[13px] md:text-sm text-[#151719] flex items-center space-x-1.5">
+                    <span className="font-serif font-bold text-[0.8125rem] md:text-sm text-[#151719] flex items-center space-x-1.5">
                       <Sparkles className="w-4 h-4 text-[#6E5429]" />
                       <span>빈소 임대료 감면 혜택 계산기</span>
                     </span>
-                    <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-[13px] font-serif">
+                    <div className="flex bg-[#FAF9F6] p-0.5 rounded border border-[#DCD6C9] text-[0.8125rem] font-serif">
                       <button
                         onClick={() => setStayDays(2)}
                         className={`px-3 py-1 rounded transition-all cursor-pointer ${
@@ -668,13 +668,13 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                   <div className="grid grid-cols-3 gap-2 text-center font-serif py-1">
                     <div>
-                      <div className="text-[13px] text-[#5A5E66]">일반 정상 임대료</div>
+                      <div className="text-[0.8125rem] text-[#5A5E66]">일반 정상 임대료</div>
                       <div className="text-sm md:text-base font-bold text-[#42464E] mt-0.5">
                         {discountInfo.standardTotalRent.toLocaleString()}원
                       </div>
                     </div>
                     <div className="border-x border-[#DCD6C9]">
-                      <div className="text-[13px] text-[#6E5429] font-bold">
+                      <div className="text-[0.8125rem] text-[#6E5429] font-bold">
                         배웅 제휴 감면 ({discountInfo.discountRatePercentage}%)
                       </div>
                       <div className="text-sm md:text-base font-bold text-[#8B2520] mt-0.5">
@@ -682,7 +682,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                       </div>
                     </div>
                     <div>
-                      <div className="text-[13px] text-[#19382C] font-bold">배웅 회원 최종가</div>
+                      <div className="text-[0.8125rem] text-[#19382C] font-bold">배웅 회원 최종가</div>
                       <div className="text-base md:text-lg font-reverence font-black text-[#19382C] mt-0.5">
                         {discountInfo.discountedTotalRent.toLocaleString()}원
                       </div>
@@ -690,7 +690,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                   </div>
 
                   {selectedHall.isBaeungPartner && (
-                    <div className="bg-[#DCE8E2] border border-[#DCE8E2] rounded p-2 text-center text-[13px] font-serif text-[#19382C]">
+                    <div className="bg-[#DCE8E2] border border-[#DCE8E2] rounded p-2 text-center text-[0.8125rem] font-serif text-[#19382C]">
                       💡 배웅 사전 등록 시 <b>{discountInfo.discountAmount.toLocaleString()}원</b>이 현장에서 자동 감면 적용됩니다.
                     </div>
                   )}
@@ -701,10 +701,10 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                   <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-15" />
                   <div className="relative z-10 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
+                      <span className="text-[0.8125rem] font-serif font-bold text-[#19382C] bg-[#19382C]/10 px-2 py-0.5 rounded border border-[#19382C]/20">
                         공정위 리베이트 제재 지침 준수 · 100% 정찰제
                       </span>
-                      <span className="text-[13px] font-serif text-[#6E5429] font-bold">
+                      <span className="text-[0.8125rem] font-serif text-[#6E5429] font-bold">
                         부당 알선료 0원 보증
                       </span>
                     </div>
@@ -712,13 +712,13 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                     <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618]">
                       공식 정찰 견적서 및 견적 참조번호(REF) 즉시 발급
                     </h4>
-                    <p className="text-[13px] text-[#5A5E66] font-serif leading-relaxed">
+                    <p className="text-[0.8125rem] text-[#5A5E66] font-serif leading-relaxed">
                       장례식장 상담 시 발급된 <b>견적 참조번호</b>를 제시하시면, 사전 등록 고객으로 인식되어 부당 추가금 없이 정찰 감면 견적을 보장받습니다.
                     </p>
 
                     <button
                       onClick={() => setIsQuoteModalOpen(true)}
-                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-[13px] sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D4F43]"
+                      className="w-full py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-reverence font-bold text-[0.8125rem] sm:text-sm flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer border border-[#2D4F43]"
                     >
                       <FileText className="w-4 h-4 text-[#C2A26A]" />
                       <span>📄 공식 정찰 견적서 & 견적 참조번호(REF) 발급</span>
@@ -729,15 +729,15 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                 {/* 2-B. [정밀 제원 1] 평형별 빈소 규격 및 1일 임대료 단가표 */}
                 <div className="space-y-2.5">
-                  <div className="flex items-center justify-between text-[13px] font-serif font-bold text-[#151719]">
+                  <div className="flex items-center justify-between text-[0.8125rem] font-serif font-bold text-[#151719]">
                     <span className="flex items-center space-x-1.5">
                       <Building2 className="w-4 h-4 text-[#6E5429]" />
                       <span>분향실 규격별 상세 제원 및 1일 요금표</span>
                     </span>
-                    <span className="text-[13px] text-[#5A5E66]">총 {selectedHall.roomCount}개 분향실 운영</span>
+                    <span className="text-[0.8125rem] text-[#5A5E66]">총 {selectedHall.roomCount}개 분향실 운영</span>
                   </div>
 
-                  <div className="border border-[#DCD6C9] rounded-lg overflow-hidden text-[13px] font-serif">
+                  <div className="border border-[#DCD6C9] rounded-lg overflow-hidden text-[0.8125rem] font-serif">
                     <table className="w-full text-left divide-y divide-[#DCD6C9]">
                       <thead className="bg-[#FAF9F6] text-[#5A5E66] font-medium">
                         <tr>
@@ -763,7 +763,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                 {/* 2-C. [정밀 제원 2] 연계 화장시설(승화원) 이동 시간 및 거리 */}
                 {selectedHall.nearestCrematorium && (
-                  <div className="p-3.5 rounded-lg border border-[#DCD6C9] bg-[#FAF9F6] space-y-1.5 text-[13px] font-serif">
+                  <div className="p-3.5 rounded-lg border border-[#DCD6C9] bg-[#FAF9F6] space-y-1.5 text-[0.8125rem] font-serif">
                     <div className="flex items-center justify-between font-bold text-[#151719]">
                       <span className="flex items-center space-x-1.5">
                         <Flame className="w-4 h-4 text-[#8B2520]" />
@@ -777,14 +777,14 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                       <span>시설명: <b>{selectedHall.nearestCrematorium}</b></span>
                       <span>운구 차량 이동 지원</span>
                     </div>
-                    <p className="text-[13px] text-[#5A5E66] pt-1 border-t border-[#DCD6C9]">
+                    <p className="text-[0.8125rem] text-[#5A5E66] pt-1 border-t border-[#DCD6C9]">
                       ※ 발인 당일 승화원 화장 접수 및 전용 리무진 운구는 배웅 1급 장례지도사가 원스톱으로 전담합니다.
                     </p>
                   </div>
                 )}
 
                 {/* 2-D. [정밀 제원 3] 교통 접근성 및 주차 인프라 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px] font-serif">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[0.8125rem] font-serif">
                   <div className="p-3 rounded-lg border border-[#DCD6C9] bg-[#FFFFFF] space-y-1">
                     <span className="text-[#5A5E66] flex items-center space-x-1 font-bold">
                       <Train className="w-3.5 h-3.5 text-[#19382C]" />
@@ -808,12 +808,12 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                 {/* 2-E. 유족 편의시설 칩 */}
                 <div>
-                  <div className="text-[13px] font-serif font-bold text-[#5A5E66] mb-1.5">제공 편의시설</div>
+                  <div className="text-[0.8125rem] font-serif font-bold text-[#5A5E66] mb-1.5">제공 편의시설</div>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedHall.conveniences.map((conv, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded text-[13px] font-serif bg-[#FAF9F6] text-[#42464E] border border-[#DCD6C9]"
+                        className="px-2 py-0.5 rounded text-[0.8125rem] font-serif bg-[#FAF9F6] text-[#42464E] border border-[#DCD6C9]"
                       >
                         ✓ {conv}
                       </span>
@@ -829,7 +829,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                       setIsSynced(true);
                       setTimeout(() => setIsSynced(false), 3500);
                     }}
-                    className={`w-full py-2.5 px-4 rounded-md font-serif font-bold text-[13px] flex items-center justify-center space-x-2 transition-all cursor-pointer border ${
+                    className={`w-full py-2.5 px-4 rounded-md font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-2 transition-all cursor-pointer border ${
                       isSynced
                         ? 'bg-[#19382C] text-[#FAF9F6] border-[#2D4F43]'
                         : 'bg-[#9E7D47]/15 hover:bg-[#9E7D47]/25 text-[#6E5429] border-[#9E7D47]/40'
@@ -846,7 +846,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                   {isSynced && onNavigateToLifeArchive && (
                     <button
                       onClick={onNavigateToLifeArchive}
-                      className="w-full text-center text-[13px] text-[#19382C] font-bold underline cursor-pointer hover:text-[#2D4F43]"
+                      className="w-full text-center text-[0.8125rem] text-[#19382C] font-bold underline cursor-pointer hover:text-[#2D4F43]"
                     >
                       동기화된 생애기록관 부고장 확인하러 가기 ➔
                     </button>
@@ -857,13 +857,13 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                 <div className="pt-2 border-t border-[#DCD6C9]">
                   <button
                     onClick={() => setIsAffiliateModalOpen(true)}
-                    className="w-full py-2 px-3 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border border-[#F1E9DB] rounded-md text-[13px] font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full py-2 px-3 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border border-[#F1E9DB] rounded-md text-[0.8125rem] font-serif font-bold flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="flex items-center space-x-1.5">
                       <Award className="w-3.5 h-3.5 text-[#9E7D47]" />
                       <span>장례 후 안치·유품정리 (인증 봉안당·수목장림·유품정리 정찰제 제휴)</span>
                     </span>
-                    <span className="text-[13px] text-[#6E5429]">상세 보기 ➔</span>
+                    <span className="text-[0.8125rem] text-[#6E5429]">상세 보기 ➔</span>
                   </button>
                 </div>
 
@@ -871,7 +871,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                 <div className="pt-2 border-t border-[#DCD6C9] flex flex-col sm:flex-row gap-2.5">
                   <a
                     href={`tel:${selectedHall.phone}`}
-                    className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded-md font-serif font-bold text-[13px] md:text-sm flex items-center justify-center space-x-2 transition-all"
+                    className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#151719] border border-[#DCD6C9] rounded-md font-serif font-bold text-[0.8125rem] md:text-sm flex items-center justify-center space-x-2 transition-all"
                   >
                     <Phone className="w-4 h-4 text-[#6E5429]" />
                     <span>장례식장 직통 문의 ({selectedHall.phone})</span>
@@ -879,7 +879,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
 
                   <a
                     href="tel:1588-0000"
-                    className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-md font-serif font-bold text-[13px] md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
+                    className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-md font-serif font-bold text-[0.8125rem] md:text-sm flex items-center justify-center space-x-2 transition-all shadow-xs"
                   >
                     <ShieldCheck className="w-4 h-4 text-[#C2A26A]" />
                     <span>배웅 24시 빈소 우선 배정 신청</span>

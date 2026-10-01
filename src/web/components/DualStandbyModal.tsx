@@ -77,7 +77,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
           title={
             <>
               배웅 듀얼 스탠바이 (Dual-Standby) 안심 사전 등록증{' '}
-              <span className="text-[13px] bg-[#9E7D47]/20 text-[#C2A26A] px-2 py-0.5 rounded border border-[#9E7D47]/40 align-middle">
+              <span className="text-[0.8125rem] bg-[#9E7D47]/20 text-[#C2A26A] px-2 py-0.5 rounded border border-[#9E7D47]/40 align-middle">
                 비용 0원 • 평생 유효
               </span>
             </>
@@ -89,7 +89,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[13px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
+            className="px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white rounded-md font-serif font-bold text-[0.8125rem] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer border border-[#2D4F43]"
           >
             <Printer className="w-4 h-4 text-[#C2A26A]" />
             <span>A4 증서 인쇄 / PDF 저장</span>
@@ -110,20 +110,20 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
               <div className="flex items-center space-x-3">
                 <BaeungLogo variant="symbol" theme="light" size={40} />
                 <div>
-                  <span className="text-[13px] uppercase tracking-widest text-[#6E5429] font-bold block">
+                  <span className="text-[0.8125rem] uppercase tracking-widest text-[#6E5429] font-bold block">
                     Bae-ung Dual-Standby Certified Protocol
                   </span>
-                  <span className="text-[13px] text-[#5A5E66] font-mono">
+                  <span className="text-[0.8125rem] text-[#5A5E66] font-mono">
                     등록 인증 번호: <strong className="text-[#19382C]">{regId}</strong>
                   </span>
                 </div>
               </div>
               <div className="text-left sm:text-right">
-                <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded text-[13px] font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
+                <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded text-[0.8125rem] font-bold bg-[#DCE8E2] text-[#19382C] border border-[#DCE8E2]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#19382C]" />
                   <span>사전 무약정 승인 완료 (보증 유효)</span>
                 </span>
-                <p className="text-[13px] text-[#5A5E66] mt-0.5">등록일: {initialData.registeredAt || '당일 발급'} • 선금 0원 / 위약금 0원</p>
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">등록일: {initialData.registeredAt || '당일 발급'} • 선금 0원 / 위약금 0원</p>
               </div>
             </div>
 
@@ -132,14 +132,14 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black text-[#151719] tracking-tight">
                 배웅 이중안심 사전등록증
               </h1>
-              <p className="text-[13px] sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
+              <p className="text-[0.8125rem] sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
                 본 증서는 기존 선불식 상조에 가입 중인 유족이 부당한 위약금 손실을 입지 않고,
                 임종 시점에 가장 정직하고 투명한 의전을 선택할 수 있도록 배웅 의전위원회가 영구 보증하는 공식 등록 문서입니다.
               </p>
             </div>
 
             {/* 계약자 및 피공제자 정보 명세 */}
-            <div className="relative z-10 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-4 sm:p-5 space-y-3 text-[13px]">
+            <div className="relative z-10 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-4 sm:p-5 space-y-3 text-[0.8125rem]">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <span className="text-[#5A5E66]">사전 등록 신청자 (상주):</span>
@@ -180,7 +180,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                 <span>배웅 듀얼 스탠바이 4대 핵심 보장 헌장 (Four Guaranteed Rights)</span>
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[0.8125rem]">
                 {/* 1. 선택권 보장 */}
                 <div className="p-3.5 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-1">
                   <div className="flex items-center space-x-1 font-bold text-[#19382C]">
@@ -234,7 +234,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
                   <Phone className="w-5 h-5 animate-pulse" />
                 </div>
                 <div>
-                  <span className="text-[13px] text-[#C2A26A] font-bold block">
+                  <span className="text-[0.8125rem] text-[#C2A26A] font-bold block">
                     배웅 24시 전담 배정 장례지도사 직통 핫라인
                   </span>
                   <p className="text-sm font-bold text-[#FAF9F6]">
@@ -244,7 +244,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
               </div>
               <a
                 href={`tel:${directorPhone}`}
-                className="no-print px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white text-[13px] font-bold rounded-md flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+                className="no-print px-4 py-2 bg-[#19382C] hover:bg-[#2D4F43] text-white text-[0.8125rem] font-bold rounded-md flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
               >
                 <Phone className="w-3.5 h-3.5 text-[#C2A26A]" />
                 <span>지도사 직통 연결</span>
@@ -252,10 +252,10 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             </div>
 
             {/* 증서 하단 공인 직인 및 발행 정보 */}
-            <div className="relative z-10 pt-4 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[13px] text-[#5A5E66]">
+            <div className="relative z-10 pt-4 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[0.8125rem] text-[#5A5E66]">
               <div>
                 <p className="font-bold text-[#151719]">사단법인 한국디지털추모협회 • 배웅(Bae-ung) 상설의전위원회</p>
-                <p className="text-[13px] text-[#5A5E66]">
+                <p className="text-[0.8125rem] text-[#5A5E66]">
                   공정거래위원회 선불식 할부계약 소비자보호 가이드라인 준수 등록 문서
                 </p>
               </div>
@@ -274,7 +274,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             {onOpenVoucherModal && (
               <button
                 onClick={onOpenVoucherModal}
-                className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border-2 border-[#C2A26A]/50 rounded-xl font-bold text-[13px] md:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-xs"
+                className="flex-1 py-3 px-4 bg-[#FAF9F6] hover:bg-[#FAF9F6] text-[#6E5429] border-2 border-[#C2A26A]/50 rounded-xl font-bold text-[0.8125rem] md:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-xs"
               >
                 <Sparkles className="w-4 h-4 text-[#6E5429]" />
                 <span>50만 원 손실 보전 크레딧 바우처 확인하기</span>
@@ -284,7 +284,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             {onOpenCancellationClaim && (
               <button
                 onClick={onOpenCancellationClaim}
-                className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-xl font-bold text-[13px] md:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-xs"
+                className="flex-1 py-3 px-4 bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] border border-[#2D4F43] rounded-xl font-bold text-[0.8125rem] md:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-xs"
               >
                 <FileText className="w-4 h-4 text-[#C2A26A]" />
                 <span>공정위 법정 해약환급금 내용증명 신청서 작성</span>

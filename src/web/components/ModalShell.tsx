@@ -271,7 +271,7 @@ export const ModalToolbar: React.FC<ModalToolbarProps> = ({
           {title}
         </div>
         {subtitle && (
-          <div id={descriptionId} className="text-[13px] text-[#A69E8F] truncate">
+          <div id={descriptionId} className="text-[0.8125rem] text-[#A69E8F] truncate">
             {subtitle}
           </div>
         )}

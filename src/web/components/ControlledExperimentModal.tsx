@@ -95,11 +95,11 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
             <div>
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6] flex items-center space-x-2">
                 <span>시범 권역 대조군 실험 & 자율 신고 성과 분석</span>
-                <span className="text-[13px] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
+                <span className="text-[0.8125rem] font-mono font-normal text-[#C2A26A] bg-[#19382C] px-2 py-0.5 rounded border border-[#2D4F43]">
                   {report.reportId}
                 </span>
               </h3>
-              <p className="text-[13px] text-[#A8B2A9]">
+              <p className="text-[0.8125rem] text-[#A8B2A9]">
                 사업계획서 7.3절 인과관계 입증 체계 · 10.1절 3대 착수 검증 기준 판정
               </p>
             </div>
@@ -108,7 +108,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[13px] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-[#19382C] hover:bg-[#2D4F43] text-[#FAF9F6] text-[0.8125rem] font-serif flex items-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
             >
               <Printer className="w-4 h-4 text-[#C2A26A]" />
               <span className="hidden sm:inline">실험 리포트 인쇄</span>
@@ -123,7 +123,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-[13px] font-medium">
+        <div className="no-print bg-[#FFFFFF] border-b border-[#DCD6C9] px-4 sm:px-6 flex overflow-x-auto text-[0.8125rem] font-medium">
           <button
             onClick={() => setActiveTab('lift')}
             className={`py-3 px-4 border-b-2 font-bold whitespace-nowrap cursor-pointer transition-all flex items-center space-x-1.5 ${
@@ -169,29 +169,29 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
               {/* 헤더 */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-[#151719] pb-4 gap-4">
                 <div>
-                  <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-bold mb-1 border border-[#19382C]/20">
+                  <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[0.8125rem] font-bold mb-1 border border-[#19382C]/20">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>통계적 유의성 검증 완료 (p = {report.pValue} &lt; 0.01)</span>
                   </div>
                   <h1 className="font-reverence font-black text-2xl md:text-3xl text-[#141618] tracking-tight">
                     {report.title}
                   </h1>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     분석 기간: <b>{report.period}</b> | 대상 권역: <b>{report.pilotRegionName} (총 {report.totalHallsCount}개소)</b>
                   </p>
                 </div>
                 <div className="flex items-center space-x-3 shrink-0 self-start sm:self-center">
                   <div className="text-right font-serif">
-                    <div className="text-[13px] text-[#5A5E66]">실험 설계</div>
+                    <div className="text-[0.8125rem] text-[#5A5E66]">실험 설계</div>
                     <div className="text-base font-bold text-[#19382C]">동일 권역 준실험(Quasi-Exp)</div>
-                    <div className="text-[13px] text-[#6E5429]">외생변수 통제 완료</div>
+                    <div className="text-[0.8125rem] text-[#6E5429]">외생변수 통제 완료</div>
                   </div>
                   <TraditionalSeal sealKey="truth" size="md" />
                 </div>
               </div>
 
               {/* 통계적 인과관계 입증 결과 요약 카드 */}
-              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[13px] leading-relaxed font-serif text-[#19382C]">
+              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
                 <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
                 <div>
                   <b>사업계획서 7.3절 인과관계 검증 결론:</b><br />
@@ -202,59 +202,59 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
               {/* 핵심 Lift 비교 카드 그리드 */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-serif">
                 <div className="bg-[#FFFFFF] p-4 rounded-xl border border-[#DCD6C9] space-y-1 shadow-xs">
-                  <span className="text-[13px] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
+                  <span className="text-[0.8125rem] font-bold text-[#5A5E66] bg-[#FAF9F6] px-2 py-0.5 rounded border border-[#DCD6C9]">
                     노출 증분 (PV Lift)
                   </span>
                   <div className="text-2xl md:text-3xl font-reverence font-bold text-[#141618] pt-1">
                     +{report.lift.impressionLiftPercent}%
                   </div>
-                  <div className="text-[13px] text-[#5A5E66]">
+                  <div className="text-[0.8125rem] text-[#5A5E66]">
                     제공 {report.treatmentStats.avgImpressions} vs 대조 {report.controlStats.avgImpressions}
                   </div>
                 </div>
 
                 <div className="bg-[#FFFFFF] p-4 rounded-xl border border-[#DCD6C9] space-y-1 shadow-xs">
-                  <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                  <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
                     접촉 시도 증분 (Click Lift)
                   </span>
                   <div className="text-2xl md:text-3xl font-reverence font-bold text-[#19382C] pt-1">
                     +{report.lift.contactLiftPercent}%
                   </div>
-                  <div className="text-[13px] text-[#5A5E66]">
+                  <div className="text-[0.8125rem] text-[#5A5E66]">
                     제공 {report.treatmentStats.avgContactClicks} vs 대조 {report.controlStats.avgContactClicks}
                   </div>
                 </div>
 
                 <div className="bg-[#FFFFFF] p-4 rounded-xl border-2 border-[#19382C] space-y-1 shadow-xs">
-                  <span className="text-[13px] font-bold text-[#FAF9F6] bg-[#19382C] px-2 py-0.5 rounded">
+                  <span className="text-[0.8125rem] font-bold text-[#FAF9F6] bg-[#19382C] px-2 py-0.5 rounded">
                     실질 통화 증분 (Call Lift)
                   </span>
                   <div className="text-2xl md:text-3xl font-reverence font-black text-[#19382C] pt-1">
                     {report.lift.callLiftRatio}배 <span className="text-sm font-normal">(+{report.lift.callLiftPercent}%)</span>
                   </div>
-                  <div className="text-[13px] text-[#19382C] font-bold">
+                  <div className="text-[0.8125rem] text-[#19382C] font-bold">
                     30초 이상 가상번호 통화
                   </div>
                 </div>
 
                 <div className="bg-[#FFFFFF] p-4 rounded-xl border-2 border-[#19382C] space-y-1 shadow-xs">
-                  <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
+                  <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
                     견적 발급 증분 (Quote Lift)
                   </span>
                   <div className="text-2xl md:text-3xl font-reverence font-black text-[#6E5429] pt-1">
                     {report.lift.quoteLiftRatio}배 <span className="text-sm font-normal">(+{report.lift.quoteLiftPercent}%)</span>
                   </div>
-                  <div className="text-[13px] text-[#6E5429] font-bold">
+                  <div className="text-[0.8125rem] text-[#6E5429] font-bold">
                     견적 참조번호 발급 건수
                   </div>
                 </div>
               </div>
 
               {/* 상세 대조표 */}
-              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[13px] font-serif shadow-xs">
+              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[0.8125rem] font-serif shadow-xs">
                 <div className="bg-[#141618] text-[#FAF9F6] p-3.5 px-4 font-bold flex items-center justify-between">
                   <span>광고 제공군(Treatment) vs 비제공 대조군(Control) 평균 비교표</span>
-                  <span className="text-[13px] text-[#C2A26A]">수도권 동남부 38개소 전수 집계</span>
+                  <span className="text-[0.8125rem] text-[#C2A26A]">수도권 동남부 38개소 전수 집계</span>
                 </div>
                 <table className="w-full text-left divide-y divide-[#DCD6C9]">
                   <thead className="bg-[#FAF9F6] text-[#5A5E66]">
@@ -315,20 +315,20 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   파트너 장례식장 월간 자율 신고 창구
                 </h2>
-                <p className="text-[13px] text-[#5A5E66] mt-1">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1">
                   사업계획서 7.3절: 금전 대가 없는 자발적 간이 설문으로 실제 계약 전환 건수 및 갱신 의향을 파악합니다.
                 </p>
               </div>
 
               {submitSuccessMessage && (
-                <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[13px] font-bold text-[#19382C] flex items-center space-x-2">
+                <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[0.8125rem] font-bold text-[#19382C] flex items-center space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
                   <span>{submitSuccessMessage}</span>
                 </div>
               )}
 
               {/* 자율 신고 폼 */}
-              <form onSubmit={handleSubmitSelfReport} className="p-5 sm:p-6 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-4 text-[13px]">
+              <form onSubmit={handleSubmitSelfReport} className="p-5 sm:p-6 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-4 text-[0.8125rem]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* 대상 장례식장 선택 */}
                   <div className="space-y-1.5">
@@ -372,7 +372,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       onChange={(e) => setQuoteCount(parseInt(e.target.value) || 0)}
                       className="w-full p-2.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[#151719] focus:outline-none focus:border-[#19382C]"
                     />
-                    <span className="text-[13px] text-[#5A5E66] block">
+                    <span className="text-[0.8125rem] text-[#5A5E66] block">
                       상담 시 유족이 구두 또는 스마트폰 화면으로 제시한 REF 코드 건수
                     </span>
                   </div>
@@ -390,7 +390,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       onChange={(e) => setContractCount(parseInt(e.target.value) || 0)}
                       className="w-full p-2.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[#151719] focus:outline-none focus:border-[#19382C]"
                     />
-                    <span className="text-[13px] text-[#5A5E66] block">
+                    <span className="text-[0.8125rem] text-[#5A5E66] block">
                       배웅 플랫폼을 통해 유입되어 실제 의전이 진행된 건수
                     </span>
                   </div>
@@ -409,7 +409,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                     <span className="font-bold text-[#19382C] block">
                       시범 기간(3개월) 종료 후 월 30만 원 정액 광고 유료 갱신 의향 (10.1절 지표)
                     </span>
-                    <span className="text-[13px] text-[#5A5E66]">
+                    <span className="text-[0.8125rem] text-[#5A5E66]">
                       리베이트 없이 정액제로 안정적인 유족 상담을 확보할 수 있다면 향후에도 계약을 유지하시겠습니까?
                     </span>
                   </label>
@@ -439,7 +439,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
               </form>
 
               {/* 최근 제출된 자율 신고 목록 */}
-              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[13px]">
+              <div className="border border-[#DCD6C9] rounded-xl overflow-hidden bg-[#FFFFFF] text-[0.8125rem]">
                 <div className="bg-[#141618] text-[#FAF9F6] p-3 px-4 font-bold">
                   최근 접수된 파트너 장례식장 자율 신고 내역 ({selfReports.length}건)
                 </div>
@@ -448,17 +448,17 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                     <div key={sr.submissionId} className="p-3.5 space-y-1">
                       <div className="flex justify-between items-center">
                         <span className="font-bold text-[#141618]">{sr.hallName}</span>
-                        <span className="text-[13px] text-[#19382C] font-bold bg-[#DCE8E2] px-2 py-0.5 rounded">
+                        <span className="text-[0.8125rem] text-[#19382C] font-bold bg-[#DCE8E2] px-2 py-0.5 rounded">
                           {sr.renewalIntent ? '✓ 갱신 의향 있음' : '미정'}
                         </span>
                       </div>
-                      <div className="text-[13px] text-[#5A5E66] flex space-x-4">
+                      <div className="text-[0.8125rem] text-[#5A5E66] flex space-x-4">
                         <span>견적 참조번호 확인: <b>{sr.reportedQuoteCount}건</b></span>
                         <span>실제 계약 성약: <b>{sr.reportedContractCount}건</b></span>
                         <span>만족도: <b>{'★'.repeat(sr.satisfactionScore)}</b></span>
                       </div>
                       {sr.feedbackNote && (
-                        <p className="text-[13px] text-[#42464E] bg-[#FAF9F6] p-2 rounded border border-[#DCD6C9] mt-1">
+                        <p className="text-[0.8125rem] text-[#42464E] bg-[#FAF9F6] p-2 rounded border border-[#DCD6C9] mt-1">
                           “{sr.feedbackNote}”
                         </p>
                       )}
@@ -473,14 +473,14 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
           {activeTab === 'criteria' && (
             <div className="relative z-10 space-y-6">
               <div className="border-b-2 border-[#151719] pb-4">
-                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[13px] font-bold mb-1 border border-[#19382C]/20">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] text-[0.8125rem] font-bold mb-1 border border-[#19382C]/20">
                   <Award className="w-3.5 h-3.5" />
                   <span>사업계획서 10.1절 공식 지표</span>
                 </div>
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   시범 권역 오픈 전 3대 착수 검증 기준 달성도
                 </h2>
-                <p className="text-[13px] text-[#5A5E66] mt-1">
+                <p className="text-[0.8125rem] text-[#5A5E66] mt-1">
                   1단계 전면 유료 슬롯 런칭 전, 시장 수용성을 객관적으로 입증하는 3대 게이트키핑 기준입니다.
                 </p>
               </div>
@@ -490,8 +490,8 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 {/* 1. LOI 참여율 */}
                 <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-start">
-                    <span className="text-[13px] font-bold text-[#5A5E66]">기준 1: LOI 참여율</span>
-                    <span className={`text-[13px] font-bold px-2 py-0.5 rounded border ${
+                    <span className="text-[0.8125rem] font-bold text-[#5A5E66]">기준 1: LOI 참여율</span>
+                    <span className={`text-[0.8125rem] font-bold px-2 py-0.5 rounded border ${
                       criteriaStatus.isLoiPassed
                         ? 'bg-[#DCE8E2] text-[#19382C] border-[#DCE8E2]'
                         : 'bg-[#F1E9DB] text-[#6E5429] border-[#F1E9DB]'
@@ -503,7 +503,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                     <div className="text-2xl font-bold font-reverence text-[#141618]">
                       {criteriaStatus.loiParticipationRate}%
                     </div>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                       접수 <b>{criteriaStatus.loiCount}곳</b> / 목표 {criteriaStatus.loiTargetCount}곳 (대상 38곳의 20%)
                     </div>
                   </div>
@@ -513,7 +513,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.loiParticipationRate / 20) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
                     월 30만 원 정액 광고 사전참여의향서(LOI)를 제출한 장례식장 비율입니다.
                   </p>
                 </div>
@@ -521,8 +521,8 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 {/* 2. 견적 회수율 */}
                 <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-start">
-                    <span className="text-[13px] font-bold text-[#5A5E66]">기준 2: 견적 회수율</span>
-                    <span className={`text-[13px] font-bold px-2 py-0.5 rounded border ${
+                    <span className="text-[0.8125rem] font-bold text-[#5A5E66]">기준 2: 견적 회수율</span>
+                    <span className={`text-[0.8125rem] font-bold px-2 py-0.5 rounded border ${
                       criteriaStatus.isQuoteCollectionPassed
                         ? 'bg-[#DCE8E2] text-[#19382C] border-[#DCE8E2]'
                         : 'bg-[#F1E9DB] text-[#6E5429] border-[#F1E9DB]'
@@ -534,7 +534,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                     <div className="text-2xl font-bold font-reverence text-[#141618]">
                       {criteriaStatus.quoteCollectionRate}%
                     </div>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                       검증 <b>{criteriaStatus.collectedCount}곳</b> / 목표 {criteriaStatus.collectionTargetCount}곳 (대상 38곳의 50%)
                     </div>
                   </div>
@@ -544,7 +544,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.quoteCollectionRate / 50) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
                     표준 시나리오(3일장·무빈소) 기준 현장 실비 검증이 완료된 비율입니다.
                   </p>
                 </div>
@@ -552,8 +552,8 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 {/* 3. 3개월차 갱신 의향 */}
                 <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DCD6C9] space-y-3 shadow-xs">
                   <div className="flex justify-between items-start">
-                    <span className="text-[13px] font-bold text-[#5A5E66]">기준 3: 유료 갱신 의향</span>
-                    <span className={`text-[13px] font-bold px-2 py-0.5 rounded border ${
+                    <span className="text-[0.8125rem] font-bold text-[#5A5E66]">기준 3: 유료 갱신 의향</span>
+                    <span className={`text-[0.8125rem] font-bold px-2 py-0.5 rounded border ${
                       criteriaStatus.isRenewalIntentPassed
                         ? 'bg-[#DCE8E2] text-[#19382C] border-[#DCE8E2]'
                         : 'bg-[#F1E9DB] text-[#6E5429] border-[#F1E9DB]'
@@ -565,7 +565,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                     <div className="text-2xl font-bold font-reverence text-[#141618]">
                       {criteriaStatus.renewalIntentRate}%
                     </div>
-                    <div className="text-[13px] text-[#5A5E66] mt-0.5">
+                    <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
                       찬성 <b>{criteriaStatus.renewalIntentCount}곳</b> / 응답 {criteriaStatus.totalRespondents}곳 (기준 60% 이상)
                     </div>
                   </div>
@@ -575,14 +575,14 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.renewalIntentRate / 60) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[13px] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
                     시범 운영 후 월 30만 원 정액 유료 광고를 지속 유지하겠다는 장례식장 비율입니다.
                   </p>
                 </div>
               </div>
 
               {/* 종합 판정 배너 */}
-              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-center justify-between text-[13px] font-serif">
+              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-center justify-between text-[0.8125rem] font-serif">
                 <div className="space-y-0.5">
                   <div className="font-bold text-[#19382C] text-sm flex items-center space-x-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#19382C]" />
@@ -594,7 +594,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       : '일부 기준이 검증 진행 중입니다. LOI 회수 및 견적 검증을 지속 가동합니다.'}
                   </div>
                 </div>
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#FAF9F6] px-3 py-1.5 rounded-lg border border-[#DCD6C9] shrink-0">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#FAF9F6] px-3 py-1.5 rounded-lg border border-[#DCD6C9] shrink-0">
                   {criteriaStatus.allCriteriaPassed ? '적격 판정 (GO)' : '검증 진행 중'}
                 </span>
               </div>
@@ -603,7 +603,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
         </div>
 
         {/* 하단 고정 툴바 */}
-        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[13px]">
+        <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[0.8125rem]">
           <span className="text-[#5A5E66]">
             효과 측정 지원: analytics@baeung.kr · 장례식장 파트너 핫라인 1588-0000
           </span>

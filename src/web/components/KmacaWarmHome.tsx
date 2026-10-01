@@ -62,7 +62,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
 
         {/* 배너 카피 & 즉각적인 CTA 버튼 */}
         <div className="relative z-10 p-6 sm:p-10 md:p-12 max-w-lg space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-[13px] font-bold bg-[#19382C]/10 text-[#19382C] border border-[#19382C]/20">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-[0.8125rem] font-bold bg-[#19382C]/10 text-[#19382C] border border-[#19382C]/20">
             <TraditionalSeal sealKey="mourningCondolence" size="sm" />
             <span>대한민국 1호 공공데이터 기반 안심 장례</span>
           </div>
@@ -94,7 +94,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               {/* 전화번호가 「1588-」 / 「0000」 로 어중간하게 끊기면 유족이
                   다시 읽어야 한다. 라벨과 번호를 나눠 각자 한 줄에 묶는다. */}
               <span className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2 leading-tight">
-                <span className="text-[13px] font-normal whitespace-nowrap">상황실 직통</span>
+                <span className="text-[0.8125rem] font-normal whitespace-nowrap">상황실 직통</span>
                 <span className="whitespace-nowrap">1588-0000</span>
               </span>
             </a>
@@ -110,14 +110,14 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           </div>
           <div className="space-y-1">
             <div className="flex items-center space-x-2">
-              <span className="text-[13px] font-bold px-2 py-0.5 rounded bg-[#8B2520] text-[#FAF9F6]">
+              <span className="text-[0.8125rem] font-bold px-2 py-0.5 rounded bg-[#8B2520] text-[#FAF9F6]">
                 긴급 상황
               </span>
               <h2 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 방금 임종을 맞이하셨습니까?
               </h2>
             </div>
-            <p className="text-[13px] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
+            <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
               경황없는 슬픔의 순간, 당황하지 마십시오. 24시간 언제든 연락 주시면 국가공인 1급 장례지도사가 2시간 이내에 현장으로 즉시 출동하여 고인의 이송부터 빈소 안치까지 온 마음으로 곁을 지킵니다.
             </p>
           </div>
@@ -156,7 +156,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
               상조 증서 안심 진단
             </span>
-            <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
+            <span className="text-[0.8125rem] text-[#5A5E66] mt-1 break-words">
               가입 상품 1:1 정직한 비교
             </span>
           </button>
@@ -173,7 +173,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
               장례식장 찾기
             </span>
-            <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
+            <span className="text-[0.8125rem] text-[#5A5E66] mt-1 break-words">
               전국 1,080곳 실시간
             </span>
           </button>
@@ -190,7 +190,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
               정찰 패키지
             </span>
-            <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
+            <span className="text-[0.8125rem] text-[#5A5E66] mt-1 break-words">
               투명한 품목 단가 공개
             </span>
           </button>
@@ -207,7 +207,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
               이중안심(二重安心)
             </span>
-            <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
+            <span className="text-[0.8125rem] text-[#5A5E66] mt-1 break-words">
               기존 상조 유지 0원 대비
             </span>
           </button>
@@ -224,7 +224,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="font-bold text-base text-[#151719] group-hover:text-[#19382C] break-words">
               긴급 상황실
             </span>
-            <span className="text-[13px] text-[#5A5E66] mt-1 break-words">
+            <span className="text-[0.8125rem] text-[#5A5E66] mt-1 break-words">
               전국 2시간 내 도착
             </span>
           </button>
@@ -237,10 +237,10 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
         <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-5 shadow-xs flex flex-col justify-between">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 다큐멘터리 극장
               </span>
-              <span className="text-[13px] text-[#5A5E66]">03:45</span>
+              <span className="text-[0.8125rem] text-[#5A5E66]">03:45</span>
             </div>
 
             {/* 비디오 썸네일 카드 & 재생 오버레이 */}
@@ -268,22 +268,22 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <h3 className="font-bold text-base text-[#151719] break-words">
                 배웅이 지켜온 약속: 투명한 장례 이야기
               </h3>
-              <p className="text-[13px] text-[#5A5E66] mt-1.5 leading-relaxed break-words">
+              <p className="text-[0.8125rem] text-[#5A5E66] mt-1.5 leading-relaxed break-words">
                 슬픔 속에서도 부당한 비용 청구 없이, 고인의 존엄과 남겨진 가족의 마음을 온전히 지켜낸 실제 현장 기록입니다.
               </p>
             </div>
           </div>
 
           <div className="pt-4 border-t border-[#DCD6C9] mt-4 flex items-center justify-between">
-            <button 
+<button 
               type="button"
               onClick={() => setIsVideoModalOpen(true)}
-              className="text-[13px] font-bold text-[#19382C] hover:text-[#2D4F43] flex items-center space-x-1 cursor-pointer"
+              className="k-tap k-tap-pad text-[0.8125rem] font-bold text-[#19382C] hover:text-[#2D4F43] flex items-center"
             >
               <span>영상 시청하기</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
-            <span className="text-[13px] text-[#5A5E66]">배웅 공식 채널</span>
+            <span className="text-[0.8125rem] text-[#5A5E66]">배웅 공식 채널</span>
           </div>
         </div>
 
@@ -330,25 +330,25 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             {/* 탭 내용 */}
             {activeTab === 'NOTICE' ? (
               <ul className="space-y-3">
-                <li className="flex items-start justify-between text-[13px] group cursor-pointer">
+                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [공지] 2026년 공정위 표준약관 및 투명 실비 공시 가이드 준수 안내
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.28</span>
                 </li>
-                <li className="flex items-start justify-between text-[13px] group cursor-pointer">
+                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [보도] 배웅, 대한민국 최초 공공데이터 실시간 장례식장 연동
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.24</span>
                 </li>
-                <li className="flex items-start justify-between text-[13px] group cursor-pointer">
+                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [안내] 기존 상조 해약 손실 보전 바우처 50만 원 지원 사업
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.20</span>
                 </li>
-                <li className="flex items-start justify-between text-[13px] group cursor-pointer">
+                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [고시] 2026년 상반기 장례용품 정찰 가격표 공시
                   </span>
@@ -364,10 +364,10 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpenDualStandby(); } }}
                   className="p-2.5 rounded-lg bg-[#FAF9F6] border border-[#DCD6C9] group cursor-pointer"
                 >
-                  <p className="font-bold text-[13px] text-[#151719] group-hover:text-[#19382C] break-words">
+                  <p className="font-bold text-[0.8125rem] text-[#151719] group-hover:text-[#19382C] break-words">
                     Q. 기존 상조를 유지하며 이용할 수 있나요?
                   </p>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 leading-relaxed break-words">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
                     A. 네, 0원 이중안심 등록으로 비상 출동권과 손실보전권을 무료 발급해 드립니다.
                   </p>
                 </li>
@@ -378,10 +378,10 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpenFixedPackages(); } }}
                   className="p-2.5 rounded-lg bg-[#FAF9F6] border border-[#DCD6C9] group cursor-pointer"
                 >
-                  <p className="font-bold text-[13px] text-[#151719] group-hover:text-[#19382C] break-words">
+                  <p className="font-bold text-[0.8125rem] text-[#151719] group-hover:text-[#19382C] break-words">
                     Q. 후불제 정산은 언제 이루어지나요?
                   </p>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 leading-relaxed break-words">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
                     A. 발인 완료 후 모든 내역을 1원 단위까지 확인하신 후 정산합니다.
                   </p>
                 </li>
@@ -390,8 +390,8 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           </div>
 
           <div className="pt-4 border-t border-[#DCD6C9] mt-4 flex items-center justify-between">
-            <span className="text-[13px] font-bold text-[#19382C]">안내 센터</span>
-            <span className="text-[13px] text-[#5A5E66]">평일 09:00~18:00</span>
+            <span className="text-[0.8125rem] font-bold text-[#19382C]">안내 센터</span>
+            <span className="text-[0.8125rem] text-[#5A5E66]">평일 09:00~18:00</span>
           </div>
         </div>
 
@@ -407,13 +407,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <HeartHandshake className="w-5 h-5 text-[#19382C]" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 신속 접수
               </span>
               <h4 className="font-bold text-sm text-[#151719] group-hover:text-[#19382C] break-words">
                 24시 안심 의전 긴급 신청
               </h4>
-              <p className="text-[13px] text-[#5A5E66] break-words">
+              <p className="text-[0.8125rem] text-[#5A5E66] break-words">
                 국가공인 1급 지도사 즉시 출동
               </p>
             </div>
@@ -430,13 +430,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <FileText className="w-5 h-5 text-[#6E5429]" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 권익 보호
               </span>
               <h4 className="font-bold text-sm text-[#151719] group-hover:text-[#19382C] break-words">
                 50만 원 손실 보전 바우처
               </h4>
-              <p className="text-[13px] text-[#5A5E66] break-words">
+              <p className="text-[0.8125rem] text-[#5A5E66] break-words">
                 기존 상조 해약 손실금 지원
               </p>
             </div>
@@ -453,13 +453,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <HeartHandshake className="w-5 h-5 text-[#19382C]" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[13px] font-bold text-[#19382C]">
+              <span className="text-[0.8125rem] font-bold text-[#19382C]">
                 심리 케어
               </span>
               <h4 className="font-bold text-sm text-[#151719] group-hover:text-[#19382C] break-words">
                 전문 심리상담
               </h4>
-              <p className="text-[13px] text-[#5A5E66] break-words">
+              <p className="text-[0.8125rem] text-[#5A5E66] break-words">
                 생전 불안 및 유족 애도 치유
               </p>
             </div>
@@ -476,13 +476,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <Scale className="w-5 h-5 text-[#6E5429]" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[13px] font-bold text-[#6E5429]">
+              <span className="text-[0.8125rem] font-bold text-[#6E5429]">
                 법률 자문
               </span>
               <h4 className="font-bold text-sm text-[#151719] group-hover:text-[#19382C] break-words">
                 상속 전문 변호사
               </h4>
-              <p className="text-[13px] text-[#5A5E66] break-words">
+              <p className="text-[0.8125rem] text-[#5A5E66] break-words">
                 상속세 및 유산 분할 원스톱 법률
               </p>
             </div>
@@ -494,14 +494,14 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
       {/* ─── 4. 단아한 4대 안심 보증 헌장 배너 ─── */}
       <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-xl p-6 sm:p-7 shadow-xs">
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-5">
-          <div className="inline-flex items-center space-x-1.5 text-[13px] font-bold text-[#19382C]">
+          <div className="inline-flex items-center space-x-1.5 text-[0.8125rem] font-bold text-[#19382C]">
             <TraditionalSeal sealKey="sincerity" size="sm" />
             <span>투명하고 정직한 배웅의 약속</span>
           </div>
           <h3 className="font-reverence font-bold text-xl sm:text-2xl text-[#151719] tracking-tight">
             배웅 4대 의전 안심 헌장
           </h3>
-          <p className="text-[13px] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
+          <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
             고인의 고귀한 삶을 기리는 숭고한 자리에 상술이 없도록 모든 의전과 비용은 1원 단위까지 투명하게 공개합니다.
           </p>
         </div>
@@ -510,22 +510,22 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-center">
             <CheckCircle2 className="w-4 h-4 text-[#19382C] mx-auto mb-1.5" />
             <div className="font-bold text-sm text-[#151719] break-words">선금 0원 후불제</div>
-            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">의전 종료 후 정산</div>
+            <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5 break-words">의전 종료 후 정산</div>
           </div>
           <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-center">
             <CheckCircle2 className="w-4 h-4 text-[#19382C] mx-auto mb-1.5" />
             <div className="font-bold text-sm text-[#151719] break-words">부당 추가금 0원</div>
-            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">계약 외 비용 청구 차단</div>
+            <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5 break-words">계약 외 비용 청구 차단</div>
           </div>
           <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-center">
             <CheckCircle2 className="w-4 h-4 text-[#19382C] mx-auto mb-1.5" />
             <div className="font-bold text-sm text-[#151719] break-words">촌지 전면 금지</div>
-            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">수고비 관행 근절</div>
+            <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5 break-words">수고비 관행 근절</div>
           </div>
           <div className="p-3 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-center">
             <CheckCircle2 className="w-4 h-4 text-[#19382C] mx-auto mb-1.5" />
             <div className="font-bold text-sm text-[#151719] break-words">100% 품목 공개</div>
-            <div className="text-[13px] text-[#5A5E66] mt-0.5 break-words">공공데이터 실비 대조</div>
+            <div className="text-[0.8125rem] text-[#5A5E66] mt-0.5 break-words">공공데이터 실비 대조</div>
           </div>
         </div>
       </div>
@@ -566,7 +566,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 <p className="text-[#FAF9F6] font-bold text-base drop-shadow-sm">
                   “단 한 분의 어르신도 소홀함 없이 모십니다”
                 </p>
-                <p className="text-[13px] text-[#FAF9F6]/80 max-w-md">
+                <p className="text-[0.8125rem] text-[#FAF9F6]/80 max-w-md">
                   상조 불법 리베이트 0원, 국가공인 1급 지도사의 72시간 동행 다큐멘터리
                 </p>
               </div>

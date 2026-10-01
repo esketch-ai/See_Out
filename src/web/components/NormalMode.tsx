@@ -160,14 +160,14 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 font-serif">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div className="flex items-center space-x-2">
-            <span className="text-[13px] font-bold px-2 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] border border-[#19382C]/20">
+            <span className="text-[0.8125rem] font-bold px-2 py-0.5 rounded bg-[#19382C]/10 text-[#19382C] border border-[#19382C]/20">
               맞춤 일정 안내
             </span>
             <span className="text-sm font-bold text-[#151719]">
               가족 상황에 맞는 장례 방식을 선택하세요
             </span>
           </div>
-          <span className="text-[13px] text-[#5A5E66]">
+          <span className="text-[0.8125rem] text-[#5A5E66]">
             선택하신 방식의 상세 일정과 필수 준비사항이 아래에 펼쳐집니다
           </span>
         </div>
@@ -195,7 +195,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div className="min-w-0">
               <div className="flex items-center space-x-1.5 mb-1">
-                <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
+                <span className={`text-[0.8125rem] font-bold px-2 py-0.5 rounded ${
                   activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen
                     ? 'bg-[#19382C] text-[#FAF9F6]'
                     : 'bg-[#DCE8E2] text-[#19382C]'
@@ -204,10 +204,10 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </span>
                 <span className="text-sm font-bold text-[#151719]">빈소 조문형</span>
                 {activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen && (
-                  <span className="text-[13px] text-[#19382C] font-bold">● 선택됨</span>
+                  <span className="text-[0.8125rem] text-[#19382C] font-bold">● 선택됨</span>
                 )}
               </div>
-              <div className="text-[13px] text-[#42464E] flex items-center gap-1.5 flex-wrap">
+              <div className="text-[0.8125rem] text-[#42464E] flex items-center gap-1.5 flex-wrap">
                 <span>1일차 초종·안식</span>
                 <span className="text-[#19382C] font-bold">➔</span>
                 <span>2일차 염습·입관</span>
@@ -215,7 +215,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <span>3일차 발인·승화</span>
               </div>
             </div>
-            <span className="text-[13px] font-bold text-[#19382C] shrink-0 group-hover:translate-x-0.5 transition-transform">
+            <span className="text-[0.8125rem] font-bold text-[#19382C] shrink-0 group-hover:translate-x-0.5 transition-transform">
               {activeCeremonyTab === '3DAY' && isLegacyCeremonyOpen ? '접기 ▲' : '상세보기 ▼'}
             </span>
           </button>
@@ -241,7 +241,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div className="min-w-0">
               <div className="flex items-center space-x-1.5 mb-1">
-                <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
+                <span className={`text-[0.8125rem] font-bold px-2 py-0.5 rounded ${
                   activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen
                     ? 'bg-[#19382C] text-[#FAF9F6]'
                     : 'bg-[#F1E9DB] text-[#6E5429]'
@@ -250,16 +250,16 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 </span>
                 <span className="text-sm font-bold text-[#151719]">가족 직례형</span>
                 {activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen && (
-                  <span className="text-[#19382C] font-bold text-[13px]">● 선택됨</span>
+                  <span className="text-[#19382C] font-bold text-[0.8125rem]">● 선택됨</span>
                 )}
               </div>
-              <div className="text-[13px] text-[#42464E] flex items-center gap-1.5 flex-wrap">
+              <div className="text-[0.8125rem] text-[#42464E] flex items-center gap-1.5 flex-wrap">
                 <span>1일차 안식·추모입관</span>
                 <span className="text-[#6E5429] font-bold">➔</span>
                 <span>2일차 발인·화장승화</span>
               </div>
             </div>
-            <span className="text-[13px] font-bold text-[#6E5429] shrink-0 group-hover:translate-x-0.5 transition-transform">
+            <span className="text-[0.8125rem] font-bold text-[#6E5429] shrink-0 group-hover:translate-x-0.5 transition-transform">
               {activeCeremonyTab === 'NO_ALTAR' && isLegacyCeremonyOpen ? '접기 ▲' : '상세보기 ▼'}
             </span>
           </button>
@@ -287,17 +287,17 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-6 md:p-8 space-y-6 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
               <div>
-                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-1">
+                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[0.8125rem] font-bold mb-1">
                   <span>전통 3일장 표준 예법과 72시간 정례 일정</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
                   고인을 모시는 3일간의 숭고한 여정 (빈소 조문형)
                 </h3>
-                <p className="text-[13px] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
                   임종 즉시 고인 이송부터 조문객 맞이, 궁중 습염, 발인, 영구 안치까지 국가공인 1급 장례지도사가 곁을 지킵니다.
                 </p>
               </div>
-              <span className="text-[13px] text-[#19382C] font-bold px-2.5 py-1 rounded bg-[#DCE8E2] shrink-0 self-start sm:self-auto">
+              <span className="text-[0.8125rem] text-[#19382C] font-bold px-2.5 py-1 rounded bg-[#DCE8E2] shrink-0 self-start sm:self-auto">
                 보건복지부 국가장사표준 준수
               </span>
             </div>
@@ -309,18 +309,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                    <span className="text-[0.8125rem] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                       첫째 날
                     </span>
-                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
+                    <span className="text-[0.8125rem] font-mono text-[#5A5E66]">Day 1</span>
                   </div>
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     첫째 날: 임종과 편안한 안식
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>고인 전용 앰뷸런스 전국 즉시 출동 및 이송</span>
@@ -339,7 +339,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                <div className="pt-3 border-t border-[#DCD6C9] text-[0.8125rem] text-[#19382C] font-serif font-bold relative z-10">
                   ✓ 전문 장례지도사 2시간 이내 현장 배치
                 </div>
               </div>
@@ -349,18 +349,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                    <span className="text-[0.8125rem] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
                       둘째 날 · 핵심 의례
                     </span>
-                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
+                    <span className="text-[0.8125rem] font-mono text-[#5A5E66]">Day 2</span>
                   </div>
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     둘째 날: 정갈한 입관과 염습
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#6E5429] font-bold">•</span>
                       <span>국가공인 1급 지도사 2인 전통 궁중 습염 집전</span>
@@ -379,7 +379,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
+                <div className="pt-3 border-t border-[#DCD6C9] text-[0.8125rem] text-[#6E5429] font-serif font-bold relative z-10">
                   ✓ 꽃장식/수의 강매 및 촌지 요구 100% 금지
                 </div>
               </div>
@@ -389,18 +389,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                    <span className="text-[0.8125rem] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                       셋째 날
                     </span>
-                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 3</span>
+                    <span className="text-[0.8125rem] font-mono text-[#5A5E66]">Day 3</span>
                   </div>
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     셋째 날: 정중한 발인과 영면
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>정중한 발인제 및 추모 영결식 거행</span>
@@ -419,7 +419,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                <div className="pt-3 border-t border-[#DCD6C9] text-[0.8125rem] text-[#19382C] font-serif font-bold relative z-10">
                   ✓ 추가 장거리 운임 바가지 일절 없음
                 </div>
               </div>
@@ -430,17 +430,17 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="bg-[#FFFFFF] border border-[#DCD6C9] rounded-2xl p-6 md:p-8 space-y-6 shadow-xs font-serif">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-4">
               <div>
-                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-1">
+                <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[0.8125rem] font-bold mb-1">
                   <span>무빈소 · 2일 가족장 48시간 직례 일정</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
                   무빈소(2일장): 직계가족 중심의 조용하고 경건한 배웅 (가족 직례형)
                 </h3>
-                <p className="text-[13px] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
                   빈소를 차리지 않고 안치실 안식 후 입관 및 화장·봉안으로 이어지는 120만 원 정찰의 합리적이고 경건한 가족장입니다.
                 </p>
               </div>
-              <span className="text-[13px] text-[#6E5429] font-bold px-2.5 py-1 rounded bg-[#F1E9DB] shrink-0 self-start sm:self-auto">
+              <span className="text-[0.8125rem] text-[#6E5429] font-bold px-2.5 py-1 rounded bg-[#F1E9DB] shrink-0 self-start sm:self-auto">
                 120만 원 100% 정찰 보증
               </span>
             </div>
@@ -452,18 +452,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-25" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                    <span className="text-[0.8125rem] font-serif font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                       첫째 날 · 안식과 입관
                     </span>
-                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 1</span>
+                    <span className="text-[0.8125rem] font-mono text-[#5A5E66]">Day 1</span>
                   </div>
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     첫째 날: 안식과 가족 전용 추모 입관
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 정중히 운구하여 안치실에 모신 후, 직계가족만 참여하는 경건한 생화 꽃구름 입관식을 거행합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>고인 전용 앰뷸런스 전국 즉시 출동 및 장례식장 안치실 안식</span>
@@ -482,7 +482,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#19382C] font-serif font-bold relative z-10">
+                <div className="pt-3 border-t border-[#DCD6C9] text-[0.8125rem] text-[#19382C] font-serif font-bold relative z-10">
                   ✓ 불필요한 빈소 임대료 및 제단꽃 강매 0원
                 </div>
               </div>
@@ -492,18 +492,18 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <div className="pointer-events-none absolute inset-0 k-pattern-gyeokja opacity-35" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                    <span className="text-[0.8125rem] font-serif font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
                       둘째 날 · 발인과 승화
                     </span>
-                    <span className="text-[13px] font-mono text-[#5A5E66]">Day 2</span>
+                    <span className="text-[0.8125rem] font-mono text-[#5A5E66]">Day 2</span>
                   </div>
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     둘째 날: 정중한 발인과 승화원 봉안
                   </h4>
-                  <p className="text-[13px] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
                     고인의 마지막 가시는 길을 리무진으로 모시고 승화원에서 화장 및 안치를 마칩니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[13px] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#6E5429] font-bold">•</span>
                       <span>정중한 발인 영결 의식 및 고인 전용 최신형 리무진 운구</span>
@@ -522,7 +522,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="pt-3 border-t border-[#DCD6C9] text-[13px] text-[#6E5429] font-serif font-bold relative z-10">
+                <div className="pt-3 border-t border-[#DCD6C9] text-[0.8125rem] text-[#6E5429] font-serif font-bold relative z-10">
                   ✓ 숨은 추가금 없는 100% 후불 정산 보증
                 </div>
               </div>
@@ -535,7 +535,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       <div className="space-y-4 font-serif">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div>
-            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-bold mb-0.5">
+            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[0.8125rem] font-bold mb-0.5">
               <span>{activeCeremonyTab === '3DAY' ? '전통 3일장(빈소형) 연계' : '무빈소 2일장(직례형) 연계'}</span>
               <span>•</span>
               <span>4대 핵심 정례 서비스</span>
@@ -544,7 +544,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               {activeCeremonyTab === '3DAY' ? '전통 3일장 맞춤 핵심 서비스' : '무빈소 2일장 맞춤 핵심 서비스'}
             </h3>
           </div>
-          <span className="text-[13px] text-[#5A5E66] hidden sm:block">
+          <span className="text-[0.8125rem] text-[#5A5E66] hidden sm:block">
             카드를 누르시면 상세 안내 화면으로 이동합니다
           </span>
         </div>
@@ -558,22 +558,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
                   01 · {activeCeremonyTab === '3DAY' ? '3일장 실비 대조' : '무빈소 환급 대조'}
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">공정위 법정산식 준수</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">공정위 법정산식 준수</span>
               </div>
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 기존 상조 증서 정밀 안심 진단
               </h4>
-              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '보유 중이신 상조 상품의 해약환급금과 배웅 3일장 실비를 1:1 대조하여 숨은 추가금 없는 최적 견적을 산출합니다.'
                   : '고가 상조 상품 해약 후 무빈소 120만 원 직례 진행 시 돌려받는 실 환급금을 1:1 맞춤 영수증으로 정밀 연산해 드립니다.'}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[0.8125rem]">
               <span>{activeCeremonyTab === '3DAY' ? '3일장 영수증 대조표 확인하기' : '무빈소 환급 대조표 확인하기'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -587,22 +587,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                   02 · {activeCeremonyTab === '3DAY' ? '빈소 임대료 최대 30% 감면' : '빈소 비용 0원 · 전용 안치실'}
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">전국 1,080곳 데이터</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">전국 1,080곳 데이터</span>
               </div>
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 전국 장례식장 시설 · 감면 검색
               </h4>
-              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '거주지 인근 장례식장의 분향실·접객실 규모를 파악하고, 배웅 사전 등록을 통한 빈소 임대료 감면 혜택을 확인하세요.'
                   : '빈소를 차리지 않고 고인을 정갈하게 모실 수 있는 인근 안치실 규모와 승화원(화장장) 원스톱 예약 절차를 안내합니다.'}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[0.8125rem]">
               <span>{activeCeremonyTab === '3DAY' ? '장례식장 빈소 감면 검색하기' : '안치실 시설 및 화장장 검색하기'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -616,22 +616,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
+                <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2.5 py-0.5 rounded border border-[#F1E9DB]">
                   03 · {activeCeremonyTab === '3DAY' ? '실속 250만 · 품격 350만' : '무빈소 120만 원 100% 정찰'}
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">부당 추가금 0원 보증</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">부당 추가금 0원 보증</span>
               </div>
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 정직한 예우 정찰제 의전 패키지
               </h4>
-              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '전통 3일장에 필수적인 최고급 수의·오동나무관·고인 리무진·접객 도우미 품목 단가를 100% 투명 공개하며 촌지를 금지합니다.'
                   : '빈소 없이 직계가족만으로 조용하고 품격 있게 모시는 120만 원 단일 정찰 직례 패키지의 모든 포함 품목을 확인하세요.'}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[0.8125rem]">
               <span>{activeCeremonyTab === '3DAY' ? '3일장 정찰 패키지 명세 보기' : '무빈소 120만 정찰 명세 보기'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -645,22 +645,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           >
             <div>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2.5 py-0.5 rounded border border-[#DCE8E2]">
                   04 · {activeCeremonyTab === '3DAY' ? '모바일 부고 · 빈소 디지털 헌정' : '가족 부고 · 생애 평전 스토리북'}
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">사전 기억 보존</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">사전 기억 보존</span>
               </div>
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 생애기록관 (소중한 삶의 일상 봉안)
               </h4>
-              <p className="text-[13px] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '친지와 조문객을 위한 원터치 정중 부고장 무료 발송과 장례식장 빈소 키오스크 디지털 헌정 화면을 연동 지원합니다.'
                   : '직계가족 중심의 조용한 부고 알림과 고인의 삶을 따뜻하게 엮은 생애 평전 스토리북으로 마지막 기억을 보존합니다.'}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[13px]">
+            <div className="mt-4 pt-3 border-t border-[#DCD6C9] flex items-center justify-between text-[#19382C] font-bold text-[0.8125rem]">
               <span>{activeCeremonyTab === '3DAY' ? '부고장 및 생애기록관 보기' : '가족 부고 및 생애기록관 보기'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -674,7 +674,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
           <div>
-            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[13px] font-serif font-bold mb-0.5">
+            <div className="inline-flex items-center space-x-2 text-[#6E5429] text-[0.8125rem] font-serif font-bold mb-0.5">
               <Sparkles className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>배웅 안심 연계 케어 · 사전 비용 0원 & 알선 수수료 0원</span>
             </div>
@@ -682,7 +682,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               가족의 마음과 권익을 지키는 3대 안심 특화 서비스
             </h3>
           </div>
-          <span className="text-[13px] text-[#5A5E66] font-serif">
+          <span className="text-[0.8125rem] text-[#5A5E66] font-serif">
             변호사법 제34조 준수 및 보건복지부 공인 연계
           </span>
         </div>
@@ -693,22 +693,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
                   기존 상조 그대로 유지
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">0원 안심 대비</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">0원 안심 대비</span>
               </div>
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 이중안심 사전등록증
               </h4>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
                 기존 상조는 해약하지 마시고 그대로 두십시오. 비상 즉시 출동권과 50만 원 손실 보전 지원권을 0원에 미리 확보해 드립니다.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setIsDualStandbyModalOpen(true)}
-              className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
+              className="w-full py-2.5 px-3 bg-[#19382C] hover:bg-[#2D4F43] active:scale-[0.99] text-[#FAF9F6] rounded-lg font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#2D4F43]"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#C2A26A]" />
               <span>이중안심 등록증 발급 (0원)</span>
@@ -719,15 +719,15 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
+                <span className="text-[0.8125rem] font-bold text-[#19382C] bg-[#DCE8E2] px-2 py-0.5 rounded border border-[#DCE8E2]">
                   국가공인 1급 애도치유
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">사전·사별 상담</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">사전·사별 상담</span>
               </div>
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 전문 심리상담 (마음돌봄)
               </h4>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
                 임종을 앞둔 불안과 사별 후 유족의 비탄을 따뜻하게 보듬는 보건복지부 1급 정신건강임상심리사 1:1 안심 상담입니다.
               </p>
             </div>
@@ -737,7 +737,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 setCareModalVertical('PSYCHOLOGY_CARE');
                 setIsCareModalOpen(true);
               }}
-              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#19382C] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
+              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#19382C] rounded-lg font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
             >
               <HeartHandshake className="w-3.5 h-3.5 text-[#19382C]" />
               <span>전문 심리상담 안내</span>
@@ -748,15 +748,15 @@ export const NormalMode: React.FC<NormalModeProps> = ({
           <div className="bg-[#FFFFFF] p-5 rounded-xl border border-[#DCD6C9] flex flex-col justify-between space-y-3 shadow-xs">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
+                <span className="text-[0.8125rem] font-bold text-[#6E5429] bg-[#F1E9DB] px-2 py-0.5 rounded border border-[#F1E9DB]">
                   대한변협 등록 전문
                 </span>
-                <span className="text-[13px] font-mono text-[#5A5E66]">수수료 0원 직통</span>
+                <span className="text-[0.8125rem] font-mono text-[#5A5E66]">수수료 0원 직통</span>
               </div>
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 상속 변호사 & 골든타임
               </h4>
-              <p className="text-[13px] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
                 빚 대물림 방지(3개월 골든타임 한정승인)와 상속 재산 분할을 위한 대한변협 등록 상속전문변호사 직통 연결입니다.
               </p>
             </div>
@@ -766,7 +766,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 setCareModalVertical('LEGAL_INHERITANCE');
                 setIsCareModalOpen(true);
               }}
-              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#6E5429] rounded-lg font-serif font-bold text-[13px] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
+              className="w-full py-2.5 px-3 bg-[#FAF9F6] hover:bg-[#F1EDE3] active:scale-[0.99] text-[#6E5429] rounded-lg font-serif font-bold text-[0.8125rem] flex items-center justify-center space-x-1.5 transition-colors cursor-pointer border border-[#DCD6C9]"
             >
               <Scale className="w-3.5 h-3.5 text-[#6E5429]" />
               <span>상속 변호사 직통 상담</span>
@@ -775,7 +775,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         </div>
 
         {/* 하단 1줄 단아한 안심 헌장 띠 */}
-        <div className="relative z-10 pt-3 border-t border-[#DCD6C9] flex flex-col sm:flex-row items-center justify-between gap-2 text-[13px] text-[#5A5E66] font-serif">
+        <div className="relative z-10 pt-3 border-t border-[#DCD6C9] flex flex-col sm:flex-row items-center justify-between gap-2 text-[0.8125rem] text-[#5A5E66] font-serif">
           <div className="flex items-center space-x-2">
             <ShieldCheck className="w-4 h-4 text-[#19382C] shrink-0" />
             <span className="font-bold text-[#151719]">배웅 4대 의전 안심 헌장:</span>

@@ -25,8 +25,8 @@ export const TraditionalSeal: React.FC<TraditionalSealProps> = ({
   const sealVariant = variant || sealConfig?.colorVariant || 'red';
 
   const sizeClasses = {
-    sm: 'text-[13px] px-1.5 py-0.2',
-    md: 'text-[13px] px-2 py-0.5',
+    sm: 'text-[0.8125rem] px-1.5 py-0.2',
+    md: 'text-[0.8125rem] px-2 py-0.5',
     lg: 'text-sm px-2.5 py-1'
   }[size];
 

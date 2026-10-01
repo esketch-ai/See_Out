@@ -198,7 +198,7 @@ export const BaeungLogo: React.FC<BaeungLogoProps> = ({
               배 웅
             </span>
             <span
-              className="text-[13px] px-1.5 py-0.5 rounded font-serif border hidden sm:inline leading-none"
+              className="text-[0.8125rem] px-1.5 py-0.5 rounded font-serif border hidden sm:inline leading-none"
               style={{
                 backgroundColor: theme === 'dark' ? '#1F2226' : '#FAF9F6',
                 borderColor: colors.border,
@@ -210,7 +210,7 @@ export const BaeungLogo: React.FC<BaeungLogoProps> = ({
           </div>
           {showSubtitle && (
             <span
-              className="text-[13px] font-serif tracking-tight mt-1 hidden md:block"
+              className="text-[0.8125rem] font-serif tracking-tight mt-1 hidden md:block"
               style={{ color: colors.subtext }}
             >
               삼가 고인의 명복을 빌며 지극한 정성으로 모십니다
@@ -232,7 +232,7 @@ export const BaeungLogo: React.FC<BaeungLogoProps> = ({
         배 웅
       </span>
       {showSubtitle && (
-        <span className="text-[13px] font-serif" style={{ color: colors.subtext }}>
+        <span className="text-[0.8125rem] font-serif" style={{ color: colors.subtext }}>
           지극한 정성 · 정직원가 의전
         </span>
       )}

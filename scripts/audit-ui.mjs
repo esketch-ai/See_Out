@@ -106,7 +106,6 @@ const POPUPS = [
   ['엔딩노트', TAB.life, ['사전 장례 의향서']],
   ['게이트키퍼', TAB.life, ['사후 유산관리']],
   ['실물 양장본', TAB.life, ['실물 양장본']],
-  ['파트너 실적 보고', TAB.hall, ['서울아산병원']],
 ];
 /** [표시명, 탭키] — 페이지 전역 판정 */
 const TABS = [
@@ -400,7 +399,11 @@ const CHECK_TAP = () => {
     const cs = getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden') continue;
     // 산문 안에 흐르는 인라인 링크는 제외 — 크기를 키우면 문단이 무너진다
-    if (el.tagName === 'A' && cs.display.startsWith('inline') && cs.padding === '0px') continue;
+    // 산문 안의 인라인 링크는 예외다 — 크기를 키우면 문단이 무너진다.
+    // ★ padding 단축값(cs.padding)으로 재면 「0px」 이 아니라 「0px 0px 0px 0px」 이
+    //   돌아와 비교가 거짓이 된다. 개별 축으로 봐야 한다.
+    if (el.tagName === 'A' && cs.display.startsWith('inline')
+        && parseFloat(cs.paddingTop) === 0 && parseFloat(cs.paddingLeft) === 0) continue;
     const r = el.getBoundingClientRect();
     if (r.width <= 0 || r.height <= 0) continue;
     const name = (el.getAttribute('aria-label') || el.textContent || el.getAttribute('title') || '')

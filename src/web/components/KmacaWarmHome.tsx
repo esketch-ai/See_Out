@@ -47,7 +47,9 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
       {/* ─── 1. 메인 비주얼 배너 (햇살 가족 사진 + 감성 카피 & 즉시 출동) ─── */}
       <div className="relative rounded-2xl overflow-hidden shadow-sm border border-[#DCD6C9] min-h-[380px] sm:min-h-[440px] flex items-center bg-[#FAF9F6]">
         {/* 정갈한 위로와 따뜻한 동행 — 고품격 K-헤리티지 배웅 비주얼 */}
-        <img 
+        <img
+              fetchPriority="high"
+              decoding="async" 
           src="/images/hero_reverent_comfort.jpg" 
           alt="슬픔을 보듬는 정중한 예우와 따뜻한 배웅" 
           className="absolute inset-0 w-full h-full object-cover object-right"
@@ -256,6 +258,8 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 src="/images/video_story_thumb.jpg" 
                 alt="한옥 창가의 어르신 다큐 영상" 
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+              loading="lazy"
+              decoding="async"
               />
               <div className="absolute inset-0 bg-[#0D0E10]/30 group-hover:bg-[#0D0E10]/20 transition-colors flex items-center justify-center">
                 <div className="w-12 h-12 rounded-full bg-[#FFFFFF]/90 group-hover:bg-[#FFFFFF] flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
@@ -558,6 +562,8 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 src="/images/video_story_thumb.jpg" 
                 alt="배웅 다큐멘터리 영상 미리보기" 
                 className="w-full h-full object-cover opacity-60"
+              loading="lazy"
+              decoding="async"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-3">
                 <div className="w-16 h-16 rounded-full bg-[#FFFFFF]/90 flex items-center justify-center shadow-lg">

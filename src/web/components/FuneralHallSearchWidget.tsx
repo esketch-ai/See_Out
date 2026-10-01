@@ -63,7 +63,6 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isOptOutModalOpen, setIsOptOutModalOpen] = useState(false);
   const [isAffiliateModalOpen, setIsAffiliateModalOpen] = useState(false);
   const [isB2BModalOpen, setIsB2BModalOpen] = useState(false);
@@ -151,20 +150,18 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 // 장례식장 탭의 보조 화면 5종. 검색 결과를 고르거나 제휴 메뉴를 눌러야 처음 열린다.
 // 정적 import 로 두면 첫 화면이 735KB 를 전부 내려받는다.
 const quoteModal = lazyModal(() => import('./FuneralHallQuoteModal.js'));
-const reportModal = lazyModal(() => import('./PartnerPerformanceReportModal.js'));
 const optOutModal = lazyModal(() => import('./OptOutModal.js'));
 const affiliateModal = lazyModal(() => import('./AffiliatePartnersModal.js'));
 const b2bModal = lazyModal(() => import('./B2BPartnerAdmissionModal.js'));
 const pilotLoiModal = lazyModal(() => import('./PilotProposalLoiModal.js'));
 const experimentModal = lazyModal(() => import('./ControlledExperimentModal.js'));
 const FuneralHallQuoteModal = quoteModal.Comp;
-const PartnerPerformanceReportModal = reportModal.Comp;
 const OptOutModal = optOutModal.Comp;
 const AffiliatePartnersModal = affiliateModal.Comp;
 const B2BPartnerAdmissionModal = b2bModal.Comp;
 const PilotProposalLoiModal = pilotLoiModal.Comp;
 const ControlledExperimentModal = experimentModal.Comp;
-const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.preload, affiliateModal.preload, b2bModal.preload, pilotLoiModal.preload, experimentModal.preload];
+const PRELOAD_MODALS = [quoteModal.preload, optOutModal.preload, affiliateModal.preload, b2bModal.preload, pilotLoiModal.preload, experimentModal.preload];
 
   return (
     <Suspense fallback={null}>
@@ -172,6 +169,8 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
       {/* 1. 상단 사진 비주얼 헤더 배너 */}
       <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 border border-[#3D382E] bg-[#141618]">
         <img
+              loading="lazy"
+              decoding="async"
           src="/images/memorial-altar.jpg"
           alt="정갈한 장례식장 제단 꽃장식"
           className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
@@ -344,6 +343,9 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            // ★ placeholder 는 보조 수단이다. 스크린리더는 「편집 가능한 텍스트」
+            //   라고만 읽는다. 무엇을 넣는지 알려야 한다 (AGENTS.md §5).
+            aria-label="장례식장 명칭 또는 지역 검색"
             placeholder="장례식장 명칭 또는 지역(동/구/시)을 입력하세요..."
             className="w-full bg-[#FAF9F6] border border-[#DCD6C9] rounded-md pl-10 pr-4 py-3 text-sm text-[#151719] placeholder-[#5A5E66] focus:outline-none focus:border-[#9E7D47]"
           />
@@ -901,14 +903,6 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
           hall={selectedHall}
           initialType={selectedFuneralType === 'all' ? 'direct_cremation' : selectedFuneralType}
           onClose={() => setIsQuoteModalOpen(false)}
-        />
-      )}
-
-      {/* [사업계획서 1단계 옵션 1] 장례식장 파트너 4단계 성과 리포트 모달 */}
-      {isReportModalOpen && selectedHall && (
-        <PartnerPerformanceReportModal
-          hall={selectedHall}
-          onClose={() => setIsReportModalOpen(false)}
         />
       )}
 

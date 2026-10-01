@@ -208,6 +208,8 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
             {/* 고인 영정 사진 액자 */}
             <div className="relative mx-auto w-44 h-56 rounded-lg overflow-hidden border-2 border-[#C2A26A]/80 shadow-2xl bg-black group">
               <img
+              loading="lazy"
+              decoding="async"
                 src="/images/life-story-book.jpg"
                 alt={setting.deceasedName}
                 className="w-full h-full object-cover"
@@ -304,6 +306,8 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
               {/* 사진 렌더링 카드 */}
               <div className="relative max-h-full max-w-full rounded-2xl overflow-hidden shadow-2xl border-2 border-[#C2A26A]/40 bg-black flex items-center justify-center">
                 <img
+              loading="lazy"
+              decoding="async"
                   key={currentPhoto.id}
                   src={currentPhoto.imageUrl}
                   alt={currentPhoto.title}
@@ -384,6 +388,8 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
                   }`}
                 >
                   <img
+              loading="lazy"
+              decoding="async"
                     src={photo.imageUrl}
                     alt={photo.title}
                     className="w-full h-full object-cover"

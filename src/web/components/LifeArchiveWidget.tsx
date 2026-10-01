@@ -150,6 +150,8 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           src="/images/life-archive.jpg"
           alt="훈장과 흑백 가족 사진, 소중한 회고록"
           className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-105"
+        loading="lazy"
+        decoding="async"
         />
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />
@@ -266,6 +268,8 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                 src="/images/life-story-book.jpg"
                 alt="고급 한지 양장본 생애 평전과 태블릿 회고록"
                 className="w-full h-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
               />
               <div className="absolute top-3 left-3 bg-[#19382C]/90 text-white text-[0.8125rem] font-serif font-bold px-2.5 py-1 rounded shadow-xs border border-[#2D4F43] flex items-center space-x-1">
                 <Award className="w-3.5 h-3.5 text-[#C2A26A]" />
@@ -445,7 +449,9 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
             <div className="bg-[#1F2226] rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/5">
               <div className="flex items-center space-x-3">
                 <button
+                  type="button"
                   onClick={() => setIsPlayingAudio(!isPlayingAudio)}
+                  aria-label={isPlayingAudio ? '고인의 생전 음성 정지' : '고인의 생전 음성 듣기'}
                   className="w-10 h-10 rounded-full bg-[#19382C] hover:bg-[#2D4F43] text-white flex items-center justify-center shrink-0 transition-transform active:scale-95 cursor-pointer border border-[#2D4F43]"
                 >
                   {isPlayingAudio ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5 text-[#C2A26A]" />}
@@ -586,6 +592,8 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                       src="/images/life-story-book.jpg"
                       alt="故 김철수 님 생전 인물 사진"
                       className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
                     />
                   </div>
                   <div>
@@ -969,6 +977,8 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                         src={photo.imageUrl}
                         alt={photo.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
                       />
                       <div className="absolute top-2 left-2 bg-[#141618]/85 text-white text-[0.8125rem] px-2 py-0.5 rounded font-mono">
                         {photo.year}

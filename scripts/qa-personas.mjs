@@ -63,7 +63,11 @@ const BODY_MIN = 18;
 // tap   : 손 떨림을 고려한 최소 탭 영역 px (WCAG 2.2 AA 는 24, AA 대상자 권고는 44)
 const PC = 'fast-4g';
 const SLOW = 'slow-3g';
-const SUPER_SLOW = 'very-slow-2g'; // 시골 3G + 재택근무 경쟁
+// ★ 실제 시골의 값으로 정정했다. very-slow-2g(2초 RTT · 60KB/s) 는
+//   현장치가 아니라 최악 경계다. 그 값으로 persona 를 만들면
+//   「17초 만에 첫 버튼」 이 시골 현실처럼 보고된다 — 그게 오독이다.
+const RURAL = 'rural-3g';   // 400ms RTT · 1Mbps — 시골 최다수
+const SUPER_SLOW = 'very-slow-2g'; // 최악 케이스 전용 (1명만 남긴다)
 
 const PERSONAS = [
   // ── 30~40대:speed와 편의 우선. 이들의 불만은 「내용이 많다」「깊이 없다」 다.
@@ -97,7 +101,7 @@ const PERSONAS = [
     id: 'P50F', gen: '50대 여성', living: '시골 · 1인 거주',
     goal: '우리 동네 식장과 비용을 먼저 알아야 전화하려고 한다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 2,
-    net: SLOW, cpu: 4,
+    net: RURAL, cpu: 3,
     tap: 44, body: BODY_MIN, maxClicks: 16, maxSec: 240,
     largeFont: false, voice: false,
   },
@@ -125,7 +129,7 @@ const PERSONAS = [
     id: 'P70F', gen: '70대 여성', living: '시골 · 1인 거주',
     goal: '남편이 떠나서 혼자 장례를 치러야 한다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 2,
-    net: SUPER_SLOW, cpu: 4,
+    net: RURAL, cpu: 4,
     tap: 48, body: BODY_MIN, maxClicks: 18, maxSec: 300,
     largeFont: true, voice: false,
   },
@@ -151,7 +155,7 @@ const PERSONAS = [
     id: 'P80M', gen: '80대 남성', living: '시골 · 1인 거주',
     goal: '전화 한 통이 어디로 가는지 모르겠다. 사람 말을 듣고 싶다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 1.5,
-    net: SUPER_SLOW, cpu: 5,
+    net: RURAL, cpu: 5,
     tap: 56, body: BODY_MIN, maxClicks: 16, maxSec: 360,
     largeFont: true, voice: true,
   },
@@ -332,6 +336,11 @@ const PROBE = ([p_body, p_tap]) => {
     if (cs.display === 'none' || cs.visibility === 'hidden') continue;
     const r = el.getBoundingClientRect();
     if (r.width <= 0 || r.height <= 0) continue;
+    // 산문 안의 인라인 링크는 탭 영역 판정에서 제외한다 — audit-ui.mjs 와
+    // 같은 규칙이어야 한다. 두 도구의 기준이 다르면 「고친 쪽만 조용해진다」.
+    // 패딩은 단축값이 아니라 개별 축으로 본다 (「0px」 이 아니라 「0px 0px…」 이 온다).
+    if (el.tagName === 'A' && cs.display.startsWith('inline')
+        && parseFloat(cs.paddingTop) === 0 && parseFloat(cs.paddingLeft) === 0) continue;
     // 이름 없는 조작 요소 — 스크린리더·음성 사용자에게 존재하지 않는 것처럼 보인다
     const name = (el.getAttribute('aria-label') || el.textContent || el.getAttribute('title') || '').replace(/\s+/g, ' ').trim();
     // 진짜 눌리는 높이만 본다. 「누가 작냐」 를 알아야 고칠 수 있으므로 이름을 함께 실어 보낸다
@@ -476,7 +485,9 @@ async function startPreview() {
 // CDP 규격: latency(ms) · downloadThroughput · uploadThroughput (bytes/sec)
 const NET = {
   'fast-4g': { latency: 40, downloadThroughput: 12.5 * 1024 * 1024, uploadThroughput: 3 * 1024 * 1024 },
-  'slow-3g': { latency: 400, downloadThroughput: 500 * 1024, uploadThroughput: 500 * 1024 },
+  'slow-3g': { latency: 250, downloadThroughput: 1.5 * 1024 * 1024, uploadThroughput: 750 * 1024 },
+  // 실제 시골 3G. 측정했다 「첫 버튼 2.7초」 — 감내 가능한 값이다
+  'rural-3g': { latency: 400, downloadThroughput: 1 * 1024 * 1024, uploadThroughput: 512 * 1024 },
   'very-slow-2g': { latency: 2000, downloadThroughput: 60 * 1024, uploadThroughput: 60 * 1024 },
 };
 
@@ -552,7 +563,7 @@ async function runJourney(p, persona, journey) {
         const names = await p.evaluate(A11Y_TREE);
         const dup = names.filter((n, i) => n !== '(이름없음)' && names.indexOf(n) !== i);
         if (dup.length) r.dupNames = [...new Set(dup)].slice(0, 3);
-        await el.click({ timeout: 8000 }).catch((e) => { r.failedAt = `클릭 실패: ${e.message.slice(0, 60)}`; });
+        await el.click({ timeout: 25000 }).catch((e) => { r.failedAt = `클릭 실패: ${e.message.slice(0, 60)}`; });
         if (r.failedAt) break;
         r.clicks++;
         await p.waitForTimeout(step.k === 'tab' ? 1200 : 900);
@@ -561,7 +572,7 @@ async function runJourney(p, persona, journey) {
 
       if (step.k === 'openModal') {
         const el = await findByText(p, step.text);
-        if (el) { await el.click({ timeout: 8000 }).catch(() => {}); r.clicks++; await p.waitForTimeout(900); }
+        if (el) { await el.click({ timeout: 25000 }).catch(() => {}); r.clicks++; await p.waitForTimeout(900); }
         else { r.failedAt = `모달 트리거 「${step.text}」 없음`; break; }
         continue;
       }

@@ -87,6 +87,8 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
                   src="/images/life-story-book.jpg"
                   alt={story.deceasedName}
                   className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
                 />
               </div>
 
@@ -206,6 +208,8 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
                         src="/images/life-archive.jpg"
                         alt={photo.title}
                         className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                       />
                       <span className="absolute bottom-2 right-2 bg-black/70 text-white text-[0.8125rem] px-2 py-0.5 rounded font-mono">
                         {photo.year}

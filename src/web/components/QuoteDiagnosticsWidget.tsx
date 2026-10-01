@@ -184,6 +184,8 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           src="/images/escort-ceremony.jpg"
           alt="정중한 의전 지도사 예우"
           className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-105"
+        loading="lazy"
+        decoding="async"
         />
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-35" />

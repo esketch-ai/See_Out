@@ -262,7 +262,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
         {/* 하단 고정 닫기 툴바 */}
         <div className="no-print bg-[#FAF9F6] p-4 px-6 border-t border-[#DCD6C9] flex items-center justify-between shrink-0 text-[0.8125rem]">
           <span className="text-[#5A5E66] text-[0.8125rem]">
-            법률 준법 지원: legal@baeung.kr · 고문 변호인단 직통 1588-0000
+            법률 지원: <a href="mailto:legal@baeung.kr" className="underline underline-offset-4 hover:text-[#19382C]">legal@baeung.kr</a> · 고문 변호인단 직통 1588-0000
           </span>
           <button
             onClick={onClose}

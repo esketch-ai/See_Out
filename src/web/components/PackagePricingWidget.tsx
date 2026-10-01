@@ -164,6 +164,8 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
           src="/images/floral-coffin.jpg"
           alt="정직 원가 의전 용품 및 생화 꽃관"
           className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-100"
+        loading="lazy"
+        decoding="async"
         />
         {/* 삼국·조선 길상 구름문 은은한 오버레이 */}
         <div className="absolute inset-0 pointer-events-none k-pattern-unmun-dark opacity-20" />
@@ -243,6 +245,8 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               src={activeVisual.image}
               alt={activeVisual.name}
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            decoding="async"
             />
             {/* 호버 시 돋보기 오버레이 */}
             <div className="absolute inset-0 bg-[#0D0E10]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white space-x-1.5 font-serif text-[0.8125rem]">
@@ -769,6 +773,8 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                   src={zoomModalItem.image}
                   alt={zoomModalItem.name}
                   className="w-full h-full object-contain max-h-[360px]"
+                loading="lazy"
+                decoding="async"
                 />
                 <div className="absolute bottom-2 left-2 bg-[#141618]/85 text-white text-[0.8125rem] px-2.5 py-1 rounded">
                   {zoomModalItem.originBadge}

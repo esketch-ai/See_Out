@@ -56,6 +56,50 @@ interface LifeArchiveWidgetProps {
 }
 
 
+
+/** 「가족에게 보여줄 한 장」 본문.
+ *
+ *  전제: 받는 쪽은 도시에서 독립된 가족이다. 시골에 홀로 있는 유족이
+ *  이 본문을 카톡·문자로 붙여넣는다. 그래서 ① 사실 ② 장소 ③ 시간
+ *  ④ 연락처 순으로 두고, 판단이 필요한 말은 넣지 않는다.
+ *
+ *  숫자만 쓰고 문장은 짧게 — 시간을 끌지 여유가 없는 분이 읽는다. */
+const buildFamilySummary = (f: FuneralSetting): string => {
+  const L: string[] = [];
+  // ★ 아직 예시값인 항목을 먼저 알린다. 그대로 보내면 남의 이름이 간다.
+  //   조문금 계좌에 기본값의 예금주가 그대로 실린 채 나갈 수 있었다.
+  const stale: string[] = [];
+  const chk = (label: string, v: string | undefined, def: string | undefined) => {
+    if (v && def && v === def) stale.push(label);
+  };
+  chk('고인 성함', f.deceasedName, DEFAULT_FUNERAL_SETTING.deceasedName);
+  chk('상주자', (f.chiefMourners || []).join(', '), (DEFAULT_FUNERAL_SETTING.chiefMourners || []).join(', '));
+  chk('조문금 계좌', f.condolenceAccount, DEFAULT_FUNERAL_SETTING.condolenceAccount);
+  chk('발인 일시', f.departureDateTime, DEFAULT_FUNERAL_SETTING.departureDateTime);
+  L.push(`【부고】 ${f.deceasedName || '고인'}${f.deceasedClan ? ` · ${f.deceasedClan}` : ''}`);
+  if (f.birthDate && f.deathDate) {
+    L.push(`${f.birthDate} 생 → ${f.deathDate} 별${f.age != null ? ` (만 ${f.age}세)` : ''}`);
+  }
+  if (f.motto) L.push(`한 분의 말  ${f.motto.replace(/[“”"]/g, '').trim()}`);
+  L.push('');
+  L.push(`■ 빈소: ${f.funeralHallName || ''} ${f.roomName || ''}`);
+  if (f.address) L.push(`   주소: ${f.address}`);
+  if (f.nearestSubway) L.push(`   교통: ${f.nearestSubway}`);
+  if (f.departureDateTime) L.push(`■ 발인: ${f.departureDateTime}`);
+  if (f.condolenceAccount) L.push(`■ 조문금: ${f.condolenceAccount}`);
+  L.push(`■ 상주: ${(f.chiefMourners || []).join(', ') || '미입력'}`);
+  if (f.chiefPhone) L.push(`   ☎ ${f.chiefPhone}`);
+  L.push('■ 배웅 24시: 1588-0000');
+  L.push('');
+  if (stale.length) {
+    L.push('');
+    L.push(`⚠ 아직 고치지 않은 예시값: ${stale.join(', ')}`);
+    L.push('  그대로 보내면 남의 이름이 갑니다. 위 「고쳐 쓰기」 에서 먼저 바꾸세요.');
+  }
+  L.push('가족분들 확인 부탁드립니다. 궁금한 점은 언제든 전화 주세요.');
+  return L.join('\n');
+};
+
 /** 부고장 편집 입력 한 칸 — 라벨·aria-label·최소 탭 영역을 한 곳에 모은다. */
 const OBField: React.FC<{
   label: string;
@@ -99,6 +143,7 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   //   지금까지는 「사전 설정된 미리보기」 만 있었고 고칠 방법이 없었다.
   //   시골 독거 유족이 「나중에 쓸 부고장」 을 만들 수 있어야 한다.
   const [isObituaryEditorOpen, setIsObituaryEditorOpen] = useState(false);
+  const [shareNote, setShareNote] = useState<string>('');
   const patchSetting = (patch: Partial<FuneralSetting>) => {
     onUpdateFuneralSetting?.({ ...funeralSetting, ...patch });
   };
@@ -606,8 +651,10 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   onChange={(v) => patchSetting({ birthDate: v })} />
                 <OBField label="사망일" value={funeralSetting.deathDate || ''}
                   onChange={(v) => patchSetting({ deathDate: v })} />
-                <OBField label="상주자 (유가족 대표)" value={(funeralSetting.chiefMourners || [])[0] || ''}
-                  onChange={(v) => patchSetting({ chiefMourners: [v, ...(funeralSetting.chiefMourners || []).slice(1)] })} />
+                <OBField label="상주자 (여러 명이면 쉼표로)" value={(funeralSetting.chiefMourners || []).join(', ')}
+                  onChange={(v) => patchSetting({
+                    chiefMourners: v.split(',').map((x) => x.trim()).filter(Boolean),
+                  })} />
                 <OBField label="상주자 연락처" type="tel" value={funeralSetting.chiefPhone || ''}
                   onChange={(v) => patchSetting({ chiefPhone: v })} />
                 <OBField label="발인 일시" wide value={funeralSetting.departureDateTime}
@@ -616,6 +663,40 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   onChange={(v) => patchSetting({ condolenceAccount: v })} />
               </div>
               <div className="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const text = buildFamilySummary(funeralSetting);
+                    // ① 공유 API (카카오톡·문자 등 OS 공유 시트)
+                    const nav = navigator as Navigator & {
+                      share?: (d: ShareData) => Promise<void>;
+                      canShare?: (d: ShareData) => boolean;
+                    };
+                    if (nav.share) {
+                      try {
+                        await nav.share({ title: '부고', text });
+                        setShareNote('공유 창을 열었습니다.');
+                        return;
+                      } catch {
+                        // 사용자가 취소한 경우 아님 — 아래로 이어간다
+                      }
+                    }
+                    // ② 클립보드 복사 (문자·카톡·이메일에 붙여넣기)
+                    try {
+                      await navigator.clipboard.writeText(text);
+                      setShareNote('복사했습니다. 문자나 카카오톡에 붙여넣어 보내세요.');
+                      return;
+                    } catch {
+                      // ③ 복사도 안 되면 아래 안내를 보여 준다
+                    }
+                    setShareNote(
+                      '자동 복사가 되지 않았습니다. 아래 「공유할 내용」 을 손으로 옮겨 적어 보내세요.',
+                    );
+                  }}
+                  className="k-tap px-4 rounded-md bg-[#8B2520] text-[#FAF9F6] text-[0.9375rem] font-bold"
+                >
+                  가족에게 보내기
+                </button>
                 <button
                   type="button"
                   onClick={() => window.print()}
@@ -630,6 +711,24 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   조문객에게 받을 전화
                 </a>
               </div>
+
+              {shareNote && (
+                <p role="status" className="text-[1.125rem] font-bold text-[#19382C]">
+                  {shareNote}
+                </p>
+              )}
+
+              {/* ★ 공유할 원문 — 복사·공유가 안 되는 기기에서도 눈으로 읽고
+                  옮겨 적을 수 있어야 한다. 시골 독거 유족 중 일부는
+                  문자 앱 sharing 기능이 없는 기기를 쓴다. */}
+              <details className="rounded-md border border-[#DCD6C9] bg-[#FAF9F6]">
+                <summary className="k-tap px-4 py-3 cursor-pointer text-[1.125rem] font-bold text-[#151719]">
+                  공유할 내용 보기 (직접 옮겨 적기)
+                </summary>
+                <pre className="px-4 pb-4 text-[0.9375rem] leading-relaxed whitespace-pre-wrap font-sans text-[#151719]">
+                  {buildFamilySummary(funeralSetting)}
+                </pre>
+              </details>
             </div>
           </div>
 

@@ -259,6 +259,57 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
     ).toBeLessThanOrEqual(BASELINE);
   });
 
+
+  // ─────────────────────────────────────────────────────────────
+  //  ★ 「내 의전 기록」 은 동의가 있어야만 남는다
+  //
+  //  저장되는 것에는 고인 이름과 조문금 계좌가 든다. 동의 없는 저장은
+  //  개인정보 동의 위반이다. 이 검사는 그 경계를 코드에서 지킨다.
+  //
+  //  · localStorage 를 직접 쓰는 곳은 저장 모듈 하나뿐이어야 한다
+  //  · writeRecord 는 동의 없으면 거부해야 한다 (코드에서 확인)
+  //  · 네트워크로 보내면 안 된다 — 저장 모듈에 fetch 가 없어야 한다
+  // ─────────────────────────────────────────────────────────────
+  it('의전 기록 저장은 동의 게이트를 통과해야 한다', () => {
+    const store = read('src/web/design-system/bereavementStore.ts');
+
+    // 1) 저장 모듈 밖에서 localStorage 를 직접 쓰지 않는다
+    const writers: string[] = [];
+    for (const f of walk(join(ROOT, 'src'))) {
+      if (f.endsWith('bereavementStore.ts')) continue;
+      if (/localStorage\s*\.|localStorage\[/.test(readFileSync(f, 'utf8'))) writers.push(f.replace(ROOT + '/', ''));
+    }
+    expect(writers, `저장 모듈 밖에서 localStorage 를 직접 쓰는 곳: ${writers.join(', ')}`).toEqual([]);
+
+    // 2) 쓰기 함수는 동의 확인 없이 진행되지 않는다
+    expect(store, 'bereavementStore.ts 에 writeRecord 가 있어야 한다').toMatch(/export const writeRecord/);
+    // ★ 「동의 없으면 거부」 라는 사실 자체를 요구한다.
+    //   consentAt merely 등장하는 것으론 부족하다 — 객체 리터럴에도 쓰이므로
+    //   주입으로 제거해도 통과했다. 실제로 그렇게 놓쳤던 적이 있다.
+    const writeBody = store.slice(store.indexOf('export const writeRecord'));
+    const before = writeBody.slice(0, writeBody.indexOf('setItem'));
+    expect(
+      before,
+      'writeRecord 는 동의를 확인하고 거부하는 조건문이 있어야 한다 — ' +
+        'consentAt 이라는 이름이 등장하는 것만으로는 부족하다',
+    ).toMatch(/!\s*cur\??\s*\.\s*consentAt[\s\S]{0,60}?return\s+false/);
+
+    // 3) 서버로 보내지 않는다
+    expect(store, '의전 기록을 네트워크로 보내면 안 된다').not.toMatch(/fetch\(|XMLHttpRequest|navigator\.sendBeacon/);
+
+    // 4) 철회 경로가 있다 — 동의가 강요가 되면 안 된다
+    expect(store, '지우는 길이 있어야 한다').toMatch(/export const revokeConsent/);
+    expect(read('src/web/components/SaveConsent.tsx')).toMatch(/이 기기에서 지우기/);
+  });
+
+  it('「네, 기억시켜 주세요」 는 기본값으로 켜져 있지 않아야 한다', () => {
+    const src = read('src/web/components/SaveConsent.tsx');
+    // 동의 화면에 체크박스가 있다면 기본 켜짐이어서는 안 된다
+    expect(src, '동의 화면에 checked 또는 defaultChecked 가 있으면 안 된다').not.toMatch(/checked(?![\w-])/);
+    // 아니오 경로도 있어야 한다
+    expect(src, '거절 경로가 있어야 한다').toMatch(/아니요/);
+  });
+
   it('「큰 글씨」 배율은 정본 tokens.ts 와 어긋나지 않아야 한다', () => {
     // index.html 과 tokens.largeFontScale 가 갈리면 「노안용」 이 조용히 사라진다
     const tokens = read('src/web/design-system/tokens.ts');

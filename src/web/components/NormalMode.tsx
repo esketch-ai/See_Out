@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowRight, ShieldCheck, FileText, Building2, PackageCheck, BookOpen, Sparkles, PhoneCall, CheckCircle2, HeartHandshake, Scale } from 'lucide-react';
 import { MainTab } from './Header.js';
 import { QuoteDiagnosticsWidget } from './QuoteDiagnosticsWidget.js';
@@ -13,6 +13,30 @@ import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkDa
 import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
 import { KmacaWarmHome } from './KmacaWarmHome.js';
 import { BereavementProgress, BereavementStageKey } from './BereavementProgress.js';
+import { SaveConsent } from './SaveConsent.js';
+import {
+  grantConsent,
+  readConsentState,
+  readRecord,
+  revokeConsent,
+  writeRecord,
+  type ConsentState,
+  type StoredObituary,
+} from '../design-system/bereavementStore.js';
+
+/** 부고장 중 「유족이 직접 적은 것」 만 저장한다. 빈소·패키지 자동 값은 제외. */
+const OBITUARY_FIELDS = [
+  'deceasedName',
+  'deceasedClan',
+  'birthDate',
+  'deathDate',
+  'age',
+  'chiefMourners',
+  'chiefPhone',
+  'departureDateTime',
+  'condolenceAccount',
+  'motto',
+] as const satisfies readonly (keyof StoredObituary)[];
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 import { VirtualCallService } from '../../tracking/index.js';
@@ -57,7 +81,31 @@ export const NormalMode: React.FC<NormalModeProps> = ({
 
   // ★ 의전 진행 상태 — 수동 체크가 아니라 「실제로 한 행동」 에서만 켜진다.
   //   「아직 모르는 것」 을 지우지 않는 것이 요점이다 (AGENTS.md §5).
+  // ── 「내 의전 기록」 지속화 ──────────────────────────────────────
+  // ★ 동의가 없으면 읽지도 쓰지도 않는다. 초기값은 하드코딩이 아니라
+  //   저장소에서 온다 — 그래야 새로고침해도 이어진다.
+  const [consent, setConsent] = useState<ConsentState>(() => readConsentState());
+  const restored = useRef(false);
   const [doneStages, setDoneStages] = useState<Partial<Record<BereavementStageKey, boolean>>>({});
+
+  // 마운트 시 저장된 진행 상태를 되살린다 (동의가 있을 때만)
+  useEffect(() => {
+    if (restored.current) return;
+    restored.current = true;
+    const rec = readRecord();
+    if (rec) setDoneStages(rec.stages);
+  }, []);
+
+  // ★ 저장은 「동의 + 값 변화」 둘 다 있을 때만. writeRecord 가 스스로도
+  //   동의 없으면 거부하므로 이중으로 막는다.
+  useEffect(() => {
+    if (!consent.granted) return;
+    writeRecord(doneStages, OBITUARY_FIELDS.reduce<StoredObituary>(
+      (acc, k) => ({ ...acc, [k]: funeralSetting[k] }),
+      {},
+    ));
+  }, [consent.granted, doneStages, funeralSetting]);
+
   const markStage = (k: BereavementStageKey) =>
     setDoneStages((prev) => (prev[k] ? prev : { ...prev, [k]: true }));
 
@@ -155,6 +203,22 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   // 'home' (종합 의전 안내) 탭인 경우: 풍부한 시각 사진과 함께 전체 조망
   return (
     <div className="space-y-12 pb-24">
+
+    {/* ★ 동의 먼저 — 저장되는 것에는 고인 이름과 조문금 계좌가 든다 */}
+    <SaveConsent
+      granted={consent.granted}
+      hasRecord={consent.hasRecord}
+      onAgree={() => {
+        grantConsent();
+        setConsent(readConsentState());
+      }}
+      onErase={() => {
+        revokeConsent();
+        setConsent(readConsentState());
+        setDoneStages({});
+        setFuneralSetting(DEFAULT_FUNERAL_SETTING);
+      }}
+    />
 
     {/* ★ 「지금 무엇을 해야 하나요?」 — 유가족이 자정에 새로 들어와도
         여기서 「얼마나 왔는지」 알 수 있다. 실제 행동으로만 채워진다. */}

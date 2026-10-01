@@ -310,6 +310,56 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
     expect(src, '거절 경로가 있어야 한다').toMatch(/아니요/);
   });
 
+
+  // ─────────────────────────────────────────────────────────────
+  //  ★ 부고장 공유 링크 — 왕복이 깨지면 가족이 못 받는다
+  //
+  //  시골 유족이 보낸 링크를 도시에 있는 가족이 연다. 이 한 줄이
+  //  「가족끼리 상의한다」 의 전부이므로 왕복이 반드시 성립해야 한다.
+  // ─────────────────────────────────────────────────────────────
+  it('부고장 공유 링크가 왕복한다', async () => {
+    const { encodeShareLink, decodeShareLink, encodeObituary } = await import(
+      '../src/web/life-archive/obituaryShare.js'
+    );
+    const base = {
+      funeralHallId: 'x', funeralHallName: '서울아산병원장례식장', roomName: '2층 특20호실',
+      address: '서울 송파구 올림픽로43길 88', phone: '02-3010-2000', discountRate: 0,
+      crematoriumName: 'x', packageType: 'standard_3day', packageName: 'x', packagePrice: 0,
+      deceasedName: '故 홍길동 님', deceasedClan: '통영 홍씨',
+      birthDate: '1935년 2월 3일', deathDate: '2026년 10월 1일', age: 91,
+      chiefMourners: ['장녀 홍미래'], chiefPhone: '010-9999-1234',
+      departureDateTime: '2026년 10월 3일 (금) 오전 09시',
+      condolenceAccount: '신한은행 110-384-291028 (예금주: 장남 김정우)',
+    } as never;
+
+    const link = encodeShareLink(base, 'https://example.com/See_Out/');
+    expect(link, '링크는 해시(#)로 시작해야 한다 — 질의문자열은 서버로 전달된다').toContain('/See_Out/#b=');
+
+    const decoded = decodeShareLink(link.slice(link.indexOf('#')));
+    expect(decoded, '링크를 다시 열면 부고장이 나와야 한다').toBeTruthy();
+    expect(decoded!.n).toBe('홍길동');          // 「故 」「님」 은 빼고 이름만
+    expect(decoded!.c).toBe('통영 홍씨');
+    expect(decoded!.p).toBe('010-9999-1234');
+    expect(decoded!.h).toBe('서울아산병원장례식장');
+
+    // ★ 조문금 계좌는 담지 않는다. 링크는 카톡 기록에 남는다.
+    const dumped = JSON.stringify(decoded) + link;
+    expect(dumped, '계좌번호가 링크에 담기면 회복할 수 없다').not.toMatch(/110-384-291028/);
+
+    // 손상된 링크는 조용히 죽지 않는다 — 수신자가 알아야 한다
+    expect(decodeShareLink('#b=%%%broken%%%')).toBeNull();
+    expect(decodeShareLink('')).toBeNull();
+    expect(encodeObituary(base).n).toBe('홍길동');
+  });
+
+  it('공유 화면은 앱 크롬을 함께 얹지 않는다', () => {
+    const app = read('src/web/App.tsx');
+    // 링크 수신자는 부고장 한 장만 본다. 탭·하단 안내바·음성 버튼이 함께 뜨면
+    // 「알림 없는 앱」 처로 보이며, 무엇을 해도 되는지 알 수 없다.
+    expect(app).toMatch(/SharedObituaryView/);
+    expect(app).toMatch(/if \(shared\) return <SharedObituaryView/);
+  });
+
   it('「큰 글씨」 배율은 정본 tokens.ts 와 어긋나지 않아야 한다', () => {
     // index.html 과 tokens.largeFontScale 가 갈리면 「노안용」 이 조용히 사라진다
     const tokens = read('src/web/design-system/tokens.ts');

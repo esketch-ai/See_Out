@@ -2,6 +2,12 @@ import { lazyModal, warmAll } from './design-system/LazyModal.js';
 import React, { Suspense, useState, useEffect } from 'react';
 import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
+import { SharedObituaryView } from './components/SharedObituaryView.js';
+import {
+  SHARE_HASH_KEY,
+  decodeShareLink,
+  type SharedObituary,
+} from './life-archive/obituaryShare.js';
 import { EmergencyMode } from './components/EmergencyMode.js';
 import { LegalDocumentType } from '../legal/types.js';
 import { PhoneCall, Mic, Building2 } from 'lucide-react';
@@ -15,7 +21,7 @@ const SeniorVoiceAssistantModal = voiceModal.Comp;
 const PartnerPortalModal = partnerModal.Comp;
 const PRELOAD_MODALS = [legalModal.preload, voiceModal.preload, partnerModal.preload];
 
-export const App: React.FC = () => {
+const MainApp: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
   const [isEmergencyMode, setIsEmergencyMode] = useState<boolean>(false);
   const [isLargeFont, setIsLargeFont] = useState<boolean>(false);
@@ -234,6 +240,34 @@ export const App: React.FC = () => {
       )}
     </div>
   );
+};
+
+export const App: React.FC = () => {
+  // ★ 링크(#b=…)로 들어온 경우 — 수신자에게는 부고장 한 장만 보여 준다.
+  //   앱 크롬(헤더·탭·하단 안내바·음성 버튼)을 같이 얹으면 「부고장」 이 아니라
+  //   「알림 없는 앱」 이 된다. 조문객은 그것만 원하지 않는다.
+  //
+  //   여기서 early return 해도 안전한 이유: 이 컴포넌트의 훅 목록은 고정이다.
+  //   조건이 바뀌는 것은 MainApp 의 마운트 여부뿐이라 React #300 이 나지 않는다.
+  const [shared, setShared] = useState<{ data: SharedObituary | null; broken: boolean } | null>(null);
+
+  useEffect(() => {
+    const read = () => {
+      const h = window.location.hash;
+      if (!h || !h.startsWith(`#${SHARE_HASH_KEY}=`)) {
+        setShared(null);
+        return;
+      }
+      const data = decodeShareLink(h);
+      setShared({ data, broken: !data });
+    };
+    read();
+    window.addEventListener('hashchange', read);
+    return () => window.removeEventListener('hashchange', read);
+  }, []);
+
+  if (shared) return <SharedObituaryView data={shared.data!} broken={shared.broken} />;
+  return <MainApp />;
 };
 
 export default App;

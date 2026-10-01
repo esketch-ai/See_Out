@@ -1,4 +1,5 @@
 import { lazyModal, warmAll } from '../design-system/LazyModal.js';
+import { encodeShareLink } from '../life-archive/obituaryShare.js';
 import React, { Suspense, useEffect, useState } from 'react';
 import {
   BookOpen,
@@ -98,6 +99,11 @@ const buildFamilySummary = (f: FuneralSetting): string => {
     L.push(`⚠ 아직 고치지 않은 예시값: ${stale.join(', ')}`);
     L.push('  그대로 보내면 남의 이름이 갑니다. 위 「고쳐 쓰기」 에서 먼저 바꾸세요.');
   }
+  // ★ 링크를 먼저 준다 — 평문만 있으면 받는 쪽이 「쪽지」 라고 오해한다.
+  //   링크를 열면 부고장으로 보이는 화면이 나온다 (SharedObituaryView).
+  const origin = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : '';
+  if (origin) L.push(`부고장 보기: ${encodeShareLink(f, origin)}`);
+  L.push('');
   L.push('가족분들 확인 부탁드립니다. 궁금한 점은 언제든 전화 주세요.');
   return L.join('\n');
 };

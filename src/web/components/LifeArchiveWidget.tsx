@@ -55,6 +55,27 @@ interface LifeArchiveWidgetProps {
   onNavigateTab?: (tab: string) => void;
 }
 
+
+/** 부고장 편집 입력 한 칸 — 라벨·aria-label·최소 탭 영역을 한 곳에 모은다. */
+const OBField: React.FC<{
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  wide?: boolean;
+}> = ({ label, value, onChange, type = 'text', wide }) => (
+  <label className={wide ? 'block sm:col-span-2' : 'block'}>
+    <span className="block text-[0.8125rem] font-bold text-[#151719] mb-1">{label}</span>
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      aria-label={label}
+      className="w-full k-tap px-3 rounded-md border border-[#DCD6C9] bg-[#FAF9F6] text-[1.125rem] text-[#151719]"
+    />
+  </label>
+);
+
 export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   funeralSetting = DEFAULT_FUNERAL_SETTING,
   onUpdateFuneralSetting,
@@ -73,6 +94,14 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
 
   // 음성 플레이어 시뮬레이션 상태
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+
+  // ★ 부고장을 유족이 직접 고칠 수 있어야 한다.
+  //   지금까지는 「사전 설정된 미리보기」 만 있었고 고칠 방법이 없었다.
+  //   시골 독거 유족이 「나중에 쓸 부고장」 을 만들 수 있어야 한다.
+  const [isObituaryEditorOpen, setIsObituaryEditorOpen] = useState(false);
+  const patchSetting = (patch: Partial<FuneralSetting>) => {
+    onUpdateFuneralSetting?.({ ...funeralSetting, ...patch });
+  };
 
   // 부고 발송 시뮬레이션 상태
   const [isBroadcasting, setIsBroadcasting] = useState<boolean>(false);
@@ -543,6 +572,67 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           </div>
 
           {/* 중단: 고인 사전 작성 모바일 부고장 & 원터치 발송 시뮬레이터 */}
+
+          {/* ★ 부고장 직접 만들기 — 유족이 고쳐야 부고장이 「내 것」 이 된다 */}
+          <div className="border border-[#DCD6C9] rounded-xl bg-[#FFFFFF] overflow-hidden">
+            <button
+              type="button"
+              aria-expanded={isObituaryEditorOpen}
+              aria-controls="obituary-editor-panel"
+              onClick={() => setIsObituaryEditorOpen((v) => !v)}
+              className="k-tap w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
+            >
+              <span className="font-bold text-[1.125rem] text-[#151719]">
+                내 부고장 고쳐 쓰기
+                <span className="block text-[0.8125rem] font-normal text-[#5A5E66]">
+                  이름 · 생년월일 · 상주자 · 발인 일시 · 조문금 계좌
+                </span>
+              </span>
+              <span aria-hidden="true" className="text-[#6E5429]">
+                {isObituaryEditorOpen ? '▲' : '▼'}
+              </span>
+            </button>
+
+            <div id="obituary-editor-panel" hidden={!isObituaryEditorOpen} className="px-5 pb-5 space-y-4">
+              <p className="text-[0.8125rem] text-[#5A5E66]">
+                지금 보이는 미리보기는 예시입니다. 여기서 고친 내용이 그대로 부고장이 됩니다.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <OBField label="고인 성함" value={funeralSetting.deceasedName}
+                  onChange={(v) => patchSetting({ deceasedName: v })} />
+                <OBField label="고인 성씨 (본관)" value={funeralSetting.deceasedClan || ''}
+                  onChange={(v) => patchSetting({ deceasedClan: v })} />
+                <OBField label="생년월일" value={funeralSetting.birthDate || ''}
+                  onChange={(v) => patchSetting({ birthDate: v })} />
+                <OBField label="사망일" value={funeralSetting.deathDate || ''}
+                  onChange={(v) => patchSetting({ deathDate: v })} />
+                <OBField label="상주자 (유가족 대표)" value={(funeralSetting.chiefMourners || [])[0] || ''}
+                  onChange={(v) => patchSetting({ chiefMourners: [v, ...(funeralSetting.chiefMourners || []).slice(1)] })} />
+                <OBField label="상주자 연락처" type="tel" value={funeralSetting.chiefPhone || ''}
+                  onChange={(v) => patchSetting({ chiefPhone: v })} />
+                <OBField label="발인 일시" wide value={funeralSetting.departureDateTime}
+                  onChange={(v) => patchSetting({ departureDateTime: v })} />
+                <OBField label="조문금 계좌" wide value={funeralSetting.condolenceAccount}
+                  onChange={(v) => patchSetting({ condolenceAccount: v })} />
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="k-tap px-4 rounded-md bg-[#19382C] text-[#FAF9F6] text-[0.9375rem] font-bold"
+                >
+                  이 부고장 인쇄 / PDF 저장
+                </button>
+                <a
+                  href={funeralSetting.chiefPhone ? `tel:${funeralSetting.chiefPhone.replace(/[^0-9+]/g, '')}` : 'tel:1588-0000'}
+                  className="k-tap px-4 rounded-md border border-[#19382C] text-[#19382C] text-[0.9375rem] font-bold flex items-center"
+                >
+                  조문객에게 받을 전화
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* 좌측 (7/12): 부고장 미리보기 */}
             <div className="lg:col-span-7 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
@@ -583,6 +673,38 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719] mt-1">
                     {activeObituary.title}
                   </h4>
+                </div>
+
+                {/* ★ 상주자 · 발인 · 조문금 — 유족이 고친 값이 그대로 실린다.
+                    부고장에 「누에게 연락할지」 가 없으면 완성된 부고장이 아니다. */}
+                <div className="rounded-lg border border-[#DCD6C9] bg-[#FAF9F6] p-4 space-y-1.5">
+                  <div className="text-[0.8125rem] font-bold text-[#8B2520] tracking-widest">상주 · 조문 안내</div>
+                  {funeralSetting.deceasedClan && (
+                    <p className="text-[1.125rem] text-[#151719]">본관: {funeralSetting.deceasedClan}</p>
+                  )}
+                  {funeralSetting.birthDate && funeralSetting.deathDate && (
+                    <p className="text-[1.125rem] text-[#151719]">
+                      {funeralSetting.birthDate} 생 → {funeralSetting.deathDate} 별
+                      {funeralSetting.age != null && ` (만 ${funeralSetting.age}세)`}
+                    </p>
+                  )}
+                  {funeralSetting.departureDateTime && (
+                    <p className="text-[1.125rem] text-[#151719]">발인: {funeralSetting.departureDateTime}</p>
+                  )}
+                  <p className="text-[1.125rem] text-[#151719]">
+                    상주: {(funeralSetting.chiefMourners || []).join(', ') || '미입력'}
+                  </p>
+                  {funeralSetting.chiefPhone && (
+                    <a
+                      href={`tel:${funeralSetting.chiefPhone.replace(/[^0-9+]/g, '')}`}
+                      className="block text-[1.125rem] font-bold text-[#19382C] underline underline-offset-4"
+                    >
+                      ☎ {funeralSetting.chiefPhone}
+                    </a>
+                  )}
+                  {funeralSetting.condolenceAccount && (
+                    <p className="text-[1.125rem] text-[#151719]">조문금: {funeralSetting.condolenceAccount}</p>
+                  )}
                 </div>
 
                 {/* 고인의 생전 온화한 인물 사진 프로필 배너 */}

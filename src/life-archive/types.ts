@@ -118,6 +118,9 @@ export interface FuneralSetting {
   age?: number;
   motto?: string;
   chiefMourners: string[];
+  /** 상주자(유가족 대표) 연락처 — 부고장에 실려야 하는 전화번호.
+   *  조문객이 「전화하고 싶다」 고 할 때 받을 번호다. 없으면 부고장이 완성되지 않는다. */
+  chiefPhone?: string;
   departureDateTime: string;
   condolenceAccount: string;
   virtualPhone?: string;

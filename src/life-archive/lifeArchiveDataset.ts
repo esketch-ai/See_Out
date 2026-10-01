@@ -346,6 +346,7 @@ export const DEFAULT_FUNERAL_SETTING: FuneralSetting = {
   chiefMourners: ['장남 김정우', '차녀 김수연', '자부 박미영', '사위 이진수', '손자 김민준'],
   departureDateTime: '2026년 3월 27일 (금) 오전 07시 30분',
   condolenceAccount: '신한은행 110-384-291028 (예금주: 장남 김정우)',
+  chiefPhone: '010-2841-5507',
   virtualPhone: '0507-1420-1001',
   nearestSubway: '2호선 잠실나루역 1번 출구 (도보 12분 / 셔틀 수시 운행)',
   navigationLink: 'https://map.kakao.com/link/search/서울아산병원장례식장'

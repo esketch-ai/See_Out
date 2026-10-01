@@ -230,6 +230,35 @@ describe('타이포그래피 하한 — N-7 (Task 10)', () => {
     expect(offenders, `rem 하한 ${MIN_REM} (13px) 위반:\n  ${offenders.join('\n  ')}`).toEqual([]);
   });
 
+
+  // ─────────────────────────────────────────────────────────────
+  //  ★ 13px(typography.micro) 는 「법적 고지·데이터·라벨」 에만 쓴다
+  //
+  //  정본은 본문 18px 를 표준으로 정하고 13px 를 「하한」 으로 두었다.
+  //  그런데 화면의 본문이 13px 였다. 산문 64곳을 18px 로 올려 바로잡았다.
+  //
+  //  남은 13px 산문 태그는 104건인데 **틀린 게 아니다** — 금액·날짜·회차·
+  //  문서번호 같은 데이터 표기다. 전부 금지하면 규칙이 거짓말을 한다.
+  //  그래서 합계만 못 늘리게 한다 (래칫). 산문이 13px 로 내려가면 걸린다.
+  // ─────────────────────────────────────────────────────────────
+  it('본문 태그의 13px 는 baseline 을 넘어 늘면 안 된다 (래칫)', () => {
+    const BASELINE = 104;
+    const offenders: string[] = [];
+    let count = 0;
+    for (const f of walk(join(ROOT, 'src'))) {
+      const src = readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/<(p|li)\b[^>]*text-\[0\.8125rem\]/g)) {
+        count++;
+        offenders.push(`${f.replace(ROOT + '/', '')}: ${m[0].slice(0, 50)}`);
+      }
+    }
+    expect(
+      count,
+      `<p>/<li> 에 남은 13px 가 ${count}건 (baseline ${BASELINE}). ` +
+        `산문을 13px 로 내리는 것이면 되돌리고, 데이터 표기면 숫자만 갱신하라:\n  ${offenders.slice(-6).join('\n  ')}`,
+    ).toBeLessThanOrEqual(BASELINE);
+  });
+
   it('「큰 글씨」 배율은 정본 tokens.ts 와 어긋나지 않아야 한다', () => {
     // index.html 과 tokens.largeFontScale 가 갈리면 「노안용」 이 조용히 사라진다
     const tokens = read('src/web/design-system/tokens.ts');

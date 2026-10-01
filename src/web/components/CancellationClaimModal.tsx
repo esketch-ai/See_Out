@@ -438,7 +438,7 @@ ${claimData.claimDate || '발송 당일'}
             </div>
 
             {/* 4. 법적 근거 및 지연배상금 고지문 */}
-            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-[0.8125rem] text-[#42464E] leading-relaxed">
+            <div className="p-4 bg-[#FFFFFF] border border-[#DCD6C9] rounded-lg space-y-2 text-[1.125rem] text-[#42464E] leading-relaxed">
               <span className="font-bold text-[#151719] block">
                 5. 법적 근거 및 지연배상금 가산 고지
               </span>

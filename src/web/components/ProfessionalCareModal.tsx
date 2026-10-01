@@ -210,7 +210,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                 <h4 className="font-reverence font-bold text-lg text-[#151719]">
                   "이별의 슬픔은 억누르는 것이 아니라, 정성껏 보살필 때 치유됩니다"
                 </h4>
-                <p className="text-[0.8125rem] sm:text-sm text-[#42464E] leading-relaxed font-serif">
+                <p className="text-[1.125rem] sm:text-[1.125rem] text-[#42464E] leading-relaxed font-serif">
                   임종을 앞둔 어르신의 죽음 불안과 실존적 고뇌를 보듬는 <b>생전 마음돌봄</b>부터,
                   장례 후 가족을 잃은 슬픔으로 일상을 잃어버린 유족을 위한 <b>사별 비탄 애도상담</b>까지
                   100% 정찰제로 투명하게 연계해 드립니다.
@@ -235,7 +235,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                   <h4 className="font-reverence font-bold text-lg text-[#151719]">
                     "빚 대물림 방지 3개월 골든타임, 단 하루도 놓쳐서는 안 됩니다"
                   </h4>
-                  <p className="text-[0.8125rem] sm:text-sm text-[#42464E] leading-relaxed font-serif">
+                  <p className="text-[1.125rem] sm:text-sm text-[#42464E] leading-relaxed font-serif">
                     고인의 사망 사실을 안 날로부터 3개월 이내에 신청해야 하는 <b>상속포기 및 한정승인</b>,
                     가족 간 분쟁을 미연에 방지하는 <b>상속재산분할·유류분 반환</b>, <b>유언공증과 성년후견</b>까지
                     배웅은 어떠한 수수료도 떼지 않고 100% 무료 직통 안심 연결을 제공합니다.
@@ -450,11 +450,11 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                     </p>
                   </div>
 
-                  <p className="text-[0.8125rem] text-[#5A5E66] bg-[#FAF9F6] p-2 rounded border border-[#DCD6C9] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] bg-[#FAF9F6] p-2 rounded border border-[#DCD6C9] leading-relaxed">
                     📜 {pro.licenseInfo}
                   </p>
 
-                  <p className="text-[0.8125rem] text-[#42464E] leading-relaxed line-clamp-3 font-serif">
+                  <p className="text-[1.125rem] text-[#42464E] leading-relaxed line-clamp-3 font-serif">
                     "{pro.introduction}"
                   </p>
 
@@ -538,7 +538,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                 배웅 라이프엔딩 플랫폼 법률 & 심리 자문 컴플라이언스 선언
               </h5>
             </div>
-            <p className="text-[0.8125rem] text-[#A8B2A9] leading-relaxed font-serif">
+            <p className="text-[1.125rem] text-[#A8B2A9] leading-relaxed font-serif">
               1. <b>변호사법 제34조 준수</b>: 배웅은 법률사건의 수임과 관련하여 일체의 소개·알선 수수료(리베이트)를 수취하지 않으며, 전담 변호사와 유가족 간 직접 상담 및 수임을 100% 무료 연결합니다.<br />
               2. <b>심리상담 윤리강령 준수</b>: 민간 무자격 상담사를 전면 배제하며, 보건복지부 및 한국임상/상담심리학회 공인 1급 라이선스 자격자만을 엄선하여 고인의 존엄과 유족의 비밀을 보장합니다.<br />
               3. <b>정찰제 수가 공개</b>: 모든 상담료와 서류 대행 수가는 사전 고지된 정찰제로 운영되며 부당한 추가금을 요구하지 않습니다.
@@ -597,7 +597,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                   <h4 className="font-reverence font-bold text-xl text-[#151719]">
                     상담 예약이 정상 접수되었습니다
                   </h4>
-                  <p className="text-[0.8125rem] text-[#42464E] leading-relaxed pt-1">
+                  <p className="text-[1.125rem] text-[#42464E] leading-relaxed pt-1">
                     담당 전문가 <b>{bookingResult.professionalName}</b> 사무소로 고객님의 상담 신청서가 직통 전달되었습니다.
                   </p>
                 </div>
@@ -611,7 +611,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                     <span className="text-[#5A5E66]">플랫폼 중개 수수료:</span>
                     <span className="font-mono font-bold text-[#19382C]">0원 (무료 연결)</span>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] pt-2 border-t border-[#DCD6C9] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] pt-2 border-t border-[#DCD6C9] leading-relaxed">
                     {bookingResult.notice}
                   </p>
                 </div>

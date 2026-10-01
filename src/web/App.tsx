@@ -121,7 +121,7 @@ export const App: React.FC = () => {
             <p className="font-bold text-[#151719] text-sm md:text-base">
               배웅(Bae-ung) 라이프엔딩 플랫폼 — 고인의 마지막 가시는 길, 최고의 예우로 곁을 지키겠습니다
             </p>
-            <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
               사단법인 한국장례협회 등록 데이터 및 보건복지부 e하늘 장사정보시스템 공공 표준 준수<br />
               법률 및 컴플라이언스: 대한변호사협회 등록 30년+ 전문변호인단 법률 감수 완료 | CPO 개인정보보호책임자: privacy@baeung.kr | Themis-AI PARA 거버넌스
             </p>

@@ -293,7 +293,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
                   고인을 모시는 3일간의 숭고한 여정 (빈소 조문형)
                 </h3>
-                <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                <p className="text-[1.125rem] sm:text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed">
                   임종 즉시 고인 이송부터 조문객 맞이, 궁중 습염, 발인, 영구 안치까지 국가공인 1급 장례지도사가 곁을 지킵니다.
                 </p>
               </div>
@@ -317,7 +317,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     첫째 날: 임종과 편안한 안식
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
                   </p>
                   <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
@@ -357,7 +357,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     둘째 날: 정갈한 입관과 염습
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
                   </p>
                   <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
@@ -397,7 +397,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     셋째 날: 정중한 발인과 영면
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
                   </p>
                   <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
@@ -436,7 +436,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                 <h3 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] tracking-tight">
                   무빈소(2일장): 직계가족 중심의 조용하고 경건한 배웅 (가족 직례형)
                 </h3>
-                <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] mt-1 leading-relaxed">
+                <p className="text-[1.125rem] sm:text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed">
                   빈소를 차리지 않고 안치실 안식 후 입관 및 화장·봉안으로 이어지는 120만 원 정찰의 합리적이고 경건한 가족장입니다.
                 </p>
               </div>
@@ -460,7 +460,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     첫째 날: 안식과 가족 전용 추모 입관
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 정중히 운구하여 안치실에 모신 후, 직계가족만 참여하는 경건한 생화 꽃구름 입관식을 거행합니다.
                   </p>
                   <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
@@ -500,7 +500,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                     둘째 날: 정중한 발인과 승화원 봉안
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인의 마지막 가시는 길을 리무진으로 모시고 승화원에서 화장 및 안치를 마칩니다.
                   </p>
                   <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
@@ -566,7 +566,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 기존 상조 증서 정밀 안심 진단
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[1.125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '보유 중이신 상조 상품의 해약환급금과 배웅 3일장 실비를 1:1 대조하여 숨은 추가금 없는 최적 견적을 산출합니다.'
                   : '고가 상조 상품 해약 후 무빈소 120만 원 직례 진행 시 돌려받는 실 환급금을 1:1 맞춤 영수증으로 정밀 연산해 드립니다.'}
@@ -595,7 +595,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 전국 장례식장 시설 · 감면 검색
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[1.125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '거주지 인근 장례식장의 분향실·접객실 규모를 파악하고, 배웅 사전 등록을 통한 빈소 임대료 감면 혜택을 확인하세요.'
                   : '빈소를 차리지 않고 고인을 정갈하게 모실 수 있는 인근 안치실 규모와 승화원(화장장) 원스톱 예약 절차를 안내합니다.'}
@@ -624,7 +624,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 정직한 예우 정찰제 의전 패키지
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[1.125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '전통 3일장에 필수적인 최고급 수의·오동나무관·고인 리무진·접객 도우미 품목 단가를 100% 투명 공개하며 촌지를 금지합니다.'
                   : '빈소 없이 직계가족만으로 조용하고 품격 있게 모시는 120만 원 단일 정찰 직례 패키지의 모든 포함 품목을 확인하세요.'}
@@ -653,7 +653,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="text-lg sm:text-xl font-reverence font-bold text-[#151719] mt-2.5 group-hover:text-[#19382C] transition-colors">
                 생애기록관 (소중한 삶의 일상 봉안)
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] mt-1.5 leading-relaxed">
+              <p className="text-[1.125rem] text-[#42464E] mt-1.5 leading-relaxed">
                 {activeCeremonyTab === '3DAY'
                   ? '친지와 조문객을 위한 원터치 정중 부고장 무료 발송과 장례식장 빈소 키오스크 디지털 헌정 화면을 연동 지원합니다.'
                   : '직계가족 중심의 조용한 부고 알림과 고인의 삶을 따뜻하게 엮은 생애 평전 스토리북으로 마지막 기억을 보존합니다.'}
@@ -701,7 +701,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 이중안심 사전등록증
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif">
                 기존 상조는 해약하지 마시고 그대로 두십시오. 비상 즉시 출동권과 50만 원 손실 보전 지원권을 0원에 미리 확보해 드립니다.
               </p>
             </div>
@@ -727,7 +727,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 전문 심리상담 (마음돌봄)
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif">
                 임종을 앞둔 불안과 사별 후 유족의 비탄을 따뜻하게 보듬는 보건복지부 1급 정신건강임상심리사 1:1 안심 상담입니다.
               </p>
             </div>
@@ -756,7 +756,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
               <h4 className="font-reverence font-bold text-base sm:text-lg text-[#151719]">
                 상속 변호사 & 골든타임
               </h4>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif">
                 빚 대물림 방지(3개월 골든타임 한정승인)와 상속 재산 분할을 위한 대한변협 등록 상속전문변호사 직통 연결입니다.
               </p>
             </div>

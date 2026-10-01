@@ -117,7 +117,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 방금 임종을 맞이하셨습니까?
               </h2>
             </div>
-            <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
+            <p className="text-[1.125rem] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
               경황없는 슬픔의 순간, 당황하지 마십시오. 24시간 언제든 연락 주시면 국가공인 1급 장례지도사가 2시간 이내에 현장으로 즉시 출동하여 고인의 이송부터 빈소 안치까지 온 마음으로 곁을 지킵니다.
             </p>
           </div>
@@ -268,7 +268,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
               <h3 className="font-bold text-base text-[#151719] break-words">
                 배웅이 지켜온 약속: 투명한 장례 이야기
               </h3>
-              <p className="text-[0.8125rem] text-[#5A5E66] mt-1.5 leading-relaxed break-words">
+              <p className="text-[1.125rem] text-[#5A5E66] mt-1.5 leading-relaxed break-words">
                 슬픔 속에서도 부당한 비용 청구 없이, 고인의 존엄과 남겨진 가족의 마음을 온전히 지켜낸 실제 현장 기록입니다.
               </p>
             </div>
@@ -336,13 +336,13 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.28</span>
                 </li>
-                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
+                <li className="flex items-start justify-between text-[1.125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [보도] 배웅, 대한민국 최초 공공데이터 실시간 장례식장 연동
                   </span>
                   <span className="text-[#5A5E66] shrink-0 font-sans">09.24</span>
                 </li>
-                <li className="flex items-start justify-between text-[0.8125rem] group cursor-pointer">
+                <li className="flex items-start justify-between text-[1.125rem] group cursor-pointer">
                   <span className="text-[#151719] group-hover:text-[#19382C] break-words pr-2">
                     [안내] 기존 상조 해약 손실 보전 바우처 50만 원 지원 사업
                   </span>
@@ -367,7 +367,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                   <p className="font-bold text-[0.8125rem] text-[#151719] group-hover:text-[#19382C] break-words">
                     Q. 기존 상조를 유지하며 이용할 수 있나요?
                   </p>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
                     A. 네, 0원 이중안심 등록으로 비상 출동권과 손실보전권을 무료 발급해 드립니다.
                   </p>
                 </li>
@@ -381,7 +381,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                   <p className="font-bold text-[0.8125rem] text-[#151719] group-hover:text-[#19382C] break-words">
                     Q. 후불제 정산은 언제 이루어지나요?
                   </p>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed break-words">
                     A. 발인 완료 후 모든 내역을 1원 단위까지 확인하신 후 정산합니다.
                   </p>
                 </li>
@@ -501,7 +501,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
           <h3 className="font-reverence font-bold text-xl sm:text-2xl text-[#151719] tracking-tight">
             배웅 4대 의전 안심 헌장
           </h3>
-          <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] leading-relaxed break-words">
+          <p className="text-[1.125rem] sm:text-[1.125rem] text-[#5A5E66] leading-relaxed break-words">
             고인의 고귀한 삶을 기리는 숭고한 자리에 상술이 없도록 모든 의전과 비용은 1원 단위까지 투명하게 공개합니다.
           </p>
         </div>
@@ -566,7 +566,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 <p className="text-[#FAF9F6] font-bold text-base drop-shadow-sm">
                   “단 한 분의 어르신도 소홀함 없이 모십니다”
                 </p>
-                <p className="text-[0.8125rem] text-[#FAF9F6]/80 max-w-md">
+                <p className="text-[1.125rem] text-[#FAF9F6]/80 max-w-md">
                   상조 불법 리베이트 0원, 국가공인 1급 지도사의 72시간 동행 다큐멘터리
                 </p>
               </div>

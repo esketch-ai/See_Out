@@ -113,7 +113,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
               <div className="text-3xl sm:text-5xl font-reverence font-black text-[#C2A26A] tracking-tight">
                 {creditAmount.toLocaleString()} <span className="text-xl sm:text-2xl text-[#FAF9F6] font-normal">KRW</span>
               </div>
-              <p className="text-[0.8125rem] sm:text-sm text-[#A8B2A9] font-serif max-w-lg mx-auto leading-relaxed pt-1">
+              <p className="text-[1.125rem] sm:text-sm text-[#A8B2A9] font-serif max-w-lg mx-auto leading-relaxed pt-1">
                 기존 상조 중도 해약으로 인한 위약금 손실을 유족의 고통으로 남겨두지 않습니다.
                 배웅 후불 정산 시 아래 3대 실물 의전 업그레이드로 즉시 전액 차감 보전됩니다.
               </p>
@@ -129,7 +129,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                   </div>
                   <span className="text-[0.8125rem] text-[#C2A26A] font-bold block">혜택 ① (30만 원 상당)</span>
                   <h4 className="font-bold text-sm text-[#FAF9F6] mt-0.5">궁중 생화 꽃염습(꽃침대)</h4>
-                  <p className="text-[0.8125rem] text-[#A8B2A9] mt-1 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#A8B2A9] mt-1 leading-relaxed">
                     관 내부를 계절 생화 1,000송이로 정성껏 채워 고인의 마지막 가시는 길을 꽃밭으로 모십니다.
                   </p>
                 </div>
@@ -146,7 +146,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                   </div>
                   <span className="text-[0.8125rem] text-[#C2A26A] font-bold block">혜택 ② (15만 원 상당)</span>
                   <h4 className="font-bold text-sm text-[#FAF9F6] mt-0.5">최고급 리무진 거리 100km 연장</h4>
-                  <p className="text-[0.8125rem] text-[#A8B2A9] mt-1 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#A8B2A9] mt-1 leading-relaxed">
                     수도권 및 장거리 장지 이동 시 유류비와 톨비가 포함된 이동 거리를 100km 무료 연장합니다.
                   </p>
                 </div>
@@ -163,7 +163,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
                   </div>
                   <span className="text-[0.8125rem] text-[#C2A26A] font-bold block">혜택 ③ (5만 원 상당)</span>
                   <h4 className="font-bold text-sm text-[#FAF9F6] mt-0.5">유골함 영구 실버 레이저 각인</h4>
-                  <p className="text-[0.8125rem] text-[#A8B2A9] mt-1 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#A8B2A9] mt-1 leading-relaxed">
                     고인의 함자, 생몰년, 본관, 가족 헌정 문구를 유골함 표면에 정밀 레이저로 영구 각인합니다.
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
               <p className="leading-relaxed">
                 • 실제 임종 발생 시 배웅 1급 장례지도사에게 기존 상조 해약 증빙(해약 통지서, 문자, 또는 입금 내역)을 제시해 주시면 최종 정산서에서 위 3대 혜택 금액(총 50만 원)이 즉시 차감 반영됩니다.
               </p>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 • 본 바우처는 배웅 이중안심 사전 등록 회원 전용 혜택이며, 타인 양도가 가능합니다.
               </p>
             </div>

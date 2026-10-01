@@ -87,7 +87,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <div className="text-2xl sm:text-3xl font-reverence font-black text-[#151719] mt-0.5 tracking-tight">
                   24시 긴급 상황실 <span className="text-[#8B2520]">1588-0000</span>
                 </div>
-                <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-1 leading-normal">
+                <p className="text-[1.125rem] text-[#5A5E66] font-serif mt-1 leading-normal">
                   통화 즉시 관할 거점 전담 지도사 1:1 배정 · 선금 0원 무료 출동 보증
                 </p>
               </div>
@@ -123,7 +123,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">1</span>
                 <span>사망진단서 7~10부 발급</span>
               </div>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 화장장 예약, 사망신고, 금융·보험 처리에 원본이 필요합니다. 퇴원 시 한 번에 넉넉히 발급받으셔야 병원을 재방문하지 않습니다.
               </p>
             </div>
@@ -133,7 +133,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">2</span>
                 <span>고인 임의 이동 금지</span>
               </div>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 의사의 공식 사망 판정 및 진단서 발급 전 임의 이송 시 법적 문제가 될 수 있습니다. 배웅 전용 특수 운구차량이 안전히 모십니다.
               </p>
             </div>
@@ -143,7 +143,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <span className="w-5 h-5 rounded-full bg-[#FAF0EF] text-[#8B2520] flex items-center justify-center text-[0.8125rem] border border-[#8B2520]/20 font-mono">3</span>
                 <span>기존 상조도 배웅으로 이관</span>
               </div>
-              <p className="text-[0.8125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
+              <p className="text-[1.125rem] text-[#42464E] leading-relaxed font-serif min-w-0 break-words">
                 타 상조에 가입되어 있으셔도 선납금 손실 없이 배웅 실비 패키지로 즉시 전환 가능하며, 제휴 빈소 최대 30% 감면을 동일 적용받습니다.
               </p>
             </div>
@@ -239,7 +239,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   placeholder="예: 서울아산병원 본관 응급실 / 분당 구미동 자택"
                   className="w-full bg-[#FFFFFF] border-2 border-[#DCD6C9] rounded-xl px-4 py-3.5 text-[#151719] text-base placeholder-[#8F8878] focus:outline-none focus:border-[#19382C]"
                 />
-                <p className="text-[0.8125rem] text-[#5A5E66] font-serif">
+                <p className="text-[1.125rem] text-[#5A5E66] font-serif">
                   * 정확한 주소를 모르셔도 괜찮습니다. 접수 즉시 배정 지도사가 전화로 정확한 위치를 확인해 드립니다.
                 </p>
               </div>
@@ -284,7 +284,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                       임대료 최대 30% 감면
                     </span>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
                     현재 고인이 계신 곳에서 가장 가깝고 예우가 정갈한 빈소 예약을 배웅 전담팀이 즉시 조율해 드립니다.
                   </p>
                 </button>
@@ -300,7 +300,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <span className="font-reverence font-bold text-lg text-[#151719]">
                     이미 희망하시는 특정 장례식장이 있습니다
                   </span>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-2 leading-relaxed font-serif min-w-0 break-words">
                     가족분들께서 원하시는 장례식장으로 안전하고 정중하게 운구하여 모십니다.
                   </p>
                 </button>

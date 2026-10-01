@@ -122,7 +122,7 @@ export const B2BPartnerAdmissionModal: React.FC<B2BPartnerAdmissionModalProps> =
                     <span className="font-bold text-[#6E5429]">
                       2026년 3월 공정위 리베이트 제재 전면 시행 대응 클린 플랫폼
                     </span>
-                    <p className="text-[0.8125rem] text-[#6E5429] mt-0.5 leading-relaxed">
+                    <p className="text-[1.125rem] text-[#6E5429] mt-0.5 leading-relaxed">
                       배웅은 장례식장으로부터 알선 성공보수(소개 수수료)를 절대 취하지 않습니다.
                       오직 <b>월 300,000원 100% 정액 광고료</b>로만 운영되므로 리베이트 쌍벌제로부터 완벽히 면책됩니다.
                     </p>

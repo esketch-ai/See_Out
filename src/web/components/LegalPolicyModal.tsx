@@ -67,7 +67,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
               <h3 className="font-reverence font-bold text-base text-[#FAF9F6]">
                 배웅(BAEUNG) 법률 및 컴플라이언스 약관 규정
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 대한변호사협회 등록 30년+ 전문변호인단 법률 감수 · 대한민국 현행 실정법 완벽 준수
               </p>
             </div>
@@ -120,7 +120,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
                 <span className="font-bold text-[#6E5429]">
                   {currentDoc.legalCounselReview}
                 </span>
-                <p className="text-[0.8125rem] text-[#6E5429] mt-0.5 leading-relaxed">
+                <p className="text-[1.125rem] text-[#6E5429] mt-0.5 leading-relaxed">
                   본 규정은 「개인정보 보호법」, 「통신비밀보호법」, 「독점규제 및 공정거래에 관한 법률(2026.03 리베이트 철폐)」, 「장사법」에 의거하여 이용자의 권익을 두텁게 보호하도록 성안되었습니다.
                 </p>
               </div>
@@ -160,7 +160,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
                 </button>
               </div>
               {searchResults.length === 0 ? (
-                <p className="text-[0.8125rem] text-[#5A5E66]">일치하는 조항이 없습니다.</p>
+                <p className="text-[1.125rem] text-[#5A5E66]">일치하는 조항이 없습니다.</p>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                   {searchResults.map((res, idx) => (
@@ -168,7 +168,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
                       <div className="font-bold text-[#19382C] text-[0.8125rem]">
                         [{res.documentTitle}] {res.matchedArticle}
                       </div>
-                      <div className="text-[0.8125rem] text-[#42464E] mt-0.5 leading-relaxed">
+                      <div className="text-[1.125rem] text-[#42464E] mt-0.5 leading-relaxed">
                         {res.snippet}
                       </div>
                     </div>
@@ -198,14 +198,14 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
               </div>
 
               {/* 전문 */}
-              <div className="mt-4 p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+              <div className="mt-4 p-3 bg-[#FAF9F6] rounded border border-[#DCD6C9] text-[1.125rem] text-[#5A5E66] leading-relaxed">
                 <span className="font-bold text-[#151719] block mb-1">【전 문】</span>
                 {currentDoc.preamble}
               </div>
             </div>
 
             {/* 조항 본문 */}
-            <div className="space-y-6 text-[0.8125rem] text-[#151719] leading-relaxed">
+            <div className="space-y-6 text-[1.125rem] text-[#151719] leading-relaxed">
               {currentDoc.sections.map((sec, idx) => (
                 <div key={idx} className="space-y-2 border-b border-[#DCD6C9] pb-4 last:border-0 last:pb-0">
                   <div className="font-bold text-sm text-[#19382C] flex items-center space-x-2">

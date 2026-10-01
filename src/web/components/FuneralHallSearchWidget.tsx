@@ -186,7 +186,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             전국 장례식장 시설 지도 및 빈소 감면 명세
           </h2>
-          <p className="text-[#8A929D] text-[0.8125rem] sm:text-sm font-serif mt-1">
+          <p className="text-[#8A929D] text-[1.125rem] sm:text-[1.125rem] font-serif mt-1">
             거주지 인근 장례식장의 분향실·안치실 규모와 화장장 거리를 파악하고, 배웅 제휴 빈소 임대료 최대 30% 감면 혜택을 확인하세요.
           </p>
         </div>
@@ -712,7 +712,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                     <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618]">
                       공식 정찰 견적서 및 견적 참조번호(REF) 즉시 발급
                     </h4>
-                    <p className="text-[0.8125rem] text-[#5A5E66] font-serif leading-relaxed">
+                    <p className="text-[1.125rem] text-[#5A5E66] font-serif leading-relaxed">
                       장례식장 상담 시 발급된 <b>견적 참조번호</b>를 제시하시면, 사전 등록 고객으로 인식되어 부당 추가금 없이 정찰 감면 견적을 보장받습니다.
                     </p>
 

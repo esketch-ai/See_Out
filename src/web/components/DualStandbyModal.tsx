@@ -132,7 +132,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black text-[#151719] tracking-tight">
                 배웅 이중안심 사전등록증
               </h1>
-              <p className="text-[0.8125rem] sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
+              <p className="text-[1.125rem] sm:text-sm text-[#6E5429] font-serif max-w-xl mx-auto leading-relaxed">
                 본 증서는 기존 선불식 상조에 가입 중인 유족이 부당한 위약금 손실을 입지 않고,
                 임종 시점에 가장 정직하고 투명한 의전을 선택할 수 있도록 배웅 의전위원회가 영구 보증하는 공식 등록 문서입니다.
               </p>
@@ -255,7 +255,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
             <div className="relative z-10 pt-4 border-t border-[#DCD6C9] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[0.8125rem] text-[#5A5E66]">
               <div>
                 <p className="font-bold text-[#151719]">사단법인 한국디지털추모협회 • 배웅(Bae-ung) 상설의전위원회</p>
-                <p className="text-[0.8125rem] text-[#5A5E66]">
+                <p className="text-[1.125rem] text-[#5A5E66]">
                   공정거래위원회 선불식 할부계약 소비자보호 가이드라인 준수 등록 문서
                 </p>
               </div>

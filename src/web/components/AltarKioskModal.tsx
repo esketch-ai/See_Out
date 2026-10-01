@@ -231,7 +231,7 @@ export const AltarKioskModal: React.FC<AltarKioskModalProps> = ({
               <p className="text-[0.8125rem] text-[#C2A26A] font-medium">
                 {setting.birthDate} ~ {setting.deathDate} (향년 {setting.age || 88}세)
               </p>
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-[0.8125rem] italic text-[#8A929D] leading-relaxed">
+              <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-[1.125rem] italic text-[#8A929D] leading-relaxed">
                 {setting.motto || story.epitaph}
               </div>
             </div>

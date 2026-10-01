@@ -122,7 +122,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
           </div>
         </div>
 
-        <p className="relative z-10 text-[0.8125rem] md:text-sm text-[#5A5E66] leading-relaxed max-w-3xl">
+        <p className="relative z-10 text-[1.125rem] md:text-sm text-[#5A5E66] leading-relaxed max-w-3xl">
           글 작성이 부담스러운 시니어 어르신도 마이크에 편안하게 말씀만 하시면 됩니다.
           AI 구술 인터뷰어가 4대 핵심 질문을 음성으로 여쭙고, 고인의 따뜻한 육성을 고풍스러운 문체의 <strong>영구 보존판 생애 평전</strong>으로 자동 승화해 드립니다.
         </p>
@@ -265,7 +265,7 @@ export const VoiceInterviewSection: React.FC<VoiceInterviewSectionProps> = ({
             value={userSpokenText}
             onChange={(e) => setUserSpokenText(e.target.value)}
             rows={3}
-            className="w-full p-3.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[0.8125rem] md:text-sm text-[#42464E] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
+            className="w-full p-3.5 bg-[#FAF9F6] border border-[#DCD6C9] rounded-lg text-[1.125rem] md:text-sm text-[#42464E] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
             placeholder="마이크로 구술하시거나 이곳에 직접 기억을 적어주셔도 됩니다."
           />
         </div>

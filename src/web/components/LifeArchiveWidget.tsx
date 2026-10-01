@@ -167,7 +167,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             배웅 스마트 생애기록관 & 디지털 평전
           </h2>
-          <p className="text-[#8A929D] text-[0.8125rem] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[#8A929D] text-[1.125rem] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
             건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전으로 헌정됩니다.
           </p>
 
@@ -297,7 +297,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   {story.epitaph}
                 </blockquote>
 
-                <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+                <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
                   {story.overallSummary}
                 </p>
               </div>
@@ -475,7 +475,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
             </div>
 
             {/* 녹음 전문(Transcript) */}
-            <div className="bg-[#141618] rounded-lg p-4 border border-white/5 text-[0.8125rem] text-[#8A929D] leading-relaxed font-serif">
+            <div className="bg-[#141618] rounded-lg p-4 border border-white/5 text-[1.125rem] text-[#8A929D] leading-relaxed font-serif">
               <span className="text-[#C2A26A] font-bold block mb-1">육성 전문 (Transcript):</span>
               <p className="italic">{story.audioTribute.transcript}</p>
             </div>
@@ -505,7 +505,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <Phone className="w-4 h-4 text-[#6E5429]" />
                   <span>스마트폰 주소록 사전 동기화 현황 (총 640명 정리 완료)</span>
                 </h3>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-0.5">
                   부모님의 스마트폰 연락처를 4대 그룹으로 안전하게 백업하여, 사후에 비밀번호를 몰라도 가족들이 즉시 부고를 전할 수 있습니다.
                 </p>
               </div>
@@ -601,12 +601,12 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   </div>
                 </div>
 
-                <div className="text-[0.8125rem] text-[#42464E] leading-relaxed">
+                <div className="text-[1.125rem] text-[#42464E] leading-relaxed">
                   {activeObituary.preamble}
                 </div>
 
                 {/* 고인 생전 작별인사 하이라이트 박스 */}
-                <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 text-[0.8125rem] text-[#6E5429] leading-relaxed">
+                <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 text-[1.125rem] text-[#6E5429] leading-relaxed">
                   <span className="font-bold block mb-1">고인께서 생전에 남기신 말씀:</span>
                   <p className="italic">{activeObituary.personalFarewell}</p>
                 </div>
@@ -708,7 +708,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <Send className="w-4 h-4 text-[#19382C]" />
                   <span>사후 원터치 부고 대량 발송</span>
                 </h4>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-0.5">
                   임종 발생 시 상주(유산관리자)의 승인으로 사전 동기화된 640명 지인에게 카카오 알림톡/문자가 동시 발송됩니다.
                 </p>
               </div>
@@ -760,7 +760,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                 <FileText className="w-4 h-4 text-[#6E5429]" />
                 <span>故 김철수 님의 사전 장례 의향서 (Dignified Ending Note)</span>
               </h3>
-              <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
+              <p className="text-[1.125rem] text-[#5A5E66] mt-0.5">
                 “내가 세상을 떠날 때, 자식들이 당황하거나 다투지 않도록 나의 마지막 바람을 미리 적어둡니다.”
               </p>
             </div>
@@ -809,7 +809,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <h4 className="font-serif font-bold text-sm text-[#151719]">
                     생전 마음돌봄 상담 및 유언공증·상속포기 3개월 골든타임 자문
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
                     임종 전 죽음 불안 완화 및 삶의 회고를 위한 <b>공인 심리상담</b>과, 고인의 유지를 합법적으로 보호하는 <b>상속 전문 변호사 직통 연결</b>을 무료로 지원합니다.
                   </p>
                 </div>
@@ -861,7 +861,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
               </span>
             </div>
 
-            <p className="relative z-10 text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+            <p className="relative z-10 text-[1.125rem] text-[#5A5E66] leading-relaxed">
               생전에는 본인 외에 가족이라도 절대 열람할 수 없도록 철저히 암호화되어 보관됩니다. 임종 발생 시 지정된 1차·2차 대리인이 사망진단서 또는 상호 승인을 진행해야만 보안이 해제됩니다.
             </p>
 
@@ -941,7 +941,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                     <Heart className="w-3.5 h-3.5 text-[#8B2520] fill-[#8B2520]" />
                     <span>“저와 함께 웃고 울었던 소중한 인연들을 기억하며 감사드립니다.”</span>
                   </div>
-                  <p className="text-[#5A5E66] text-[0.8125rem] mt-0.5">
+                  <p className="text-[#5A5E66] text-[1.125rem] mt-0.5">
                     고인이 생전에 직접 모아둔 소중한 삶의 기록입니다. 사진을 누르시면 큰 화면으로 감상하실 수 있습니다.
                   </p>
                 </div>
@@ -982,7 +982,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                       <h5 className="font-serif font-bold text-[0.8125rem] text-[#151719] line-clamp-1">
                         {photo.title}
                       </h5>
-                      <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed line-clamp-2">
+                      <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed line-clamp-2">
                         {photo.caption}
                       </p>
                     </div>

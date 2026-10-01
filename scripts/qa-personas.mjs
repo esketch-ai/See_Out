@@ -314,7 +314,7 @@ const JOURNEYS = [
 
 // 한 화면에서 사람이 감지하는 숫자들을 한 번에 모은다.
 const PROBE = ([p_body, p_tap]) => {
-  const out = { taps: [], bodies: [], hScroll: false, tinyCount: 0, unlabeled: 0, unl: [], ariaName: 0 };
+  const out = { taps: [], bodies: [], prose: [], hScroll: false, tinyCount: 0, unlabeled: 0, unl: [], ariaName: 0 };
   const vw = document.documentElement.clientWidth;
 
   // 가로 넘침 — 세로 화면만 사용하는 사람에게는 치명적이다
@@ -344,6 +344,14 @@ const PROBE = ([p_body, p_tap]) => {
     const px = parseFloat(cs.fontSize);
     if (!px) continue;
     out.bodies.push(px);
+    // ★ 산문과 표기를 구분해야 한다. 13px 는 법적 고지·데이터 표기에 허용된다
+    //   (AGENTS.md §2-4). 둘을 섞으면 「어딘가에 13px 가 있다」 만 남아
+    //   판단할 수 없는 신호가 되고, 진짜 산문 문제가 묻힌다.
+    // 태그가 p/li 여도 「문장」 이 아니면 데이터 표기다 — 금액·날짜·문서번호.
+    // AGENTS.md §2-4 의 분류와 같은 기준을 쓴다.
+    const txt = (el.textContent || '').trim();
+    const sentence = txt.length >= 24 || /[.。]$|습니다|입니다|드립니다|있습니다/.test(txt);
+    if ((el.tagName === 'P' || el.tagName === 'LI') && sentence) out.prose.push(px);
     if (px < 13) out.tinyCount++;
   }
   return out;
@@ -494,7 +502,7 @@ async function runJourney(p, persona, journey) {
   const r = {
     persona: persona.id, journey: journey.id, critical: !!journey.critical,
     ok: false, failedAt: '', clicks: 0, sec: 0, note: '',
-    minTapH: 999, minTapW: 999, minBody: 999, tinyCount: 0, unlabeled: 0,
+    minTapH: 999, minTapW: 999, minBody: 999, minProse: 999, tinyCount: 0, unlabeled: 0,
     hScroll: false, errors: [], stall: null, font: null, dupNames: [],
   };
   const t0 = Date.now();
@@ -513,6 +521,8 @@ async function runJourney(p, persona, journey) {
       if (low.length) r.tinyWho = `${Math.min(...low)}px 텍스트`;
       r.minBody = Math.min(r.minBody, ...pr.bodies);
     }
+    // 산문만 따로 — persona 의 「읽는 글자」 기준
+    if (pr.prose.length) r.minProse = Math.min(r.minProse, ...pr.prose);
     r.tinyCount += pr.tinyCount;
     if (pr.unlabeled) r.unlNames = [...new Set([...(r.unlNames || []), ...(pr.unl || [])])];
     r.unlabeled += pr.unlabeled;
@@ -669,9 +679,9 @@ function judge(run) {
       const who = (r.tinyTaps || []).slice(0, 3).join(' / ');
       add(sev, `${tag}:탭영역`, `최소 ${r.minTapH}px < 요구 ${p.tap}px — ${who || '이름 확인 불가'}`);
     }
-    if (r.minBody < p.body) {
-      const sev = p.body >= 20 ? 'P1' : p.body >= 18 ? 'P2' : 'P2';
-      add(sev, `${tag}:본문크기`, `최소 본문 ${r.minBody}px < 요구 ${p.body}px${r.tinyWho ? ' — ' + r.tinyWho : ''}`);
+    if (r.minProse < p.body) {
+      const sev = p.body >= 20 ? 'P1' : 'P2';
+      add(sev, `${tag}:본문크기`, `산문 최소 ${r.minProse}px < 요구 ${p.body}px`);
     }
     if (r.hScroll) add('P1', `${tag}:가로넘침`, '세로 화면 사용자가 좌우로 밀어야 한다');
     if (r.stall?.blank) add('P0', `${tag}:빈화면`, '내용물이 없는 백지 화면');
@@ -735,14 +745,14 @@ function report(rows) {
 
   lines.push('### persona별 과제 성적');
   lines.push('');
-  lines.push('| persona | 세대/거주 | 성공 | 실패 | 최소탭 | 최소본문 | 글씨확대 |');
+  lines.push('| persona | 세대/거주 | 성공 | 실패 | 최소탭 | 최소산문 | 글씨확대 |');
   lines.push('|---|---|---|---|---|---|---|');
   for (const r of rows) {
     const p = r.persona;
     const ok = r.results.filter((x) => x.ok).length;
     const bad = r.results.length - ok;
     const mt = Math.min(...r.results.map((x) => x.minTapH));
-    const mb = Math.min(...r.results.map((x) => x.minBody));
+    const mb = Math.min(...r.results.map((x) => x.minProse));
     const fe = r.results.find((x) => x.font)?.font;
     const fp = fe ? `${Math.round((fe.scaled / fe.total) * 100)}%` : '—';
     lines.push(`| ${p.id} | ${p.gen} · ${p.living} | ${ok} | ${bad} | ${mt}px (요구 ${p.tap}) | ${mb}px (요구 ${p.body}) | ${p.largeFont ? fp : '—'} |`);

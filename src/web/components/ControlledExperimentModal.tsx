@@ -99,7 +99,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                   {report.reportId}
                 </span>
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 사업계획서 7.3절 인과관계 입증 체계 · 10.1절 3대 착수 검증 기준 판정
               </p>
             </div>
@@ -191,7 +191,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
               </div>
 
               {/* 통계적 인과관계 입증 결과 요약 카드 */}
-              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
+              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[1.125rem] leading-relaxed font-serif text-[#19382C]">
                 <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
                 <div>
                   <b>사업계획서 7.3절 인과관계 검증 결론:</b><br />
@@ -315,7 +315,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   파트너 장례식장 월간 자율 신고 창구
                 </h2>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1">
                   사업계획서 7.3절: 금전 대가 없는 자발적 간이 설문으로 실제 계약 전환 건수 및 갱신 의향을 파악합니다.
                 </p>
               </div>
@@ -480,7 +480,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   시범 권역 오픈 전 3대 착수 검증 기준 달성도
                 </h2>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1">
                   1단계 전면 유료 슬롯 런칭 전, 시장 수용성을 객관적으로 입증하는 3대 게이트키핑 기준입니다.
                 </p>
               </div>
@@ -513,7 +513,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.loiParticipationRate / 20) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
                     월 30만 원 정액 광고 사전참여의향서(LOI)를 제출한 장례식장 비율입니다.
                   </p>
                 </div>
@@ -544,7 +544,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.quoteCollectionRate / 50) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
                     표준 시나리오(3일장·무빈소) 기준 현장 실비 검증이 완료된 비율입니다.
                   </p>
                 </div>
@@ -575,7 +575,7 @@ export const ControlledExperimentModal: React.FC<ControlledExperimentModalProps>
                       style={{ width: `${Math.min(100, (criteriaStatus.renewalIntentRate / 60) * 100)}%` }}
                     />
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
                     시범 운영 후 월 30만 원 정액 유료 광고를 지속 유지하겠다는 장례식장 비율입니다.
                   </p>
                 </div>

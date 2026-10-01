@@ -212,7 +212,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             <h3 className="text-lg md:text-xl font-reverence font-bold text-[#151719]">
               장롱 속 상조 계약 증서 모바일 촬영 · 즉시 자동 판독
             </h3>
-            <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
+            <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
               노안으로 깨알 같은 약관 글씨가 잘 안 보이셔도 괜찮습니다. 상조 가입 증서를 스마트폰 카메라로 촬영하시면 상조사, 약정금액, 납입회차를 3초 만에 판독합니다.
             </p>
           </div>
@@ -360,7 +360,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 value={rawTextBuffer}
                 onChange={(e) => setRawTextBuffer(e.target.value)}
                 placeholder="상조 가입 증서의 계약금액, 약정회차, 실납입 회차 내용을 여기에 붙여넣으세요..."
-                className="w-full text-[0.8125rem] font-mono p-3 rounded-md border border-[#DCD6C9] bg-[#FAF9F6] text-[#151719] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
+                className="w-full text-[1.125rem] font-mono p-3 rounded-md border border-[#DCD6C9] bg-[#FAF9F6] text-[#151719] leading-relaxed focus:outline-none focus:border-[#9E7D47]"
               />
               <button
                 onClick={() => runVisionOcrScan(rawTextBuffer)}
@@ -505,7 +505,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
               <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719]">
                 통장으로 돌려받는 현금
               </h4>
-              <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
                 지금까지 낸 <b>{report.certificate.paidTotalAmount.toLocaleString()}원</b> 중 법정 환급금이 고객님 개인 은행 통장으로 즉시 입금됩니다.
               </p>
             </div>
@@ -526,7 +526,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
               <h4 className="font-reverence font-bold text-base md:text-lg text-[#151719]">
                 배웅에 실제 결제하는 금액
               </h4>
-              <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed font-serif">
                 정찰가 {report.selectedBaeungPackage.price.toLocaleString()}원에서 해약손실을 메워드리는 <b>손실보전 {report.transitionCredit.toLocaleString()}원 할인</b>이 즉시 차감됩니다.
               </p>
             </div>
@@ -547,7 +547,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
               <h4 className="font-reverence font-bold text-base md:text-lg text-[#FAF9F6]">
                 최종 순수 현금 절약액
               </h4>
-              <p className="text-[0.8125rem] text-[#DCE8E2] mt-1 leading-relaxed font-serif">
+              <p className="text-[1.125rem] text-[#DCE8E2] mt-1 leading-relaxed font-serif">
                 통장으로 받은 환급금을 보태어 장례를 치르시면, 기존 상조 유지 대비 순수하게 이만큼 아낍니다.
               </p>
             </div>
@@ -951,7 +951,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           <div className="text-3xl md:text-4xl font-reverence font-bold text-[#FFFFFF] tracking-tight">
             우리 가족 최종 순 절약액: {report.summary.netSavingsAmount.toLocaleString()}원
           </div>
-          <p className="text-[0.8125rem] md:text-sm text-[#A8B2A9] pt-1 leading-relaxed">
+          <p className="text-[1.125rem] md:text-sm text-[#A8B2A9] pt-1 leading-relaxed">
             기존 상품을 해약하고 환급금을 받더라도, 배웅의 정찰제 실비를 이용하시는 것이 최종적으로 {report.summary.netSavingsAmount.toLocaleString()}원 더 정직하고 유리합니다.
           </p>
         </div>
@@ -995,7 +995,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618] group-hover:text-[#19382C] transition-colors">
                     배웅 이중안심 사전등록증
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] font-serif leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] font-serif leading-relaxed">
                     기존 상조를 해약하지 않고 그대로 유지한 채, 위급 시 배웅 우선 출동권과 실비 할인권을 <b>0원</b>에 확보합니다.
                   </p>
                   <ul className="text-[0.8125rem] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#DCD6C9]">
@@ -1031,7 +1031,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618] group-hover:text-[#8B2520] transition-colors">
                     공정위 법정 해약환급금 내용증명 청구서
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] font-serif leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] font-serif leading-relaxed">
                     상조사의 핑계나 환급 지연을 원천 차단하기 위해 <b>공정거래위원회 고시 제2020-1호</b> 기준 정식 법적 청구서를 자동 생성합니다.
                   </p>
                   <ul className="text-[0.8125rem] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#DCD6C9]">
@@ -1067,7 +1067,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   <h4 className="font-reverence font-bold text-base md:text-lg text-[#141618] group-hover:text-[#6E5429] transition-colors">
                     50만 원 해약 손실 보전 크레딧 바우처
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] font-serif leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] font-serif leading-relaxed">
                     상조 해약으로 발생한 위약금 손실을 배웅이 의전 필수 품목 3대 패키지(꽃침대, 리무진, 각인)로 <b>100% 현물 보전</b>해 드립니다.
                   </p>
                   <ul className="text-[0.8125rem] text-[#42464E] font-serif space-y-1 pt-1 border-t border-[#DCD6C9]">
@@ -1135,7 +1135,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-[0.8125rem] md:text-sm text-[#42464E] font-serif leading-relaxed border-t border-[#DCD6C9] bg-[#FFFFFF]">
+                  <div className="px-5 pb-5 pt-1 text-[1.125rem] md:text-sm text-[#42464E] font-serif leading-relaxed border-t border-[#DCD6C9] bg-[#FFFFFF]">
                     {item.a}
                   </div>
                 )}

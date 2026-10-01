@@ -189,17 +189,25 @@ export const BAEUNG_DESIGN_TOKENS = {
     //
     //  루트 16px 기준. 1px = 0.0625rem
     fontSizeRem: {
-      micro: 0.8125,         // 13px — 법적 고지·라벨 한정 (N-7 하한)
-      small: 0.875,          // 14px
-      caption: 0.9375,       // 15px
-      label: 1.0625,         // 17px — 라벨·데이터 전용
+      // ── 13px 가 허용되는 자리 ──────────────────────────────
+      //  법적 고지 · 데이터 표기 · 칩/필터 · 버튼 안 행동 문구.
+      //  산문(문장)에 쓰지 않는다. 18px 가 그 상한이다.
+      micro: 0.8125,         // 13px — 법적 고지·데이터·라벨 (N-7 하한)
+      caption: 0.9375,       // 15px — 각주
+      // ── 13px 가 금지되는 자리 ──────────────────────────────
+      //  사람이 「읽는」 글자. 1,025건 중 산문으로 분류된 64곳을 이 값으로 올렸다.
       body: 1.125,           // 18px — 본문 표준
-      bodyLarge: 1.25,       // 20px
+      bodyLarge: 1.25,       // 20px — 60·70대
+      label: 1.0625,         // 17px — 라벨·데이터 전용
       subheading: 1.375,     // 22px
       title: 1.5,            // 24px
       headline: 1.75,        // 28px
       hero: 2.5              // 40px
     },
+    // micro 를 써도 되는 자리를 판별하는 기준 (tests 래칫이 이걸 지킨다)
+    microAllowedIn: ['legal', 'data', 'chip', 'action'],
+    microBannedIn: ['prose'],
+    proseAtMicroBaseline: 104,
     // 「글씨 확대」 배율. senior-large-font 가 이 값을 1.25 로 올린다.
     largeFontScale: 1.25,
     // ─────────────────────────────────────────────────────────────

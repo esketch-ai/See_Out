@@ -209,7 +209,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
               <h3 className="font-reverence font-bold text-base sm:text-lg text-[#FAF9F6]">
                 배웅 인증 3대 장사 제휴처 (봉안당 · 수목장 · 유품정리)
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 지자체 정식 인허가 필증 검증 완료 · 리베이트 0원 투명 정찰제
               </p>
             </div>
@@ -272,7 +272,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     <span className="font-bold text-[#6E5429]">
                       공정거래위원회 리베이트 제재(2026.03) 방지 & 100% 정찰제 원칙
                     </span>
-                    <p className="text-[0.8125rem] text-[#6E5429] mt-0.5 leading-relaxed">
+                    <p className="text-[1.125rem] text-[#6E5429] mt-0.5 leading-relaxed">
                       배웅은 제휴 봉안당·수목장·유품정리 업체로부터 알선 수수료(소개비)를 1원도 수취하지 않습니다.
                       오직 정액제 광고 계약(월 25만~30만원)으로 운영되며, 플랫폼 중간 마진이 없어 유족에게 가장 투명한 가격이 보장됩니다.
                     </p>
@@ -418,7 +418,7 @@ export const AffiliatePartnersModal: React.FC<AffiliatePartnersModalProps> = ({
                     시범 타깃 권역(강남4구·성남) 30분 최단거리 안심 매칭
                   </h4>
                 </div>
-                <p className="text-[0.8125rem] text-[#5A5E66]">
+                <p className="text-[1.125rem] text-[#5A5E66]">
                   장례식장 발인 후 영결식장에서 30~40분 내 도달 가능한 최적의 봉안시설, 수목장림 및 사후 유품정리 3대 제휴 세트입니다.
                 </p>
 

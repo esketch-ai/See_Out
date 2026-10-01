@@ -235,7 +235,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                       {b.highlight}
                     </span>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed min-w-0 break-words">
+                  <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed min-w-0 break-words">
                     {b.description}
                   </p>
                 </div>
@@ -418,7 +418,7 @@ export const PilotProposalLoiModal: React.FC<PilotProposalLoiModalProps> = ({
                   <h4 className="font-reverence font-bold text-lg text-[#151719]">
                     시범 권역 참여의향서(LOI) 작성
                   </h4>
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-0.5">
                     시범 권역 38개소 중 식장을 선택하시면 기초 정보가 자동으로 완성됩니다.
                   </p>
                 </div>

@@ -57,7 +57,7 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
                   {report.reportId}
                 </span>
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 사업계획서 7장 효과 측정 체계 · 데이터-과금 분리 원칙 100% 준수
               </p>
             </div>
@@ -113,7 +113,7 @@ export const PartnerPerformanceReportModal: React.FC<PartnerPerformanceReportMod
             </div>
 
             {/* 2. 데이터-과금 분리 인증 배너 (사업계획서 7.4절) */}
-            <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
+            <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[1.125rem] leading-relaxed font-serif text-[#19382C]">
               <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
               <div>
                 <b>[공식 인증] 데이터-과금 분리 원칙 (Data-Billing Separation Guarantee):</b><br />

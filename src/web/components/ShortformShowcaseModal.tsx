@@ -114,7 +114,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                   유튜브·인스타·틱톡 3사 배포
                 </span>
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 사업계획서 3.2절 프리미엄 제작 대행 · 7.2절 자체 트래킹 지표 활용
               </p>
             </div>
@@ -353,13 +353,13 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   플랫폼 자체 지표 활용 및 표시광고법 준수 체계
                 </h2>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                   유튜브·인스타그램·틱톡의 공식 지표를 활용하여 별도 트래킹 구축 부담 없이 홍보 효과를 투명하게 증명합니다.
                 </p>
               </div>
 
               {/* 표시광고법 성과 비보장 원칙 배너 */}
-              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
+              <div className="p-4 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[1.125rem] leading-relaxed font-serif text-[#19382C]">
                 <ShieldCheck className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
                 <div>
                   <b>[표시광고법 대응 원칙] 성과 "보장" 표현 금지 및 사실적 데이터 공개:</b><br />
@@ -392,7 +392,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>지역 검색 및 시설 랜선투어 최적화</span>
                     </div>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     유튜브 검색 알고리즘과 연계되어 ‘지역명+장례식장’ 탐색 유족에게 장기적으로 지속 노출됩니다.
                   </p>
                 </div>
@@ -419,7 +419,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>조문 예절 및 정갈한 분위기 브랜딩</span>
                     </div>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     젊은 유족들이 부모님 장례를 준비할 때 카드뉴스처럼 저장하고 친지들에게 전달하는 채널입니다.
                   </p>
                 </div>
@@ -446,7 +446,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                       <span>상식 퀴즈 및 오해 바로잡기 콘텐츠</span>
                     </div>
                   </div>
-                  <p className="text-[0.8125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
+                  <p className="text-[1.125rem] text-[#5A5E66] border-t border-[#DCD6C9] pt-2 leading-relaxed">
                     ‘장례 비용의 진실’, ‘봉투 작성법’ 등 정보성 팁이 높은 알고리즘 추천을 유발합니다.
                   </p>
                 </div>
@@ -461,7 +461,7 @@ export const ShortformShowcaseModal: React.FC<ShortformShowcaseModalProps> = ({
                 <h2 className="font-reverence font-black text-2xl text-[#141618]">
                   숏폼 콘텐츠 제작 대행 및 지역 노출 결합 번들 신청
                 </h2>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                   사업계획서 3.2절: 월 500,000원 결합 번들 선택 시 지역 우선 노출과 맞춤 숏폼 제작 월 2편이 패키지로 제공됩니다.
                 </p>
               </div>

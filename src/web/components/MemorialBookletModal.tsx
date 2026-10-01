@@ -142,7 +142,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
                 <Award className="w-4 h-4 text-[#6E5429]" />
                 <span>김철수 선생 평전 총론</span>
               </h3>
-              <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] leading-relaxed">
+              <p className="text-[1.125rem] sm:text-sm text-[#5A5E66] leading-relaxed">
                 {story.overallSummary}
               </p>
             </div>
@@ -248,7 +248,7 @@ export const MemorialBookletModal: React.FC<MemorialBookletModalProps> = ({
               <p className="font-reverence font-bold text-lg text-[#151719]">
                 삼가 고인의 명복을 빌며, 평안한 영면을 기원합니다.
               </p>
-              <p className="text-[0.8125rem] text-[#5A5E66]">
+              <p className="text-[1.125rem] text-[#5A5E66]">
                 본 평전은 배웅(Bae-ung) 생애기록관 암호화 봉안소에 영구 보존됩니다.
               </p>
             </div>

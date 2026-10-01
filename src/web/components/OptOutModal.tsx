@@ -95,7 +95,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
               <h4 className="font-reverence font-bold text-2xl text-[#141618]">
                 접수가 안전하게 완료되었습니다
               </h4>
-              <p className="text-[0.8125rem] text-[#5A5E66] font-serif max-w-md mx-auto leading-relaxed">
+              <p className="text-[1.125rem] text-[#5A5E66] font-serif max-w-md mx-auto leading-relaxed">
                 장례식장 권리자 확인을 거쳐 영업일 기준 24시간 이내에 요청하신 사항이 반영됩니다.<br />
                 접수 고유 번호를 보관해 주시기 바랍니다.
               </p>
@@ -115,7 +115,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
             /* 신청서 입력 폼 */
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* 비제휴 고지 안내 박스 */}
-              <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[0.8125rem] text-[#19382C] leading-relaxed">
+              <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl text-[1.125rem] text-[#19382C] leading-relaxed">
                 <b>{disclaimer.title}</b><br />
                 {disclaimer.statement}
               </div>
@@ -217,7 +217,7 @@ export const OptOutModal: React.FC<OptOutModalProps> = ({ hall, onClose }) => {
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
                   placeholder="예: 특실 80평형 1일 임대료가 1,800,000원으로 변경되었으니 정정을 요청합니다. 또는 해당 식장의 게재 중단을 요청합니다."
-                  className="w-full p-3 bg-[#FFFFFF] border border-[#DCD6C9] rounded-md text-[0.8125rem] text-[#151719] leading-relaxed resize-none focus:outline-none focus:border-[#19382C]"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#DCD6C9] rounded-md text-[1.125rem] text-[#151719] leading-relaxed resize-none focus:outline-none focus:border-[#19382C]"
                 />
               </div>
 

@@ -307,7 +307,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   배웅 플랫폼의 '데이터-과금 분리 (알선 수수료 0원)' 공정 약정
                 </h4>
               </div>
-              <p className="text-[0.8125rem] sm:text-sm text-[#42464E] leading-relaxed">
+              <p className="text-[1.125rem] sm:text-sm text-[#42464E] leading-relaxed">
                 배웅은 유족 송객 건수나 빈소 결제 금액에 비례하여 10~30%(건당 50~150만 원)의 불법 리베이트를 요구하지 않습니다.
                 장례식장 파트너에게는 <strong>월 30만 원 정액 서비스 이용료</strong>만을 청구하며, 절감된 수수료는 유족의 빈소 30% 감면 혜택으로 전액 환원됩니다.
               </p>

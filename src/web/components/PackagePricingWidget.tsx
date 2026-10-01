@@ -181,7 +181,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight drop-shadow-md">
             배웅 정직 원가 정찰제 의전 안내
           </h2>
-          <p className="text-[#DCE8E2] text-[0.8125rem] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed drop-shadow-xs">
+          <p className="text-[#DCE8E2] text-[1.125rem] sm:text-[1.125rem] font-serif mt-1 max-w-2xl leading-relaxed drop-shadow-xs">
             무엇을 받는지 모른 채 계약하는 깜깜이 장례는 이제 그만. 수의, 관, 상복, 리무진까지 실제 제공되는 실물 사진과 원산지 규격을 투명하게 확인하세요.
           </p>
         </div>
@@ -197,7 +197,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 실물 사진으로 직접 확인하는 4대 핵심 의전 품목
               </h3>
             </div>
-            <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-1">
+            <p className="text-[1.125rem] text-[#5A5E66] font-serif mt-1">
               "글자로만 보면 잘 모르는" 장례 용품들을 실제 촬영 사진과 공인 시험성적서로 미리 확인하실 수 있습니다.
             </p>
           </div>
@@ -265,7 +265,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <h4 className="font-reverence font-bold text-lg md:text-xl text-[#151719] mt-2">
                 {activeVisual.name}
               </h4>
-              <p className="text-[0.8125rem] text-[#5A5E66] mt-1 leading-relaxed">
+              <p className="text-[1.125rem] text-[#5A5E66] mt-1 leading-relaxed">
                 {activeVisual.description}
               </p>
 
@@ -281,7 +281,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             </div>
 
             {/* 업셀링 주의 팁 박스 */}
-            <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 text-[0.8125rem] text-[#6E5429] leading-relaxed">
+            <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3 text-[1.125rem] text-[#6E5429] leading-relaxed">
               {activeVisual.antiUpsellingTip}
             </div>
           </div>
@@ -417,7 +417,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                     <span className="text-sm font-normal text-[#5A5E66] ml-0.5">원</span>
                   </div>
 
-                  <p className="text-[0.8125rem] text-[#5A5E66] mt-2 font-serif leading-relaxed line-clamp-2">
+                  <p className="text-[1.125rem] text-[#5A5E66] mt-2 font-serif leading-relaxed line-clamp-2">
                     {pkg.description}
                   </p>
                 </div>
@@ -454,7 +454,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 선택하신 [{currentPkg.name}] ({currentPkg.price.toLocaleString()}원)
               </span>
             </div>
-            <p className="text-[0.8125rem] text-[#5A5E66] mt-0.5">
+            <p className="text-[1.125rem] text-[#5A5E66] mt-0.5">
               이 패키지를 [생애기록관] 사전 의전 및 부고장에 실시간으로 동기화합니다.
             </p>
           </div>
@@ -500,7 +500,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
             <h3 className="font-serif font-bold text-sm md:text-base text-[#151719]">
               장례 비용 완벽 분리 공시: 무엇이 포함되고 무엇이 별도인가요?
             </h3>
-            <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-0.5 leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] font-serif mt-0.5 leading-relaxed">
               기존 상조회사의 "전부 다 해준다"는 과장 광고로 인해 나중에 장례식장 밥값/임대료로 수백만 원이 추가되어 겪는 유족들의 혼란과 불만을 사전에 100% 차단합니다.
             </p>
           </div>
@@ -717,7 +717,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
           <h4 className="text-lg md:text-xl font-reverence font-bold text-[#FAF9F6]">
             지금 장례가 발생하셨거나, 사전 대비 상담이 필요하신가요?
           </h4>
-          <p className="text-[0.8125rem] text-[#8A929D] font-serif mt-0.5">
+          <p className="text-[1.125rem] text-[#8A929D] font-serif mt-0.5">
             24시간 1급 장례지도사가 대기 중입니다. 언제든 부담 없이 연락 주시면 가장 정직한 길을 안내해 드립니다.
           </p>
         </div>
@@ -779,7 +779,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
                 <h4 className="font-reverence font-bold text-lg text-[#151719]">
                   {zoomModalItem.tagline}
                 </h4>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1.5 leading-relaxed">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1.5 leading-relaxed">
                   {zoomModalItem.description}
                 </p>
               </div>
@@ -796,7 +796,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               </div>
 
               {/* 업셀링 방지 팁 */}
-              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3.5 text-[0.8125rem] text-[#6E5429] leading-relaxed">
+              <div className="bg-[#FAF9F6] border border-[#F1E9DB] rounded-lg p-3.5 text-[1.125rem] text-[#6E5429] leading-relaxed">
                 {zoomModalItem.antiUpsellingTip}
               </div>
             </div>

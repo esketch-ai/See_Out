@@ -117,7 +117,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                   {quote.referenceCode}
                 </span>
               </h3>
-              <p className="text-[0.8125rem] text-[#A8B2A9]">
+              <p className="text-[1.125rem] text-[#A8B2A9]">
                 공정거래위원회 리베이트 제재 지침 준수 · 100% 정찰제 견적 참조번호 연동
               </p>
             </div>
@@ -165,7 +165,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <h1 className="font-reverence font-black text-2xl md:text-3xl text-[#141618] tracking-tight">
                   장례식장 시설 정찰 견적 및 견적 참조서
                 </h1>
-                <p className="text-[0.8125rem] text-[#5A5E66] mt-1 font-serif">
+                <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                   본 견적서는 배웅 플랫폼과 공휴 장사정보시스템에 공시된 가격을 기준으로 작성된 정직한 정찰 시설비 명세입니다.
                 </p>
               </div>
@@ -183,7 +183,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
             </div>
 
             {/* 2. 장례식장 현장 상담 시 필수 고지 배너 */}
-            <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[0.8125rem] leading-relaxed font-serif text-[#19382C]">
+            <div className="p-3.5 bg-[#DCE8E2] border border-[#DCE8E2] rounded-xl flex items-start space-x-3 text-[1.125rem] leading-relaxed font-serif text-[#19382C]">
               <Scale className="w-5 h-5 shrink-0 text-[#19382C] mt-0.5" />
               <div>
                 <b>장례식장 방문 또는 전화 상담 시 안내 요령:</b><br />
@@ -401,7 +401,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
                 <Scale className="w-4 h-4 text-[#9E7D47]" />
                 <span>공정거래위원회 리베이트 금지 및 표시광고법 100% 준수 보증</span>
               </div>
-              <p className="text-[0.8125rem] text-[#5A5E66] leading-relaxed max-w-2xl mx-auto">
+              <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed max-w-2xl mx-auto">
                 배웅은 「독점규제 및 공정거래에 관한 법률」 및 공정거래위원회의 상조·장례식장 리베이트 제재 지침을 준수하며,
                 장례식장으로부터 어떠한 소개료나 리베이트도 받지 않습니다. 본 견적서는 투명한 공개 정보를 바탕으로 유족의 권익을 보호하기 위해 발급됩니다.
               </p>

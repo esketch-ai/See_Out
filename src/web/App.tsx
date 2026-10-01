@@ -38,6 +38,27 @@ export const App: React.FC = () => {
     }
   }, [isLargeFont]);
 
+  // ★ 하단 안내바 높이를 실시간으로 재고 CSS 변수로 노출한다.
+  //
+  //  왜: 음성 FAB 의 위치를 bottom-20(고정 80px) 에 두었더니, 「큰 글씨」 를
+  //  켜면 안내바가 81px → 141px 로 자라며 FAB 를 덮었다. 360px 폭 기기에서
+  //  FAB 의 누를 수 있는 면적이 100% → 33% 로 떨어졌다.
+  //  즉 「노안을 돕는 버튼」 이 「노안을 위한 버튼」 을 가렸다.
+  //  높이는 글자 크기·줄바꿈·문宽度에 따라 달라지므로 숫자로 가정하면 안 된다.
+  useEffect(() => {
+    const bar = document.querySelector('[data-bottom-bar]');
+    const root = document.documentElement;
+    if (!bar) return;
+    const apply = () => {
+      const h = Math.round(bar.getBoundingClientRect().height);
+      root.style.setProperty('--bottom-bar-h', `${h}px`);
+    };
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(bar);
+    return () => { ro.disconnect(); root.style.removeProperty('--bottom-bar-h'); };
+  }, [isLargeFont]);
+
   // 모달 조각을 한가할 때 미리 받는다.
   // 조각이 늦으면 유족은 「멈췄다」고 판단해 두 번 누른다. 이중안심 대상이므로
   // 클릭 지연을 감수하지 않는다 — 네트워크가 한가할 때 끝내둔다.
@@ -174,7 +195,7 @@ export const App: React.FC = () => {
 
       {/* 5090 시니어 무타자 음성 어시스턴트 플로팅 버튼 */}
       {!isEmergencyMode && (
-        <div className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40">
+        <div className="fixed right-4 md:right-8 z-40 fab-above-bar">
           <button
             type="button"
             onClick={() => setIsVoiceAssistantOpen(true)}
@@ -191,7 +212,7 @@ export const App: React.FC = () => {
 
       {/* 5090 시니어 안심 모바일 플로팅 핫라인 바 (화면 하단 상시 고정) */}
       {!isEmergencyMode && (
-        <aside className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#141618]/95 backdrop-blur-md border-t border-[#3D382E] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
+        <aside data-bottom-bar className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#141618]/95 backdrop-blur-md border-t border-[#3D382E] p-3 px-4 flex items-center justify-between shadow-2xl text-[#FAF9F6]">
           <div className="flex flex-col">
             <span className="text-[0.8125rem] font-serif text-[#8A929D]">
               24시 장례지도사 직통 상황실

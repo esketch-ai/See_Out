@@ -192,6 +192,21 @@
         gap: 0.25rem 0.5rem;
       }
 
+      /* ★ 음성 FAB 은 하단 안내바 위에 떠야 한다.
+         높이를 숫자로 가정하면 「큰 글씨」 를 켰을 때 안내바가 자라며
+         무타자 음성 진입점을 가린다. 360px 기기에서 누를 수 있는 면적이
+         100% → 33% 로 떨어진 실제 사고였다.
+         --bottom-bar-h 는 App.tsx 의 ResizeObserver 가 실시간으로 갱신한다.
+         md 이상에서는 안내바가 사라지므로(bottom-8) 기본값을 쓴다. */
+      .fab-above-bar {
+        bottom: calc(var(--bottom-bar-h, 5rem) + 1rem);
+      }
+      @media (min-width: 768px) {
+        .fab-above-bar {
+          bottom: 2rem;
+        }
+      }
+
       /* ═══════════ 전통 한국 문화 격식 조형 스타일 (Heritage Elegance) ═══════════ */
       /* 1. 전통 전각 낙관 (인장 도장) */
       .k-seal-red {

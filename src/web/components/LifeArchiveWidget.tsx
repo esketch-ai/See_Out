@@ -378,7 +378,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   }`}
                 >
                   <div className="text-[0.8125rem] text-[#6E5429] font-normal">{ch.period}</div>
-                  <div className="font-serif font-bold text-[0.8125rem] truncate mt-0.5">
+                  <div className="font-serif font-bold text-[0.8125rem] min-w-0 break-words mt-0.5">
                     제{ch.chapterNumber}장. {ch.title.split('—')[0].replace(`제${ch.chapterNumber}장: `, '')}
                   </div>
                 </button>

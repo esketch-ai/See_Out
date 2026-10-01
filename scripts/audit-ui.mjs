@@ -417,6 +417,47 @@ const CHECK_TAP = () => {
   return { under48: uniq, worst: uniq.length ? Math.min(...uniq.map((s) => s.h)) : 99 };
 };
 
+/**
+ * 고정 요소가 다른 고정 요소에 가려지지 않는가
+ *
+ * ■ 왜 이 검사가 있는가
+ *   음성 FAB 의 위치를 bottom-20(고정 80px) 에 두었더니 「큰 글씨」 를 켜면
+ *   하단 안내바가 81px → 141px 로 자며 FAB 를 덮었다. 360px 기기에서
+ *   FAB 의 누를 수 있는 면적이 100% → 33% 로 떨어졌다.
+ *   「노안을 돕는 버튼」 이 「노안을 위한 버튼」 을 가린 사고다.
+ *   390px 기기와 데스크톱에서는 정상이었고, 데스크톱 검사만으로는 영영 안 보인다.
+ *
+ * ★ 규칙: fixed 인 조작 요소는 자기 자신의 클릭 지점을 실제로 받아야 한다.
+ */
+const CHECK_FIXED_OVERLAP = () => {
+  const bad = [];
+  for (const el of document.querySelectorAll('button, a[href], [role=button], input, select')) {
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    // 「고정된」 조작 요소만 본다 — 흐름에 놓인 것은 겹칠 이유가 없다
+    let fixed = false;
+    for (let n = el; n; n = n.parentElement) {
+      const s = getComputedStyle(n);
+      if (s.position === 'fixed') { fixed = true; break; }
+      if (s.position === 'absolute' || s.position === 'relative') break;
+    }
+    if (!fixed) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) continue;
+    const x = Math.round(r.left + r.width / 2);
+    const y = Math.round(r.top + r.height / 2);
+    if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue;
+    const top = document.elementFromPoint(x, y);
+    if (top && top !== el && !el.contains(top)) {
+      bad.push({
+        t: (el.getAttribute('aria-label') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 20),
+        by: top.tagName + '.' + String(top.className || '').slice(0, 26),
+      });
+    }
+  }
+  return bad;
+};
+
 const CHECK_DISCLOSURE = () => {
   // 「펼침/접힘」 쌍과 화살표 글리프. 닫기 버튼(「창 닫기」)과 구분하려면
   // 닫기 버튼이 전부 [role=dialog] 안에 있다는 사실을 쓴다.
@@ -588,6 +629,10 @@ for (const [name, tab, seq] of POPUPS) {
 const WIDTHS = [
   { w: 1440, h: 1000, tag: '' },
   { w: 390, h: 844, tag: ' 폰' },
+  // ★ 「큰 글씨」 를 켠 저사양 기기 — 겹침 사고가 정확히 이 조합에서 났다.
+  //   390×844 에서는 정상이었고 데스크톱에서도 정상이었고, 360×640 에서만
+  //   하단 안내바가 자며 음성 진입점을 덮었다. 이 조합을 빼면 못 잡는다.
+  { w: 360, h: 640, tag: ' 폰+큰글씨', largeFont: true },
 ];
 for (const [name, tab] of TABS) {
  for (const vp of WIDTHS) {
@@ -600,11 +645,27 @@ for (const [name, tab] of TABS) {
   await settle(p, 2400);
   await openTab(p, tab);
   await settle(p, 1200);
+  // ★ 검사 순서가 곧 신뢰도다.
+  //   ① 글자 크기 효과(CHECK_LARGE_FONT)는 「큰 글씨」 가 꺼진 상태에서 재야 한다.
+  //      켜진 상태에서 classList 를 직접 빼면 React 가 다시 덧씌워 스냅샷이
+  //      중간값(16.1414px)으로 더러워지고 「76%」 라고 잘못 보고한다.
+  //   ② 그 다음 「큰 글씨」 를 켠다.
+  //   ③ 레이아웃에 민감한 검사(잘림·대비·탭영역·가림)를 돌린다.
+  //      순서를 바꾸면 잘림 4건을 놓친다 — 실제로 놓쳤다.
+  const lf = await p.evaluate(CHECK_LARGE_FONT);
+  if (vp.largeFont) {
+    await p.evaluate(() => {
+      const n = (s) => (s || '').replace(/\s+/g, '');
+      const b = [...document.querySelectorAll('button')].find((x) => n(x.textContent).includes('글씨확대') && x.offsetWidth > 0);
+      if (b) b.click();
+    });
+    await settle(p, 900);
+  }
   const ins = await p.evaluate(INSPECT, { list: CANON, rootSel: null });
   const acc = await p.evaluate(CHECK_DISCLOSURE);
-  const lf = await p.evaluate(CHECK_LARGE_FONT);
   const tap = await p.evaluate(CHECK_TAP);
-  pageRows.push({ lf, tap, name: name + vp.tag, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, img: ins.imgRisk, il: ins.il, c2: ins.cl2, acc, errs: errs.length });
+  const lap = await p.evaluate(CHECK_FIXED_OVERLAP);
+  pageRows.push({ lf, tap, lap, name: name + vp.tag, tiny: ins.tiny, con: ins.con.length, off: ins.off.length, clip: ins.clip, img: ins.imgRisk, il: ins.il, c2: ins.cl2, acc, errs: errs.length });
   await p.close();
   await ctx.close();
  }
@@ -643,10 +704,10 @@ for (const r of rows) {
 }
 
 console.log('\n── 페이지 ──');
-console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  사진 글확대 탭영역 aria-exp 에러');
+console.log('   ' + '화면'.padEnd(20) + '13px 미만  대비 미달  팔레트 밖   잘림  사진 글확대 탭영역 가림 aria 에러');
 console.log('   ' + '─'.repeat(60));
 for (const r of pageRows) {
-  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.img === 0 && r.acc.length === 0 && r.errs === 0 && r.lf && r.lf.pct >= 90 && r.tap && r.tap.under48.length === 0;
+  const ok = r.tiny === 0 && r.con === 0 && r.off === 0 && r.clip === 0 && r.img === 0 && r.acc.length === 0 && r.errs === 0 && r.lf && r.lf.pct >= 90 && r.tap && r.tap.under48.length === 0 && r.lap && r.lap.length === 0;
   console.log(
     '   ' + (ok ? '✅' : '❌') + ' ' + r.name.padEnd(18) +
     String(r.tiny).padStart(6) + String(r.con).padStart(10) + String(r.off).padStart(9) + String(r.clip).padStart(6) +
@@ -659,6 +720,7 @@ for (const r of pageRows) {
   if (r.il?.length) console.log('        사진 위 무스크림: ' + r.il.join(' / '));
   if (r.lf && r.lf.pct < 90) console.log(`        글씨 확대 반응 ${r.lf.pct}% — px 고정값이 남아 있다: ${(r.lf.stuck || []).join(' / ')}`);
   if (r.tap && r.tap.under48.length) console.log('        탭 영역 48px 미만: ' + r.tap.under48.slice(0, 5).map((x) => `${x.t} ${x.h}px`).join(' / '));
+  if (r.lap && r.lap.length) console.log('        고정 요소 가림: ' + r.lap.slice(0, 4).map((x) => `${x.t} ← ${x.by}`).join(' / '));
   if (r.acc?.length) console.log('        aria-expanded 없음: ' + r.acc.join(' / '));
   if (!ok) fail.push('페이지 ' + r.name);
 }

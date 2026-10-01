@@ -48,7 +48,7 @@ export const App: React.FC = () => {
   return (
     <div
       className={`min-h-screen transition-all ${
-        isEmergencyMode ? 'bg-mourning-950' : 'bg-hanji'
+        isEmergencyMode ? 'bg-[#FAF9F6]' : 'bg-hanji'
       }`}
     >
       {/* 듀얼 모드 & 5대 GNB 글로벌 헤더 */}

@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       className={`sticky top-0 z-50 border-b shadow-xs relative overflow-hidden transition-colors ${
         isEmergencyMode
-          ? 'bg-[#141618] border-[#3D382E] text-[#F7F5F0]'
+          ? 'bg-[#19382C] border-[#2D4F43] text-[#FAF9F6]'
           : 'bg-[#FAF9F6] border-[#DCD6C9] text-[#151719]'
       }`}
     >
@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span
                 className={`text-[13px] px-2 py-0.5 rounded font-serif font-medium border hidden sm:inline ${
                   isEmergencyMode
-                    ? 'bg-[#1F2226] text-[#8A929D] border-[#3D382E]'
+                    ? 'bg-[#2D4F43] text-[#FAF9F6] border-[#2D4F43]'
                     : 'bg-[#19382C]/10 text-[#19382C] border-[#19382C]/20'
                 }`}
               >
@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <p
               className={`hidden sm:block text-[13px] font-serif mt-0.5 tracking-tight ${
-                isEmergencyMode ? 'text-[#8A929D]' : 'text-[#5A5E66]'
+                isEmergencyMode ? 'text-[#DCE8E2]' : 'text-[#5A5E66]'
               }`}
             >
               {isEmergencyMode
@@ -128,8 +128,8 @@ export const Header: React.FC<HeaderProps> = ({
             className={`px-2.5 sm:px-3 py-1.5 rounded-md text-[13px] sm:text-sm font-serif font-medium flex items-center space-x-1.5 border transition-all cursor-pointer ${
               isEmergencyMode
                 ? isLargeFont
-                  ? 'bg-[#9E7D47]/20 border-[#9E7D47] text-[#F5EBD8] ring-1 ring-[#9E7D47]/40'
-                  : 'bg-[#1F2226] border-[#3D382E] text-[#8A929D] hover:text-[#F7F5F0] hover:border-[#9E7D47]/50'
+                  ? 'bg-[#9E7D47]/30 border-[#9E7D47] text-[#FAF9F6] ring-1 ring-[#9E7D47]'
+                  : 'bg-[#2D4F43] border-[#2D4F43] text-[#FAF9F6] hover:bg-[#243F35]'
                 : isLargeFont
                   ? 'bg-[#19382C]/10 border-[#19382C] text-[#19382C] ring-1 ring-[#19382C]/30'
                   : 'bg-[#FFFFFF] border-[#DCD6C9] text-[#5A5E66] hover:text-[#19382C] hover:border-[#19382C]/50'

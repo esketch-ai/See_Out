@@ -12,6 +12,7 @@ import { SAMPLE_DUAL_STANDBY, DualStandbyService } from '../../quote-diagnostics
 import { BENCHMARK_CERT_B_PREMIUM450 } from '../../quote-diagnostics/benchmarkData.js';
 import { StatutoryRefundCalculator } from '../../quote-diagnostics/refundCalculator.js';
 import { KmacaWarmHome } from './KmacaWarmHome.js';
+import { BereavementProgress, BereavementStageKey } from './BereavementProgress.js';
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
 import { VirtualCallService } from '../../tracking/index.js';
@@ -54,6 +55,12 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   // 3대 모듈(전국 장례식장, 정찰 패키지, 생애기록관) 간 실시간 동기화 상태
   const [funeralSetting, setFuneralSetting] = useState<FuneralSetting>(DEFAULT_FUNERAL_SETTING);
 
+  // ★ 의전 진행 상태 — 수동 체크가 아니라 「실제로 한 행동」 에서만 켜진다.
+  //   「아직 모르는 것」 을 지우지 않는 것이 요점이다 (AGENTS.md §5).
+  const [doneStages, setDoneStages] = useState<Partial<Record<BereavementStageKey, boolean>>>({});
+  const markStage = (k: BereavementStageKey) =>
+    setDoneStages((prev) => (prev[k] ? prev : { ...prev, [k]: true }));
+
   // 듀얼 스탠바이 & 소비자 권익 보호 모달 상태
   const [isDualStandbyModalOpen, setIsDualStandbyModalOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
@@ -84,6 +91,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       <div className="space-y-6 pb-20">
         <FuneralHallSearchWidget
           selectedFuneralHallId={funeralSetting.funeralHallId}
+          onHallChosen={() => markStage('ceremony')}
           onSelectHallForFuneral={(hall) => {
             const virtPhone = VirtualCallService.getVirtualNumberForHall(hall.id);
             const crematoriumText = hall.nearestCrematorium
@@ -114,6 +122,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       <div className="space-y-6 pb-20">
         <PackagePricingWidget
           onSelectPackageForFuneral={(pkg) => {
+            markStage('cost');
             setFuneralSetting((prev: FuneralSetting) => ({
               ...prev,
               packageType: pkg.type,
@@ -132,7 +141,11 @@ export const NormalMode: React.FC<NormalModeProps> = ({
       <div className="space-y-6 pb-20">
         <LifeArchiveWidget
           funeralSetting={funeralSetting}
-          onUpdateFuneralSetting={setFuneralSetting}
+          onUpdateFuneralSetting={(next) => {
+            setFuneralSetting(next);
+            markStage('intake');
+          }}
+          onObituaryPublished={() => markStage('record')}
           onNavigateTab={(tab) => onSelectTab(tab as MainTab)}
         />
       </div>
@@ -142,6 +155,14 @@ export const NormalMode: React.FC<NormalModeProps> = ({
   // 'home' (종합 의전 안내) 탭인 경우: 풍부한 시각 사진과 함께 전체 조망
   return (
     <div className="space-y-12 pb-24">
+
+    {/* ★ 「지금 무엇을 해야 하나요?」 — 유가족이 자정에 새로 들어와도
+        여기서 「얼마나 왔는지」 알 수 있다. 실제 행동으로만 채워진다. */}
+    <BereavementProgress
+      done={doneStages}
+      onGo={(tab) => onSelectTab(tab)}
+      currentTab={currentTab}
+    />
       {/* ── 시안 A: 밝고 따뜻한 KMACA형 홈 (docs/ORCA_TASK.md) ── */}
       <KmacaWarmHome
         onOpenQuoteDiagnostics={() => onSelectTab('quote')}

@@ -53,6 +53,8 @@ interface LifeArchiveWidgetProps {
   funeralSetting?: FuneralSetting;
   onUpdateFuneralSetting?: (setting: FuneralSetting) => void;
   onNavigateTab?: (tab: string) => void;
+  /** 부고장을 실제로 내보냈을 때 (발송/인쇄) — 진행 바의 「전하기」 단계 */
+  onObituaryPublished?: () => void;
 }
 
 
@@ -123,7 +125,8 @@ const OBField: React.FC<{
 export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   funeralSetting = DEFAULT_FUNERAL_SETTING,
   onUpdateFuneralSetting,
-  onNavigateTab
+  onNavigateTab,
+  onObituaryPublished
 }) => {
   // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
   useEffect(() => {
@@ -675,6 +678,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                     if (nav.share) {
                       try {
                         await nav.share({ title: '부고', text });
+                        onObituaryPublished?.();
                         setShareNote('공유 창을 열었습니다.');
                         return;
                       } catch {
@@ -684,6 +688,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                     // ② 클립보드 복사 (문자·카톡·이메일에 붙여넣기)
                     try {
                       await navigator.clipboard.writeText(text);
+                      onObituaryPublished?.();
                       setShareNote('복사했습니다. 문자나 카카오톡에 붙여넣어 보내세요.');
                       return;
                     } catch {
@@ -699,7 +704,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                 </button>
                 <button
                   type="button"
-                  onClick={() => window.print()}
+                  onClick={() => { window.print(); onObituaryPublished?.(); }}
                   className="k-tap px-4 rounded-md bg-[#19382C] text-[#FAF9F6] text-[0.9375rem] font-bold"
                 >
                   이 부고장 인쇄 / PDF 저장

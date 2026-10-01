@@ -311,7 +311,10 @@ const overUnscreenedImage = (el, t) => {
     const h = hexOf(cs.color);
     if (h && !CANON_SET.has(h) && r.off.length < 3) r.off.push(h);
 
-    if (el.children.length === 0 && cs.overflow !== 'visible' && el.scrollWidth > el.clientWidth + 2) {
+    // ★ 스크린리더 전용 텍스트(sr-only)는 1px 로 접어 넣는 기법이다.
+    //   잘림이 아니라 의도된 숨김인데, 그대로 두면 검사기가 매번 잡는다.
+    const isSrOnly = r.width <= 2 || r.height <= 2 || cs.clip === 'rect(0px, 0px, 0px, 0px)';
+    if (!isSrOnly && el.children.length === 0 && cs.overflow !== 'visible' && el.scrollWidth > el.clientWidth + 2) {
       r.clip++;
       if (r.cl2.length < 3) r.cl2.push(t.slice(0, 20) + ' ' + el.scrollWidth + '>' + el.clientWidth);
     }

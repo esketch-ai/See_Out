@@ -38,12 +38,16 @@ import { OptOutService } from '../../compliance/index.js';
 export interface FuneralHallSearchWidgetProps {
   selectedFuneralHallId?: string;
   onSelectHallForFuneral?: (hall: FuneralHallEntity) => void;
+  /** 유족이 목록에서 빈소를 「골랐다」 는 사실만 알린다.
+   *  연동 버튼과 다르다 — 고르는 것과 확정해 부고장에 넣는 것은 별개다. */
+  onHallChosen?: (hall: FuneralHallEntity) => void;
   onNavigateToLifeArchive?: () => void;
 }
 
 export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = ({
   selectedFuneralHallId,
   onSelectHallForFuneral,
+  onHallChosen,
   onNavigateToLifeArchive
 }) => {
   // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
@@ -112,6 +116,7 @@ export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = (
 
   const handleSelectHallWithMobile = (hall: FuneralHallEntity) => {
     setSelectedHall(hall);
+    onHallChosen?.(hall);
     // 모바일에서는 상세 탭으로 자동 이동
     if (window.innerWidth < 768) {
       setMobileViewTab('detail');
@@ -586,6 +591,7 @@ const PRELOAD_MODALS = [quoteModal.preload, optOutModal.preload, affiliateModal.
               selectedHall={selectedHall}
               onSelectHall={(hall) => {
                 setSelectedHall(hall);
+                onHallChosen?.(hall);
                 if (window.innerWidth < 768) {
                   setMobileViewTab('detail');
                 }

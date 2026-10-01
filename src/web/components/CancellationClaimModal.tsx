@@ -288,7 +288,7 @@ ${claimData.claimDate || '발송 당일'}
           {/* ───────────────────────────────────────────────────────────── */}
           {/* A4 인쇄 규격 내용증명 공문서 포맷 */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border border-[#DCD6C9] rounded-[24px] p-8 sm:p-14 space-y-6 shadow-xs relative">
+          <div className="print-single-page print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border border-[#DCD6C9] rounded-[24px] p-8 sm:p-14 space-y-6 shadow-xs relative">
             {/* 상단 공문서 헤더 */}
             <div className="border-b-2 border-[#151719] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>

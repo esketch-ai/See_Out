@@ -81,7 +81,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
           {/* ───────────────────────────────────────────────────────────── */}
           {/* 황금빛 품격 바우처 카드 (A4 인쇄 가능) */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="print-booklet-page k-corner-bracket-dark bg-gradient-to-br from-[#19382C] via-[#19382C] to-[#0A1511] text-[#FAF9F6] rounded-[24px] p-6 sm:p-10 space-y-6 shadow-xl border-2 border-[#C2A26A]/70 relative overflow-hidden">
+          <div className="print-single-page print-booklet-page k-corner-bracket-dark bg-gradient-to-br from-[#19382C] via-[#19382C] to-[#0A1511] text-[#FAF9F6] rounded-[24px] p-6 sm:p-10 space-y-5 shadow-xl border-2 border-[#C2A26A]/70 relative overflow-hidden">
             {/* 비취면(#19382C) 보조문자다. ink.mutedOnDark(#A8B2A9) 는 묵흑면용이라
                 여기서 4.07:1 로 AA 미달 — pine.muted(#A8B2A9, 6.88:1) 를 쓴다. */}
             {/* 귀갑문 전통 배경 */}

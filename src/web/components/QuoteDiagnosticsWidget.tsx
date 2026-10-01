@@ -195,7 +195,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             기존 상조 증서 정밀 예법 · 원가 진단표
           </h2>
-          <p className="text-[#8A929D] text-[0.8125rem] sm:text-sm font-serif mt-1">
+          <p className="text-[#8A929D] text-[0.8125rem] sm:text-[1.125rem] font-serif mt-1">
             공정위 법정 해약환급금과 배웅의 정직한 실비를 1:1 맞춤 영수증으로 투명하게 대조합니다.
           </p>
         </div>
@@ -405,7 +405,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
           <div>
             <span className="text-sm font-serif font-bold text-[#151719]">현재까지 납입하신 회차 조절</span>
-            <p className="text-[0.8125rem] text-[#5A5E66] font-serif">슬라이더를 좌우로 움직여 회차별 환급금을 확인하실 수 있습니다</p>
+            <p className="text-[1.125rem] text-[#5A5E66] font-serif">슬라이더를 좌우로 움직여 회차별 환급금을 확인하실 수 있습니다</p>
           </div>
           <span className="text-xl md:text-2xl font-serif font-bold text-[#19382C]">
             {paidInstallments}회 / 총 {totalInstallments}회 ({report.statutoryRefund.progressRatioPercentage}%)
@@ -576,7 +576,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             <h3 className="font-reverence font-bold text-lg md:text-xl text-[#141618]">
               기존 상조 vs 배웅 실제 지출 및 절약액 직관 대조
             </h3>
-            <p className="text-[0.8125rem] text-[#5A5E66] font-serif mt-1">
+            <p className="text-[1.125rem] text-[#5A5E66] font-serif mt-1">
               배웅으로 전환하면 어떤 기준이든 동일하게 <b>{report.summary.netSavingsAmount.toLocaleString()}원</b>이 유족의 통장에 절약됩니다.
             </p>
           </div>
@@ -971,7 +971,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 <h3 className="font-reverence font-bold text-xl md:text-2xl text-[#141618] tracking-tight">
                   유가족의 권리를 완벽히 지키는 3대 공식 실천 조치
                 </h3>
-                <p className="text-[0.8125rem] sm:text-sm text-[#5A5E66] font-serif mt-1">
+                <p className="text-[0.8125rem] sm:text-[1.125rem] text-[#5A5E66] font-serif mt-1">
                   기존 상조는 그대로 둔 채 <b>비용 0원</b>으로 권리를 확보하고, 해약 결정 시 법정 환급금과 위약금 손실을 100% 보전받으세요.
                 </p>
               </div>

@@ -258,7 +258,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
                       <h5 className="font-reverence font-bold text-base text-[#151719]">
                         빚 대물림 방지: 상속포기·한정승인 3개월 필수 기한 계산기
                       </h5>
-                      <p className="text-[0.8125rem] text-[#5A5E66]">
+                      <p className="text-[1.125rem] text-[#5A5E66]">
                         고인의 임종일자(사망일)를 입력하시면 빚 상속 방지를 위한 법정 신고 만료일과 잔여 D-day를 즉시 산출합니다.
                       </p>
                     </div>

@@ -50,6 +50,13 @@ const argOf = (f) => { const i = argv.indexOf(f); return i >= 0 ? argv[i + 1] : 
 const ONLY_PERSONA = argOf('--persona');
 const ONLY_JOURNEY = argOf('--journey');
 
+// ★ 기준선 본문 크기는 나이로 갈리지 않는다 — 18px 하나다.
+//   나이별 임계값(16/18/20)을 두었던 적이 있는데, 그건 「큰 글씨」 토글의
+//   일을 검사가 대신하는 것이었다. 토글은 125% 를 얹으므로 90세에게 22.5px 이
+//   실제로 보인다. 사다리를 두면 둘이 어긋나고, 어느 쪽이 정본인지 흐려진다.
+//   법적으로 맞는 방식도 이것이다 — 「조건을 정한 쪽」 이 조명을 고려해야 한다.
+const BODY_MIN = 18;
+
 // ════════════════════════════════════════════════════════════════════
 //  1. PERSONA — 사람을 만든다
 // ════════════════════════════════════════════════════════════════════
@@ -65,7 +72,7 @@ const PERSONAS = [
     goal: '부모님 장례 비용을 훔치지 않고 비교하고 싶다',
     device: '최신 플래그십', vp: { w: 390, h: 844 }, dpr: 3,
     net: PC, cpu: 1,
-    tap: 44, body: 16, maxClicks: 12, maxSec: 90,
+    tap: 44, body: BODY_MIN, maxClicks: 12, maxSec: 90,
     largeFont: false, voice: false,
   },
   {
@@ -73,7 +80,7 @@ const PERSONAS = [
     goal: '비용 정직성만 빠르게 확인하고 바로 결정하고 싶다',
     device: '최신 smartphone', vp: { w: 390, h: 844 }, dpr: 3,
     net: PC, cpu: 1,
-    tap: 44, body: 16, maxClicks: 12, maxSec: 90,
+    tap: 44, body: BODY_MIN, maxClicks: 12, maxSec: 90,
     largeFont: false, voice: false,
   },
 
@@ -83,7 +90,7 @@ const PERSONAS = [
     goal: '부모님 3일장 정식 의전을 크게 키우지 않고 하고 싶다',
     device: '중고 smartphone', vp: { w: 390, h: 844 }, dpr: 2,
     net: PC, cpu: 2,
-    tap: 44, body: 16, maxClicks: 14, maxSec: 120,
+    tap: 44, body: BODY_MIN, maxClicks: 14, maxSec: 120,
     largeFont: false, voice: false,
   },
   {
@@ -91,7 +98,7 @@ const PERSONAS = [
     goal: '우리 동네 식장과 비용을 먼저 알아야 전화하려고 한다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 2,
     net: SLOW, cpu: 4,
-    tap: 44, body: 16, maxClicks: 16, maxSec: 240,
+    tap: 44, body: BODY_MIN, maxClicks: 16, maxSec: 240,
     largeFont: false, voice: false,
   },
 
@@ -101,7 +108,7 @@ const PERSONAS = [
     goal: '혼자서도 장례 전 과정을 끝까지 알아서 진행해 볼까 싶다',
     device: '구형 Android', vp: { w: 360, h: 640 }, dpr: 2,
     net: SLOW, cpu: 3,
-    tap: 48, body: 18, maxClicks: 16, maxSec: 240,
+    tap: 48, body: BODY_MIN, maxClicks: 16, maxSec: 240,
     largeFont: true, voice: false,
   },
   {
@@ -109,7 +116,7 @@ const PERSONAS = [
     goal: '딸·아내와 함께 정하는 걸 내가 정리해 놓고 싶다',
     device: '중고 smartphone', vp: { w: 390, h: 844 }, dpr: 2,
     net: PC, cpu: 2,
-    tap: 48, body: 18, maxClicks: 14, maxSec: 150,
+    tap: 48, body: BODY_MIN, maxClicks: 14, maxSec: 150,
     largeFont: true, voice: false,
   },
 
@@ -119,7 +126,7 @@ const PERSONAS = [
     goal: '남편이 떠나서 혼자 장례를 치러야 한다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 2,
     net: SUPER_SLOW, cpu: 4,
-    tap: 48, body: 18, maxClicks: 18, maxSec: 300,
+    tap: 48, body: BODY_MIN, maxClicks: 18, maxSec: 300,
     largeFont: true, voice: false,
   },
   {
@@ -127,7 +134,7 @@ const PERSONAS = [
     goal: '요양병원에서 갑작스럽게 연락이 왔다. 지금 뭐부터 해야 하지',
     device: '구형 Android', vp: { w: 390, h: 844 }, dpr: 2,
     net: SLOW, cpu: 3,
-    tap: 48, body: 18, maxClicks: 14, maxSec: 240,
+    tap: 48, body: BODY_MIN, maxClicks: 14, maxSec: 240,
     largeFont: true, voice: false,
   },
 
@@ -137,7 +144,7 @@ const PERSONAS = [
     goal: '자녀가 시켜준 것을 그대로 따라 끝까지 하겠다',
     device: '고대 smartphone', vp: { w: 390, h: 844 }, dpr: 2,
     net: SLOW, cpu: 3,
-    tap: 56, body: 20, maxClicks: 16, maxSec: 300,
+    tap: 56, body: BODY_MIN, maxClicks: 16, maxSec: 300,
     largeFont: true, voice: true,
   },
   {
@@ -145,7 +152,7 @@ const PERSONAS = [
     goal: '전화 한 통이 어디로 가는지 모르겠다. 사람 말을 듣고 싶다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 1.5,
     net: SUPER_SLOW, cpu: 5,
-    tap: 56, body: 20, maxClicks: 16, maxSec: 360,
+    tap: 56, body: BODY_MIN, maxClicks: 16, maxSec: 360,
     largeFont: true, voice: true,
   },
 
@@ -155,7 +162,7 @@ const PERSONAS = [
     goal: '화면이 잘 보여야 한다. 복잡하면 손을 댄다',
     device: '고대 smartphone (글자 크게 설정됨)', vp: { w: 390, h: 844 }, dpr: 2,
     net: SLOW, cpu: 4,
-    tap: 56, body: 20, maxClicks: 14, maxSec: 360,
+    tap: 56, body: BODY_MIN, maxClicks: 14, maxSec: 360,
     largeFont: true, voice: true,
   },
   {
@@ -163,7 +170,7 @@ const PERSONAS = [
     goal: '누가 내가 딸이라고 불러줬으면 좋겠다',
     device: '저사양 smartphone', vp: { w: 360, h: 640 }, dpr: 1.5,
     net: SUPER_SLOW, cpu: 6,
-    tap: 56, body: 20, maxClicks: 14, maxSec: 420,
+    tap: 56, body: BODY_MIN, maxClicks: 14, maxSec: 420,
     largeFont: true, voice: true,
   },
 ];

@@ -118,7 +118,7 @@ export const App: React.FC = () => {
               </button>
             </div>
 
-            <p className="font-bold text-[#151719] text-sm md:text-base">
+            <p className="font-bold text-[#151719] text-[1.125rem]">
               배웅(Bae-ung) 라이프엔딩 플랫폼 — 고인의 마지막 가시는 길, 최고의 예우로 곁을 지키겠습니다
             </p>
             <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">

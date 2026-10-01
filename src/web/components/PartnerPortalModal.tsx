@@ -335,7 +335,7 @@ export const PartnerPortalModal: React.FC<PartnerPortalModalProps> = ({
                   <FileCheck className="w-5 h-5 text-[#19382C]" />
                   <span>배웅 유족 견적 참조번호(REF) 현장 즉시 검증</span>
                 </h3>
-                <p className="text-[0.8125rem] text-[#5A5E66]">
+                <p className="text-[1.125rem] text-[#5A5E66]">
                   현장 방문 유족이 제시한 'REF-2026-KR-XXXX' 참조번호를 입력하시면 배웅 정찰 패키지 및 30% 감면 내역을 즉시 조회합니다.
                 </p>
               </div>

@@ -72,7 +72,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
             <span className="text-[#19382C]">따뜻한 배웅</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-[#5A5E66] leading-relaxed break-words">
+          <p className="text-[1.125rem] sm:text-[1.125rem] text-[#5A5E66] leading-relaxed break-words">
             경황없는 이별의 순간, 불법 리베이트와 추가금 걱정 없이 고인에게만 온전히 집중하실 수 있도록 24시간 곁을 지킵니다.
           </p>
 
@@ -563,7 +563,7 @@ export const KmacaWarmHome: React.FC<KmacaWarmHomeProps> = ({
                 <div className="w-16 h-16 rounded-full bg-[#FFFFFF]/90 flex items-center justify-center shadow-lg">
                   <Play className="w-7 h-7 text-[#19382C] ml-1" />
                 </div>
-                <p className="text-[#FAF9F6] font-bold text-base drop-shadow-sm">
+                <p className="text-[#FAF9F6] font-bold text-[1.125rem] drop-shadow-sm">
                   “단 한 분의 어르신도 소홀함 없이 모십니다”
                 </p>
                 <p className="text-[1.125rem] text-[#FAF9F6]/80 max-w-md">

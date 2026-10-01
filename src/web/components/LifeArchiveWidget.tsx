@@ -167,7 +167,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             배웅 스마트 생애기록관 & 디지털 평전
           </h2>
-          <p className="text-[#8A929D] text-[1.125rem] sm:text-sm font-serif mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[#8A929D] text-[1.125rem] font-serif mt-1 max-w-2xl leading-relaxed">
             건강하실 때 스마트폰 연락처와 사진, 생전 육성을 정갈하게 남겨두고, 사후에는 가족에게 안전하게 전해져 존엄한 부고 알림과 영원한 생애 평전으로 헌정됩니다.
           </p>
 
@@ -308,7 +308,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                   <Heart className="w-3.5 h-3.5 text-[#8B2520] fill-[#8B2520]" />
                   <span>유가족 헌정사</span>
                 </div>
-                <p className="text-[#5A5E66] italic leading-relaxed">
+                <p className="text-[1.125rem] text-[#5A5E66] italic leading-relaxed">
                   {story.familyDedication}
                 </p>
               </div>
@@ -392,7 +392,7 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                 </span>
               </div>
 
-              <p className="text-[0.8125rem] sm:text-sm text-[#42464E] leading-loose whitespace-pre-line">
+              <p className="text-[1.125rem] text-[#42464E] leading-loose whitespace-pre-line">
                 {currentChapter.storyContent}
               </p>
 

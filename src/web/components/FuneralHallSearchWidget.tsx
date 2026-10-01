@@ -777,7 +777,7 @@ const PRELOAD_MODALS = [quoteModal.preload, reportModal.preload, optOutModal.pre
                       <span>시설명: <b>{selectedHall.nearestCrematorium}</b></span>
                       <span>운구 차량 이동 지원</span>
                     </div>
-                    <p className="text-[0.8125rem] text-[#5A5E66] pt-1 border-t border-[#DCD6C9]">
+                    <p className="text-[1.125rem] text-[#5A5E66] pt-1 border-t border-[#DCD6C9]">
                       ※ 발인 당일 승화원 화장 접수 및 전용 리무진 운구는 배웅 1급 장례지도사가 원스톱으로 전담합니다.
                     </p>
                   </div>

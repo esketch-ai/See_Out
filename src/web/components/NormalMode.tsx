@@ -320,7 +320,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     임종 즉시 고인을 정중히 운구하고 유족의 쉼터를 마련합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[1.125rem] text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>고인 전용 앰뷸런스 전국 즉시 출동 및 이송</span>
@@ -360,7 +360,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인에게 마지막 새 옷을 입혀드리고 온 가족이 작별합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[1.125rem] text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#6E5429] font-bold">•</span>
                       <span>국가공인 1급 지도사 2인 전통 궁중 습염 집전</span>
@@ -400,7 +400,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 편안한 영구 안식처로 모시는 마지막 배웅입니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[1.125rem] text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>정중한 발인제 및 추모 영결식 거행</span>
@@ -463,7 +463,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인을 정중히 운구하여 안치실에 모신 후, 직계가족만 참여하는 경건한 생화 꽃구름 입관식을 거행합니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[1.125rem] text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#19382C] font-bold">•</span>
                       <span>고인 전용 앰뷸런스 전국 즉시 출동 및 장례식장 안치실 안식</span>
@@ -503,7 +503,7 @@ export const NormalMode: React.FC<NormalModeProps> = ({
                   <p className="text-[1.125rem] text-[#5A5E66] mt-1 font-serif">
                     고인의 마지막 가시는 길을 리무진으로 모시고 승화원에서 화장 및 안치를 마칩니다.
                   </p>
-                  <ul className="mt-4 space-y-2 text-[0.8125rem] md:text-sm text-[#42464E] font-serif">
+                  <ul className="mt-4 space-y-2 text-[1.125rem] text-[#42464E] font-serif">
                     <li className="flex items-start space-x-2">
                       <span className="text-[#6E5429] font-bold">•</span>
                       <span>정중한 발인 영결 의식 및 고인 전용 최신형 리무진 운구</span>

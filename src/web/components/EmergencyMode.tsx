@@ -64,7 +64,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-reverence font-black tracking-tight text-[#151719]">
             경황없는 슬픔의 순간, 곁에서 지체없이 돕겠습니다
           </h1>
-          <p className="text-[#42464E] text-sm sm:text-base leading-relaxed font-serif max-w-xl mx-auto">
+          <p className="text-[#42464E] text-[1.125rem] sm:text-[1.125rem] leading-relaxed font-serif max-w-xl mx-auto">
             당황하지 마시고 아래 안내를 편안히 따라주세요.<br className="hidden sm:inline" />
             <strong>전화 한 통</strong> 또는 <strong>1분 온라인 접수</strong> 즉시 전담 지도사와 특수 운구차량이 출동합니다.
           </p>
@@ -197,7 +197,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <MapPin className="text-[#19382C] w-6 h-6 shrink-0" />
                   <span>현재 고인을 어디에 모시고 계십니까?</span>
                 </h3>
-                <p className="text-[#42464E] text-sm mt-1.5 leading-relaxed font-serif">
+                <p className="text-[#42464E] text-[1.125rem] mt-1.5 leading-relaxed font-serif">
                   전국 어디든 전담 운구차량과 의전 지도사가 2시간 이내에 정중히 도착합니다.
                 </p>
               </div>
@@ -262,7 +262,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                   <Building2 className="text-[#19382C] w-6 h-6 shrink-0" />
                   <span>모시고자 하는 장례식장을 결정하셨습니까?</span>
                 </h3>
-                <p className="text-[#42464E] text-sm mt-1.5 leading-relaxed font-serif">
+                <p className="text-[#42464E] text-[1.125rem] mt-1.5 leading-relaxed font-serif">
                   배웅 제휴 식장 선택 시 빈소 임대료 최대 30% 감면 혜택이 즉시 적용됩니다.
                 </p>
               </div>
@@ -356,7 +356,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#151719] mt-2">
                   {dispatchResult.detectedRegion} 전담 의전팀이 현장으로 출발하였습니다
                 </h2>
-                <p className="text-[#42464E] text-sm md:text-base mt-2 leading-relaxed font-serif">
+                <p className="text-[#42464E] text-[1.125rem] md:text-[1.125rem] mt-2 leading-relaxed font-serif">
                   {dispatchResult.detectedLocationSummary} 방면으로 국가공인 1급 지도사와 특수 운구차량이 실시간 급파되었습니다.
                 </p>
               </div>

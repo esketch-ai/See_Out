@@ -207,7 +207,7 @@ export const BAEUNG_DESIGN_TOKENS = {
     // micro 를 써도 되는 자리를 판별하는 기준 (tests 래칫이 이걸 지킨다)
     microAllowedIn: ['legal', 'data', 'chip', 'action'],
     microBannedIn: ['prose'],
-    proseAtMicroBaseline: 104,
+    proseAtMicroBaseline: 62,
     // 「글씨 확대」 배율. senior-large-font 가 이 값을 1.25 로 올린다.
     largeFontScale: 1.25,
     // ─────────────────────────────────────────────────────────────

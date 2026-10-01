@@ -337,31 +337,105 @@
         background-repeat: repeat;
       }
 
-      /* ═══════════ 생애 평전 A4 고화질 책자 인쇄 및 PDF 내보내기 전용 스타일 ═══════════ */
+      /* ═══════════ 인쇄 및 PDF 내보내기 전용 정본 스타일 (AREA-PRINT-2026) ═══════════ */
+      @page {
+        size: A4 portrait;
+        margin: 8mm 10mm;
+      }
+
       @media print {
-        body {
-          background-color: #FFFFFF !important;
-          color: #000000 !important;
+        html, body {
+          background: #FFFFFF !important;
+          color: #151719 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          min-height: 0 !important;
+          height: auto !important;
+          overflow: visible !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
         }
-        /* 인쇄 시 비필수 웹 UI 요소(헤더, 네비게이션, 모달 배경 등) 숨김 처리 */
-        header, footer, aside, .no-print, .btn-senior-reverence {
+
+        .min-h-screen {
+          min-height: 0 !important;
+          height: auto !important;
+        }
+
+        /* 1. 비필수 웹 UI 기본 숨김 (헤더, 푸터, 네비게이션, 플로팅 버튼 등) */
+        header, footer, aside, nav, .no-print, .btn-senior-reverence {
           display: none !important;
         }
+
         .print-only {
           display: block !important;
         }
-        .print-booklet-page {
+
+        /* 2. 모달이 열려 있을 때: 배경 화면의 모든 웹페이지 요소를 인쇄에서 완전 차단 */
+        body[data-baeung-scroll-lock="1"] *:not(:has([role="dialog"])):not([role="dialog"]):not([role="dialog"] *) {
+          display: none !important;
+        }
+
+        body[data-baeung-scroll-lock="1"] #root,
+        body[data-baeung-scroll-lock="1"] #root * {
+          box-shadow: none !important;
+          padding-top: 0 !important;
+          padding-bottom: 0 !important;
+          margin-top: 0 !important;
+          margin-bottom: 0 !important;
+        }
+
+        /* 3. 모달 오버레이 고정 해제: fixed 로 인한 매 페이지 중복 반복 인쇄 원천 차단 */
+        body[data-baeung-scroll-lock="1"] .fixed.inset-0,
+        body[data-baeung-scroll-lock="1"] [role="dialog"] {
+          position: static !important;
+          inset: auto !important;
+          z-index: auto !important;
+          background: transparent !important;
+          backdrop-filter: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          max-height: none !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          overflow: visible !important;
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        body[data-baeung-scroll-lock="1"] [role="dialog"] .overflow-y-auto {
+          overflow: visible !important;
+          max-height: none !important;
+          height: auto !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        /* 4. A4 인쇄 문서 규격: 불필요한 공백 페이지 분할 방지 */
+        .print-booklet-page,
+        .print-single-page {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-height: auto !important;
+          max-height: none !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+          padding: 16mm 14mm !important;
+          margin: 0 auto !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        /* 여러 장으로 구성된 책자(생애 평전 등)는 다음 장으로 분할하되, 마지막 장은 분할하지 않음 */
+        .print-booklet-page:not(:last-of-type) {
           page-break-after: always;
           break-after: page;
-          padding: 2cm 1.8cm;
-          box-sizing: border-box;
-          min-height: 28cm;
-          background: #FFFFFF !important;
-          color: #111111 !important;
         }
-        .print-booklet-page:last-child {
-          page-break-after: avoid;
-          break-after: avoid;
+        .print-booklet-page:last-of-type,
+        .print-booklet-page:only-of-type,
+        .print-single-page {
+          page-break-after: avoid !important;
+          break-after: avoid !important;
         }
       }
     </style>

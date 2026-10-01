@@ -101,7 +101,7 @@ export const DualStandbyModal: React.FC<DualStandbyModalProps> = ({
           {/* ───────────────────────────────────────────────────────────── */}
           {/* 정식 이중안심 사전 등록 증서 (Museum-grade Korean Heritage Design) */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border-2 border-[#C2A26A]/50 rounded-[24px] p-6 sm:p-12 space-y-6 shadow-sm relative overflow-hidden">
+          <div className="print-single-page print-booklet-page k-corner-bracket k-changho-texture bg-[#FFFFFF] border-2 border-[#C2A26A]/50 rounded-[24px] p-6 sm:p-12 space-y-6 shadow-sm relative overflow-hidden">
             {/* 귀갑문 전통 패턴 워터마크 */}
             <div className="pointer-events-none absolute inset-0 k-pattern-unmun opacity-15" />
 

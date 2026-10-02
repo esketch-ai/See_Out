@@ -1,7 +1,7 @@
 import { lazyModal, warmAll } from '../design-system/LazyModal.js';
 import { encodeShareLink } from '../life-archive/obituaryShare.js';
 import UnknownNotebook from './UnknownNotebook.js';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import {
   BookOpen,
   Award,
@@ -146,6 +146,32 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
 
   // 평전 챕터 선택 (1~4)
   const [activeChapter, setActiveChapter] = useState<number>(1);
+
+  // ★ 챕터를 바꾸면 그 장의 머리말이 바로 보이게 한다.
+  //   챕터마다 본문 길이가 다르다 — 1장이 짧고 4장이 길다. 그래서 전환 직후
+  //   문서가 짧아진 만큼 스크롤이 잘려서 **누른 장이 화면 밖으로 밀려난다.**
+  //   사용자가 겪는 것은 「리프레시」 이고, 실제로 짜증나는 지점은 그 다음이다:
+  //   「내가 누른 게 안 보인다.」
+  const chapterRef = useRef<HTMLDivElement | null>(null);
+  const isFirstChapter = useRef(true);
+
+  useEffect(() => {
+    // 첫 렌더에는 움직이지 않는다 — 페이지가 열리자마자 스크로우면 짜증난다
+    if (isFirstChapter.current) {
+      isFirstChapter.current = false;
+      return;
+    }
+    const el = chapterRef.current;
+    if (!el) return;
+    const apply = () => {
+      el.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+    };
+    // 챕터 본문이 교체된 뒤에 굴린다
+    requestAnimationFrame(() => requestAnimationFrame(apply));
+  }, [activeChapter]);
 
   // 음성 플레이어 시뮬레이션 상태
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
@@ -437,7 +463,11 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           </div>
 
           {/* 중단: 5대 챕터 연대기 인터랙티브 리더 */}
-          <div className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
+          {/* scroll-mt-28 — sticky 헤더가 머리말을 가리지 않게 */}
+          <div
+            ref={chapterRef}
+            className="bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4 scroll-mt-28"
+          >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCD6C9] pb-3">
               <div className="flex items-center space-x-2">
                 <BookOpen className="w-4 h-4 text-[#6E5429]" />

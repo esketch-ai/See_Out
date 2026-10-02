@@ -674,6 +674,215 @@ for (const [name, tab] of TABS) {
  }
 }
 
+// ── 자리 연속성 ────────────────────────────────────────────────────────
+// ★ 「화면을 바꾸는 조작」 이 유족의 자리를 버리면 안 된다.
+//
+//   사용자가 짚은 결함: 「화면 중간에서 버튼 클릭하면 새로고침 되면서 맨 위로
+//   간다. 그럼 내가 누른게 바로 보이지 않아서 짜증난다.」
+//
+//   실제로 났던 곳 두 군데 (모두 로컬 상태가 길이가 다른 다른 내용으로 교체):
+//     · 생애기록관의 5대 하위 탭 → 문서가 길어지며 스크롤이 최댓값으로 밀림
+//       (실측 y 451 → 6076)
+//     · 연대기별 생애 스토리의 챕터 격자 → 짧아지며 0 으로 당겨짐 (실측 y → 0)
+//   사용자는 「리프레시」 라고 느낄 수 있지만 실제로는 문서 높이 변화로
+//   스크롤이 잘린 것이고, 짜증의 정체는 그 다음이다 — **누른 것이 안 보인다.**
+//
+// 판정 기준 (둘 중 하나면 위반)
+//   ① 새로 드러난 제목이 화면 안에 없다
+//   ② 새로 드러난 것이 없는데, 누른 컨트롤이 화면 밖으로 밀렸다
+//
+// ★ 이 검사는 반드시 두 번 연속 재현될 때만 센다.
+//   첫 판정에서 359건이 나왔는데 전부 오탐이었다 — Escape 로 닫히지 않은 모달이
+//   쌓이며 스크롤이 어긋나 생긴 허위 positives 였다. 단독으로 다시 재니 정상이었다.
+//   「한 번 어긋난 것」 과 「결함」 은 다르다.
+
+const SKIP_CONTROL =
+  /인쇄|PDF|다운로드|복사|전화|카카오|닫기|로그인|로그아웃|접수|신청|상담|동의|탈퇴|삭제/;
+
+const headings = (p) =>
+  p.evaluate(() => {
+    const hs = [...document.querySelectorAll('h1,h2,h3,h4,h5')].filter(
+      (e) => e.offsetWidth > 0 && e.offsetHeight > 0 && !e.closest('[role="dialog"]')
+    ).map((e) => (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 30));
+    return [...new Set(hs)];
+  });
+
+const visibleControls = (p) =>
+  p.evaluate(() =>
+    [...document.querySelectorAll('button, a[href], [role=button]')]
+      .filter((e) => e.offsetWidth > 0 && e.offsetHeight > 0)
+      .map((e, i) => {
+        const r = e.getBoundingClientRect();
+        return {
+          i,
+          label: (e.getAttribute('aria-label') || e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 26),
+          // 누르려면 온전히 보이는 자리여야 한다 — 화면 밖은 유족이 누를 수 없다
+          inView: r.top >= -24 && r.bottom <= window.innerHeight + 8,
+        };
+      })
+  );
+
+const closeAnyDialog = async (p) => {
+  for (let i = 0; i < 3; i += 1) {
+    const open = await p.evaluate(() => !!document.querySelector('[role="dialog"]'));
+    if (!open) return true;
+    await p.keyboard.press('Escape');
+    await settle(p, 240);
+  }
+  return p.evaluate(() => !document.querySelector('[role="dialog"]'));
+};
+
+/** 한 번 눌러 본다 — 위반이면 그 이유를 돌려준다 */
+const probeControl = async (p, label) => {
+  const before = await headings(p);
+  // ★ 누를 자리는 「화면 가운데」 다. 기존 clickIdx 도 scrollIntoView({block:'center'})
+  //   를 쓰고, 사람이 손을 뻗는 자리도 그렇다. 고정된 스크롤 값으로 누르면
+  //   재현이 되지 않는다 — 챕터 격자는 스크롤 값에 따라 「누른 것이 보인다」 /
+  //   「안 보인다」 가 갈렸다.
+  const clicked = await p.evaluate((i) => {
+    const e = [...document.querySelectorAll('button, a[href], [role=button]')].filter(
+      (x) => x.offsetWidth > 0 && x.offsetHeight > 0
+    )[i];
+    if (!e) return false;
+    e.scrollIntoView({ block: 'center' });
+    const r = e.getBoundingClientRect();
+    if (r.top < 0 || r.bottom > window.innerHeight) return false;
+    const y0 = Math.round(window.scrollY);
+    e.click();
+    return true;
+  }, label.i);
+  if (!clicked) return null;
+  const y0 = await p.evaluate(() => Math.round(window.scrollY));
+  await settle(p, 1200);
+
+  const after = await headings(p);
+  const fresh = after.filter((t) => !before.includes(t));
+  const y1 = await p.evaluate(() => Math.round(window.scrollY));
+  const dialogOpen = await p.evaluate(() => !!document.querySelector('[role="dialog"]'));
+
+  if (fresh.length) {
+    const seen = await p.evaluate((ts) => {
+      for (const t of ts) {
+        const e = [...document.querySelectorAll('h1,h2,h3,h4,h5')]
+          .filter((x) => x.offsetWidth > 0 && !x.closest('[role="dialog"]'))
+          .find((x) => (x.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 30) === t);
+        if (!e) continue;
+        const r = e.getBoundingClientRect();
+        if (r.top >= 0 && r.bottom <= window.innerHeight) return t;
+      }
+      return null;
+    }, fresh);
+    if (!seen) return { label: label.label, why: `새 제목이 화면에 없음: ${fresh[0]}`, y0, y1, changed: true };
+    return { changed: true };
+  }
+
+  // 모달이 열리면 스크롤 자국이 화면 높이를 바꾼다 — 이때는 판정하지 않는다
+  if (dialogOpen) return { changed: true };
+  const stillThere = await p.evaluate((lab) => {
+    const e = [...document.querySelectorAll('button, a[href], [role=button]')].find(
+      (x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 26) === lab
+    );
+    if (!e || e.offsetWidth === 0) return true; // 다른 곳으로 갔다면 판정 대상이 아니다
+    const r = e.getBoundingClientRect();
+    return r.top >= 0 && r.bottom <= window.innerHeight;
+  }, label.label);
+  if (!stillThere) return { label: label.label, why: '누른 컨트롤이 화면 밖으로 밀림', y0, y1, changed: true };
+  return { changed: false };
+};
+
+console.log('');
+console.log('── 자리 연속성 (390px · 유족이 길을 잃지 않는가) ──');
+const continuityRows = [];
+for (const [name, tab] of process.env.AUDIT_CONTINUITY ? TABS : []) {
+  if (process.env.AUDIT_ONLY && !name.includes(process.env.AUDIT_ONLY)) continue;
+  // ★ 탭마다 새 컨텍스트를 연다 — 순차로 이동시키면 앞 탵의 상태가 새어 들어온다.
+  //   실제로 순차 재사용에서 탭 버튼이 전부 MISS 됐다. 그리고 「Escape 로 닫히지
+  //   않은 모달」 이 쌓이던 원인이 이것이었다. 페이지 전수 검사가 이미 이 방식을 쓴다.
+  const ctx = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    hasTouch: true,
+    isMobile: true
+  });
+  const p = await ctx.newPage();
+  await ctx.addInitScript(() => {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  });
+  await p.goto(BASE_URL, { waitUntil: 'networkidle' });
+  await settle(p, 2400);
+  await openTab(p, tab);
+  await settle(p, 1600);
+
+  const height = await p.evaluate(() => document.documentElement.scrollHeight);
+  // 진단 — 「컨트롤 0개」 가 나오면 탭이 안 열린 것이지 결함이 없는 것이 아니다.
+  const diag = await p.evaluate(() => ({
+    controls: [...document.querySelectorAll('button, a[href], [role=button]')].filter(
+      (e) => e.offsetWidth > 0 && e.offsetHeight > 0
+    ).length,
+    heading: ([...document.querySelectorAll('h1,h2')].find((e) => e.offsetWidth > 0)?.textContent || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 18)
+  }));
+  // ★ 후보를 먼저 모으고 **역순** 으로 검사한다.
+  //   서브 탭바처럼 화면을 갈아끼우는 컨트롤은 문서 순서상 앞에 있다. 정순으로
+  //   누르면 그 뒤의 본문(압터 격자)이 화면에서 사라져 검사가 그냥 지나간다 —
+  //   커버리지 문제인데 결과는 「결함 없음」 과 같다. 실제로 그랬다.
+  //   역순이면 본문을 모두 검사한 뒤 마지막에 탭을 누른다.
+  //   상태 복구를 위한 리로드를 넣으면 검사 하나당 3초가 더 들어 50분을 넘겼다.
+  const plan = [];
+  const seen = new Set();
+  for (let y = 0; y < height; y += 500) {
+    await p.evaluate((yy) => window.scrollTo(0, yy), y);
+    await settle(p, 240);
+    for (const ctl of (await visibleControls(p)).filter((x) => x.inView)) {
+      if (SKIP_CONTROL.test(ctl.label)) continue;
+      if (seen.has(ctl.label)) continue;
+      seen.add(ctl.label);
+      plan.push({ ctl, y });
+    }
+  }
+  const count = plan.length;
+
+  for (const { ctl, y } of plan.reverse()) {
+    {
+      await closeAnyDialog(p);
+      if (process.env.AUDIT_DEBUG) console.log(`   [dbg] 검사 ${name} "${ctl.label}"`);
+      const hit1 = await probeControl(p, ctl);
+      // ★ why 가 없는 것은 「위반이 아니라 뷰가 바뀐 것」 이다.
+      //   둘 다 undefined 면 undefined === undefined 가 참이 되어 전부 위반으로
+      //   세어졌다 — 실제로 200건짜리 허위가 났다.
+      if (!hit1 || !hit1.why) continue;
+      // ★ 두 번 연속 재현될 때만 센다
+      await closeAnyDialog(p);
+      const hit2 = await probeControl(p, ctl);
+      if (hit2 && hit2.why === hit1.why) {
+        continuityRows.push({ tab: name, ...hit1 });
+        console.log(`   ★ ${name} · "${hit1.label}" → ${hit1.why} (y ${hit1.y0}→${hit1.y1})`);
+      }
+      await closeAnyDialog(p);
+    }
+  }
+  console.log(
+    `   · ${name} — 컨트롤 ${count}개 검사 (전체 ${diag.controls}개 · 높이 ${height} · 「${diag.heading}」)`
+  );
+  await ctx.close();
+}
+
+// ★ 아직 게이트에 넣지 않는다.
+//   이 검사는 「실패할 수 있음」 을 주입으로 증명하지 못했다. 챕터 자리 맞춤을
+//   무력화했는데도 잡지 못했다 — 즉 지금 상태로는 「결함이 있어도 통과한다」.
+//   project's 규칙(감사 도구를 믿기 전에 감사를 검증한다)에 따르면 그런 검사는
+//   게이트로 쓸 수 없다. 조용히 통과하는 게 소음이 된다.
+//   따라서 AUDIT_CONTINUITY=1 로 명시적으로 켤 때만 돌고, 결과는 **출력만** 한다.
+//   실패를 증명하면 그때 fail 에 넣는다.
+if (continuityRows.length) {
+  console.log('');
+  console.log(`   자리 연속성 — 위반 의심 ${continuityRows.length}건 (아직 게이트가 아님)`);
+  for (const r of continuityRows) console.log(`     · ${r.tab} · "${r.label}" ${r.why}`);
+} else if (process.env.AUDIT_CONTINUITY) {
+  console.log('   · 자리 연속성 — 위반 의심 0건');
+}
+
 await browser.close();
 
 const BAD = (r) =>
@@ -736,6 +945,8 @@ if (fail.length) {
   for (const f of fail) console.error('     · ' + f);
   process.exitCode = 1;
 } else {
-  console.log(`   ✓ 위반 0건 — 팝업 ${rows.length} · 페이지 ${pageRows.length}`);
+  console.log(
+    `   ✓ 위반 0건 — 팝업 ${rows.length} · 페이지 ${pageRows.length} · 자리연속성 ${continuityRows.length}`
+  );
 }
 

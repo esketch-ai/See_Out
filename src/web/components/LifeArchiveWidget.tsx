@@ -1,5 +1,6 @@
 import { lazyModal, warmAll } from '../design-system/LazyModal.js';
 import { encodeShareLink } from '../life-archive/obituaryShare.js';
+import UnknownNotebook from './UnknownNotebook.js';
 import React, { Suspense, useEffect, useState } from 'react';
 import {
   BookOpen,
@@ -745,6 +746,14 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* 「아직 모르는 것」 수첩 — 빈칸을 오류로 읽지 않게 해준다 */}
+            <div className="mb-5">
+              <UnknownNotebook
+                funeralSetting={funeralSetting}
+                onUpdate={(patch) => patchSetting(patch)}
+              />
+            </div>
+
             {/* 좌측 (7/12): 부고장 미리보기 */}
             <div className="lg:col-span-7 bg-[#FAF9F6] border border-[#DCD6C9] rounded-xl p-5 md:p-6 space-y-4">
               <div className="flex items-center justify-between border-b border-[#DCD6C9] pb-3">

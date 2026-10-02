@@ -124,6 +124,11 @@ export interface FuneralSetting {
   /** 배웅 견적 참조번호(REF). 유족이 식장에서 제시하면 정찰가를 보장받는다.
    *  이게 없으면 가족이 「몇 만 원짜리인지」 를 입증할 수 없다. */
   referenceCode?: string;
+  /** 「아직 모르는 것」 수첩 — 항목별 메모 (누구에게 물어볼지).
+   *  빈칸을 「미입력」 으로 두면 유족이 스스로를 잘못한 사람으로 여기게 된다. */
+  unknownNotes?: Record<string, string>;
+  /** 「나중에 정하기」 로 물러난 항목. 잊어버린 것이 아니라 보류한 것이다. */
+  deferredUnknowns?: string[];
   departureDateTime: string;
   condolenceAccount: string;
   virtualPhone?: string;

@@ -3,59 +3,92 @@
  *
  * 왜 이것이 필요한가
  * ──────────────────
- * 유족이 장례식장 가격을 아래까지 내려가 비교하다가 어떤 버튼(외부 지도로
- * 나가는 링크, 인쇄, 또는 리로드가 걸린 경로)을 눌렀다. 돌아오면 화면이
- * 맨 위다. 무엇을 어디까지 봤는지 다시 찾느라 스크롤을 되감아야 한다.
- * 90세 유족에게는 이것이 「길이 잃었다」 는 경험이다.
+ * 유족이 종합 의전 화면을 아래까지 내려가 서비스들을 비교하다가, 화면 가운데
+ * 놓인 「장례식장 찾기」 카드를 눌렀다. 탭이 통째로 바뀌면서 스크롤이 0 이 된다.
+ * 다시 종합 의전 탭으로 돌아와도 **0 이다 — 돌아갈 자리가 없다.**
  *
- * 무엇을 고쳤나
- * ────────────
- * 화면이 통째로 다시 그려져도 **같은 자리로 돌아오게** 한다.
- *   · 스크롤 위치를 sessionStorage 에 정기 저장한다
- *   · 마운트 때 복원한다
+ * 실제로 잰 값 (1440px · 브라우저)
+ *   클릭 전 1200 → 클릭 후 0        ← 새 화면은 맨 위가 자연스럽다
+ *   원래 탭 복귀 후 0              ← ★ 여기가 결함이다. 잃어버렸다.
+ *
+ * 그러므로 「새 탭은 위에서 시작한다」 는 그대로 두고,
+ * **자기 탭으로 돌아왔을 때의 자리만 되돌려 준다.**
  *
  * 왜 sessionStorage 인가
  * ────────────────────
  * localStorage 는 「기기 저장」 이라 동의 없이 건드리면 안 된다.
- * AGENTS.md 1장 — 기기 저장은 명시적 동의 후에만. 스크롤 위치는
- * 개인정보가 아니지만 **같은 저장소를 함부로 쓰면 안 된다.**
+ * AGENTS.md 1장 — 기기 저장은 명시적 동의 후에만. 스크롤 위치는 개인정보가
+ * 아니지만 **같은 저장소를 함부로 쓰면 안 된다.**
  * 탭을 닫으면 사라지는 sessionStorage 가 알맞다.
- *
- * 왜 스로틀인가
- * ────────────
- * 스크롤은 초당 수십 번 발생한다. 저장소를 그 빈도로 쓰면 안 된다.
  */
 const KEY = 'seasnake:scroll';
 
-interface ScrollMemory {
+interface Entry {
   y: number;
   at: number;
 }
 
-const read = (): ScrollMemory | null => {
+const MAX_AGE_MS = 30 * 60 * 1000;
+
+const readAll = (): { all: Record<string, Entry>; pruned: boolean } => {
   try {
     const raw = sessionStorage.getItem(KEY);
-    if (!raw) return null;
-    const v = JSON.parse(raw) as ScrollMemory;
-    if (typeof v?.y !== 'number') return null;
-    // 30분 지나면 기억을 버린다 — 어제 본 위치로 돌아가는 것이 더 헷갈린다
-    if (Date.now() - (v.at ?? 0) > 30 * 60 * 1000) {
-      sessionStorage.removeItem(KEY);
-      return null;
+    if (!raw) return { all: {}, pruned: false };
+    const v = JSON.parse(raw);
+    if (!v || typeof v !== 'object') return { all: {}, pruned: false };
+    // 30분 지나면 기억을 버린다 — 어제 보던 자리로 돌아가는 것이 더 헷갈리다
+    const now = Date.now();
+    let pruned = false;
+    for (const [k, e] of Object.entries(v as Record<string, Entry>)) {
+      if (!e || typeof e.y !== 'number' || now - (e.at ?? 0) > MAX_AGE_MS) {
+        delete (v as Record<string, Entry>)[k];
+        pruned = true;
+      }
     }
-    return v;
+    return { all: v as Record<string, Entry>, pruned };
   } catch {
-    // 저장소를 못 읽어도 화면은 정상이어야 한다
-    return null;
+    return { all: {}, pruned: false };
   }
 };
 
-const write = (y: number) => {
+const writeAll = (all: Record<string, Entry>) => {
   try {
-    sessionStorage.setItem(KEY, JSON.stringify({ y, at: Date.now() }));
+    if (Object.keys(all).length === 0) sessionStorage.removeItem(KEY);
+    else sessionStorage.setItem(KEY, JSON.stringify(all));
   } catch {
     /* 용량 초과·프라이빗 모드 — 조용히 포기한다 */
   }
+};
+
+/** 지금 보고 있는 영역(탭). 바뀌면 그 자리에서 저장하고 새 곳의 자리를 되살린다 */
+let scope = 'default';
+let listenerInstalled = false;
+
+const save = (y: number) => {
+  if (typeof window === 'undefined') return;
+  const { all } = readAll();
+  all[scope] = { y, at: Date.now() };
+  writeAll(all);
+};
+
+const restoreInto = (s: string) => {
+  const { all, pruned } = readAll();
+  // 버린 것은 실제로 지운다 — 다음에 다시 읽을 때 같은 판정을 반복하지 않게
+  if (pruned) writeAll(all);
+  const y = all[s]?.y ?? 0;
+  const max = () => document.documentElement.scrollHeight - window.innerHeight;
+  const apply = () => {
+    const m = max();
+    window.scrollTo(0, Math.max(0, Math.min(y, m)));
+  };
+  // 첫 paint 전에 굴리면 브라우저의 scroll anchoring 이 0 으로 다시 당긴다.
+  // 실제로 첫 시도가 그랬다. paint 뒤, 그리고 레이아웃이 늦게 확정되는 경우를
+  // 위해 두 번 더 시도한다.
+  requestAnimationFrame(() => {
+    apply();
+    setTimeout(apply, 120);
+    setTimeout(apply, 400);
+  });
 };
 
 /**
@@ -63,39 +96,46 @@ const write = (y: number) => {
  * 반환값은 해제 함수 — StrictMode 이 두 번 부를 때를 위해.
  */
 export const rememberScroll = (): (() => void) => {
-  // 복원은 paints 뒤에 해야 한다. 첫 paint 전에滚시키면 브라우저가
-  // 「 scroll anchoring 」 으로 다시 0 으로 당긴다 — 실제로 그래서 첫 시도가 실패했다.
-  let raf = 0;
-  const restore = () => {
-    const m = read();
-    if (!m || m.y <= 0) return;
-    // 읽는 시점에 문서가 아직 짧으면(모달·이미지 로딩 전) 스크롤할 수 없다.
-    const apply = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (m.y <= max) window.scrollTo(0, m.y);
-    };
-    requestAnimationFrame(() => {
-      apply();
-      // 레이아웃이 늦게 확정되는 경우가 있어 한 번 더 시도한다
-      setTimeout(apply, 120);
-      setTimeout(apply, 400);
-    });
-  };
-
-  if (typeof window !== 'undefined') {
-    // 여기서 scrollTo(0,0) 하지 않는다 — 그게 바로 「맨 위로」 라는 버그다
-    restore();
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        write(window.scrollY);
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+  if (typeof window === 'undefined') return () => {};
+  if (!listenerInstalled) {
+    listenerInstalled = true;
+    // 초당 수십 번 발생하므로 저장소는 rAF 로 한 번에 한 번만 쓴다
+    let raf = 0;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (raf) return;
+        raf = window.requestAnimationFrame(() => {
+          raf = 0;
+          save(window.scrollY);
+        });
+      },
+      { passive: true }
+    );
   }
+  restoreInto(scope);
   return () => {};
+};
+
+/**
+ * 지금 자리를 즉시 저장한다.
+ *
+ * ★ 이게 핵심이다. 탭 전환을 useEffect 에서 저장하면 늦다 —
+ *   React 가 DOM 을 갈아끼운 직후에야 effects 가 도는데, 그 사이에 브라우저가
+ *   문서가 짧아진 만큼 스크롤을 0 으로 당겨 놓는다. 그래서 저장되는 값이 0 이고
+ *   「돌아와도 맨 위」 가 그대로였다. 실제로 잰 값이다.
+ *   전환을 시키기 **직전** 에 저장해야 한다.
+ */
+export const saveScrollNow = () => {
+  if (typeof window === 'undefined') return;
+  save(window.scrollY);
+};
+
+/** 탭이 바뀌었을 때 부른다 — 온 자리는 되살린다 (저장은 saveScrollNow 가 맡는다) */
+export const setScrollScope = (next: string) => {
+  if (typeof window === 'undefined' || next === scope) return;
+  scope = next;
+  restoreInto(scope);
 };
 
 export const forgetScroll = () => {

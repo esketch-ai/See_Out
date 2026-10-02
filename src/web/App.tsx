@@ -1,5 +1,5 @@
 import { lazyModal, warmAll } from './design-system/LazyModal.js';
-import { rememberScroll } from './design-system/scrollMemory.js';
+import { rememberScroll, setScrollScope, saveScrollNow } from './design-system/scrollMemory.js';
 import React, { Suspense, useState, useEffect } from 'react';
 import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
@@ -23,12 +23,23 @@ const PartnerPortalModal = partnerModal.Comp;
 const PRELOAD_MODALS = [legalModal.preload, voiceModal.preload, partnerModal.preload];
 
 const MainApp: React.FC = () => {
-  // ★ 화면이 통째로 다시 그려져도 유족이 있던 자리에 돌아온다.
-  //   버튼을 눌렀다가 맨 위로 돌아오는 것을 「원인 규명」 까지 미루지 않는다.
-  //   무엇을 눌렀든 결과적으로 잃으면 안 되기 때문이다.
+  const [currentTab, setCurrentTabRaw] = useState<MainTab>('home');
+
+  // ★ 탭 전환은 항상 이 경로를 지난다. 자리를 저장한 뒤에 바꿔야 한다 —
+  //   DOM 이 바뀌면 스크롤이 0 으로 당겨져 먼저 돌아오지 못한다.
+  const setCurrentTab = (next: MainTab) => {
+    saveScrollNow();
+    setCurrentTabRaw(next);
+  };
+
+  // 스크롤 위치를 기억한다 (리스너 설치) — 탭이 바뀌어도 살아 있어야 한다
   useEffect(() => rememberScroll(), []);
 
-  const [currentTab, setCurrentTab] = useState<MainTab>('home');
+  // ★ 탭을 옮겨갔다 돌아왔을 때 「내가 있던 자리」 로 되돌린다.
+  //   화면 가운데 놓인 카드를 누르면 탭이 통째로 바뀌고 스크롤이 0 이 된다.
+  //   새 화면이 위에서 시작하는 것은 자연스럽지만, 원래 탭으로 돌아왔을 때도
+  //   0 이면 유족은 길을 잃는다 — 「했던 화면으로 다시 가야 한다」 는 요구다.
+  useEffect(() => setScrollScope(currentTab), [currentTab]);
   const [isEmergencyMode, setIsEmergencyMode] = useState<boolean>(false);
   const [isLargeFont, setIsLargeFont] = useState<boolean>(false);
   const [isLegalModalOpen, setIsLegalModalOpen] = useState<boolean>(false);

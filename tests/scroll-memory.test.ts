@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { rememberScroll, forgetScroll } from '../src/web/design-system/scrollMemory.js';
+import { rememberScroll, forgetScroll, saveScrollNow, setScrollScope } from '../src/web/design-system/scrollMemory.js';
 
 /** sessionStorage 를 그대로 대체한다 — 「기기 저장」 이라 Consent 를 건드리지 않는다 */
 const makeStore = () => {
@@ -65,10 +65,33 @@ describe('스크롤 기억 (새로고침 후에도 유족의 자리에 돌아온
   });
 
   it('조금 지난 기억은 남긴다 (30분 이내면 같은 자리로 돌아온다)', () => {
-    store.setItem('seasnake:scroll', JSON.stringify({ y: 2200, at: Date.now() - 5 * 60 * 1000 }));
+    store.setItem('seasnake:scroll', JSON.stringify({ default: { y: 2200, at: Date.now() - 5 * 60 * 1000 } }));
     expect(() => rememberScroll()).not.toThrow();
-    // 즉시 덮어쓰지 않는다 — 지워지지 않았어야 한다
     expect(store.getItem('seasnake:scroll')).toContain('2200');
+  });
+
+  it('만료된 항목만 지우고 다른 탭의 기억은 지킨다', () => {
+    const now = Date.now();
+    store.setItem(
+      'seasnake:scroll',
+      JSON.stringify({
+        home: { y: 1200, at: now - 40 * 60 * 1000 }, // 오래됨
+        'funeral-halls': { y: 800, at: now } // 최신
+      })
+    );
+    rememberScroll();
+    const saved = JSON.parse(store.getItem('seasnake:scroll') as string);
+    expect(saved.home).toBeUndefined();
+    expect(saved['funeral-halls'].y).toBe(800);
+  });
+
+  it('탭마다 자리를 따로 기억한다 — 다른 탭으로 갔다 와도 제자리가 남는다', () => {
+    (window as unknown as { scrollY: number }).scrollY = 1200;
+    saveScrollNow();
+    setScrollScope('funeral-halls');
+    const saved = JSON.parse(store.getItem('seasnake:scroll') as string);
+    expect(saved.default.y).toBe(1200);
+    expect(saved['funeral-halls']).toBeUndefined(); // 처음 보는 곳은 0 에서 시작
   });
 
   it('깨진 값이 들어와도 조용히 죽지 않는다', () => {

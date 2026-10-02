@@ -144,6 +144,33 @@ export const LifeArchiveWidget: React.FC<LifeArchiveWidgetProps> = ({
   // 메인 상단 탭: 'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'
   const [activeTab, setActiveTab] = useState<'biography' | 'interview' | 'contacts' | 'ending_note' | 'gatekeeper'>('biography');
 
+  // ★ 하위 탭(생애 평전 · 생애 회고 · 부고장 · 의향서 · 게이트키퍼)을 바꾸면
+  //   고른 것이 바로 보이도록 자리를 맞춘다.
+  //   이 위젯의 5개 탭은 본문 길이가 서로 다르다 — 평전은 길고 의향서는 짧다.
+  //   전환 직후 문서가 길어지면 스크롤이 최댓값으로 밀리고(실측 y 451 → 6076),
+  //   짧아지면 0 으로 당겨진다. 어느 쪽이든 사용자가 누른 것을 잃는다.
+  //   챕터 전환과 같은 조치가 같은 이유로 필요하다.
+  const subTabRef = useRef<HTMLDivElement | null>(null);
+  const isFirstSubTab = useRef(true);
+
+  useEffect(() => {
+    if (isFirstSubTab.current) {
+      isFirstSubTab.current = false;
+      return;
+    }
+    const el = subTabRef.current;
+    if (!el) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.scrollIntoView({
+          block: 'start',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        });
+      });
+    });
+  }, [activeTab]);
+
+
   // 평전 챕터 선택 (1~4)
   const [activeChapter, setActiveChapter] = useState<number>(1);
 
@@ -304,8 +331,10 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
         </div>
       </div>
 
-      {/* 2. 5대 메인 내비게이션 탭 바 */}
-      <div className="flex bg-[#FAF9F6] p-1.5 rounded-xl border border-[#DCD6C9] text-[0.8125rem] md:text-sm font-serif overflow-x-auto">
+      {/* 2. 5대 메인 내비게이션 탭 바 — scroll-mt-28 으로 sticky 헤더에 가리지 않게 */}
+      <div
+        ref={subTabRef}
+        className="flex bg-[#FAF9F6] p-1.5 rounded-xl border border-[#DCD6C9] text-[0.8125rem] md:text scroll-mt-28-sm font-serif overflow-x-auto">
         <button
           onClick={() => setActiveTab('biography')}
           className={`flex-1 min-w-[140px] py-3 px-2 rounded-lg text-center font-bold transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${

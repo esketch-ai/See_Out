@@ -82,6 +82,8 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
               <span className="hidden sm:inline">약관 전문 인쇄</span>
             </button>
             <button
+              type="button"
+              aria-label="약관 창 닫기"
               onClick={onClose}
               className="p-1.5 hover:bg-white/10 rounded-full text-[#5A5E66] hover:text-white transition-colors cursor-pointer"
             >
@@ -140,6 +142,7 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({
             <Search className="w-4 h-4 text-[#5A5E66] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
+              aria-label="약관 내 키워드 검색"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
               placeholder="약관 내 키워드 검색 (예: '통신비밀보호법', '리베이트', '환급금', '위치정보')..."

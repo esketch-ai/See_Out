@@ -234,6 +234,7 @@ export const EmergencyMode: React.FC<{ onExitEmergency: () => void }> = ({ onExi
                 </label>
                 <input
                   type="text"
+                  aria-label="상세 위치 또는 병원 명칭"
                   value={locationDetail}
                   onChange={(e) => setLocationDetail(e.target.value)}
                   placeholder="예: 서울아산병원 본관 응급실 / 분당 구미동 자택"

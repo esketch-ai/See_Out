@@ -197,7 +197,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
           <h2 className="text-2xl md:text-3xl font-reverence font-black text-[#FAF9F6] tracking-tight">
             기존 상조 증서 정밀 예법 · 원가 진단표
           </h2>
-          <p className="text-[#8A929D] text-[0.8125rem] sm:text-[1.125rem] font-serif mt-1">
+          <p className="text-[#8A929D] text-[1.125rem] font-serif mt-1">
             공정위 법정 해약환급금과 배웅의 정직한 실비를 1:1 맞춤 영수증으로 투명하게 대조합니다.
           </p>
         </div>
@@ -416,6 +416,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
 
         <input
           type="range"
+          aria-label="지금까지 납입하신 회차"
           min={1}
           max={totalInstallments}
           value={paidInstallments}
@@ -724,7 +725,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             <span className="font-bold text-[#141618]">
               📊 {comparisonPerspective === 'future_cash' ? '앞으로 나갈 돈 1:1 면적 비교' : '전체 총비용 1:1 면적 비교'}
             </span>
-            <span className="text-[#5A5E66] mt-0.5 sm:mt-0 text-[0.8125rem] sm:text-[0.8125rem]">
+            <span className="text-[#5A5E66] mt-0.5 sm:mt-0 text-[0.8125rem]">
               ※ 배웅 막대의 <b>실제 지출</b>과 <b>절약되는 돈</b>을 합치면 기존 상조 금액과 100% 일치합니다.
             </span>
           </div>
@@ -814,7 +815,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
             </div>
 
             {/* 범례 및 안내 캡션 */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[0.8125rem] md:text-[0.8125rem] font-serif">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[0.8125rem] font-serif">
               <div className="flex items-center space-x-4">
                 <span className="flex items-center space-x-1.5">
                   <span className="w-3 h-3 rounded-xs bg-[#19382C] inline-block" />
@@ -973,7 +974,7 @@ export const QuoteDiagnosticsWidget: React.FC = () => {
                 <h3 className="font-reverence font-bold text-xl md:text-2xl text-[#141618] tracking-tight">
                   유가족의 권리를 완벽히 지키는 3대 공식 실천 조치
                 </h3>
-                <p className="text-[0.8125rem] sm:text-[1.125rem] text-[#5A5E66] font-serif mt-1">
+                <p className="text-[1.125rem] text-[#5A5E66] font-serif mt-1">
                   기존 상조는 그대로 둔 채 <b>비용 0원</b>으로 권리를 확보하고, 해약 결정 시 법정 환급금과 위약금 손실을 100% 보전받으세요.
                 </p>
               </div>

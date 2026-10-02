@@ -548,7 +548,7 @@ export const ProfessionalCareModal: React.FC<ProfessionalCareModalProps> = ({
 
         {/* 4. 모달 하단 푸터 바 */}
         <div className="bg-[#FAF9F6] border-t border-[#DCD6C9] p-3.5 px-6 flex items-center justify-between text-[0.8125rem] font-serif shrink-0">
-          <span className="text-[#5A5E66] text-[0.8125rem] sm:text-[0.8125rem]">
+          <span className="text-[#5A5E66] text-[0.8125rem]">
             ※ 상담 및 수임 계약의 당사자는 전문가와 의뢰인 본인이며, 배웅은 공공 정보 디렉터리를 제공합니다.
           </span>
           <button

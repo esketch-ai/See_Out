@@ -371,7 +371,7 @@ export const SeniorVoiceAssistantModal: React.FC<SeniorVoiceAssistantModalProps>
                 <p className="text-[0.9375rem] sm:text-base text-[#42464E] leading-relaxed">
                   {response.spokenMessage}
                 </p>
-                <p className="text-[0.8125rem] text-[#5A5E66] pt-1">
+                <p className="text-[1.125rem] text-[#5A5E66] pt-1">
                   {response.displayDescription}
                 </p>
               </div>

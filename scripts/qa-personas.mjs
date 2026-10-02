@@ -366,7 +366,11 @@ const PROBE = ([p_body, p_tap]) => {
     // 태그가 p/li 여도 「문장」 이 아니면 데이터 표기다 — 금액·날짜·문서번호.
     // AGENTS.md §2-4 의 분류와 같은 기준을 쓴다.
     const txt = (el.textContent || '').trim();
-    const sentence = txt.length >= 24 || /[.。]$|습니다|입니다|드립니다|있습니다/.test(txt);
+    // ★ 「문장」 은 종결 어미로만 판정한다.
+    //   길이 기준으로 세면 사진 설명(「바다를 바라보며… COLLEGE…」)과
+    //   시설 데이터(「8호선 강동구청역」)를 산문으로 친다 — 실제로 64건을
+    //   잡아냈고 전부 오탐이었다. AGENTS.md §2-4 와 같은 기준을 쓴다.
+    const sentence = /습니다|입니다|됩니다|드립니다|있습니다|않습니다|[.。]$/.test(txt);
     if ((el.tagName === 'P' || el.tagName === 'LI') && sentence) out.prose.push(px);
     if (px < 13) out.tinyCount++;
   }

@@ -675,7 +675,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span className="text-sm">①</span>
               <span>선금 0원 / 후불 정산제</span>
             </div>
-            <p className="text-[#5A5E66] leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
               사전 가입비, 월 납입금 일체 0원. 발인 후 모든 의전이 정상 완료된 뒤 결제합니다.
             </p>
           </div>
@@ -685,7 +685,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span className="text-sm">②</span>
               <span>촌지·수고비 요구 0원</span>
             </div>
-            <p className="text-[#5A5E66] leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
               지도사, 도우미의 촌지 요구는 법적으로 금지되며, 요구 시 200% 배상합니다.
             </p>
           </div>
@@ -695,7 +695,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span className="text-sm">③</span>
               <span>현장 강매·업셀링 0원</span>
             </div>
-            <p className="text-[#5A5E66] leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
               사전 약정 외 불필요한 고가 수의/유골함 강매 발생 시 해당 품목을 전액 무료 제공합니다.
             </p>
           </div>
@@ -705,7 +705,7 @@ export const PackagePricingWidget: React.FC<PackagePricingWidgetProps> = ({
               <span className="text-sm">④</span>
               <span>미사용 품목 정직 환급</span>
             </div>
-            <p className="text-[#5A5E66] leading-relaxed">
+            <p className="text-[1.125rem] text-[#5A5E66] leading-relaxed">
               덜 입은 상복, 미사용 차량 등 실제 쓰지 않은 품목은 계약금에서 100% 공제 환급됩니다.
             </p>
           </div>

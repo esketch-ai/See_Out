@@ -176,7 +176,7 @@ export const LossCreditVoucherModal: React.FC<LossCreditVoucherModalProps> = ({
             {/* 바우처 사용 안내 규칙 */}
             <div className="relative z-10 bg-[#0A1511]/80 p-4 rounded-xl border border-[#2D4F43] text-[0.8125rem] text-[#A8B2A9] space-y-1.5">
               <span className="font-bold text-[#C2A26A] block">바우처 이용 및 정산 방법:</span>
-              <p className="leading-relaxed">
+              <p className="text-[1.125rem] leading-relaxed">
                 • 실제 임종 발생 시 배웅 1급 장례지도사에게 기존 상조 해약 증빙(해약 통지서, 문자, 또는 입금 내역)을 제시해 주시면 최종 정산서에서 위 3대 혜택 금액(총 50만 원)이 즉시 차감 반영됩니다.
               </p>
               <p className="text-[1.125rem] text-[#A8B2A9]">

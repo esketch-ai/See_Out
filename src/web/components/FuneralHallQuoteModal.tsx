@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   X,
   Printer,
@@ -59,13 +59,23 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
   const [copiedMemo, setCopiedMemo] = useState(false);
 
   // 선택된 장례 형태에 따른 정밀 견적서 생성
-  const quote: FuneralHallQuoteReference = FuneralHallService.generateQuoteReference({
-    hallId: hall.id,
-    funeralType: selectedType,
-    stayDays: selectedType === 'direct_cremation' ? 0 : 2,
-    applicantName: applicantName.trim() || undefined,
-    applicantPhone: applicantPhone.trim() || undefined
-  });
+  //
+  // ★ useMemo 가 필수다. 생성기가 Math.random() 을 쓰기 때문에 렌더마다 다른
+  //   번호가 나온다. 유족이 성함을 한 글자만 입력해도 번호가 바뀌어
+  //   「식장에서 말씀할 번호」 가 읽고 있는 사이에 뒤바뀐다 — 화면에서 5978 이
+  //   보인데 부고장에는 4565 가 올라가 있었다. 근거 번호가 흔들리면 정찰의
+  //   근거가 되지 못한다.
+  const quote: FuneralHallQuoteReference = useMemo(
+    () =>
+      FuneralHallService.generateQuoteReference({
+        hallId: hall.id,
+        funeralType: selectedType,
+        stayDays: selectedType === 'direct_cremation' ? 0 : 2,
+        applicantName: applicantName.trim() || undefined,
+        applicantPhone: applicantPhone.trim() || undefined
+      }),
+    [hall.id, selectedType, applicantName, applicantPhone]
+  );
 
   // 사업계획서 7장: 견적 참조번호 발급 이벤트 4단계 퍼널 자동 추적
   useEffect(() => {

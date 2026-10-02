@@ -89,6 +89,7 @@ const buildFamilySummary = (f: FuneralSetting): string => {
   if (f.address) L.push(`   주소: ${f.address}`);
   if (f.nearestSubway) L.push(`   교통: ${f.nearestSubway}`);
   if (f.departureDateTime) L.push(`■ 발인: ${f.departureDateTime}`);
+  if (f.referenceCode) L.push(`■ 정찰가 근거 번호: ${f.referenceCode}  (식장에서 말씀하세요)`);
   if (f.condolenceAccount) L.push(`■ 조문금: ${f.condolenceAccount}`);
   L.push(`■ 상주: ${(f.chiefMourners || []).join(', ') || '미입력'}`);
   if (f.chiefPhone) L.push(`   ☎ ${f.chiefPhone}`);
@@ -811,6 +812,14 @@ const PRELOAD_MODALS = [bookletModal.preload, kioskModal.preload, careModal2.pre
                     >
                       ☎ {funeralSetting.chiefPhone}
                     </a>
+                  )}
+                  {funeralSetting.referenceCode && (
+                    <p className="text-[1.125rem] font-bold text-[#19382C]">
+                      정찰가 근거 번호 {funeralSetting.referenceCode}
+                      <span className="block text-[0.8125rem] font-normal text-[#42464E]">
+                        식장에서 이 번호를 말씀하시면 사전 등록 정찰가가 적용됩니다.
+                      </span>
+                    </p>
                   )}
                   {funeralSetting.condolenceAccount && (
                     <p className="text-[1.125rem] text-[#151719]">조문금: {funeralSetting.condolenceAccount}</p>

@@ -42,6 +42,7 @@ export interface StoredObituary {
   departureDateTime?: string;
   condolenceAccount?: string;
   motto?: string;
+  referenceCode?: string;
 }
 
 export interface BereavementRecord {

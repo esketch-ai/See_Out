@@ -39,6 +39,7 @@ export interface SharedObituary {
   h?: string; // 빈소
   r?: string; // 빈소 호실
   g?: string; // 주소
+  x?: string; // 견적 참조번호 (REF) — 정찰가 보장 수단
 }
 
 const b64url = {
@@ -68,6 +69,7 @@ export const encodeObituary = (f: FuneralSetting): SharedObituary => ({
   h: f.funeralHallName || undefined,
   r: f.roomName || undefined,
   g: f.address || undefined,
+  x: f.referenceCode || undefined,
 });
 
 export const encodeShareLink = (f: FuneralSetting, origin: string): string => {

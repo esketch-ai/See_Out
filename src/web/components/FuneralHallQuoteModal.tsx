@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   X,
   Printer,
@@ -35,6 +35,8 @@ interface FuneralHallQuoteModalProps {
   initialApplicantName?: string;
   initialApplicantPhone?: string;
   onClose: () => void;
+  /** 참조번호가 발급·확정되었음을 알린다 — 부고장에 실리기 위해 */
+  onIssued?: (referenceCode: string) => void;
 }
 
 export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
@@ -42,10 +44,13 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
   initialType = 'direct_cremation',
   initialApplicantName = '',
   initialApplicantPhone = '',
-  onClose
+  onClose,
+  onIssued
 }) => {
   // 공용 셸과 동일한 모달 접근성 계약 (포커스 트랩 · ESC · aria-modal)
   const { overlayProps, panelProps } = useModalA11y(onClose);
+  const onIssuedRef = useRef(onIssued);
+  onIssuedRef.current = onIssued;
   const [selectedType, setSelectedType] = useState<FuneralTypePreference>(
     initialType === 'all' ? 'direct_cremation' : initialType
   );
@@ -67,6 +72,10 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
     FunnelMeasurementEngine.trackEvent(hall.id, 'STAGE_4_CONVERSION_APPROX', {
       referenceCode: quote.referenceCode
     });
+    // 마운트 시 부모를 바꾸지 않는다. 여기서 setFuneralSetting 을 부르면
+    // NormalMode 가 재렌더되며 이 모달이 다시 마운트되고, 모달 안 포커스가
+    // 풀린다 — 실제로 포커스·Tab·ESC 계약이 전부 깨졌다.
+    // 「유족이 실제로 챙겼다」 는 순간(handleCopyMemo/handlePrint)에 알린다.
   }, [hall.id, quote.referenceCode]);
 
   const handleCallHall = () => {
@@ -80,6 +89,7 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
   };
 
   const handlePrint = () => {
+    notifyIssued();
     window.print();
   };
 
@@ -94,7 +104,14 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 ※ 상담 안내: 공정거래위원회 리베이트 금지 고시 준수 · 부당 알선료 0원 정찰제
 ※ 본 참조번호(${quote.referenceCode})를 제시하시면 사전 등록 고객 정찰가로 접수됩니다.`;
 
+  // ★ 이 번호가 부고장으로 따라가야 가족이 식장에서 정찰가를 받는다.
+  //   「모달이 열렸다」 가 아니라 「유족이 실제로 챙겼다」 는 순간에 알려야 한다.
+  //   열릴 때 알리면 부모 상태가 바뀌어 트리가 재렌더되며 모달 안 포커스가
+  //   풀린다 — 실제로 그 때문에 포커스·Tab·ESC 계약이 전부 깨졌다.
+  const notifyIssued = () => onIssuedRef.current?.(quote.referenceCode);
+
   const handleCopyMemo = () => {
+    notifyIssued();
     navigator.clipboard?.writeText(memoText);
     setCopiedMemo(true);
     setTimeout(() => setCopiedMemo(false), 2500);

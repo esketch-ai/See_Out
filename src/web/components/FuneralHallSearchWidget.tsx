@@ -42,13 +42,15 @@ export interface FuneralHallSearchWidgetProps {
    *  연동 버튼과 다르다 — 고르는 것과 확정해 부고장에 넣는 것은 별개다. */
   onHallChosen?: (hall: FuneralHallEntity) => void;
   onNavigateToLifeArchive?: () => void;
+  onReferenceIssued?: (referenceCode: string) => void;
 }
 
 export const FuneralHallSearchWidget: React.FC<FuneralHallSearchWidgetProps> = ({
   selectedFuneralHallId,
   onSelectHallForFuneral,
   onHallChosen,
-  onNavigateToLifeArchive
+  onNavigateToLifeArchive,
+  onReferenceIssued
 }) => {
   // 이 탭의 모달 조각을 미리 받는다 — 클릭 지연을 없애기 위함
   useEffect(() => {
@@ -597,7 +599,6 @@ const PRELOAD_MODALS = [quoteModal.preload, optOutModal.preload, affiliateModal.
                 }
               }}
               selectedRegion={selectedRegion}
-              onSelectRegion={setSelectedRegion}
             />
           </div>
 
@@ -906,6 +907,7 @@ const PRELOAD_MODALS = [quoteModal.preload, optOutModal.preload, affiliateModal.
       {/* [사업계획서 1단계 옵션 B] 견적 참조번호 및 공식 정찰 견적서 모달 */}
       {isQuoteModalOpen && selectedHall && (
         <FuneralHallQuoteModal
+          onIssued={onReferenceIssued}
           hall={selectedHall}
           initialType={selectedFuneralType === 'all' ? 'direct_cremation' : selectedFuneralType}
           onClose={() => setIsQuoteModalOpen(false)}

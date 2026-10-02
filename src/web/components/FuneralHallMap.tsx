@@ -19,7 +19,6 @@ interface FuneralHallMapProps {
   selectedHall: FuneralHallEntity | null;
   onSelectHall: (hall: FuneralHallEntity) => void;
   selectedRegion: string;
-  onSelectRegion?: (region: string) => void;
   className?: string;
 }
 
@@ -32,7 +31,6 @@ export const FuneralHallMap: React.FC<FuneralHallMapProps> = ({
   selectedHall,
   onSelectHall,
   selectedRegion,
-  onSelectRegion,
   className = ''
 }) => {
   // 줌 레벨: 15 (주변 권역), 16 (표준 동네/교통), 17 (상세 건물/진입로)

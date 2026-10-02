@@ -36,6 +36,7 @@ const OBITUARY_FIELDS = [
   'departureDateTime',
   'condolenceAccount',
   'motto',
+  'referenceCode',
 ] as const satisfies readonly (keyof StoredObituary)[];
 
 import { DEFAULT_FUNERAL_SETTING, FuneralSetting } from '../../life-archive/index.js';
@@ -140,6 +141,10 @@ export const NormalMode: React.FC<NormalModeProps> = ({
         <FuneralHallSearchWidget
           selectedFuneralHallId={funeralSetting.funeralHallId}
           onHallChosen={() => markStage('ceremony')}
+          onReferenceIssued={(code) => {
+            setFuneralSetting((prev) => ({ ...prev, referenceCode: code }));
+            markStage('ceremony');
+          }}
           onSelectHallForFuneral={(hall) => {
             const virtPhone = VirtualCallService.getVirtualNumberForHall(hall.id);
             const crematoriumText = hall.nearestCrematorium

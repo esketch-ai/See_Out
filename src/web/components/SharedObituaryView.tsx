@@ -93,6 +93,16 @@ export const SharedObituaryView: React.FC<SharedObituaryViewProps> = ({ data, br
             </a>
           )}
 
+          {data.x && (
+            <p className="rounded-lg bg-[#F1E9DB] p-3 border border-[#DCD6C9]">
+              <span className="block text-[0.8125rem] font-bold text-[#8B2520]">정찰가 근거 번호</span>
+              <span className="block text-[1.25rem] font-bold text-[#151719] break-all">{data.x}</span>
+              <span className="block text-[0.9375rem] text-[#42464E]">
+                식장에서 이 번호를 말씀하시면 사전 등록 정찰가가 적용됩니다.
+              </span>
+            </p>
+          )}
+
           <p className="pt-3 border-t border-[#DCD6C9] text-[#42464E] text-[0.9375rem]">
             조문금은 상주자에게 직접 문의해 주세요.
           </p>

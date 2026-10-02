@@ -1,4 +1,5 @@
 import { lazyModal, warmAll } from './design-system/LazyModal.js';
+import { rememberScroll } from './design-system/scrollMemory.js';
 import React, { Suspense, useState, useEffect } from 'react';
 import { Header, MainTab } from './components/Header.js';
 import { NormalMode } from './components/NormalMode.js';
@@ -22,6 +23,11 @@ const PartnerPortalModal = partnerModal.Comp;
 const PRELOAD_MODALS = [legalModal.preload, voiceModal.preload, partnerModal.preload];
 
 const MainApp: React.FC = () => {
+  // ★ 화면이 통째로 다시 그려져도 유족이 있던 자리에 돌아온다.
+  //   버튼을 눌렀다가 맨 위로 돌아오는 것을 「원인 규명」 까지 미루지 않는다.
+  //   무엇을 눌렀든 결과적으로 잃으면 안 되기 때문이다.
+  useEffect(() => rememberScroll(), []);
+
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
   const [isEmergencyMode, setIsEmergencyMode] = useState<boolean>(false);
   const [isLargeFont, setIsLargeFont] = useState<boolean>(false);

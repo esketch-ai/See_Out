@@ -60,21 +60,35 @@ export const FuneralHallQuoteModal: React.FC<FuneralHallQuoteModalProps> = ({
 
   // 선택된 장례 형태에 따른 정밀 견적서 생성
   //
-  // ★ useMemo 가 필수다. 생성기가 Math.random() 을 쓰기 때문에 렌더마다 다른
-  //   번호가 나온다. 유족이 성함을 한 글자만 입력해도 번호가 바뀌어
-  //   「식장에서 말씀할 번호」 가 읽고 있는 사이에 뒤바뀐다 — 화면에서 5978 이
-  //   보인데 부고장에는 4565 가 올라가 있었다. 근거 번호가 흔들리면 정찰의
-  //   근거가 되지 못한다.
-  const quote: FuneralHallQuoteReference = useMemo(
+  // ★ 식별자(참조번호)와 견적 본문을 분리한다.
+  //   참조번호는 「식장에서 말씀할 번호」 이므로 발급된 뒤에 바뀌면 안 된다.
+  //   처음엔 useMemo 로 묶었는데 의존성에 성함이 들어 있어, 유족이 성함을
+  //   한 글자 입력할 때마다 번호가 다시 나왔다. 화면에 5638 이 보여 있는데
+  //   저장엔 6424 가 올라갔다. useMemo 로도 부족했다.
+  //
+  //   성함·연락처는 견적 본문에만 쓰고 번호에는 쓰지 않는다.
+  const referenceCode: string = useMemo(
     () =>
       FuneralHallService.generateQuoteReference({
         hallId: hall.id,
-        funeralType: selectedType,
-        stayDays: selectedType === 'direct_cremation' ? 0 : 2,
-        applicantName: applicantName.trim() || undefined,
-        applicantPhone: applicantPhone.trim() || undefined
-      }),
-    [hall.id, selectedType, applicantName, applicantPhone]
+        funeralType: selectedType
+      }).referenceCode,
+    [hall.id, selectedType]
+  );
+
+  const quote: FuneralHallQuoteReference = useMemo(
+    () =>
+      ({
+        ...FuneralHallService.generateQuoteReference({
+          hallId: hall.id,
+          funeralType: selectedType,
+          stayDays: selectedType === 'direct_cremation' ? 0 : 2,
+          applicantName: applicantName.trim() || undefined,
+          applicantPhone: applicantPhone.trim() || undefined
+        }),
+        referenceCode
+      }) as FuneralHallQuoteReference,
+    [hall.id, selectedType, applicantName, applicantPhone, referenceCode]
   );
 
   // 사업계획서 7장: 견적 참조번호 발급 이벤트 4단계 퍼널 자동 추적

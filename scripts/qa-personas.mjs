@@ -331,6 +331,55 @@ const PROBE = ([p_body, p_tap]) => {
   // 가로 넘침 — 세로 화면만 사용하는 사람에게는 치명적이다
   out.hScroll = document.documentElement.scrollWidth > vw + 2;
 
+  // ★ 접근성 이름 해석.
+  //   이전 판정은 aria-label → textContent → title 만 봤다. 그런데 <input> 의
+  //   textContent 는 언제나 빈 문자열이다. 그래서 정상적인
+  //   「<label>누구에게 물어볼지 <input/></label>」 래핑마크업이 전부
+  //   「이름 없는 조작」 으로 세어졌다. 실제로 P2 12건이 그 오탐이었다.
+  //
+  //   브라우저가 실제로 이름을 구하는 순서를 따른다.
+  //   ※ placeholder 는 넣지 않는다. 글자를 입력하면 사라지는 문자열이라
+  //     접근성 이름이 아니다 (WCAG). 있는 그대로 「이름 없는」 으로 남긴다.
+  const accessibleName = (el) => {
+    const al = (el.getAttribute('aria-label') || '').trim();
+    if (al) return al;
+
+    const by = (el.getAttribute('aria-labelledby') || '').trim();
+    if (by) {
+      const t = by
+        .split(/\s+/)
+        .map((id) => (document.getElementById(id) || {}).textContent || '')
+        .join(' ')
+        .trim();
+      if (t) return t;
+    }
+
+    // <label> … <input/> (래핑) — 컨트롤 자체의 글자를 빼고 라벨 문구만 쓴다
+    const wrap = el.closest && el.closest('label');
+    if (wrap) {
+      const clone = wrap.cloneNode(true);
+      clone.querySelectorAll('input,select,textarea,button').forEach((n) => n.remove());
+      const t = (clone.textContent || '').trim();
+      if (t) return t;
+    }
+
+    // label[for="id"]
+    if (el.id) {
+      let ext = null;
+      try { ext = document.querySelector('label[for="' + CSS.escape(el.id) + '"]'); } catch { ext = null; }
+      if (ext) {
+        const t = (ext.textContent || '').trim();
+        if (t) return t;
+      }
+    }
+
+    // 버튼·링크는 자체 글자가 이름이다
+    const own = (el.textContent || '').trim();
+    if (own) return own;
+
+    return (el.getAttribute('title') || '').trim();
+  };
+
   for (const el of document.querySelectorAll('button, a[href], [role=button], input, select, textarea')) {
     const cs = getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden') continue;
@@ -342,7 +391,7 @@ const PROBE = ([p_body, p_tap]) => {
     if (el.tagName === 'A' && cs.display.startsWith('inline')
         && parseFloat(cs.paddingTop) === 0 && parseFloat(cs.paddingLeft) === 0) continue;
     // 이름 없는 조작 요소 — 스크린리더·음성 사용자에게 존재하지 않는 것처럼 보인다
-    const name = (el.getAttribute('aria-label') || el.textContent || el.getAttribute('title') || '').replace(/\s+/g, ' ').trim();
+    const name = accessibleName(el).replace(/\s+/g, ' ').trim();
     // 진짜 눌리는 높이만 본다. 「누가 작냐」 를 알아야 고칠 수 있으므로 이름을 함께 실어 보낸다
     if (name) out.taps.push({ h: Math.round(r.height), w: Math.round(r.width), name: name.slice(0, 22) });
     if (!name) { out.unlabeled++; out.unl.push((el.tagName + (el.className || '')).toString().slice(0, 46)); }
